@@ -22,12 +22,16 @@
             "../node_modules/bootstrap/dist/css/bootstrap.min.css",
             "../node_modules/adminbsb-materialdesign/plugins/node-waves/waves.min.css",
             "../node_modules/adminbsb-materialdesign/plugins/animate-css/animate.min.css",
-            "../node_modules/adminbsb-materialdesign/css/style.min.css"
+            "../node_modules/adminbsb-materialdesign/css/style.min.css",
+            "../node_modules/adminbsb-materialdesign/css/materialize.css"
 
         ],
         "scripts": ["../node_modules/jquery/dist/jquery.min.js",
             "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-            "../node_modules/adminbsb-materialdesign/plugins/node-waves/waves.min.js"
+            "../node_modules/adminbsb-materialdesign/plugins/node-waves/waves.min.js",
+            "../node_modules/adminbsb-materialdesign/js/admin.js",  
+            "../node_modules/adminbsb-materialdesign/js/pages/examples/sign-in.js",
+            "../node_modules/adminbsb-materialdesign/plugins/jquery-validation/jquery.validate.js"
         ],
         "environmentSource": "environments/environment.ts",
         "environments": {
