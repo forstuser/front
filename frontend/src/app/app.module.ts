@@ -11,6 +11,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { LeftPanelComponent } from './dashboard/left-panel/left-panel.component';
 import { DataPanelComponent } from './dashboard/data-panel/data-panel.component';
+import { LeftPanelItemsComponent } from './dashboard/left-panel/left-panel-items/left-panel-items.component';
+import { CategoryComponent } from './dashboard/data-panel/category/category.component';
+import { HomeComponent } from './dashboard/data-panel/home/home.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { DataPanelComponent } from './dashboard/data-panel/data-panel.component'
     DashboardComponent,
     HeaderComponent,
     LeftPanelComponent,
-    DataPanelComponent
+    DataPanelComponent,
+    LeftPanelItemsComponent,
+    CategoryComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

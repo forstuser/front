@@ -1,12 +1,20 @@
+import { HomeComponent } from './dashboard/data-panel/home/home.component';
+import { CategoryComponent } from './dashboard/data-panel/category/category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule, Component } from '@angular/core';
 
+// routers
 const appRoutes: Routes = [
-    { path: '', component: SignInComponent },
-    { path: 'home', component: DashboardComponent}
+    { path: '', component: SignInComponent, pathMatch: 'full'},
+    { path: 'dashboard', component: DashboardComponent, children:
+        [   { path: '', redirectTo: 'home', pathMatch: 'full'},
+            { path: 'category', component: CategoryComponent},
+            { path: 'home', component: HomeComponent}
+        ]
+    },
 ];
 
 @NgModule({
