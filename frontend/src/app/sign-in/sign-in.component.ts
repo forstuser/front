@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
@@ -8,24 +9,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SignInComponent implements OnInit {
   rForm: FormGroup;
   post: any;
-  username: String = '';
-  password: String = '';
+  EmailID: String = '';
+  Password: String = '';
 
 
-  constructor (private fb: FormBuilder) {
+  constructor (private fb: FormBuilder, private authenticationService: AuthenticationService ) {
     // form validators
     this.rForm = fb.group({
-      'username' : [null, Validators.required],
-      'password' : [null, Validators.required]
+      'EmailID' : [null, Validators.required],
+      'Password' : [null, Validators.required]
     });
   }
   ngOnInit() {
   }
   // form data after submit
  addPost(post) {
-    this.username = post.username;
-    this.password = post.password;
-    console.log(this.username);
-    console.log(this.password);
+    this.EmailID = post.EmailID;
+    this.Password = post.Password;
+    console.log(this.Password);
+    console.log(this.EmailID);
+   this.authenticationService.login(this.EmailID, this.Password).subscribe(
+    (res ) => {
+        console.log(res);
+    }
+   );
   }
 }

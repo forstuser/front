@@ -27,13 +27,7 @@
             "../node_modules/adminbsb-materialdesign/css/themes/all-themes.css"
 
         ],
-        "scripts": ["../node_modules/jquery/dist/jquery.min.js",
-            "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-            "../node_modules/adminbsb-materialdesign/plugins/jquery-slimscroll/jquery.slimscroll.js",
-            "../node_modules/adminbsb-materialdesign/js/pages/examples/sign-in.js",
-            "../node_modules/adminbsb-materialdesign/plugins/jquery-validation/jquery.validate.js",
-            "../node_modules/adminbsb-materialdesign/plugins/node-waves/waves.min.js",
-            "../node_modules/adminbsb-materialdesign/js/admin.js"
+        "scripts": [
             
         ],
         "environmentSource": "environments/environment.ts",

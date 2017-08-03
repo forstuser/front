@@ -15,6 +15,8 @@ const appRoutes: Routes = [
             { path: 'home', component: HomeComponent}
         ]
     },
+    // otherwise redirect to home
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
