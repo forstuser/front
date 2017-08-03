@@ -1,3 +1,5 @@
+import { UserService } from './_services/user.service';
+import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { LeftPanelItemsComponent } from './dashboard/left-panel/left-panel-items/left-panel-items.component';
 import { HomeComponent } from './dashboard/data-panel/home/home.component';
@@ -39,7 +41,7 @@ import { DataPanelComponent } from './dashboard/data-panel/data-panel.component'
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationService], // services will come here
+  providers: [AuthenticationService, AuthGuard, UserService], // services will come here
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

@@ -1,6 +1,8 @@
 import { AuthenticationService } from './../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -11,9 +13,14 @@ export class SignInComponent implements OnInit {
   post: any;
   EmailID: String = '';
   Password: String = '';
+  returnUrl: String ;
 
-
-  constructor (private fb: FormBuilder, private authenticationService: AuthenticationService ) {
+  constructor (
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     // form validators
     this.rForm = fb.group({
       'EmailID' : [null, Validators.required],
@@ -21,17 +28,24 @@ export class SignInComponent implements OnInit {
     });
   }
   ngOnInit() {
+    // reset login status
+    this.authenticationService.logout();
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
   // form data after submit
  addPost(post) {
     this.EmailID = post.EmailID;
     this.Password = post.Password;
-    console.log(this.Password);
-    console.log(this.EmailID);
-   this.authenticationService.login(this.EmailID, this.Password).subscribe(
-    (res ) => {
-        console.log(res);
-    }
-   );
+    this.authenticationService.login(this.EmailID, this.Password)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }
