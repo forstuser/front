@@ -1,3 +1,4 @@
+import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './dashboard/data-panel/home/home.component';
 import { CategoryComponent } from './dashboard/data-panel/category/category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -8,15 +9,15 @@ import { NgModule, Component } from '@angular/core';
 
 // routers
 const appRoutes: Routes = [
-    { path: '', component: SignInComponent, pathMatch: 'full'},
-    { path: 'dashboard', component: DashboardComponent, children:
+    { path: 'login', component: SignInComponent, pathMatch: 'full'},
+    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
         [   { path: '', redirectTo: 'home', pathMatch: 'full'},
             { path: 'category', component: CategoryComponent},
             { path: 'home', component: HomeComponent}
         ]
     },
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

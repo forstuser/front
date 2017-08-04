@@ -13,7 +13,7 @@ export class AuthenticationService {
       const data = JSON.stringify(body);
       const headers = new Headers({ 'Content-Type': 'application/json' });
       const options = new RequestOptions({ headers: headers });
-      return this.http.post('http://192.168.0.9:3000/Services/Management/Login', body, options)
+      return this.http.post('http://localhost:3000/Services/Management/Login', body, options)
         .map((response: Response) => {
                 // login successful if there's a jwt token in the response
           const user = response.json();
