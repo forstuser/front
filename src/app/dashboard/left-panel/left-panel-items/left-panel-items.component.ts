@@ -32,17 +32,22 @@ leftPanelItems = [
         'd_link': 'AddUser'
       },
       {
-        'd_name': 'Customer Management',
+        'd_name': 'Admin',
+        'd_icon': 'build',
+        'd_link': 'admin'
+      },
+      {
+        'd_name': 'Customer',
         'd_icon': 'account_box',
         'd_link': 'customer'
       },
       {
-        'd_name': 'CE Management',
+        'd_name': 'Customer Executive',
         'd_icon': 'headset_mic',
         'd_link': 'ce'
       },
        {
-        'd_name': 'QE Management',
+        'd_name': 'Quality Executive',
         'd_icon': 'insert_emoticon',
         'd_link': 'qe'
       }

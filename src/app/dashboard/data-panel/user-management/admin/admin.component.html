@@ -1,0 +1,32 @@
+<div class="card">
+    <div class="header">
+        <h2>
+            List of Admins
+            <small> For change the admin details click on the edit button</small>
+        </h2>
+    </div>
+    <div class="body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Status</th>
+                    <th>Edit</th>
+                    <th>Block</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of users.UserList">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ user.Name}}</td>
+                    <td>{{ user.EmailID}}</td>
+                    <td>{{ user.Status }}</td>
+                    <td><span class="btn bg-cyan btn-sm waves-effect">Edit</span></td>
+                    <td><span class="btn bg-red btn-sm waves-effect">Block</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

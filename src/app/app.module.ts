@@ -21,6 +21,7 @@ import { CustomerComponent } from './dashboard/data-panel/user-management/custom
 import { CeComponent } from './dashboard/data-panel/user-management/ce/ce.component';
 import { QeComponent } from './dashboard/data-panel/user-management/qe/qe.component';
 import { AddUserComponent } from './dashboard/data-panel/user-management/add-user/add-user.component';
+import { AdminComponent } from './dashboard/data-panel/user-management/admin/admin.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AddUserComponent } from './dashboard/data-panel/user-management/add-use
     CustomerComponent,
     CeComponent,
     QeComponent,
-    AddUserComponent
+    AddUserComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

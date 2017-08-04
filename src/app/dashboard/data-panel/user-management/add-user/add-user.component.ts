@@ -10,9 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddUserComponent implements OnInit {
   users: User[] = [];
-  currentUser: any;
   newUserForm: FormGroup ;
-  TypeID: number;
+  TypeID: String;
+  Name: String = '';
   EmailID: String = '';
   Password: String = '';
   constructor(
@@ -21,16 +21,17 @@ export class AddUserComponent implements OnInit {
   ) {
     // form validators
     this.newUserForm = this.fb.group({
-      'TypeID' : [null, Validators.required],
+      'UserType' : [null, Validators.required],
+      'Name' : [null, Validators.required],
       'EmailID' : [null, Validators.required],
       'Password' : [null, Validators.required]
     });
   }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
    // console.log(this.currentUser);
-    this.userService.getAllUser(this.currentUser.token, this.currentUser.UserType)
+    this.userService.getAllUser()
     .subscribe(users => {
       this.users = users;
       console.log(users);
@@ -40,19 +41,16 @@ export class AddUserComponent implements OnInit {
     console.log(e);
   }
    addNewUser(post) {
-     console.log(post);
-      this.TypeID = post.TypeID;
-      this.EmailID = post.EmailID;
-      this.Password = post.Password;
-    // this.authenticationService.login(this.EmailID, this.Password)
-    // .subscribe(
-    //   data => {
-    //     console.log(data);
-    //     this.router.navigate([this.returnUrl]);
-    //   },
-    //   error => {
-    //     console.log(error);
-    //   }
-    // );
+    //  console.log(post);
+      this.userService.createUser(post)
+        .subscribe(
+      data => {
+        console.log(data);
+        // this.router.navigate([this.returnUrl]);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

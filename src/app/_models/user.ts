@@ -1,4 +1,5 @@
 export class User {
-    TypeID: number;
-    Name: string;
+    UserType: String;
+    Name: String;
+    Password: String;
 }

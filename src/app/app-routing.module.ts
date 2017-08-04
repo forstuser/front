@@ -1,3 +1,4 @@
+import { AdminComponent } from './dashboard/data-panel/user-management/admin/admin.component';
 import { AddUserComponent } from './dashboard/data-panel/user-management/add-user/add-user.component';
 import { QeComponent } from './dashboard/data-panel/user-management/qe/qe.component';
 import { CeComponent } from './dashboard/data-panel/user-management/ce/ce.component';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
             { path: 'category', component: CategoryComponent},
             { path: 'home', component: HomeComponent},
             { path: 'AddUser', component: AddUserComponent},
+            { path: 'admin', component: AdminComponent},
             { path: 'customer', component: CustomerComponent},
             { path: 'ce', component: CeComponent},
             { path: 'qe', component: QeComponent}
