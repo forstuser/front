@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthenticationService {
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private router: Router) { }
 
   login(EmailID: String, Password: String) {
       const body = { EmailID : EmailID, Password: Password };
@@ -28,6 +29,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     console.log('Inside logout');
     localStorage.removeItem('currentUser');
+    this.router.navigate(['login']);
   }
 }
 

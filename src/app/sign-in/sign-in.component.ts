@@ -31,6 +31,7 @@ export class SignInComponent implements OnInit {
     // reset login status
     this.authenticationService.logout();
     // get return url from route parameters or default to '/'
+    // here we can set our default page after login if we want  e.g category instead of returnURL
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
   // form data after submit

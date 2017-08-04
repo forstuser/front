@@ -2,11 +2,11 @@
     <ul class="list">
           <li class="header">MAIN NAVIGATION</li> 
         <li *ngFor="let item of leftPanelItems" routerLinkActive="active">
-            <a routerLink = "{{ item.link }}" class="{{ item.class }}">
+            <a routerLink = "{{ item.link }}" class="{{ item.class }}" (click)="this[item.handler]()" [ngClass]="{ 'toggled': isIn }">
                 <i class="material-icons">{{ item.icon }}</i>
                 <span>{{ item.name }}</span>
             </a>
-            <ul class="ml-menu">
+            <ul class="ml-menu" [ngClass]="{ 'display': isIn }">
                 <li *ngFor="let d_item of item.dropdownList">
                     <a><span class="material-icons">{{ d_item.d_icon }}</span>&nbsp;{{ d_item.d_name }}</a>
                 </li>

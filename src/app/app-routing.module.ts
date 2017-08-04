@@ -17,7 +17,7 @@ const appRoutes: Routes = [
         ]
     },
     // otherwise redirect to home
-    { path: '**', redirectTo: 'login' }
+    // { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
