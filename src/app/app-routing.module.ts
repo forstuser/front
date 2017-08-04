@@ -1,3 +1,7 @@
+import { AddUserComponent } from './dashboard/data-panel/user-management/add-user/add-user.component';
+import { QeComponent } from './dashboard/data-panel/user-management/qe/qe.component';
+import { CeComponent } from './dashboard/data-panel/user-management/ce/ce.component';
+import { CustomerComponent } from './dashboard/data-panel/user-management/customer/customer.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HomeComponent } from './dashboard/data-panel/home/home.component';
 import { CategoryComponent } from './dashboard/data-panel/category/category.component';
@@ -13,7 +17,11 @@ const appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
         [   { path: '', redirectTo: 'home', pathMatch: 'full'},
             { path: 'category', component: CategoryComponent},
-            { path: 'home', component: HomeComponent}
+            { path: 'home', component: HomeComponent},
+            { path: 'AddUser', component: AddUserComponent},
+            { path: 'customer', component: CustomerComponent},
+            { path: 'ce', component: CeComponent},
+            { path: 'qe', component: QeComponent}
         ]
     },
     // otherwise redirect to home

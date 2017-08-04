@@ -27,16 +27,24 @@ leftPanelItems = [
     'handler': 'toggleState',
     'dropdownList' : [
       {
+        'd_name': 'Add User',
+        'd_icon': 'add_box',
+        'd_link': 'AddUser'
+      },
+      {
         'd_name': 'Customer Management',
-        'd_icon': 'account_box'
+        'd_icon': 'account_box',
+        'd_link': 'customer'
       },
       {
         'd_name': 'CE Management',
-        'd_icon': 'headset_mic'
+        'd_icon': 'headset_mic',
+        'd_link': 'ce'
       },
        {
         'd_name': 'QE Management',
-        'd_icon': 'insert_emoticon'
+        'd_icon': 'insert_emoticon',
+        'd_link': 'qe'
       }
     ]
   },

@@ -8,7 +8,7 @@
             </a>
             <ul class="ml-menu" [ngClass]="{ 'display': isIn }">
                 <li *ngFor="let d_item of item.dropdownList">
-                    <a><span class="material-icons">{{ d_item.d_icon }}</span>&nbsp;{{ d_item.d_name }}</a>
+                    <a routerLink = "{{ d_item.d_link }}" routerLinkActive="active"><span class="material-icons">{{ d_item.d_icon }}</span>&nbsp;{{ d_item.d_name }}</a>
                 </li>
             </ul>
         </li>

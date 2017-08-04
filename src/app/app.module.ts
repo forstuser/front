@@ -17,6 +17,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { LeftPanelComponent } from './dashboard/left-panel/left-panel.component';
 import { DataPanelComponent } from './dashboard/data-panel/data-panel.component';
+import { CustomerComponent } from './dashboard/data-panel/user-management/customer/customer.component';
+import { CeComponent } from './dashboard/data-panel/user-management/ce/ce.component';
+import { QeComponent } from './dashboard/data-panel/user-management/qe/qe.component';
+import { AddUserComponent } from './dashboard/data-panel/user-management/add-user/add-user.component';
 
 
 @NgModule({
@@ -29,8 +33,11 @@ import { DataPanelComponent } from './dashboard/data-panel/data-panel.component'
     DataPanelComponent,
     CategoryComponent,
     HomeComponent,
-    LeftPanelItemsComponent
-
+    LeftPanelItemsComponent,
+    CustomerComponent,
+    CeComponent,
+    QeComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,
