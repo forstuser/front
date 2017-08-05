@@ -19,7 +19,7 @@ export class UserService {
         const data = JSON.stringify(body);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-        console.log(data);
+        // console.log(data);
         return this.http.post('http://localhost:3000/Services/UserTypeList', data, options).map((response: Response) => response.json());
     }
     // get list of admin,qe,ce and customer
@@ -28,7 +28,7 @@ export class UserService {
         const data = JSON.stringify(body);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-        console.log(data);
+        // console.log(data);
         return this.http.post('http://localhost:3000/Services/ManagementUserList', data, options)
         .map((response: Response) => response.json());
     }
@@ -52,16 +52,5 @@ export class UserService {
 
 //     delete(id: number) {
 //         return this.http.delete('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-//     }
-
-    // private helper methods
-
-//     private jwt() {
-//         // create authorization header with jwt token
-//         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-//         if (currentUser && currentUser.token) {
-//             const headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-//             return new RequestOptions({ headers: headers });
-//         }
 //     }
 }

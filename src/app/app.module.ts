@@ -5,6 +5,7 @@ import { LeftPanelItemsComponent } from './dashboard/left-panel/left-panel-items
 import { HomeComponent } from './dashboard/data-panel/home/home.component';
 import { CategoryComponent } from './dashboard/data-panel/category/category.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
@@ -22,6 +23,7 @@ import { CeComponent } from './dashboard/data-panel/user-management/ce/ce.compon
 import { QeComponent } from './dashboard/data-panel/user-management/qe/qe.component';
 import { AddUserComponent } from './dashboard/data-panel/user-management/add-user/add-user.component';
 import { AdminComponent } from './dashboard/data-panel/user-management/admin/admin.component';
+import { DialogComponent } from './_directives/dialog/dialog.component';
 
 
 @NgModule({
@@ -39,10 +41,12 @@ import { AdminComponent } from './dashboard/data-panel/user-management/admin/adm
     CeComponent,
     QeComponent,
     AddUserComponent,
-    AdminComponent
+    AdminComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     MdButtonModule,
