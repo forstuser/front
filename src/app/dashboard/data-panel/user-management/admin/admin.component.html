@@ -13,8 +13,8 @@
                     <th>Name</th>
                     <th>Email ID</th>
                     <th>Status</th>
-                    <th>Edit</th>
-                    <th>Block</th>
+                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody *ngFor="let user of users.UserList">
@@ -22,9 +22,8 @@
                     <th scope="row">1</th>
                     <td>{{ user.Name}}</td>
                     <td>{{ user.EmailID}}</td>
-                    <td>{{ user.Status }}</td>
-                    <td><span class="btn bg-cyan btn-sm waves-effect">Edit</span></td>
-                    <td><span class="btn bg-red btn-sm waves-effect">Block</span></td>
+                    <td><span class="label bg-green">{{ user.Status }}</span></td>
+                    <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="editUser(user)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
                 </tr>
             </tbody>
         </table>

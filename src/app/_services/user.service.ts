@@ -22,6 +22,7 @@ export class UserService {
         console.log(data);
         return this.http.post('http://localhost:3000/Services/UserTypeList', data, options).map((response: Response) => response.json());
     }
+    // get list of admin,qe,ce and customer
     getUserList(UserType: String) {
         const body = { TokenNo : this.TokenNo, UserType: UserType };
         const data = JSON.stringify(body);

@@ -1,3 +1,31 @@
-<p>
-  qe works!
-</p>
+<div class="card">
+    <div class="header">
+        <h2>
+            List of Quality Executives
+            <small> For change the Quality Executive details click on the edit button</small>
+        </h2>
+    </div>
+    <div class="body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of users.UserList">
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ user.Name}}</td>
+                    <td>{{ user.EmailID}}</td>
+                    <td><span class="label bg-green">{{ user.Status }}</span></td>
+                    <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="editUser(user)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

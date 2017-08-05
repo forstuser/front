@@ -1,4 +1,7 @@
+import { User } from './../../../../_models/user';
+import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-ce',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ce.component.css']
 })
 export class CeComponent implements OnInit {
-
-  constructor() { }
+  users: User[] = [];
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getUserList('5') // 5 for Consumer refer to api doc
+    .subscribe(users => {
+      this.users = users;
+      console.log(users);
+    });
   }
+  editUser(item: any) {
+   console.log(item);
+  }
+  deleteUser(item: any) {
 
+  }
 }

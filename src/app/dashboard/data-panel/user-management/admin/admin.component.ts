@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
   users: User[] = [];
+  item: Object ;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
@@ -18,5 +19,10 @@ export class AdminComponent implements OnInit {
       console.log(users);
     });
   }
+  editUser(item: any) {
+   console.log(item);
+  }
+  deleteUser(item: any) {
 
+  }
 }
