@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class LeftPanelItemsComponent implements OnInit {
   // superAdmin:id = 1
   // DataBaseManager:id = 2
-  isIn = false;   // store state
 leftPanelItems = [
   {
     'id': '1',
@@ -16,7 +15,7 @@ leftPanelItems = [
     'icon': 'dashboard',
     'link': 'home',
     'handler': 'doNothing',
-    'class': ''
+    'class': '',
   },
   {
     'id': '1',
@@ -25,6 +24,8 @@ leftPanelItems = [
     'link': '#',
     'class': 'menu-toggle',
     'handler': 'toggleState',
+    'addClass': 'none',
+    'addSubClass': 'none',
     'dropdownList' : [
       {
         'd_name': 'Add User',
@@ -57,9 +58,29 @@ leftPanelItems = [
     'id': '1',
     'name': 'Category Management',
     'icon': 'loyalty',
-    'link': 'category',
-    'class': '',
-    'handler': 'doNothing'
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Main Category',
+        'd_icon': 'add_box',
+        'd_link': 'mainCategory'
+      },
+      {
+        'd_name': 'Category',
+        'd_icon': 'build',
+        'd_link': 'category'
+      },
+      {
+        'd_name': 'SubCategory',
+        'd_icon': 'account_box',
+        'd_link': 'subCategory'
+      }
+    ]
   },
   {
     'id': '1',
@@ -90,10 +111,17 @@ leftPanelItems = [
 
   ngOnInit() {
   }
-    toggleState() { // click handler
-      console.log('inside toggle');
-      const bool = this.isIn;
-      this.isIn = bool === false ? true : false;
+    toggleState(e: any) {
+      console.log(e);
+      if (e.addClass === 'none') {
+        e.addClass = 'toggled';
+        e.addSubClass = 'display';
+      } else {
+         e.addClass = 'none';
+         e.addSubClass = 'none';
+      }
+
+     // this.isIn = bool === false ? true : false;
   }
   doNothing() {
     console.log('do nothing');
