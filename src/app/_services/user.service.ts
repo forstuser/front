@@ -37,10 +37,8 @@ export class UserService {
         return this.http.post( this.apiLink + 'Services/ManagementUserList', data, options)
         .map((response: Response) => response.json());
     }
-//     getById(id: number) {
-//         return this.http.get('/api/users/' + id, this.jwt()).map((response: Response) => response.json());
-//     }
 
+    // Create User
     createUser(user: User) {
         user['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(user);
@@ -50,7 +48,7 @@ export class UserService {
         return this.http.post( this.apiLink + 'Services/AddManagementUser', data, options )
                 .map((response: Response) => response.json());
     }
-
+    // Update User
     updateUser(user: any) {
         user['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(user);
@@ -59,7 +57,7 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/EditManagementUser', data, options).map((response: Response) => response.json());
     }
-
+    // Delete user
     deleteUser(user: User) {
         user['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(user);
@@ -70,6 +68,7 @@ export class UserService {
     }
 
                                 // **^ category Services ^** //
+
     // get list of main category ,category and sub category
     getCategoryList(Level: Number) {
         const body = { TokenNo : this.TokenNo, Level: Level };
@@ -80,6 +79,16 @@ export class UserService {
         return this.http.post( this.apiLink + 'Services/CategoryLevelList', data, options)
         .map((response: Response) => response.json());
     }
+   // Create category
+    createCategory(category: any) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        // console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddCategory', data, options).map((response: Response) => response.json());
+    }
+   // Update category
     updateCategory(category: any) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);
@@ -88,6 +97,7 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
     }
+   // Delete Category
     deleteCategory(category: Category) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);

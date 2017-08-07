@@ -37,20 +37,6 @@ export class MainCategoryComponent implements OnInit {
       console.log(mainCategory);
     });
   }
-  createCategory( category: any) {
-    console.log(category);
-    this.createCat = { 'Level': 1 };
-    confirm('Confirm');
-    this.userService.deleteCategory(this.createCat)
-      .subscribe(res => {
-        console.log(res);
-        this.userService.getCategoryList(1) // list update after delete
-          .subscribe(mainCategory => {
-          this.mainCategory = mainCategory;
-            // console.log(users);
-        });
-    });
-  }
     // passs current user as argument and open the popup
   openCategoryModel(item: any) {
     this.showDialog = true ; // for show dialog
@@ -61,6 +47,22 @@ export class MainCategoryComponent implements OnInit {
       RefID: item.RefID
     });
   }
+  // create new main category
+  createCategory( category: any) {
+    console.log(category);
+    this.createCat = { 'Level': 1 };
+    confirm('Confirm');
+    this.userService.createCategory(this.createCat)
+      .subscribe(res => {
+        console.log(res);
+        this.userService.getCategoryList(1) // list update after create new category
+          .subscribe(mainCategory => {
+          this.mainCategory = mainCategory;
+            // console.log(users);
+        });
+    });
+  }
+  // update existing main category
   updateCategory( category: any) {
     console.log(category);
     this.userService.updateCategory(category)
@@ -75,6 +77,7 @@ export class MainCategoryComponent implements OnInit {
         });
       });
   }
+  // delete main category
   deleteCategory(category: any) {
     // console.log(category);
     this.del = { 'ID': category.ID };
