@@ -57,7 +57,7 @@ leftPanelItems = [
   {
     'id': '1',
     'name': 'Category Management',
-    'icon': 'loyalty',
+    'icon': 'menu',
     'link': '#',
     'class': 'menu-toggle',
     'handler': 'toggleState',
@@ -67,17 +67,45 @@ leftPanelItems = [
     'dropdownList' : [
       {
         'd_name': 'Main Category',
-        'd_icon': 'add_box',
+        'd_icon': 'looks_one',
         'd_link': 'mainCategory'
       },
       {
         'd_name': 'Category',
-        'd_icon': 'build',
+        'd_icon': 'looks_two',
         'd_link': 'category'
       },
       {
         'd_name': 'SubCategory',
-        'd_icon': 'account_box',
+        'd_icon': 'looks_3',
+        'd_link': 'subCategory'
+      }
+    ]
+  },
+    {
+    'id': '1',
+    'name': 'Brand Management',
+    'icon': 'loyalty',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Brand',
+        'd_icon': 'looks_one',
+        'd_link': 'mainCategory'
+      },
+      {
+        'd_name': 'Brand List',
+        'd_icon': 'looks_two',
+        'd_link': 'category'
+      },
+      {
+        'd_name': 'SubCategory',
+        'd_icon': 'looks_3',
         'd_link': 'subCategory'
       }
     ]

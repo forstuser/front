@@ -1,3 +1,5 @@
+                            // ^^** This service is for Modal Popup **^^ //
+
 import * as _ from 'underscore';
 
 export class ModalService {

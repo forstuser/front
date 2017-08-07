@@ -1,0 +1,82 @@
+<div class="card">
+    <div class="header">
+        <h2>
+            Create Main Category
+        </h2>
+    </div>
+    <div class="body">
+        <form [formGroup]='createCategoryForm' (ngSubmit) = "createCategory(createCategoryForm.value)">
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 form-control-label">
+                        <label>
+                            Main Category Name
+                        </label>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" formControlName="Name">
+                        </div>
+                        <p class="text-danger" *ngIf="!createCategoryForm.controls['Name'].valid && createCategoryForm.controls['Name'].touched">Name is required</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!createCategoryForm.valid" >
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="card">
+  <div class="header">
+      <h2>
+          Main Category List
+          <small> For change the category details click on the edit button</small>
+      </h2>
+  </div>
+  <div class="body table-responsive">
+      <table class="table table-condensed">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+           <tbody *ngFor="let list of mainCategory.CategoryList; let i = index">
+              <tr>
+                  <th scope="row">{{ i+1 }}</th>
+                  <td>{{ list.Name }}</td>
+                  <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+    <app-dialog [(visible)]="showDialog">
+      <div class="modal-header">
+          <h4 class="modal-title" id="smallModalLabel">Edit Main Category</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit) = "updateCategory(editCategoryForm.value)">
+              <div class="row clearfix">
+                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                      <label for="name">Name</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                      <div class="form-group">
+                          <div class="form-line">
+                              <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                          </div>
+                          <p class="text-danger" *ngIf="!editCategoryForm.controls['Name'].valid && editCategoryForm.controls['Name'].touched">Name is required</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="row clearfix">
+                  <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+                      <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editCategoryForm.valid" >
+                  </div>
+              </div>
+          </form>
+      </div>
+    </app-dialog>
+</div>

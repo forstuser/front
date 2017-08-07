@@ -33,7 +33,7 @@
             <h4 class="modal-title" id="smallModalLabel">Edit User</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal" [formGroup]='editUserForm' (ngSubmit) = "editUser(editUserForm.value)">
+            <form class="form-horizontal" [formGroup]='editUserForm' (ngSubmit) = "updateUser(editUserForm.value)">
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                         <label for="email_address_2">User Type</label>

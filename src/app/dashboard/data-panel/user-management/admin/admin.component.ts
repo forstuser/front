@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   users: User[] = [];
   dropdownUser: User[] = [];
   item: Object = { }; // object for single user
+  del: any = { };
   showDialog = false;
   name: String = '';
   editUserForm: FormGroup ;
@@ -61,10 +62,34 @@ export class AdminComponent implements OnInit {
       Password: ''
     });
   }
-  editUser(data) {
-    console.log(data);
-  }
-  deleteUser(item: any) {
 
+  updateUser(user: any) {
+    console.log(user);
+    this.userService.updateUser(user)
+      .subscribe( res => {
+        // console.log(res);
+        alert('User updated successfully');
+        this.showDialog = false ;
+        this.userService.getUserList('2') // list update after edit
+          .subscribe(users => {
+          this.users = users;
+          // console.log(users);
+        });
+      });
+
+  }
+  deleteUser(user: any) {
+    console.log(user);
+    this.del = { 'ID': user.ID };
+    confirm('Confirm');
+    this.userService.deleteUser(this.del)
+      .subscribe(res => {
+        console.log(res);
+        this.userService.getUserList('2') // list update after edit
+          .subscribe(users => {
+          this.users = users;
+            // console.log(users);
+        });
+    });
   }
 }

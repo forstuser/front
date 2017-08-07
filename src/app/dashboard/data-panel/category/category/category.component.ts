@@ -6,11 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  showDialog = false;
 
   constructor() { }
 
   ngOnInit() {
   }
-
 }
