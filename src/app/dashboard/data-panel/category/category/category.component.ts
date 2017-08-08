@@ -52,7 +52,7 @@ export class CategoryComponent implements OnInit {
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
         console.log(res);
-        this.userService.getCategoryList(1) // list update after delete
+        this.userService.getCategoryList(2) // list update after delete
           .subscribe(getCat => {
           this.cat = getCat;
             // console.log(users);
