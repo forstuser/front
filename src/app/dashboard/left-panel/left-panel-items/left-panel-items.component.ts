@@ -96,20 +96,15 @@ leftPanelItems = [
       {
         'd_name': 'Add Brand',
         'd_icon': 'looks_one',
-        'd_link': 'mainCategory'
+        'd_link': 'addBrand'
       },
       {
         'd_name': 'Brand List',
         'd_icon': 'looks_two',
-        'd_link': 'category'
-      },
-      {
-        'd_name': 'SubCategory',
-        'd_icon': 'looks_3',
-        'd_link': 'subCategory'
+        'd_link': 'brandList'
       }
     ]
-  },
+    },
   {
     'id': '1',
     'name': 'Seller Management',

@@ -117,4 +117,24 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteCategory', data, options).map((response: Response) => response.json());
     }
+                                // **^ brand Services ^** //
+                                    // get list of admin,qe,ce and customer
+    getBrandList() {
+        const body = { TokenNo : this.TokenNo };
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/BrandList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Update brand
+    updateBrand(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
+    }
 }

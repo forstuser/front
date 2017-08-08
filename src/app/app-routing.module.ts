@@ -1,3 +1,5 @@
+import { BrandListComponent } from './dashboard/data-panel/brand/brand-list/brand-list.component';
+import { AddBrandComponent } from './dashboard/data-panel/brand/add-brand/add-brand.component';
 import { SubCategoryComponent } from './dashboard/data-panel/category/sub-category/sub-category.component';
 import { CategoryComponent } from './dashboard/data-panel/category/category/category.component';
 import { MainCategoryComponent } from './dashboard/data-panel/category/main-category/main-category.component';
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
             { path: 'qe', component: QeComponent},
             { path: 'mainCategory', component: MainCategoryComponent},
             { path: 'category', component: CategoryComponent},
-            { path: 'subCategory', component: SubCategoryComponent}
+            { path: 'subCategory', component: SubCategoryComponent},
+            { path: 'addBrand', component: AddBrandComponent},
+            { path: 'brandList', component: BrandListComponent}
         ]
     },
     // otherwise redirect to home

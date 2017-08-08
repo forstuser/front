@@ -26,6 +26,8 @@ import { DialogComponent } from './_directives/dialog/dialog.component';
 import { CategoryComponent } from './dashboard/data-panel/category/category/category.component';
 import { MainCategoryComponent } from './dashboard/data-panel/category/main-category/main-category.component';
 import { SubCategoryComponent } from './dashboard/data-panel/category/sub-category/sub-category.component';
+import { AddBrandComponent } from './dashboard/data-panel/brand/add-brand/add-brand.component';
+import { BrandListComponent } from './dashboard/data-panel/brand/brand-list/brand-list.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { SubCategoryComponent } from './dashboard/data-panel/category/sub-catego
     DialogComponent,
     CategoryComponent,
     MainCategoryComponent,
-    SubCategoryComponent
+    SubCategoryComponent,
+    AddBrandComponent,
+    BrandListComponent,
   ],
   imports: [
     BrowserModule,
