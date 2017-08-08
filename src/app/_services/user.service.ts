@@ -83,7 +83,7 @@ export class UserService {
     createCategory(category: any) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);
-        // console.log(data);
+        console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/AddCategory', data, options).map((response: Response) => response.json());

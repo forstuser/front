@@ -12,9 +12,9 @@
                     Select Main Category
                   </label>
                 <div class="form-group">
-                  <select class="form-control dropdown">
+                  <select class="form-control dropdown" formControlName="RefID">
                     <option>Select</option>
-                    <option *ngFor="let mainCategoryList of mainCat.CategoryList" [ngValue]="mainCategoryList.Name">{{ mainCategoryList.Name }}</option>
+                    <option *ngFor="let mainCategoryList of mainCat.CategoryList" [ngValue]="mainCategoryList.RefID">{{ mainCategoryList.Name }}</option>
                   </select>
                 </div>
               </div>

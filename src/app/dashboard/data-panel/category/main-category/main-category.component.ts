@@ -50,8 +50,8 @@ export class MainCategoryComponent implements OnInit {
   // create new main category
   createCategory( category: any) {
     console.log(category);
-    this.createCat = { 'Level': 1 };
-    confirm('Confirm');
+    this.createCat = { 'Level': 1, 'RefID': null , 'Name': category.Name };
+    // confirm('Confirm');
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
         console.log(res);

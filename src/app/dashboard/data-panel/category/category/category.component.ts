@@ -25,14 +25,15 @@ export class CategoryComponent implements OnInit {
     });
     // create main category form
     this.createCategoryForm = this.fb.group({
-      'Name': [null, Validators.required]
+      'Name': [null, Validators.required],
+      'RefID': [null, Validators.required]
       // 'Level': [null, Validators.required]
     });
    }
 
   ngOnInit() {
   // get list of main category
-    this.userService.getCategoryList(1) // 2 for category refer to api doc
+    this.userService.getCategoryList(1) // 1 for category refer to api doc
     .subscribe(mainCat => {
       this.mainCat = mainCat;
       console.log(mainCat);
@@ -46,9 +47,9 @@ export class CategoryComponent implements OnInit {
   }
   createCategory( category: any) {
     console.log(category);
-    this.createCat = { 'Level': 2 };
+    this.createCat = { 'Level': 2 , 'RefID': category.RefID, 'Name': category.Name};
     confirm('Confirm');
-    this.userService.deleteCategory(this.createCat)
+    this.userService.createCategory(this.createCat)
       .subscribe(res => {
         console.log(res);
         this.userService.getCategoryList(1) // list update after delete
