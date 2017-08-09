@@ -6,7 +6,7 @@
         </div>
         <div class="card">
             <div class="body">
-                <form [formGroup]='rForm' (ngSubmit) = "addPost(rForm.value)">
+                <form [formGroup]='rForm' (ngSubmit) = "signIN(rForm.value)">
                     <div class="msg">Sign in to start your session</div>
                     <div class="input-group">
                         <span class="input-group-addon">
@@ -28,8 +28,8 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-8 p-t-5">
-                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink">
-                            <label for="rememberme">Remember Me</label>
+                            <!-- <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-pink"> -->
+                            <!-- <label for="rememberme">Remember Me</label> -->
                         </div>
                         <div class="col-xs-4">
                             <input class="btn btn-block bg-pink" type="submit" value="SIGN IN" [disabled]="!rForm.valid">

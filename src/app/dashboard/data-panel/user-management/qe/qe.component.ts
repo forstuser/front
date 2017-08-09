@@ -2,7 +2,6 @@ import { User } from './../../../../_models/user';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-qe',
   templateUrl: './qe.component.html',

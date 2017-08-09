@@ -35,17 +35,18 @@ export class SignInComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
   // form data after submit
- addPost(post) {
+ signIN(post) {
     this.EmailID = post.EmailID;
     this.Password = post.Password;
     this.authenticationService.login(this.EmailID, this.Password)
     .subscribe(
       data => {
-        console.log(data);
+        console.log('data' + data);
         this.router.navigate([this.returnUrl]);
       },
       error => {
         console.log(error);
+        alert(error.statusText);
       }
     );
   }

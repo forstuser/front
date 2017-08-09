@@ -16,12 +16,6 @@ export class BrandListComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.editBrandForm = this.fb.group({
-    //   'Name' : [null, Validators.required],
-    //   'Description' : [null],
-    //   'ID': [null],
-    //   'Details': this.fb.array([ this.createItem() ])
-    // });
      this.editBrandForm = new FormGroup({
       Name: new FormControl(''),
       Description: new FormControl(''),
@@ -54,15 +48,18 @@ export class BrandListComponent implements OnInit {
   // passs current brand id as argument and open the popup
   openBrandModel(item) {
     // console.log(item);
+    // reset  editBrand form
     this.editBrandForm = new FormGroup({
       Name: new FormControl(''),
       Description: new FormControl(''),
       ID: new FormControl(''),
       Details: new FormArray([])
     });
+    // get information of current selected brand
     this.userService.getBrandDetailsbyID(item.ID)
       .subscribe(res => {
       this.showDialog = true ; // for show dialog
+      // prop autofill data to form
       this.editBrandForm.controls['ID'].setValue(res.ID);
       this.editBrandForm.controls['Name'].setValue(res.Name);
       this.editBrandForm.controls['Description'].setValue(res.Description);
