@@ -30,26 +30,90 @@
           <h4 class="modal-title" id="smallModalLabel">Edit Brand</h4>
       </div>
       <div class="modal-body">
-          <form class="form-horizontal" [formGroup]='editBrandForm' (ngSubmit) = "updateBrand(editBrandForm.value)">
-              <div class="row clearfix">
-                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                      <label for="name">Name</label>
-                  </div>
-                  <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                      <div class="form-group">
-                          <div class="form-line">
-                              <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
-                          </div>
-                          <p class="text-danger" *ngIf="!editBrandForm.controls['Name'].valid && editBrandForm.controls['Name'].touched">Name is required</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="row clearfix">
-                  <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
-                      <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editBrandForm.valid" >
-                  </div>
-              </div>
-          </form>
+    <form class="form-horizontal" [formGroup]='editBrandForm' (ngSubmit) = "updateBrand(editBrandForm.value)">
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter brand name here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" formControlName="Description" placeholder="Enter description of brand">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- template for add row  -->
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="Details">Details</label>
+            </div>
+            <div class="pull-right margin-right">
+                <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More</button>
+            </div>
+        </div>
+        <br>
+        <div class="panel panel-default">
+            <div formArrayName="Details" *ngFor="let item of editBrandForm.controls.Details.controls; let i = index;">
+            <br>
+                <div class="row clearfix" [formGroupName]="i">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
+                <label>
+                    Type
+                </label>
+                    <select class="form-control dropdown" formControlName="DetailTypeID">
+                    <option selected>Select</option>
+                    <option value="1">URL</option>
+                    <option value="2">Email ID</option>
+                    <option value="3">Phone Number</option>
+                    </select>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+                <label>
+                    Display Name
+                </label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+                <label>
+                    Details
+                </label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
+                        </div>
+                    </div>        
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls.Details.controls.length > 1" (click)="removeDetails(i)">Remove</button>
+                </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- template for add row end  -->
+        <div class="row clearfix">
+            <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!editBrandForm.valid">Submit</button>
+            </div>
+        </div>
+      </form>
       </div>
     </app-dialog>
 </div>

@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Brand } from './../../../../_models/brand';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,30 +13,71 @@ export class BrandListComponent implements OnInit {
   showDialog = false;
   editBrandForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {
-        // edit  brand form
-    this.editBrandForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'ID' : [null, Validators.required],
-      'Description': [null, Validators.required]
-    });
   }
 
   ngOnInit() {
+    // this.editBrandForm = this.fb.group({
+    //   'Name' : [null, Validators.required],
+    //   'Description' : [null],
+    //   'ID': [null],
+    //   'Details': this.fb.array([ this.createItem() ])
+    // });
+     this.editBrandForm = new FormGroup({
+      Name: new FormControl(''),
+      Description: new FormControl(''),
+      ID: new FormControl(''),
+      Details: new FormArray([])
+    });
     this.userService.getBrandList()
       .subscribe( brandList => {
         this.brands = brandList;
         console.log(this.brands);
       });
   }
-  // passs current user as argument and open the popup
-  openBrandModel(item: any) {
-    console.log(item);
-    this.showDialog = true ; // for show dialog
-    // populate prefilled value in form
-    this.editBrandForm.setValue({
-      Name: item.Name,
-      ID: item.ID,
-      Description: item.Description
+  // function for add row in detials field
+  createItem() {
+    return this.fb.group({
+      'DetailID': [null],
+      'DetailTypeID': [null],
+      'DisplayName': [null],
+      'Details': [null]
+    });
+  }
+  addItem() {
+    const control = <FormArray>this.editBrandForm.controls['Details'];
+    control.push(this.createItem());
+  }
+  removeDetails(i: number) {
+    const control = <FormArray>this.editBrandForm.controls['Details'];
+    control.removeAt(i);
+  }
+  // passs current brand id as argument and open the popup
+  openBrandModel(item) {
+    // console.log(item);
+    this.editBrandForm = new FormGroup({
+      Name: new FormControl(''),
+      Description: new FormControl(''),
+      ID: new FormControl(''),
+      Details: new FormArray([])
+    });
+    this.userService.getBrandDetailsbyID(item.ID)
+      .subscribe(res => {
+      this.showDialog = true ; // for show dialog
+      this.editBrandForm.controls['ID'].setValue(res.ID);
+      this.editBrandForm.controls['Name'].setValue(res.Name);
+      this.editBrandForm.controls['Description'].setValue(res.Description);
+      res.Details.forEach(
+      (po) => {
+        (<FormArray>this.editBrandForm.controls['Details']).push(this.createDetailsFormGroup(po));
+      });
+    });
+  }
+ createDetailsFormGroup(payOffObj) {
+    return new FormGroup({
+      DetailID: new FormControl(payOffObj.DetailID),
+      DetailTypeID: new FormControl(payOffObj.DetailTypeID),
+      DisplayName: new FormControl(payOffObj.DisplayName),
+      Details: new FormControl(payOffObj.Details)
     });
   }
   updateBrand( brand: any) {

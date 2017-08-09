@@ -118,7 +118,18 @@ export class UserService {
         return this.http.post(this.apiLink + 'Services/DeleteCategory', data, options).map((response: Response) => response.json());
     }
                                 // **^ brand Services ^** //
-                                    // get list of admin,qe,ce and customer
+   // get details of brand by id
+    getBrandDetailsbyID(ID: Number) {
+        const body = { TokenNo : this.TokenNo, ID: ID };
+        const data = JSON.stringify(body);
+        // console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/BrandByID', data, options)
+        .map((response: Response) => response.json());
+    }
+   // get brand list
     getBrandList() {
         const body = { TokenNo : this.TokenNo };
         const data = JSON.stringify(body);
