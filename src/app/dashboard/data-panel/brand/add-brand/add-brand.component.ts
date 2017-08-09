@@ -1,3 +1,4 @@
+import { Brand } from './../../../../_models/brand.interface';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
@@ -8,29 +9,39 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
   styleUrls: ['./add-brand.component.css']
 })
 export class AddBrandComponent implements OnInit {
-  brandForm: FormGroup;
-  items: any [] = [];
+  public brandForm: FormGroup;
+  // items: Brand [] = [];
 
   constructor(private userService: UserService, private fb: FormBuilder) {
    }
   ngOnInit() {
     this.brandForm = this.fb.group({
       'Name' : [null, Validators.required],
-      'Description' : [null, Validators.required],
-       items: this.fb.array([ this.createItem() ])
+      'Description' : [null],
+       Details: this.fb.array([ this.createItem(), ])
     });
   }
-  createItem(): FormGroup {
+  createItem() {
     return this.fb.group({
-      'DetailTypeID': [null, Validators.required],
-      'DisplayName': [null, Validators.required],
-      'Details': [null, Validators.required]
+      'DetailTypeID': [null],
+      'DisplayName': [null],
+      'Details': [null]
     });
   }
-  addItem(): void {
-    // this.items = this.brandForm.get('items') as FormArray;
-    const test = this.brandForm.get('items') as FormArray;
-    console.log(test);
-    this.items.push(this.createItem());
+  addItem() {
+    const control = <FormArray>this.brandForm.controls['Details'];
+    control.push(this.createItem());
+  }
+  removeDetails(i: number) {
+    const control = <FormArray>this.brandForm.controls['Details'];
+    control.removeAt(i);
+  }
+  createBrand(data: Brand) {
+    this.userService.createBrand(data)
+      .subscribe(res => {
+        console.log(res);
+        alert('New Brand added succesfully');
+        this.brandForm.reset();
+      });
   }
 }

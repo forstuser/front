@@ -39,7 +39,7 @@ export class BrandListComponent implements OnInit {
       Description: item.Description
     });
   }
-    updateBrand( brand: any) {
+  updateBrand( brand: any) {
     console.log(brand);
     this.userService.updateBrand(brand)
       .subscribe( res => {
@@ -50,7 +50,20 @@ export class BrandListComponent implements OnInit {
           .subscribe(brandList => {
           this.brands = brandList;
         });
-      });
+    });
   }
-
+  // delete brand
+  deleteBrand( brand: any) {
+    console.log(brand);
+    const brandId = {'ID': brand.ID };
+    this.userService.deleteBrand(brandId)
+      .subscribe( res => {
+        // console.log(res);
+        alert('brand deleted successfully');
+        this.userService.getBrandList() // list update after edit
+          .subscribe(brandList => {
+          this.brands = brandList;
+        });
+    });
+  }
 }

@@ -128,6 +128,15 @@ export class UserService {
         return this.http.post( this.apiLink + 'Services/BrandList', data, options)
         .map((response: Response) => response.json());
     }
+   // Create category
+    createBrand(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddBrand', data, options).map((response: Response) => response.json());
+    }
    // Update brand
     updateBrand(brand: any) {
         brand['TokenNo'] = this.TokenNo;
@@ -135,6 +144,15 @@ export class UserService {
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
+        return this.http.post(this.apiLink + 'Services/EditBrand', data, options).map((response: Response) => response.json());
+    }
+   // Delete brand
+    deleteBrand(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteBrand', data, options).map((response: Response) => response.json());
     }
 }
