@@ -17,8 +17,23 @@ export class AddOfflineSellerComponent implements OnInit {
   ngOnInit() {
     this.offlineSellerForm = this.fb.group({
       'Name' : [null, Validators.required],
-      'Description' : [null],
-       Details: this.fb.array([ this.createItem(), ])
+      'OwnerName' : [null],
+      'GstinNo': [null],
+      'PanNo': [null],
+      'RegNo': [null],
+      'ServiceProvider': [null],
+      'Onboarded': [null],
+      'HouseNo': [null],
+      'Block': [null],
+      'Street': [null],
+      'Sector': [null],
+      'City': [null],
+      'State': [null],
+      'PinCode': [null],
+      'NearBy': [null],
+      'Lattitude': [null],
+      'Longitude': [null],
+      Details: this.fb.array([ this.createItem(), ])
     });
   }
   createItem() {
@@ -37,7 +52,7 @@ export class AddOfflineSellerComponent implements OnInit {
     control.removeAt(i);
   }
   createOfflineSeller(data: OfflineSeller) {
-    this.userService.createBrand(data)
+    this.userService.createOfflineSeller(data)
       .subscribe(res => {
         console.log(res);
         alert('New Brand added succesfully');

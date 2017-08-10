@@ -6,37 +6,204 @@
     </div>
     <div class="body">
       <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit) = "createOfflineSeller(offlineSellerForm.value)">
+        <h4> <u>Information </u></h4>
+        <hr>
         <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                 <label for="name">Name</label>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter brand name here">
+                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Owner Name</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="OwnerName" class="form-control" placeholder="Enter Owner Name here">
                     </div>
                 </div>
             </div>
         </div>
         <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="description">Description</label>
+                <label for="name">Gstin No</label>
             </div>
-            <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" class="form-control" formControlName="Description" placeholder="Enter description of brand">
+                        <input type="text" formControlName="GstinNo" class="form-control" placeholder="Enter GstinNo here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Pan No</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="PanNo" class="form-control" placeholder="Enter Pan No here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Reg No</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="RegNo" class="form-control" placeholder="Enter RegNo here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Service Provider</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="ServiceProvider" class="form-control" placeholder="Enter Service Provider Name here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Onboarded</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Onboarded" class="form-control" placeholder="Enter Onboarded here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4> <u>Address </u></h4>
+        <hr>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">House No</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Block</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Street</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Sector</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">City</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">State</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">PinCode</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">NearBy</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy Name here">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Lattitude</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude Name here">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Longitude</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here">
                     </div>
                 </div>
             </div>
         </div>
         <!-- template for add row  -->
+        <h4> <u>Details </u></h4>
         <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="Details">Details</label>
-            </div>
             <div class="pull-right margin-right">
                 <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
+                            <p>&nbsp;</p>
             </div>
         </div>
         <div class="panel panel-default">

@@ -58,6 +58,7 @@ export class BrandListComponent implements OnInit {
     // get information of current selected brand
     this.userService.getBrandDetailsbyID(item.ID)
       .subscribe(res => {
+      console.log(res);
       this.showDialog = true ; // for show dialog
       // prop autofill data to form
       this.editBrandForm.controls['ID'].setValue(res.ID);

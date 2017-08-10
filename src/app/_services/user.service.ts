@@ -1,3 +1,4 @@
+import { OfflineSeller } from './../_models/offlineSeller.interface';
 import { Category } from './../_models/category';
 import { appConfig } from './../app.config';
 import { User } from './../_models/user';
@@ -190,30 +191,81 @@ export class UserService {
         .map((response: Response) => response.json());
     }
    // Create online seller
-    createOnlineSeller(brand: any) {
-        brand['TokenNo'] = this.TokenNo;
-        const data = JSON.stringify(brand);
+    createOnlineSeller(OnlineSeller: any) {
+        OnlineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OnlineSeller);
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/AddOnlineSeller', data, options).map((response: Response) => response.json());
     }
    // Update online seller
-    updateOnlineSeller(brand: any) {
-        brand['TokenNo'] = this.TokenNo;
-        const data = JSON.stringify(brand);
+    updateOnlineSeller(OnlineSeller: any) {
+        OnlineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OnlineSeller);
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/EditOnlineSeller', data, options).map((response: Response) => response.json());
     }
    // Delete online seller
-    deleteOnlineSeller(brand: any) {
-        brand['TokenNo'] = this.TokenNo;
-        const data = JSON.stringify(brand);
+    deleteOnlineSeller(OnlineSeller: any) {
+        OnlineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OnlineSeller);
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteOnlineSeller', data, options).map((response: Response) => response.json());
+    }
+                                        // **^ offline seller Services ^** //
+
+   // get details of offline seller by id
+    getOfflineSellerDetailsbyID(ID: Number) {
+        const body = { TokenNo : this.TokenNo, ID: ID };
+        // const data = JSON.stringify(body);
+        const data = JSON.stringify(body || null );
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        console.log(data);
+        return this.http.post( this.apiLink + 'Services/OfflineSellerByID', data, options)
+        .map((response: Response) => response.json());
+    }
+   // get offline seller list
+    getOfflineSellerList() {
+        const body = { TokenNo : this.TokenNo };
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/OfflineSellerList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Create offline seller
+    createOfflineSeller(OfflineSeller: any) {
+        OfflineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OfflineSeller);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddOfflineSeller', data, options).map((response: Response) => response.json());
+    }
+   // Update offline seller
+    updateOfflineSeller(OfflineSeller: any) {
+        OfflineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OfflineSeller);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/EditOfflineSeller', data, options).map((response: Response) => response.json());
+    }
+   // Delete offline seller
+    deleteOfflineSeller(OfflineSeller: any) {
+        OfflineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OfflineSeller);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteOfflineSeller', data, options).map((response: Response) => response.json());
     }
 }
