@@ -48,7 +48,7 @@ export class OnlineSellerListComponent implements OnInit {
   }
   // passs current brand id as argument and open the popup
   openOnlineSellerModel(item) {
-    // console.log(item);
+    console.log('item is ', item);
     // reset  editBrand form
     this.onlineSellerForm = new FormGroup({
       Name: new FormControl(''),
@@ -86,7 +86,7 @@ export class OnlineSellerListComponent implements OnInit {
     this.userService.updateOnlineSeller(brand)
       .subscribe( res => {
         // console.log(res);
-        alert('brand updated successfully');
+        alert('Online Seller updated successfully');
         this.showDialog = false ;
         this.userService.getOnlineSellerList() // list update after edit
           .subscribe(onlineSeller => {
@@ -101,7 +101,7 @@ export class OnlineSellerListComponent implements OnInit {
     this.userService.deleteOnlineSeller(brandId)
       .subscribe( res => {
         // console.log(res);
-        alert('brand deleted successfully');
+        alert('Online Seller deleted successfully');
         this.userService.getOnlineSellerList() // list update after edit
           .subscribe(onlineSeller => {
           this.onlineSeller = onlineSeller;

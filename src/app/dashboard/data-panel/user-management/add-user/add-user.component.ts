@@ -46,6 +46,8 @@ export class AddUserComponent implements OnInit {
         .subscribe(
       data => {
         console.log(data);
+        alert('User successfully added !!');
+        this.newUserForm.reset();
         // this.router.navigate([this.returnUrl]);
       },
       error => {

@@ -23,7 +23,7 @@
                     Select Category
                   </label>
                   <div class="form-group">
-                    <select class="form-control dropdown" formControlName="RefID">
+                    <select class="form-control dropdown" formControlName="CatID">
                       <option>Select</option>
                       <option *ngFor="let subCategoryList of getSubCatList.CategoryList" [ngValue]="subCategoryList.ID">{{ subCategoryList.Name }}</option>
                     </select>
@@ -59,18 +59,16 @@
           <thead>
               <tr>
                   <th>#</th>
-                  <th>Main Category Name</th>
                   <th>Category Name</th>
                   <th>Exclusions Name</th>
                   <th>Action</th>
               </tr>
           </thead>
-           <tbody *ngFor="let list of subCat.CategoryList; let i = index">
+           <tbody *ngFor="let list of subCat.ExclusionsList; let i = index">
               <tr>
                   <th scope="row">{{ i+1 }}</th>
-                  <td>{{ list.maincategory }}</td>
-                  <td>{{ list.category }}</td>
-                  <td>{{ list.subcategory }}</td>
+                  <td>{{ list.Name }}</td>
+                  <td>{{ list.CatName }}</td>
                   <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
               </tr>
           </tbody>
@@ -81,7 +79,7 @@
           <h4 class="modal-title" id="smallModalLabel">Edit Main Category</h4>
       </div>
       <div class="modal-body">
-          <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit) = "updateCategory(editCategoryForm.value)">
+          <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit) = "updateExclusions(editCategoryForm.value)">
               <div class="row clearfix">
                   <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                       <label for="name">Name</label>

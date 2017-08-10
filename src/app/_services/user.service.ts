@@ -224,13 +224,13 @@ export class UserService {
     getOfflineSellerDetailsbyID(ID: Number) {
         const body = { TokenNo : this.TokenNo, ID: ID };
         // const data = JSON.stringify(body);
-        const data = JSON.stringify(body || null );
-        console.log(data);
+        const data = JSON.stringify(body);
+        // console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         console.log(data);
         return this.http.post( this.apiLink + 'Services/OfflineSellerByID', data, options)
-        .map((response: Response) => response.json());
+        .map((response: Response) =>  response.json());
     }
    // get offline seller list
     getOfflineSellerList() {
@@ -308,6 +308,45 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteColor', data, options).map((response: Response) => response.json());
     }
+                                        // **^ Inclusions Services ^** //
+
+    // get list of main category ,category and sub category
+    getInclusionsList() {
+        const body = { TokenNo : this.TokenNo};
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/InclusionsList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Create category
+    createInclusions(category: any) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        console.log('final', data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddInclusions', data, options).map((response: Response) => response.json());
+    }
+   // Update category
+    updateInclusions(category: any) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/EditInclusions', data, options).map((response: Response) => response.json());
+    }
+   // Delete Category
+    deleteInclusions(category: Category) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        console.log('final data', data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteInclusions', data, options).map((response: Response) => response.json());
+    }
                                         // **^ Exclusion Services ^** //
 
     // get list of main category ,category and sub category
@@ -324,7 +363,7 @@ export class UserService {
     createExclusions(category: any) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);
-        console.log(data);
+        console.log('final', data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/AddExclusions', data, options).map((response: Response) => response.json());
@@ -333,7 +372,7 @@ export class UserService {
     updateExclusions(category: any) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);
-        // console.log(data);
+        console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/EditExclusions', data, options).map((response: Response) => response.json());
@@ -342,7 +381,7 @@ export class UserService {
     deleteExclusions(category: Category) {
         category['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(category);
-        console.log(data);
+        console.log('final data', data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteExclusions', data, options).map((response: Response) => response.json());

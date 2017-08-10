@@ -23,28 +23,28 @@ export class AddServiceCenterComponent implements OnInit {
       });
 
     this.offlineSellerForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'BrandID' : [null, Validators.required],
-      'HouseNo' : [null],
-      'Block': [null],
-      'Street': [null],
-      'Sector': [null],
-      'City': [null, Validators.required],
-      'State': [null, Validators.required],
-      'PinCode': [null],
-      'NearBy': [null],
-      'Lattitude': [null],
-      'Longitude': [null],
-      'OpenDays': [null, Validators.required],
-      'Timings': [null, Validators.required],
+      'Name' : ['', Validators.required],
+      'BrandID' : ['', Validators.required],
+      'HouseNo' : '',
+      'Block': '',
+      'Street': '',
+      'Sector': '',
+      'City': ['', Validators.required],
+      'State': ['', Validators.required],
+      'PinCode': '',
+      'NearBy': '',
+      'Lattitude': '',
+      'Longitude': '',
+      'OpenDays': ['', Validators.required],
+      'Timings': ['', Validators.required],
       Details: this.fb.array([ this.createItem(), ])
     });
   }
   createItem() {
     return this.fb.group({
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
+      'DetailTypeID': '',
+      'DisplayName': '',
+      'Details': ''
     });
   }
   addItem() {

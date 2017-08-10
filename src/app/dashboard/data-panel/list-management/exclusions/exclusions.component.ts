@@ -22,13 +22,14 @@ export class ExclusionsComponent implements OnInit {
     // edit main category form
     this.editCategoryForm = this.fb.group({
       'Name' : [null, Validators.required],
-      'ID' : [null, Validators.required],
-      'RefID': [null, Validators.required]
+      'CatID': [null, Validators.required],
+      'ID': ''
     });
     // create main category form
     this.createSubCategoryForm = this.fb.group({
       'Name': [null, Validators.required],
-      'RefID': [null, Validators.required]
+      'CatID': [null, Validators.required],
+      'RefID': ['']
       // 'Level': [null, Validators.required]
     });
    }
@@ -42,15 +43,15 @@ export class ExclusionsComponent implements OnInit {
     });
       // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
-    .subscribe(getCat => {
-      this.cat = getCat;
-      console.log(getCat);
+    .subscribe(getSubCatList => {
+      this.getSubCatList = getSubCatList;
+      console.log(getSubCatList);
     });
           // get list of exclusion list
     this.userService.getExclusionsList()
-    .subscribe(getSubCat => {
-      this.subCat = getSubCat;
-      console.log(getSubCat);
+    .subscribe(exclusionList => {
+      this.subCat = exclusionList;
+      console.log(exclusionList);
     });
   }
   // get list after select main category
@@ -81,24 +82,25 @@ export class ExclusionsComponent implements OnInit {
   }
     // passs current user as argument and open the popup
   openCategoryModel(item: any) {
+    // console.log(item);
     this.showDialog = true ; // for show dialog
     // populate prefilled value in form
     this.editCategoryForm.setValue({
-      Name: item.subcategory,
+      Name: item.Name,
       ID: item.ID,
-      RefID: item.RefID
+      CatID: item.CatID
     });
   }
-  updateCategory( category: any) {
-    console.log(category);
-    this.userService.updateCategory(category)
+  updateExclusions( category: any) {
+    // console.log(category);
+    this.userService.updateExclusions(category)
       .subscribe( res => {
-        // console.log(res);
-        alert('category updated successfully');
+        console.log(res);
+        alert('Exclusion List updated successfully');
         this.showDialog = false ;
         this.userService.getExclusionsList() // list update after edit
-          .subscribe(getCat => {
-          this.subCat = getCat;
+          .subscribe(getSubCatList => {
+          this.subCat = getSubCatList;
           // console.log(getCat);
         });
       });
@@ -106,10 +108,11 @@ export class ExclusionsComponent implements OnInit {
   deleteCategory(category: any) {
     // console.log(category);
     this.del = { 'ID': category.ID };
-    confirm('Confirm');
+    // confirm('Confirm');
     this.userService.deleteExclusions(this.del)
       .subscribe(res => {
         console.log(res);
+        alert('deleted !!');
         this.userService.getExclusionsList() // list update after delete
           .subscribe(getCat => {
           this.subCat = getCat;

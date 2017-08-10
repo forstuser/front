@@ -16,17 +16,17 @@ export class AddOnlineSellerComponent implements OnInit {
    }
   ngOnInit() {
     this.onlineSellerForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'URL' : [null],
-      'GstinNo': [null],
+      'Name' : ['', Validators.required],
+      'URL' : '',
+      'GstinNo': '',
        Details: this.fb.array([ this.createItem(), ])
     });
   }
   createItem() {
     return this.fb.group({
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
+      'DetailTypeID': '',
+      'DisplayName': '',
+      'Details': '',
     });
   }
   addItem() {

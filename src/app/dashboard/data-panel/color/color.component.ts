@@ -49,6 +49,7 @@ export class ColorComponent implements OnInit {
     this.userService.deleteColor(this.del)
       .subscribe(res => {
         console.log(res);
+        alert('Color Deleted Successfully');
         this.userService.getColorList() // list update after delete
           .subscribe(color => {
           this.color = color;

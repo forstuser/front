@@ -184,14 +184,6 @@ leftPanelItems = [
       }
     ]
     },
-  {
-    'id': '1',
-    'name': 'Quick Action Service Provider management',
-    'icon': 'fast_forward',
-    'link': 'quick-action-management',
-    'handler': 'doNothing',
-    'class': ''
-  },
     {
     'id': '1',
     'name': 'Color',
