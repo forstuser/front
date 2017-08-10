@@ -1,3 +1,4 @@
+import { ColorComponent } from './dashboard/data-panel/color/color.component';
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
 import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-management/add-online-seller/add-online-seller.component';
 import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
             { path: 'addOffline', component: AddOfflineSellerComponent},
             { path: 'offlineList', component: OfflineSellerListComponent},
             { path: 'addOnline', component: AddOnlineSellerComponent},
-            { path: 'onlineList', component: OnlineSellerListComponent}
+            { path: 'onlineList', component: OnlineSellerListComponent},
+            { path: 'color', component: ColorComponent}
         ]
     },
     // otherwise redirect to home

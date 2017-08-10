@@ -153,7 +153,15 @@ leftPanelItems = [
     'link': 'quick-action-management',
     'handler': 'doNothing',
     'class': ''
-  }
+  },
+    {
+    'id': '1',
+    'name': 'Color',
+    'icon': 'format_color_fill',
+    'link': 'color',
+    'handler': 'doNothing',
+    'class': '',
+  },
 ];
   constructor() { }
 

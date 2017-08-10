@@ -268,4 +268,43 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteOfflineSeller', data, options).map((response: Response) => response.json());
     }
+                             // **^ Color Services ^** //
+    // get list of main category ,category and sub category
+    getColorList() {
+        const body = { TokenNo : this.TokenNo};
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/ColorList', data, options)
+        .map((response: Response) => response.json());
+    }
+
+   // Create category
+    createColor(category: any) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddColor', data, options).map((response: Response) => response.json());
+    }
+   // Update category
+//     updateColor(category: any) {
+//         category['TokenNo'] = this.TokenNo;
+//         const data = JSON.stringify(category);
+//         // console.log(data);
+//         const headers = new Headers({ 'Content-Type': 'application/json' });
+//         const options = new RequestOptions({ headers: headers });
+//         return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
+//     }
+   // Delete Category
+    deleteColor(category: Category) {
+        category['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(category);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteColor', data, options).map((response: Response) => response.json());
+    }
 }
