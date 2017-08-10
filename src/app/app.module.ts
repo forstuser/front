@@ -28,6 +28,10 @@ import { MainCategoryComponent } from './dashboard/data-panel/category/main-cate
 import { SubCategoryComponent } from './dashboard/data-panel/category/sub-category/sub-category.component';
 import { AddBrandComponent } from './dashboard/data-panel/brand/add-brand/add-brand.component';
 import { BrandListComponent } from './dashboard/data-panel/brand/brand-list/brand-list.component';
+import { AddOfflineSellerComponent } from './dashboard/data-panel/seller-management/add-offline-seller/add-offline-seller.component';
+import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-management/add-online-seller/add-online-seller.component';
+import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
+import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
 
 
 @NgModule({
@@ -51,6 +55,10 @@ import { BrandListComponent } from './dashboard/data-panel/brand/brand-list/bran
     SubCategoryComponent,
     AddBrandComponent,
     BrandListComponent,
+    AddOfflineSellerComponent,
+    AddOnlineSellerComponent,
+    OnlineSellerListComponent,
+    OfflineSellerListComponent,
   ],
   imports: [
     BrowserModule,

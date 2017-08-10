@@ -109,10 +109,35 @@ leftPanelItems = [
     'id': '1',
     'name': 'Seller Management',
     'icon': 'shop_two',
-    'link': 'seller-management',
-    'handler': 'doNothing',
-    'class': ''
-  },
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Offline Seller',
+        'd_icon': 'looks_one',
+        'd_link': 'addOffline'
+      },
+      {
+        'd_name': 'Offline Seller List',
+        'd_icon': 'looks_two',
+        'd_link': 'offlineList'
+      },
+      {
+        'd_name': 'Add Online Seller',
+        'd_icon': 'looks_one',
+        'd_link': 'addOnline'
+      },
+      {
+        'd_name': 'Online Seller List',
+        'd_icon': 'looks_two',
+        'd_link': 'onlineList'
+      }
+    ]
+    },
     {
     'id': '1',
     'name': 'Post Billing Service Provider Management',

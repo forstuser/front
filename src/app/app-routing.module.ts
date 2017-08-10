@@ -1,3 +1,7 @@
+import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
+import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-management/add-online-seller/add-online-seller.component';
+import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
+import { AddOfflineSellerComponent } from './dashboard/data-panel/seller-management/add-offline-seller/add-offline-seller.component';
 import { BrandListComponent } from './dashboard/data-panel/brand/brand-list/brand-list.component';
 import { AddBrandComponent } from './dashboard/data-panel/brand/add-brand/add-brand.component';
 import { SubCategoryComponent } from './dashboard/data-panel/category/sub-category/sub-category.component';
@@ -31,7 +35,11 @@ const appRoutes: Routes = [
             { path: 'category', component: CategoryComponent},
             { path: 'subCategory', component: SubCategoryComponent},
             { path: 'addBrand', component: AddBrandComponent},
-            { path: 'brandList', component: BrandListComponent}
+            { path: 'brandList', component: BrandListComponent},
+            { path: 'addOffline', component: AddOfflineSellerComponent},
+            { path: 'offlineList', component: OfflineSellerListComponent},
+            { path: 'addOnline', component: AddOnlineSellerComponent},
+            { path: 'onlineList', component: OnlineSellerListComponent}
         ]
     },
     // otherwise redirect to home

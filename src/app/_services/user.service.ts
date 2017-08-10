@@ -117,6 +117,7 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteCategory', data, options).map((response: Response) => response.json());
     }
+
                                 // **^ brand Services ^** //
    // get details of brand by id
     getBrandDetailsbyID(ID: Number) {
@@ -165,5 +166,54 @@ export class UserService {
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteBrand', data, options).map((response: Response) => response.json());
+    }
+                                // **^ online seller Services ^** //
+   // get details of online seller by id
+    getOnlineSellerDetailsbyID(ID: Number) {
+        const body = { TokenNo : this.TokenNo, ID: ID };
+        const data = JSON.stringify(body);
+        // console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/OnlineSellerByID', data, options)
+        .map((response: Response) => response.json());
+    }
+   // get online seller list
+    getOnlineSellerList() {
+        const body = { TokenNo : this.TokenNo };
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/OnlineSellerList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Create online seller
+    createOnlineSeller(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddOnlineSeller', data, options).map((response: Response) => response.json());
+    }
+   // Update online seller
+    updateOnlineSeller(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/EditOnlineSeller', data, options).map((response: Response) => response.json());
+    }
+   // Delete online seller
+    deleteOnlineSeller(brand: any) {
+        brand['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(brand);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteOnlineSeller', data, options).map((response: Response) => response.json());
     }
 }

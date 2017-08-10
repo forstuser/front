@@ -1,10 +1,10 @@
 export interface Brand {
     Name: String;
     Description: String;
-    items: Item[];
+    Details: Detail[];
 }
 
-export interface Item {
+export interface Detail {
     DetailTypeID: Number;
     DisplayName: String;
     Details: String;
