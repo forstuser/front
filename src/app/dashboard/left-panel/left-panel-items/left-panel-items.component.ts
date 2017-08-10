@@ -163,12 +163,27 @@ leftPanelItems = [
   },
     {
     'id': '1',
-    'name': 'Post Billing Service Provider Management',
+    'name': 'Authorized Service Center Management',
     'icon': 'receipt',
-    'link': 'post-bill-management',
-    'handler': 'doNothing',
-    'class': ''
-  },
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Service Center',
+        'd_icon': 'looks_one',
+        'd_link': 'addServiceCenter'
+      },
+      {
+        'd_name': 'Service Center List',
+        'd_icon': 'looks_two',
+        'd_link': 'serviceCenterList'
+      }
+    ]
+    },
   {
     'id': '1',
     'name': 'Quick Action Service Provider management',

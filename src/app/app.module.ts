@@ -35,6 +35,8 @@ import { OfflineSellerListComponent } from './dashboard/data-panel/seller-manage
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
 import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
 import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
+import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
+import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 
 
 @NgModule({
@@ -65,6 +67,8 @@ import { InclusionsComponent } from './dashboard/data-panel/list-management/incl
     ColorComponent,
     ExclusionsComponent,
     InclusionsComponent,
+    AddServiceCenterComponent,
+    ServiceCenterListComponent,
   ],
   imports: [
     BrowserModule,

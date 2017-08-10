@@ -347,4 +347,56 @@ export class UserService {
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/DeleteExclusions', data, options).map((response: Response) => response.json());
     }
+                                // **^ authorized service center Services ^** //
+   // get details of authorized service center by id
+    getAuthorizedServiceCenterByID(ID: Number) {
+        const body = { TokenNo : this.TokenNo, ID: ID };
+        const data = JSON.stringify(body);
+        // console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/AuthorizedServiceCenterByID', data, options)
+        .map((response: Response) => response.json());
+    }
+   // get authorized service center list
+    getAuthorizedServiceCenterList() {
+        const body = { TokenNo : this.TokenNo };
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/AuthorizedServiceCenterList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Create authorized service center
+    createAuthorizedServiceCenter(serviceCenter: any) {
+        serviceCenter['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(serviceCenter);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/AddAuthorizedServiceCenter', data, options)
+                .map((response: Response) => response.json());
+    }
+   // Update authorized service center
+    updateAuthorizedServiceCenter(OnlineSeller: any) {
+        OnlineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OnlineSeller);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/EditAuthorizedServiceCenter', data, options)
+                .map((response: Response) => response.json());
+    }
+   // Delete authorized service center
+    DeleteAuthorizedServiceCenter(OnlineSeller: any) {
+        OnlineSeller['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(OnlineSeller);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/DeleteAuthorizedServiceCenter', data, options)
+                .map((response: Response) => response.json());
+    }
 }

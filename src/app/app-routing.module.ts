@@ -1,3 +1,7 @@
+import {
+ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+import {
+AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
@@ -45,7 +49,9 @@ const appRoutes: Routes = [
             { path: 'onlineList', component: OnlineSellerListComponent},
             { path: 'color', component: ColorComponent},
             { path: 'exclusions', component: ExclusionsComponent},
-            { path: 'inclusions', component: InclusionsComponent}
+            { path: 'inclusions', component: InclusionsComponent},
+            { path: 'addServiceCenter', component: AddServiceCenterComponent},
+            { path: 'serviceCenterList', component: ServiceCenterListComponent}
         ]
     },
     // otherwise redirect to home
