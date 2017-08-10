@@ -140,6 +140,29 @@ leftPanelItems = [
     },
     {
     'id': '1',
+    'name': 'List Management',
+    'icon': 'menu',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Exclusions',
+        'd_icon': 'looks_one',
+        'd_link': 'exclusions'
+      },
+      {
+        'd_name': 'Inclusions',
+        'd_icon': 'looks_two',
+        'd_link': 'inclusions'
+      }
+    ]
+  },
+    {
+    'id': '1',
     'name': 'Post Billing Service Provider Management',
     'icon': 'receipt',
     'link': 'post-bill-management',

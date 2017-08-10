@@ -33,6 +33,8 @@ import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-manageme
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
 import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
+import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
+import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 
 
 @NgModule({
@@ -61,6 +63,8 @@ import { ColorComponent } from './dashboard/data-panel/color/color.component';
     OnlineSellerListComponent,
     OfflineSellerListComponent,
     ColorComponent,
+    ExclusionsComponent,
+    InclusionsComponent,
   ],
   imports: [
     BrowserModule,
