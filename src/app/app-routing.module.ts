@@ -29,6 +29,7 @@ import { NgModule, Component } from '@angular/core';
 
 // routers
 const appRoutes: Routes = [
+    { path: '', component: SignInComponent, pathMatch: 'full'},
     { path: 'login', component: SignInComponent, pathMatch: 'full'},
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
         [   { path: '', redirectTo: 'home', pathMatch: 'full'},
