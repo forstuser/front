@@ -11,8 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddServiceCenterComponent implements OnInit {
   public offlineSellerForm: FormGroup;
-  items: OfflineSeller [] = [];
-  brands: Brand [] = [];
+  items: OfflineSeller;
+  brands: Brand;
   constructor(private userService: UserService, private fb: FormBuilder) {
    }
   ngOnInit() {

@@ -66,7 +66,7 @@
         </div>
         <br>
         <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of editBrandForm.controls.Details.controls; let i = index;">
+            <div formArrayName="Details" *ngFor="let item of editBrandForm.controls['Details']; let i = index;">
             <br>
                 <div class="row clearfix" [formGroupName]="i">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
@@ -101,7 +101,7 @@
                     </div>        
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls.Details.controls.length > 1" (click)="removeDetails(i)">Remove</button>
+                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
                 </div>
                 </div>
                 <br>

@@ -1,3 +1,4 @@
+import { UserType } from './../../../../_models/usertype';
 import { User } from './../../../../_models/user';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -9,8 +10,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User[] = [];
-  dropdownUser: User[] = [];
+  users: User;
+  dropdownUser: UserType;
   item: Object = { }; // object for single user
   del: any = { };
   showDialog = false;

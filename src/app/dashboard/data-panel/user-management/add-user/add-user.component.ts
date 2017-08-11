@@ -1,4 +1,4 @@
-import { User } from './../../../../_models/user';
+import { UserType } from './../../../../_models/usertype';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  users: User[] = [];
+  users: UserType;
   newUserForm: FormGroup ;
   TypeID: String;
   Name: String = '';

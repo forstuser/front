@@ -9,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sub-category.component.css']
 })
 export class SubCategoryComponent implements OnInit {
-  cat: Category[] = [];
-  mainCat: Category[] = [];
-  subCat: Category[] = [];
-  getSubCatList: Category[] = [];
+  cat: Category;
+  mainCat: Category;
+  subCat: Category;
+  getSubCatList: Category;
   showDialog = false;
   editCategoryForm: FormGroup ;
   createSubCategoryForm: FormGroup;

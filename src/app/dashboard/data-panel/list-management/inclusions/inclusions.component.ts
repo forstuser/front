@@ -1,3 +1,4 @@
+import { Inclusion } from './../../../../_models/inclusion';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category } from './../../../../_models/category';
@@ -9,10 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inclusions.component.css']
 })
 export class InclusionsComponent implements OnInit {
-  cat: Category[] = [];
-  mainCat: Category[] = [];
-  subCat: Category[] = [];
-  getSubCatList: Category[] = [];
+  cat: Category;
+  mainCat: Category;
+  inclusionList: Inclusion;
+  getSubCatList: Category;
   showDialog = false;
   editCategoryForm: FormGroup ;
   createSubCategoryForm: FormGroup;
@@ -50,7 +51,7 @@ export class InclusionsComponent implements OnInit {
           // get list of exclusion list
     this.userService.getInclusionsList()
     .subscribe(exclusionList => {
-      this.subCat = exclusionList;
+      this.inclusionList = exclusionList;
       console.log(exclusionList);
     });
   }
@@ -75,7 +76,7 @@ export class InclusionsComponent implements OnInit {
         alert('Created!!');
         this.userService.getInclusionsList() // list update after delete
           .subscribe(getCat => {
-          this.subCat = getCat;
+          this.inclusionList = getCat;
             // console.log(users);
         });
     });
@@ -100,7 +101,7 @@ export class InclusionsComponent implements OnInit {
         this.showDialog = false ;
         this.userService.getInclusionsList() // list update after edit
           .subscribe(getSubCatList => {
-          this.subCat = getSubCatList;
+          this.inclusionList = getSubCatList;
           // console.log(getCat);
         });
       });
@@ -115,7 +116,7 @@ export class InclusionsComponent implements OnInit {
         alert('deleted !!');
         this.userService.getInclusionsList() // list update after delete
           .subscribe(getCat => {
-          this.subCat = getCat;
+          this.inclusionList = getCat;
             // console.log(getCat);
         });
     });

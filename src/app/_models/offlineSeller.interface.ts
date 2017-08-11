@@ -1,26 +1,25 @@
-export interface OfflineSeller {
-    Name: String;
-    OwnerName: String;
-    GstinNo: String;
-    PanNo: String;
-    RegNo: String;
-    ServiceProvider: String;
-    Onboarded: String;
-    HouseNo: String;
-    Block: String;
-    Street: String;
-    Sector: String;
-    City: String;
-    State: String;
-    PinCode: String;
-    NearBy: String;
-    Lattitude: String;
-    Longitude: String;
-    Details: Detail[];
-}
+ export interface OfflineSellerList {
+       ID: number;
+       Name: string;
+       OwnerName: string;
+       GstinNo: string;
+       PanNo: string;
+       RegNo: string;
+       ServiceProvider: number;
+       Onboarded: number;
+       HouseNo: string;
+       Block: string;
+       Street: string;
+       Sector: string;
+       City: string;
+       State: string;
+       PinCode: string;
+       NearBy: string;
+       Lattitude: string;
+       Longitude: string;
+   }
 
-export interface Detail {
-    DetailTypeID: Number;
-    DisplayName: String;
-    Details: String;
-}
+   export interface OfflineSeller {
+       statusCode: number;
+       OfflineSellerList: OfflineSellerList[];
+   }

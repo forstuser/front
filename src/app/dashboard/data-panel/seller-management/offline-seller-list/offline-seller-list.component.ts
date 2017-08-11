@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./offline-seller-list.component.css']
 })
 export class OfflineSellerListComponent implements OnInit {
-  offlineSeller: OfflineSeller [] = [];
+  offlineSeller: OfflineSeller;
   showDialog = false;
   offlineSellerForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {

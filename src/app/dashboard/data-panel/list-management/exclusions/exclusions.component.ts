@@ -1,3 +1,4 @@
+import { Exclusion } from './../../../../_models/exclusion';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Category } from './../../../../_models/category';
@@ -9,10 +10,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exclusions.component.css']
 })
 export class ExclusionsComponent implements OnInit {
-  cat: Category[] = [];
-  mainCat: Category[] = [];
-  subCat: Category[] = [];
-  getSubCatList: Category[] = [];
+  cat: Category;
+  mainCat: Category;
+  exclusion: Exclusion;
+  getSubCatList: Category;
   showDialog = false;
   editCategoryForm: FormGroup ;
   createSubCategoryForm: FormGroup;
@@ -50,7 +51,7 @@ export class ExclusionsComponent implements OnInit {
           // get list of exclusion list
     this.userService.getExclusionsList()
     .subscribe(exclusionList => {
-      this.subCat = exclusionList;
+      this.exclusion = exclusionList;
       console.log(exclusionList);
     });
   }
@@ -75,7 +76,7 @@ export class ExclusionsComponent implements OnInit {
         console.log(res);
         this.userService.getExclusionsList() // list update after delete
           .subscribe(getCat => {
-          this.subCat = getCat;
+          this.exclusion = getCat;
             // console.log(users);
         });
     });
@@ -100,7 +101,7 @@ export class ExclusionsComponent implements OnInit {
         this.showDialog = false ;
         this.userService.getExclusionsList() // list update after edit
           .subscribe(getSubCatList => {
-          this.subCat = getSubCatList;
+          this.exclusion = getSubCatList;
           // console.log(getCat);
         });
       });
@@ -115,7 +116,7 @@ export class ExclusionsComponent implements OnInit {
         alert('deleted !!');
         this.userService.getExclusionsList() // list update after delete
           .subscribe(getCat => {
-          this.subCat = getCat;
+          this.exclusion = getCat;
             // console.log(getCat);
         });
     });

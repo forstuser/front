@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./service-center-list.component.css']
 })
 export class ServiceCenterListComponent implements OnInit {
-  authorizedServiceCenter: AuthorizedCenter [] = [];
+  authorizedServiceCenter: AuthorizedCenter;
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {
@@ -87,7 +87,7 @@ export class ServiceCenterListComponent implements OnInit {
     this.userService.updateAuthorizedServiceCenter(asc)
       .subscribe( res => {
         // console.log(res);
-        alert('brand updated successfully');
+        alert('service center updated successfully');
         this.showDialog = false ;
         this.userService.getAuthorizedServiceCenterList() // list update after edit
           .subscribe(authorizedServiceCenterList => {

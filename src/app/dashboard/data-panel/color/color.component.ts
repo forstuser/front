@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./color.component.css']
 })
 export class ColorComponent implements OnInit {
-  color: Color[] = [];
+  color: Color;
   colorForm: FormGroup ;
   del: any = { };
   constructor(private userService: UserService, private fb: FormBuilder) {

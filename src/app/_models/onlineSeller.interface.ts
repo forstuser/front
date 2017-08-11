@@ -1,12 +1,11 @@
-export interface OnlineSeller {
-    Name: String;
-    URL: String;
-    GstinNo: String;
-    items: Item[];
-}
+export interface SellerList {
+       ID: number;
+       Name: string;
+       URL: string;
+       GstinNo: string;
+   }
 
-export interface Item {
-    DetailTypeID: Number;
-    DisplayName: String;
-    Details: String;
-}
+   export interface OnlineSeller {
+       statusCode: number;
+       SellerList: SellerList[];
+   }

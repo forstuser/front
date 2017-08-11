@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./online-seller-list.component.css']
 })
 export class OnlineSellerListComponent implements OnInit {
-  onlineSeller: OnlineSeller [] = [];
+  onlineSeller: OnlineSeller;
   showDialog = false;
   onlineSellerForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {

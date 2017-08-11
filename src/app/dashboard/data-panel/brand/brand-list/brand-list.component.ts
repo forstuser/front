@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./brand-list.component.css']
 })
 export class BrandListComponent implements OnInit {
-  brands: Brand [] = [];
+  brands: Brand;
   showDialog = false;
   editBrandForm: FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {

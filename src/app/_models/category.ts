@@ -1,6 +1,11 @@
-export class Category {
-    ID: Number;
-    Name: String;
-    RefID: String;
-    Level: Number;
-}
+ export interface CategoryList {
+       ID: number;
+       Name: string;
+       RefID: number;
+       Level: number;
+   }
+
+   export interface Category {
+       statusCode: number;
+       CategoryList: CategoryList[];
+   }

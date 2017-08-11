@@ -9,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  cat: Category[] = [];
-  mainCat: Category[] = [];
+  cat: Category;
+  mainCat: Category;
   showDialog = false;
   editCategoryForm: FormGroup ;
   createCategoryForm: FormGroup;

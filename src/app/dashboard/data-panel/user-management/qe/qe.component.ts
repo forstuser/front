@@ -1,3 +1,4 @@
+import { UserType } from './../../../../_models/usertype';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { User } from './../../../../_models/user';
 import { UserService } from './../../../../_services/user.service';
@@ -9,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qe.component.css']
 })
 export class QeComponent implements OnInit {
-  users: User[] = [];
-  dropdownUser: User[] = [];
+  users: User;
+  dropdownUser: UserType;
   item: Object = { }; // object for single user
   del: any = { };
   showDialog = false;
