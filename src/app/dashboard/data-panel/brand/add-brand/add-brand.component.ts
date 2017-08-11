@@ -16,16 +16,16 @@ export class AddBrandComponent implements OnInit {
    }
   ngOnInit() {
     this.brandForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'Description' : [null],
+      'Name' : ['', Validators.required],
+      'Description' : '',
        Details: this.fb.array([ this.createItem(), ])
     });
   }
   createItem() {
     return this.fb.group({
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
+      'DetailTypeID': '',
+      'DisplayName': '',
+      'Details': ''
     });
   }
   addItem() {

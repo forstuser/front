@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of onlineSellerForm.controls['Deatils']; let i = index;">
+            <div formArrayName="Details" *ngFor="let item of onlineSellerForm.controls.Details['controls']; let i = index;">
             <br>
                 <div class="row clearfix" [formGroupName]="i">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">

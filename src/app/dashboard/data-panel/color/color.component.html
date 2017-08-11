@@ -43,7 +43,7 @@
                   <th>Action</th>
               </tr>
           </thead>
-           <tbody *ngFor="let list of color.ColorList; let i = index">
+           <tbody *ngFor="let list of color?.ColorList; let i = index">
               <tr>
                   <th scope="row">{{ i+1 }}</th>
                   <td>{{ list.Name }}</td>

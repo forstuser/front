@@ -14,7 +14,7 @@
                   <div class="form-group">
                     <select class="form-control dropdown" formControlName="RefID" (change)="onSelect($event.target.value)">
                       <option selected>Select</option>
-                      <option *ngFor="let mainCategoryList of mainCat.CategoryList" [ngValue]="mainCategoryList.ID">{{ mainCategoryList.Name }}</option>
+                      <option *ngFor="let mainCategoryList of mainCat?.CategoryList" [ngValue]="mainCategoryList.ID">{{ mainCategoryList.Name }}</option>
                     </select>
                   </div>
                 </div>
@@ -25,7 +25,7 @@
                   <div class="form-group">
                     <select class="form-control dropdown" formControlName="CatID">
                       <option>Select</option>
-                      <option *ngFor="let subCategoryList of getSubCatList.CategoryList" [ngValue]="subCategoryList.ID">{{ subCategoryList.Name }}</option>
+                      <option *ngFor="let subCategoryList of getSubCatList?.CategoryList" [ngValue]="subCategoryList.ID">{{ subCategoryList.Name }}</option>
                     </select>
                   </div>
                </div>
@@ -64,7 +64,7 @@
                   <th>Action</th>
               </tr>
           </thead>
-           <tbody *ngFor="let list of inclusionList.InclusionsList; let i = index">
+           <tbody *ngFor="let list of inclusionList?.InclusionsList; let i = index">
               <tr>
                   <th scope="row">{{ i+1 }}</th>
                   <td>{{ list.Name }}</td>

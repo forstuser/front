@@ -37,11 +37,11 @@ leftPanelItems = [
         'd_icon': 'build',
         'd_link': 'admin'
       },
-      {
-        'd_name': 'Customer',
-        'd_icon': 'account_box',
-        'd_link': 'customer'
-      },
+      // {
+      //   'd_name': 'Customer',
+      //   'd_icon': 'account_box',
+      //   'd_link': 'customer'
+      // },
       {
         'd_name': 'Customer Executive',
         'd_icon': 'headset_mic',

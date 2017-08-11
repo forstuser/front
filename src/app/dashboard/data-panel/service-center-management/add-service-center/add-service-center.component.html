@@ -26,7 +26,7 @@
                 <div class="form-group">
                   <select class="form-control dropdown" formControlName="BrandID">
                     <option>Select</option>
-                    <option *ngFor="let brandList of brands.BrandList" [ngValue]="brandList.ID">{{ brandList.Name }}</option>
+                    <option *ngFor="let brandList of brands?.BrandList" [ngValue]="brandList.ID">{{ brandList.Name }}</option>
                   </select>
                 </div>
             </div>
@@ -174,7 +174,7 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls['Details']; let i = index;">
+            <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls.Details['controls']; let i = index;">
             <br>
                 <div class="row clearfix" [formGroupName]="i">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
