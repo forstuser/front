@@ -21,7 +21,7 @@ leftPanelItems = [
         'id': '1',
     'name': 'Job Management',
     'icon': 'work',
-    'link': '#',
+    'link': '*',
     'class': 'menu-toggle',
     'handler': 'toggleState',
     'addClass': 'none',
@@ -167,7 +167,7 @@ leftPanelItems = [
     },
     {
     'id': '1',
-    'name': 'List Management',
+    'name': 'Inclusion / Exclusion Management',
     'icon': 'menu',
     'link': '#',
     'class': 'menu-toggle',

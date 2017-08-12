@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnderProgressComponent implements OnInit {
   users: User;
-  billList: Bill;
+  bills: Bill;
   assignForm: FormGroup;
   showDialog = false;
   item: Object = { }; // object for single user
@@ -27,8 +27,8 @@ export class UnderProgressComponent implements OnInit {
   ngOnInit() {
     this.userservice.getBillList(8) // incomplete = 6 refer api doc
       .subscribe(bills => {
-        this.billList = bills;
-        console.log(this.billList);
+        this.bills = bills;
+        console.log(this.bills);
       });
       // get list of ce
     this.userservice.getUserList('3') // 3 for ce refer to api doc
@@ -55,8 +55,8 @@ export class UnderProgressComponent implements OnInit {
         alert('assign successfull');
       this.userservice.getBillList(6) // incomplete = 6 refer api doc
         .subscribe(bill => {
-          this.billList = bill;
-          console.log(this.billList);
+          this.bills = bill;
+          console.log(this.bills);
         });
       });
   }

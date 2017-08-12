@@ -6,28 +6,39 @@
       </h2>
   </div>
   <div class="body table-responsive">
-      <table class="table table-condensed">
+      <table class="table table-condensed table-bordered">
           <thead>
               <tr>
                   <th>#</th>
                   <th>Bill No.</th>
                   <th>Name</th>
                   <th>Phone No.</th>
-                  <th>Email ID</th>
                   <th>Bill Date</th>
-                  <th>Action</th>
-                  <th></th>
+                  <th>Customer Executive</th>
+                  <th>Quality Executive</th>
               </tr>
           </thead>
-          <tbody *ngFor="let bill of billList?.BillList; let i = index">
+          <tbody *ngFor="let bill of bills?.BillList; let i = index">
               <tr>
                   <th scope="row">{{ i+1 }} </th>
                   <td>{{ bill.BillNo}}</td>
                   <td>{{ bill.Name}}</td>
                   <td>{{ bill.PhoneNo}}</td>
-                  <td>{{ bill.EmailID}}</td>
                   <td>{{ bill.BillDate | date}}</td>
-                  <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)">Assign</button></td>
+                  <td><strong>Name : </strong>{{ bill.CE_Name}}<br>
+                    <strong>Email ID : </strong>{{ bill.CE_EmailID}}<br>
+                    <strong>Task Date: </strong>{{ bill.CE_TaskDate | date}}<br>
+                    <strong>Status : </strong><span class="badge bg-orange">{{ bill.CE_Status}}</span><br><br>
+                    <span class="pull-right" *ngIf="bill.CE_StatusID != 5"><button type="button" class="btn btn-xs bg-purple waves-effect">
+                        <i class="material-icons">replay</i><span>Re-Assign</span></button></span>
+                    </td>
+                  <td><span *ngIf="bill.QE_StatusID != null"><strong>Name : </strong>{{ bill.QE_Name}}<br>
+                    <strong>Email ID : </strong>{{ bill.QE_EmailID}}<br>
+                    <strong>Task Date: </strong>{{ bill.QE_TaskDate | date}}<br>
+                    <strong>Status : </strong><span class="badge bg-orange">{{ bill.QE_Status}}</span></span><br><br>
+                    <span *ngIf="bill.QE_StatusID ==  null && bill.CE_StatusID == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect">
+                        <i class="material-icons">done</i><span>Assign</span></button>
+                </span></td>
               </tr>
           </tbody>
       </table>
