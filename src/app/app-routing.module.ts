@@ -1,3 +1,6 @@
+import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
+import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
+import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import {
 ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import {
@@ -32,8 +35,11 @@ const appRoutes: Routes = [
     { path: '', component: SignInComponent, pathMatch: 'full'},
     { path: 'login', component: SignInComponent, pathMatch: 'full'},
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
-        [   { path: '', redirectTo: 'home', pathMatch: 'full'},
+        [   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard]},
             { path: 'home', component: HomeComponent},
+            { path: 'new', component: NewComponent},
+            { path: 'underProgress', component: UnderProgressComponent},
+            { path: 'completed', component: CompletedComponent},
             { path: 'AddUser', component: AddUserComponent},
             { path: 'admin', component: AdminComponent},
             { path: 'customer', component: CustomerComponent},

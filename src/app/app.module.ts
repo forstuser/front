@@ -37,6 +37,9 @@ import { ExclusionsComponent } from './dashboard/data-panel/list-management/excl
 import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
+import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
+import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 
 
 @NgModule({
@@ -69,6 +72,9 @@ import { ServiceCenterListComponent } from './dashboard/data-panel/service-cente
     InclusionsComponent,
     AddServiceCenterComponent,
     ServiceCenterListComponent,
+    NewComponent,
+    CompletedComponent,
+    UnderProgressComponent,
   ],
   imports: [
     BrowserModule,

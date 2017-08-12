@@ -41,11 +41,11 @@ export class SignInComponent implements OnInit {
     this.authenticationService.login(this.EmailID, this.Password)
     .subscribe(
       data => {
-        console.log('data' + data);
+        console.log('data is' + data);
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.log(error);
+        console.log('error is ', error);
         alert(error.statusText);
       }
     );

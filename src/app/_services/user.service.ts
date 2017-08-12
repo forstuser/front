@@ -438,4 +438,25 @@ export class UserService {
         return this.http.post(this.apiLink + 'Services/DeleteAuthorizedServiceCenter', data, options)
                 .map((response: Response) => response.json());
     }
+                                  // **^ Bill  Services ^** //
+        // get list of new,under-progress and completed list
+    getBillList(BillType: Number) {
+        const body = { TokenNo : this.TokenNo, Status: BillType };
+        const data = JSON.stringify(body);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        // console.log(data);
+        return this.http.post( this.apiLink + 'Services/AdminConsumerBillsList', data, options)
+        .map((response: Response) => response.json());
+    }
+   // Assign bills to CE
+    assignTask(task: any) {
+        task['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(task);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/TaskAssignedCE', data, options)
+                .map((response: Response) => response.json());
+    }
 }

@@ -18,6 +18,33 @@ leftPanelItems = [
     'class': '',
   },
   {
+        'id': '1',
+    'name': 'Job Management',
+    'icon': 'work',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'New',
+        'd_icon': 'arrow_downward',
+        'd_link': 'new'
+      },
+      {
+        'd_name': 'Under Progress',
+        'd_icon': 'more_horiz',
+        'd_link': 'underProgress'
+      },
+      {
+        'd_name': 'Completed',
+        'd_icon': 'check',
+        'd_link': 'completed'
+      }
+    ]
+  },
+  {
     'id': '1',
     'name': 'User Management',
     'icon': 'accessibility',
@@ -95,12 +122,12 @@ leftPanelItems = [
     'dropdownList' : [
       {
         'd_name': 'Add Brand',
-        'd_icon': 'looks_one',
+        'd_icon': 'add',
         'd_link': 'addBrand'
       },
       {
         'd_name': 'Brand List',
-        'd_icon': 'looks_two',
+        'd_icon': 'format_list_numbered',
         'd_link': 'brandList'
       }
     ]
@@ -118,22 +145,22 @@ leftPanelItems = [
     'dropdownList' : [
       {
         'd_name': 'Add Offline Seller',
-        'd_icon': 'looks_one',
+        'd_icon': 'add',
         'd_link': 'addOffline'
       },
       {
         'd_name': 'Offline Seller List',
-        'd_icon': 'looks_two',
+        'd_icon': 'format_list_numbered',
         'd_link': 'offlineList'
       },
       {
         'd_name': 'Add Online Seller',
-        'd_icon': 'looks_one',
+        'd_icon': 'add',
         'd_link': 'addOnline'
       },
       {
         'd_name': 'Online Seller List',
-        'd_icon': 'looks_two',
+        'd_icon': 'format_list_numbered',
         'd_link': 'onlineList'
       }
     ]
@@ -151,12 +178,12 @@ leftPanelItems = [
     'dropdownList' : [
       {
         'd_name': 'Exclusions',
-        'd_icon': 'looks_one',
+        'd_icon': 'call_made',
         'd_link': 'exclusions'
       },
       {
         'd_name': 'Inclusions',
-        'd_icon': 'looks_two',
+        'd_icon': 'call_received',
         'd_link': 'inclusions'
       }
     ]
@@ -174,12 +201,12 @@ leftPanelItems = [
     'dropdownList' : [
       {
         'd_name': 'Add Service Center',
-        'd_icon': 'looks_one',
+        'd_icon': 'add',
         'd_link': 'addServiceCenter'
       },
       {
         'd_name': 'Service Center List',
-        'd_icon': 'looks_two',
+        'd_icon': 'format_list_numbered',
         'd_link': 'serviceCenterList'
       }
     ]

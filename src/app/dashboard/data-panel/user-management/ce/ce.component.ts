@@ -31,7 +31,7 @@ export class CeComponent implements OnInit {
    }
 
   ngOnInit() {
-    // get list of admin
+    // get list of ce
     this.userService.getUserList('3') // 3 for ce refer to api doc
     .subscribe(users => {
       this.users = users;
