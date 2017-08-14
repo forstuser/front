@@ -1,5 +1,5 @@
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
-import { FormBuilder, FormGroup, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,13 +16,25 @@ export class ServiceCenterListComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.authorizedServiceCenterForm = new FormGroup({
-      Name: new FormControl(''),
-      URL: new FormControl(''),
-      GstinNo: new FormControl(''),
-      ID: new FormControl(''),
-      Details: new FormArray([])
+    this.authorizedServiceCenterForm = this.fb.group({
+      'ID':'',
+      'Name' : ['', Validators.required],
+      'BrandID' : ['', Validators.required],
+      'HouseNo' : '',
+      'Block': '',
+      'Street': '',
+      'Sector': '',
+      'City': ['', Validators.required],
+      'State': ['', Validators.required],
+      'PinCode': '',
+      'NearBy': '',
+      'Lattitude': '',
+      'Longitude': '',
+      'OpenDays': ['', Validators.required],
+      'Timings': ['', Validators.required],
+      Details: this.fb.array([ this.createItem(), ])
     });
+
     this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
@@ -38,6 +50,7 @@ export class ServiceCenterListComponent implements OnInit {
       'Details': [null]
     });
   }
+
   addItem() {
     const control = <FormArray>this.authorizedServiceCenterForm.controls['Details'];
     control.push(this.createItem());
@@ -48,13 +61,22 @@ export class ServiceCenterListComponent implements OnInit {
   }
   // passs current brand id as argument and open the popup
   openModel(item) {
-    // console.log(item);
     // reset  editBrand form
     this.authorizedServiceCenterForm = new FormGroup({
       Name: new FormControl(''),
-      URL: new FormControl(''),
-      GstinNo: new FormControl(''),
-      ID: new FormControl(''),
+      ID:new FormControl(''),
+      BrandID: new FormControl(''),
+      HouseNo: new FormControl(''),
+      Block: new FormControl(''),
+      Street: new FormControl(''),
+      Sector: new FormControl(''),
+      City: new FormControl(''),
+      State: new FormControl(''),
+      PinCode: new FormControl(''),
+      NearBy: new FormControl(''),
+      Lattitude: new FormControl(''),
+      Longitude: new FormControl(''),
+      OpenDays: new FormControl(''),
       Details: new FormArray([])
     });
     // get information of current selected brand
@@ -65,8 +87,19 @@ export class ServiceCenterListComponent implements OnInit {
       // prop autofill data to form
       this.authorizedServiceCenterForm.controls['ID'].setValue(res.ID);
       this.authorizedServiceCenterForm.controls['Name'].setValue(res.Name);
-      this.authorizedServiceCenterForm.controls['URL'].setValue(res.URL);
-      this.authorizedServiceCenterForm.controls['GstinNo'].setValue(res.GstinNo);
+      this.authorizedServiceCenterForm.controls['BrandID'].setValue(res.BrandID);
+      this.authorizedServiceCenterForm.controls['HouseNo'].setValue(res.HouseNo);
+      this.authorizedServiceCenterForm.controls['Block'].setValue(res.Block);
+      this.authorizedServiceCenterForm.controls['Street'].setValue(res.Street);
+      this.authorizedServiceCenterForm.controls['Sector'].setValue(res.Sector);
+      this.authorizedServiceCenterForm.controls['City'].setValue(res.City);
+      this.authorizedServiceCenterForm.controls['State'].setValue(res.State);
+      this.authorizedServiceCenterForm.controls['PinCode'].setValue(res.PinCode);
+      this.authorizedServiceCenterForm.controls['NearBy'].setValue(res.NearBy);
+      this.authorizedServiceCenterForm.controls['Lattitude'].setValue(res.Lattitude);
+      this.authorizedServiceCenterForm.controls['Longitude'].setValue(res.Longitude);
+      this.authorizedServiceCenterForm.controls['OpenDays'].setValue(res.OpenDays);
+      
       res.Details.forEach(
       (po) => {
         (<FormArray>this.authorizedServiceCenterForm.controls['Details']).push(this.createDetailsFormGroup(po));
@@ -103,10 +136,26 @@ export class ServiceCenterListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
-        this.userService.getAuthorizedServiceCenterList() // list update after edit
+        this.userService.getAuthorizedServiceCenterList() // list update after delete
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
     });
+  }
+
+  updateAuthService(data){
+    this.userService.updateAuthorizedServiceCenter(data)
+    .subscribe(res=>{
+        console.log("response",res)
+        this.showDialog=false;
+        alert("edit successfully")
+        this.userService.getAuthorizedServiceCenterList() // list update after edit
+        .subscribe(authorizedServiceCenterList => {
+        this.authorizedServiceCenter = authorizedServiceCenterList;
+      },err=>{
+        console.log("Bad request")
+      });
+
+    })
   }
 }
