@@ -49,7 +49,7 @@ export class NewComponent implements OnInit {
   }
     assignBill(item: any) {
     console.log(item);
-    this.userservice.assignTask(item)
+    this.userservice.assignTaskCE(item)
       .subscribe( res => {
         console.log(res);
         alert('assign successfull');

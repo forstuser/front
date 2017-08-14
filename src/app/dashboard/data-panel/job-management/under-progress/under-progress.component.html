@@ -36,19 +36,19 @@
                     <strong>Email ID : </strong>{{ bill.QE_EmailID}}<br>
                     <strong>Task Date: </strong>{{ bill.QE_TaskDate | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange">{{ bill.QE_Status}}</span></span><br><br>
-                    <span *ngIf="bill.QE_StatusID ==  null && bill.CE_StatusID == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect">
+                    <span *ngIf="bill.QE_StatusID ==  null && bill.CE_StatusID == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
                         <i class="material-icons">done</i><span>Assign</span></button>
                 </span></td>
               </tr>
           </tbody>
       </table>
   </div>
-        <app-dialog [(visible)]="showDialog">
+    <app-dialog [(visible)]="showDialog">
         <div class="modal-header">
-            <h4 class="modal-title" id="smallModalLabel">Assign Bill</h4>
+            <h4 class="modal-title" id="smallModalLabel">Assign Bill (CE)</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit) = "assignBill(assignForm.value)">
+            <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit) = "assignBillCE(assignForm.value)">
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                         <label for="email_address_2">Select CE</label>
@@ -56,7 +56,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
                         <select class="form-control dropdown" formControlName="UID">
-                            <option *ngFor="let user of users?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
+                            <option *ngFor="let user of ceUsers?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
                         </select>
                         </div>
                     </div>  
@@ -77,6 +77,46 @@
                 <div class="row clearfix">
                     <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
                         <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignForm.valid" >
+                    </div>
+                </div>
+            </form>
+        </div>
+    </app-dialog>
+    <!-- for qe model  -->
+        <app-dialog [(visible)]="showQeDialog">
+        <div class="modal-header">
+            <h4 class="modal-title" id="smallModalLabel">Assign Bill (QE)</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup]='assignQeForm' (ngSubmit) = "assignBillQE(assignQeForm.value)">
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="email_address_2">Select QE</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                        <select class="form-control dropdown" formControlName="UID">
+                            <option *ngFor="let qe of qeUsers?.UserList" [ngValue]="qe.ID" >{{ qe.Name }}</option>
+                        </select>
+                        </div>
+                    </div>  
+                </div>
+                <br>
+                <!-- <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="name">Comments</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <textarea rows="5" cols="52" formControlName="Comments"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="row clearfix">
+                    <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
+                        <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignQeForm.valid" >
                     </div>
                 </div>
             </form>

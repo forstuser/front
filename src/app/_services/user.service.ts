@@ -450,13 +450,23 @@ export class UserService {
         .map((response: Response) => response.json());
     }
    // Assign bills to CE
-    assignTask(task: any) {
+    assignTaskCE(task: any) {
         task['TokenNo'] = this.TokenNo;
         const data = JSON.stringify(task);
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         return this.http.post(this.apiLink + 'Services/TaskAssignedCE', data, options)
+                .map((response: Response) => response.json());
+    }
+    // Assign bills to QE
+    assignTaskQE(task: any) {
+        task['TokenNo'] = this.TokenNo;
+        const data = JSON.stringify(task);
+        console.log(data);
+        const headers = new Headers({ 'Content-Type': 'application/json' });
+        const options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiLink + 'Services/TaskAssignedQE', data, options)
                 .map((response: Response) => response.json());
     }
 }
