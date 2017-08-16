@@ -6,11 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./left-panel-items.component.css']
 })
 export class LeftPanelItemsComponent implements OnInit {
-  // superAdmin:id = 1
-  // DataBaseManager:id = 2
-leftPanelItems = [
+  userType:any;
+  LeftPanelItems:any;
+superAdmin = [
   {
-    'id': '1',
     'name': 'Dashboard',
     'icon': 'dashboard',
     'link': 'home',
@@ -18,7 +17,6 @@ leftPanelItems = [
     'class': '',
   },
   {
-        'id': '1',
     'name': 'Job Management',
     'icon': 'work',
     'link': '*',
@@ -45,7 +43,6 @@ leftPanelItems = [
     ]
   },
   {
-    'id': '1',
     'name': 'User Management',
     'icon': 'accessibility',
     'link': '#',
@@ -82,7 +79,6 @@ leftPanelItems = [
     ]
   },
   {
-    'id': '1',
     'name': 'Category Management',
     'icon': 'menu',
     'link': '#',
@@ -101,16 +97,15 @@ leftPanelItems = [
         'd_name': 'Category',
         'd_icon': 'looks_two',
         'd_link': 'category'
-      },
-      {
-        'd_name': 'SubCategory',
-        'd_icon': 'looks_3',
-        'd_link': 'subCategory'
       }
+      // {
+      //   'd_name': 'SubCategory',
+      //   'd_icon': 'looks_3',
+      //   'd_link': 'subCategory'
+      // }
     ]
   },
     {
-    'id': '1',
     'name': 'Brand Management',
     'icon': 'loyalty',
     'link': '#',
@@ -133,7 +128,6 @@ leftPanelItems = [
     ]
     },
   {
-    'id': '1',
     'name': 'Seller Management',
     'icon': 'shop_two',
     'link': '#',
@@ -166,7 +160,6 @@ leftPanelItems = [
     ]
     },
     {
-    'id': '1',
     'name': 'Inclusion / Exclusion Management',
     'icon': 'menu',
     'link': '#',
@@ -189,7 +182,6 @@ leftPanelItems = [
     ]
   },
     {
-    'id': '1',
     'name': 'Authorized Service Center Management',
     'icon': 'receipt',
     'link': '#',
@@ -212,7 +204,6 @@ leftPanelItems = [
     ]
     },
     {
-    'id': '1',
     'name': 'Color',
     'icon': 'format_color_fill',
     'link': 'color',
@@ -220,10 +211,239 @@ leftPanelItems = [
     'class': '',
   },
 ];
-  constructor() { }
+
+
+
+
+
+admin = [
+  {
+    'name': 'Dashboard',
+    'icon': 'dashboard',
+    'link': 'home',
+    'handler': 'doNothing',
+    'class': '',
+  },
+  {
+    'name': 'Job Management',
+    'icon': 'work',
+    'link': '*',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'New',
+        'd_icon': 'arrow_downward',
+        'd_link': 'new'
+      },
+      {
+        'd_name': 'Under Progress',
+        'd_icon': 'more_horiz',
+        'd_link': 'underProgress'
+      },
+      {
+        'd_name': 'Completed',
+        'd_icon': 'check',
+        'd_link': 'completed'
+      }
+    ]
+  },
+  
+  {
+    'name': 'Category Management',
+    'icon': 'menu',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Main Category',
+        'd_icon': 'looks_one',
+        'd_link': 'mainCategory'
+      },
+      {
+        'd_name': 'Category',
+        'd_icon': 'looks_two',
+        'd_link': 'category'
+      }
+      // {
+      //   'd_name': 'SubCategory',
+      //   'd_icon': 'looks_3',
+      //   'd_link': 'subCategory'
+      // }
+    ]
+  },
+    {
+    'name': 'Brand Management',
+    'icon': 'loyalty',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Brand',
+        'd_icon': 'add',
+        'd_link': 'addBrand'
+      },
+      {
+        'd_name': 'Brand List',
+        'd_icon': 'format_list_numbered',
+        'd_link': 'brandList'
+      }
+    ]
+    },
+  {
+    'name': 'Seller Management',
+    'icon': 'shop_two',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Offline Seller',
+        'd_icon': 'add',
+        'd_link': 'addOffline'
+      },
+      {
+        'd_name': 'Offline Seller List',
+        'd_icon': 'format_list_numbered',
+        'd_link': 'offlineList'
+      },
+      {
+        'd_name': 'Add Online Seller',
+        'd_icon': 'add',
+        'd_link': 'addOnline'
+      },
+      {
+        'd_name': 'Online Seller List',
+        'd_icon': 'format_list_numbered',
+        'd_link': 'onlineList'
+      }
+    ]
+    },
+    {
+    'name': 'Inclusion / Exclusion Management',
+    'icon': 'menu',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Exclusions',
+        'd_icon': 'call_made',
+        'd_link': 'exclusions'
+      },
+      {
+        'd_name': 'Inclusions',
+        'd_icon': 'call_received',
+        'd_link': 'inclusions'
+      }
+    ]
+  },
+    {
+    'name': 'Authorized Service Center Management',
+    'icon': 'receipt',
+    'link': '#',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addActive': 'none',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'Add Service Center',
+        'd_icon': 'add',
+        'd_link': 'addServiceCenter'
+      },
+      {
+        'd_name': 'Service Center List',
+        'd_icon': 'format_list_numbered',
+        'd_link': 'serviceCenterList'
+      }
+    ]
+    },
+    {
+    'name': 'Color',
+    'icon': 'format_color_fill',
+    'link': 'color',
+    'handler': 'doNothing',
+    'class': '',
+  },
+];
+
+
+ce_qe  = [
+  {
+    'name': 'Dashboard',
+    'icon': 'dashboard',
+    'link': 'home',
+    'handler': 'doNothing',
+    'class': '',
+  },
+  {
+    'name': 'Job Management',
+    'icon': 'work',
+    'link': '*',
+    'class': 'menu-toggle',
+    'handler': 'toggleState',
+    'addClass': 'none',
+    'addSubClass': 'none',
+    'dropdownList' : [
+      {
+        'd_name': 'New',
+        'd_icon': 'arrow_downward',
+        'd_link': 'new'
+      },
+     
+      {
+        'd_name': 'Completed',
+        'd_icon': 'check',
+        'd_link': 'completed'
+      }
+    ]
+  },
+];
+
+  constructor() { 
+    const info=JSON.parse(localStorage.getItem('currentUser'))
+    console.log("info",info)
+    this.userType=info.UserType;
+    console.log("userType",this.userType)
+
+    if(this.userType==1){
+      this.LeftPanelItems=this.superAdmin;
+      console.log(this.superAdmin)
+    }
+
+    else if(this.userType==2){
+      this.LeftPanelItems=this.admin;
+      console.log(this.admin)
+      
+    }
+
+    else if(this.userType==3 || this.userType==4){
+      this.LeftPanelItems=this.ce_qe;
+    }
+  }
 
   ngOnInit() {
+    
   }
+
     toggleState(e: any) {
       console.log(e);
       if (e.addClass === 'none') {
