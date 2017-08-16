@@ -1,3 +1,7 @@
+import {
+  ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+import {
+   AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { UserService } from './_services/user.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
@@ -35,8 +39,6 @@ import { OfflineSellerListComponent } from './dashboard/data-panel/seller-manage
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
 import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
 import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
-import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
-import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';

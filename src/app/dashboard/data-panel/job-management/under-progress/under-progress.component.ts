@@ -33,7 +33,7 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getBillList(8) // incomplete = 6 refer api doc
+    this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
       .subscribe(bills => {
         this.bills = bills;
         console.log(this.bills);
@@ -67,7 +67,7 @@ export class UnderProgressComponent implements OnInit {
       .subscribe( res => {
         console.log(res);
         alert('assign successfull');
-      this.userservice.getBillList(6) // incomplete = 6 refer api doc
+      this.userservice.getAdminBillList(6) // incomplete = 6 refer api doc
         .subscribe(bill => {
           this.bills = bill;
           console.log(this.bills);
@@ -91,7 +91,7 @@ export class UnderProgressComponent implements OnInit {
       .subscribe( res => {
         console.log(res);
         alert('assign successfull');
-      this.userservice.getBillList(6) // incomplete = 6 refer api doc
+      this.userservice.getAdminBillList(6) // incomplete = 6 refer api doc
         .subscribe(bill => {
           this.bills = bill;
           console.log(this.bills);

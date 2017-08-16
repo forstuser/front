@@ -14,7 +14,7 @@ export class CompletedComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getBillList(5) // complete = 4 refer api doc
+    this.userservice.getAdminBillList(5) // complete = 4 refer api doc
       .subscribe(bill => {
         this.billList = bill;
         console.log(this.billList);
