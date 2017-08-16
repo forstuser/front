@@ -1,5 +1,5 @@
 import { UserService } from './../../../../_services/user.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Category } from './../../../../_models/category';
 import { Component, OnInit } from '@angular/core';
 
@@ -26,36 +26,54 @@ export class CategoryComponent implements OnInit {
     // create main category form
     this.createCategoryForm = this.fb.group({
       'Name': [null, Validators.required],
-      'RefID': [null, Validators.required]
-      // 'Level': [null, Validators.required]
+      'RefID': [null, Validators.required],
+      FormList: this.fb.array([ this.createItem(), ])
     });
    }
-
+   // for push new list
+    createItem() {
+      return this.fb.group({
+        'DetailTypeID': '',
+        'DisplayName': '',
+        'Details': ''
+      });
+    }
+  addItem() {
+    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    control.push(this.createItem());
+  }
+  removeDetails(i: number) {
+    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    control.removeAt(i);
+  }
+  showFormType(data) {
+    console.log(data);
+    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    control.push(this.createItem());
+  }
   ngOnInit() {
   // get list of main category
     this.userService.getCategoryList(1) // 1 for category refer to api doc
     .subscribe(mainCat => {
       this.mainCat = mainCat;
-      console.log(mainCat);
+      console.log('mainCat' + mainCat);
     });
       // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
     .subscribe(getCat => {
       this.cat = getCat;
-      console.log(getCat);
+      console.log('getCat' + getCat);
     });
   }
   createCategory( category: any) {
     console.log(category);
     this.createCat = { 'Level': 2 , 'RefID': category.RefID, 'Name': category.Name};
-    confirm('Confirm');
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
         console.log(res);
-        this.userService.getCategoryList(2) // list update after delete
+        this.userService.getCategoryList(2) // list update after createcat
           .subscribe(getCat => {
           this.cat = getCat;
-            // console.log(users);
         });
     });
   }
@@ -84,7 +102,6 @@ export class CategoryComponent implements OnInit {
       });
   }
   deleteCategory(category: any) {
-    // console.log(category);
     this.del = { 'ID': category.ID };
     confirm('Confirm');
     this.userService.deleteCategory(this.del)

@@ -42,10 +42,9 @@ export class AddBrandComponent implements OnInit {
         console.log(res);
         alert('New Brand added succesfully');
         this.brandForm.reset();
-      },error=>{
-        console.log("working")
-        if (error.status==0){
-          alert("data not found");
+      }, error => {
+        if (error.status === 0) {
+          alert('data not found');
         }
       });
   }
