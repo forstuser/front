@@ -16,6 +16,9 @@ export class CategoryComponent implements OnInit {
   createCategoryForm: FormGroup;
   createCat: any = { };
   del: any = { };
+  dropdown:boolean=false;
+  input:boolean=false;
+
   constructor(private userService: UserService, private fb: FormBuilder) {
     // edit main category form
     this.editCategoryForm = this.fb.group({
@@ -23,33 +26,63 @@ export class CategoryComponent implements OnInit {
       'ID' : [null, Validators.required],
       'RefID': [null, Validators.required]
     });
+
+    
     // create main category form
+
     this.createCategoryForm = this.fb.group({
       'Name': [null, Validators.required],
       'RefID': [null, Validators.required],
       FormList: this.fb.array([ this.createItem(), ])
     });
    }
+
    // for push new list
     createItem() {
       return this.fb.group({
         'DetailTypeID': '',
-        'DisplayName': '',
-        'Details': ''
+        'InputName': '',
+        'DropdownName': '',
+        'DropdownValue': '',
+        SubFormList:this.fb.array([this.createValues(),])
       });
     }
+
+    createValues(){
+      return this.fb.group({
+        'DisplayValue':''
+      })
+    }
+
+  addValues(i){
+    const control = <FormArray>this.createCategoryForm.controls.FormList['SubFormList'];
+    control.push(this.createValues());
+  }
+
   addItem() {
+
     const control = <FormArray>this.createCategoryForm.controls['FormList'];
     control.push(this.createItem());
   }
+
+
   removeDetails(i: number) {
     const control = <FormArray>this.createCategoryForm.controls['FormList'];
     control.removeAt(i);
   }
+
+
   showFormType(data) {
-    console.log(data);
-    const control = <FormArray>this.createCategoryForm.controls['FormList'];
-    control.push(this.createItem());
+    console.log(data)
+    if ( data == 1) {
+      this.input=false;
+      this.dropdown=true;
+      
+    } else if(data == 2) {
+      this.dropdown=false;
+      this.input=true;
+
+    }
   }
   ngOnInit() {
   // get list of main category
@@ -65,6 +98,7 @@ export class CategoryComponent implements OnInit {
       console.log('getCat' + getCat);
     });
   }
+
   createCategory( category: any) {
     console.log(category);
     this.createCat = { 'Level': 2 , 'RefID': category.RefID, 'Name': category.Name};
@@ -77,6 +111,8 @@ export class CategoryComponent implements OnInit {
         });
     });
   }
+
+  
     // passs current user as argument and open the popup
   openCategoryModel(item: any) {
     this.showDialog = true ; // for show dialog
