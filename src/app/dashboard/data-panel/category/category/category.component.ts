@@ -16,8 +16,6 @@ export class CategoryComponent implements OnInit {
   createCategoryForm: FormGroup;
   createCat: any = { };
   del: any = { };
-  dropdown:boolean=false;
-  input:boolean=false;
 
   constructor(private userService: UserService, private fb: FormBuilder) {
     // edit main category form
@@ -27,9 +25,7 @@ export class CategoryComponent implements OnInit {
       'RefID': [null, Validators.required]
     });
 
-    
     // create main category form
-
     this.createCategoryForm = this.fb.group({
       'Name': [null, Validators.required],
       'RefID': [null, Validators.required],
@@ -40,76 +36,72 @@ export class CategoryComponent implements OnInit {
    // for push new list
     createItem() {
       return this.fb.group({
-        'DetailTypeID': '',
-        'InputName': '',
-        'DropdownName': '',
-        'DropdownValue': '',
-        SubFormList:this.fb.array([this.createValues(),])
+        'Type': '',
+        'ElementName': '',
+        List:this.fb.array([this.createValues(),])
       });
     }
-
+    // for push new sub list
     createValues(){
       return this.fb.group({
-        'DisplayValue':''
-      })
+        'DropdownName':null
+      });
     }
-
-  addValues(i){
-    const control = <FormArray>this.createCategoryForm.controls.FormList['SubFormList'];
-    control.push(this.createValues());
-  }
-
+  // add array
   addItem() {
-
     const control = <FormArray>this.createCategoryForm.controls['FormList'];
     control.push(this.createItem());
   }
-
-
-  removeDetails(i: number) {
+  // add sub array
+  addValues(id : number){
+    const control = <FormArray>this.createCategoryForm.get(['FormList',id,'List'  ]);
+    control.push(this.createValues());
+  }
+ // remove array
+  removeItem(i: number) {
+    console.log(i);
     const control = <FormArray>this.createCategoryForm.controls['FormList'];
-    control.removeAt(i);
+    console.log(control);
+   control.removeAt(i);
+  }
+  // remove sub array
+  removeValues(j: number) {
+    const control = <FormArray>this.createCategoryForm.get(['FormList',j,'List']);
+    console.log(control);
+    control.removeAt(j);
   }
 
-
+// for toggel radio and input box toggle
   showFormType(data) {
     console.log(data)
-    if ( data == 1) {
-      this.input=false;
-      this.dropdown=true;
-      
-    } else if(data == 2) {
-      this.dropdown=false;
-      this.input=true;
-
-    }
   }
+  
   ngOnInit() {
   // get list of main category
     this.userService.getCategoryList(1) // 1 for category refer to api doc
     .subscribe(mainCat => {
       this.mainCat = mainCat;
-      console.log('mainCat' + mainCat);
+      // console.log('mainCat' + mainCat);
     });
       // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
     .subscribe(getCat => {
       this.cat = getCat;
-      console.log('getCat' + getCat);
+      // console.log('getCat' + getCat);
     });
   }
 
   createCategory( category: any) {
     console.log(category);
-    this.createCat = { 'Level': 2 , 'RefID': category.RefID, 'Name': category.Name};
-    this.userService.createCategory(this.createCat)
-      .subscribe(res => {
-        console.log(res);
-        this.userService.getCategoryList(2) // list update after createcat
-          .subscribe(getCat => {
-          this.cat = getCat;
-        });
-    });
+    // this.createCat = { 'Level': 2 , 'RefID': category.RefID, 'Name': category.Name};
+    // this.userService.createCategory(this.createCat)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     this.userService.getCategoryList(2) // list update after createcat
+    //       .subscribe(getCat => {
+    //       this.cat = getCat;
+    //     });
+    // });
   }
 
   

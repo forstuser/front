@@ -426,12 +426,12 @@ export class LeftPanelItemsComponent implements OnInit {
 
     if (this.userType == 1) {
       this.LeftPanelItems = this.superAdmin;
-      console.log(this.superAdmin)
+      // console.log(this.superAdmin)
     }
 
     else if (this.userType == 2) {
       this.LeftPanelItems = this.admin;
-      console.log(this.admin)
+      // console.log(this.admin)
 
     }
 

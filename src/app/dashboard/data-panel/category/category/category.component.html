@@ -4,6 +4,7 @@
       Create Category
     </h2>
   </div>
+  <!-- <pre>{{createCategoryForm.value | json}}</pre> -->
   <div class="body">
     <form [formGroup]='createCategoryForm' (ngSubmit)="createCategory(createCategoryForm.value)">
       <div class="row clearfix">
@@ -41,76 +42,80 @@
       </div>
       <div class="panel panel-default">
         <!-- main form array start -->
-        <div formArrayName="FormList" *ngFor="let item of createCategoryForm.controls.FormList['controls']; let i = index;">
-          <br>
-          <div class="row clearfix" [formGroupName]="i">
-            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-              <label>
-                    Type
+        <div formArrayName="FormList">
+          <div [formGroupName]="i" *ngFor="let item of createCategoryForm.controls.FormList['controls']; let i = index;">
+            <br>
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
+                <label>
+                    Type 
+                    
                 </label>
-              <select class="form-control dropdown" placeholder="select type" formControlName="DetailTypeID" (change)=showFormType($event.target.value)>
+                <select class="form-control dropdown" [(ngModel)]="this['Dropdown'+i]" placeholder="select type" formControlName="Type" (change)=showFormType($event)>
                         <option value="1">Dropdown</option>
                         <option value="2">Input</option>
                     </select>
-            </div>
-            <div *ngIf="input">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                <label>
+              </div>
+              <div *ngIf="this['Dropdown'+i] >  0">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
                     Input Name
                 </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="InputName" placeholder="Enter display name">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <input type="text" class="form-control" formControlName="ElementName" placeholder="Enter display name">
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div *ngIf="dropdown">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                <label>
+              <!-- <div *ngIf="this['Dropdown'+i] == 1">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
                         Dropdown Name
                     </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="DropdownName" placeholder="Enter display name">
-                  </div>
-                </div>
-              </div>
-              <div formArrayName="SubFormList" *ngFor="let item of createCategoryForm.controls.FormList[controls]?.SubFormList['controls']; let i = index;"
-                class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                <label>
-                            Dropdown value
-                        </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="DropdownValue" placeholder="Enter display name">
-                  </div>
-                </div>
-
-                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-6">
-                  <button type="button" class="btn btn-danger m-t-15 waves-effect" (click)="addValues(i)">Add value</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                    Details
-                </label>
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
-                        </div>
+                  <div class="form-group">
+                    <div class="form-line">
+                      <input type="text" class="form-control" formControlName="DropdownName" placeholder="Enter display name">
                     </div>
-                </div> -->
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-              <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="createCategoryForm.controls['FormList'].length > 1"
-                (click)="removeDetails(i)">Remove</button>
+                  </div>
+                </div>
+              </div> -->
+              <!--Dropdown value array start -->
+              <div *ngIf="this['Dropdown'+i] == 1">
+                <div formArrayName="List">
+                  <div [formGroupName]="j" *ngFor="let item2 of item.controls.List.controls; let j = index;">
+                    <div class="col-lg-6 col-md-6 col-sm-6 " *ngIf="j!=0">
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 fix-margin">
+                      <label *ngIf="j==0">
+                            Dropdown Name
+                        </label>
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input type="text" class="form-control" formControlName="DropdownName" placeholder="Enter display name">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-6 ">
+                      <button type="button" class="btn btn-success  btn-xs" (click)="addValues(i)" *ngIf="j==0">Add value</button><p></p>
+                      <button type="button" class="btn btn-xs" *ngIf="item.controls['List'].length > 1" (click)="removeValues(i)">X</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Dropdown value array end  -->
+              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="createCategoryForm.controls['FormList'].length > 1"
+                  (click)="removeItem(i)">Remove</button>
+              </div>
             </div>
-          </div>
+            <div *ngIf='i>=0'><hr></div>
+          </div>          
         </div>
+        <!-- template for add row end  -->
       </div>
-      <!-- template for add row end  -->
+
       <div class="row clearfix">
         <div class="col-lg-3 col-lg-offset-9  col-md-3 col-md-offset-9 col-sm-4 col-xs-6">
           <input type="submit" value="CREATE" class="btn btn-success m-t-15 waves-effect" [disabled]="!createCategoryForm.valid">
