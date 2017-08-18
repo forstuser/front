@@ -1,3 +1,4 @@
+import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import {
   ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import {
@@ -42,7 +43,7 @@ import { InclusionsComponent } from './dashboard/data-panel/list-management/incl
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
-
+import { SwiperModule } from 'angular2-useful-swiper';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { UnderProgressComponent } from './dashboard/data-panel/job-management/un
     NewComponent,
     CompletedComponent,
     UnderProgressComponent,
+    BillComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { UnderProgressComponent } from './dashboard/data-panel/job-management/un
     MdButtonModule,
     MdCheckboxModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    SwiperModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService], // services will come here
   bootstrap: [AppComponent]

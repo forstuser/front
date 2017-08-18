@@ -1,10 +1,13 @@
+import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import {
-ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+    ServiceCenterListComponent
+} from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import {
-AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
+    AddServiceCenterComponent
+} from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
@@ -32,43 +35,45 @@ import { NgModule, Component } from '@angular/core';
 
 // routers
 const appRoutes: Routes = [
-    { path: '', component: SignInComponent, pathMatch: 'full'},
-    { path: 'login', component: SignInComponent, pathMatch: 'full'},
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
-        [   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard]},
-            { path: 'home', component: HomeComponent},
-            { path: 'new', component: NewComponent},
-            { path: 'underProgress', component: UnderProgressComponent},
-            { path: 'completed', component: CompletedComponent},
-            { path: 'AddUser', component: AddUserComponent},
-            { path: 'admin', component: AdminComponent},
-            { path: 'customer', component: CustomerComponent},
-            { path: 'ce', component: CeComponent},
-            { path: 'qe', component: QeComponent},
-            { path: 'mainCategory', component: MainCategoryComponent},
-            { path: 'category', component: CategoryComponent},
-            { path: 'subCategory', component: SubCategoryComponent},
-            { path: 'addBrand', component: AddBrandComponent},
-            { path: 'brandList', component: BrandListComponent},
-            { path: 'addOffline', component: AddOfflineSellerComponent},
-            { path: 'offlineList', component: OfflineSellerListComponent},
-            { path: 'addOnline', component: AddOnlineSellerComponent},
-            { path: 'onlineList', component: OnlineSellerListComponent},
-            { path: 'color', component: ColorComponent},
-            { path: 'exclusions', component: ExclusionsComponent},
-            { path: 'inclusions', component: InclusionsComponent},
-            { path: 'addServiceCenter', component: AddServiceCenterComponent},
-            { path: 'serviceCenterList', component: ServiceCenterListComponent}
-        ]
-    },
+    { path: '', component: SignInComponent, pathMatch: 'full' },
+    { path: 'login', component: SignInComponent, pathMatch: 'full' },
+    {
+        path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children:
+            [{ path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
+            { path: 'home', component: HomeComponent },
+            { path: 'new', component: NewComponent },
+            { path: 'new/bill/:id', component: BillComponent },
+            { path: 'underProgress', component: UnderProgressComponent },
+            { path: 'completed', component: CompletedComponent },
+            { path: 'AddUser', component: AddUserComponent },
+            { path: 'admin', component: AdminComponent },
+            { path: 'customer', component: CustomerComponent },
+            { path: 'ce', component: CeComponent },
+            { path: 'qe', component: QeComponent },
+            { path: 'mainCategory', component: MainCategoryComponent },
+            { path: 'category', component: CategoryComponent },
+            { path: 'subCategory', component: SubCategoryComponent },
+            { path: 'addBrand', component: AddBrandComponent },
+            { path: 'brandList', component: BrandListComponent },
+            { path: 'addOffline', component: AddOfflineSellerComponent },
+            { path: 'offlineList', component: OfflineSellerListComponent },
+            { path: 'addOnline', component: AddOnlineSellerComponent },
+            { path: 'onlineList', component: OnlineSellerListComponent },
+            { path: 'color', component: ColorComponent },
+            { path: 'exclusions', component: ExclusionsComponent },
+            { path: 'inclusions', component: InclusionsComponent },
+            { path: 'addServiceCenter', component: AddServiceCenterComponent },
+            { path: 'serviceCenterList', component: ServiceCenterListComponent }
+            ]
+    }
     // otherwise redirect to home
     // { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({
-imports: [ RouterModule.forRoot( appRoutes )],
-exports: [ RouterModule]
+    imports: [RouterModule.forRoot(appRoutes)],
+    exports: [RouterModule]
 })
-export class AppRoutingModule  {
+export class AppRoutingModule {
 
 }

@@ -42,7 +42,6 @@ export class NewComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === '3' ) {  
-      console.log('sdfdsf')
       this.userservice.getCEBillList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;

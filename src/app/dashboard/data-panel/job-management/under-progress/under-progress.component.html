@@ -29,7 +29,7 @@
                     <strong>Email ID : </strong>{{ bill.CE_EmailID}}<br>
                     <strong>Task Date: </strong>{{ bill.CE_TaskDate | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange">{{ bill.CE_Status}}</span><br><br>
-                    <span class="pull-right" *ngIf="bill.CE_StatusID != 5"><button type="button" class="btn btn-xs bg-purple waves-effect">
+                    <span class="pull-right" *ngIf="bill.CE_StatusID != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
                         <i class="material-icons">replay</i><span>Re-Assign</span></button></span>
                     </td>
                   <td><span *ngIf="bill.QE_StatusID != null"><strong>Name : </strong>{{ bill.QE_Name}}<br>
