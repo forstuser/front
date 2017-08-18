@@ -72,14 +72,14 @@ export class UserService {
                                 // **^ category Services ^** //
 
     // get list of main category ,category and sub category
-    getCategoryListbyID(RefID: Number) {
-        const body = { TokenNo : this.TokenNo, RefID: RefID };
+    getCategoryListbyID(ID: Number) {
+        const body = { TokenNo : this.TokenNo, ID: ID };
         const data = JSON.stringify(body);
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
         // console.log(data);
-        return this.http.post( this.apiLink + 'Services/CategoryList', data, options)
+        return this.http.post( this.apiLink + 'Services/CategoryFormByID', data, options)
         .map((response: Response) => response.json());
     }
     // get list of main category ,category and sub category
@@ -99,7 +99,7 @@ export class UserService {
         console.log(data);
         const headers = new Headers({ 'Content-Type': 'application/json' });
         const options = new RequestOptions({ headers: headers });
-        return this.http.post(this.apiLink + 'Services/AddCategory', data, options).map((response: Response) => response.json());
+        return this.http.post(this.apiLink + 'Services/AddCategoryForm', data, options).map((response: Response) => response.json());
     }
    // Update category
     updateCategory(category: any) {
