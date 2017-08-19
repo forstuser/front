@@ -1,3 +1,6 @@
+import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
+import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
+import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bill-info/bill-info.component';
 import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
@@ -42,7 +45,11 @@ const appRoutes: Routes = [
             [{ path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
-            { path: 'new/bill/:id', component: BillComponent },
+            { path: 'new/bill/:id', component: BillComponent, children:[
+                { path:'', component:BillInfoComponent},
+                { path:'generalInfo', component:GeneralInfoComponent},
+                { path:'generalInfo/sellerInfo', component:SellerInfoComponent}
+            ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },
             { path: 'AddUser', component: AddUserComponent },

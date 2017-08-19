@@ -1,3 +1,5 @@
+import { UserService } from './../../../../_services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,10 +15,10 @@ export class BillComponent implements OnInit {
     nextButton: '.swiper-button-next',
     prevButton: '.swiper-button-prev',
     spaceBetween: 30
-  };
+  }
 
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.images = [
@@ -24,7 +26,5 @@ export class BillComponent implements OnInit {
       'http://lorempixel.com/200/200/city',
       'http://lorempixel.com/200/200/nature'
     ];
-
   }
-
 }

@@ -4,7 +4,8 @@
   </div>
   <div class="body">
     <div class="row clearfix">
-      <div class="col-md-6">
+      <!-- Image Slider Start -->
+      <div class="col-md-4">
         <section>
           <swiper class="swiper" [config]="config">
             <div class="swiper-wrapper test">
@@ -16,8 +17,13 @@
           </swiper>
         </section>
       </div>
-      <div class="col-md-6">
+      <!-- Image Slider END -->
+      <!-- Form 1 Start -->
+      <div class="col-md-8">
+        <router-outlet></router-outlet>
       </div>
+      <!-- Form 1 END -->
+
     </div>
   </div>
 </div>

@@ -44,6 +44,9 @@ import { NewComponent } from './dashboard/data-panel/job-management/new/new.comp
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { SwiperModule } from 'angular2-useful-swiper';
+import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bill-info/bill-info.component';
+import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
+import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,9 @@ import { SwiperModule } from 'angular2-useful-swiper';
     CompletedComponent,
     UnderProgressComponent,
     BillComponent,
+    BillInfoComponent,
+    GeneralInfoComponent,
+    SellerInfoComponent,
   ],
   imports: [
     BrowserModule,
