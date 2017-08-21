@@ -1,3 +1,4 @@
+import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
 import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
 import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bill-info/bill-info.component';
@@ -47,8 +48,9 @@ const appRoutes: Routes = [
             { path: 'new', component: NewComponent },
             { path: 'new/bill/:id', component: BillComponent, children:[
                 { path:'', component:BillInfoComponent},
-                { path:'generalInfo', component:GeneralInfoComponent},
-                { path:'generalInfo/sellerInfo', component:SellerInfoComponent}
+                { path:'g', component:GeneralInfoComponent},
+                { path:'g/s', component:SellerInfoComponent},
+                { path:'g/s/p', component:ProductInfoComponent}
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },

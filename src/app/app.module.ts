@@ -47,6 +47,7 @@ import { SwiperModule } from 'angular2-useful-swiper';
 import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bill-info/bill-info.component';
 import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
+import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/
     BillInfoComponent,
     GeneralInfoComponent,
     SellerInfoComponent,
+    ProductInfoComponent,
   ],
   imports: [
     BrowserModule,

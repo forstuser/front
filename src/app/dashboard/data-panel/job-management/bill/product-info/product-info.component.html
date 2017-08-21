@@ -1,0 +1,113 @@
+<div>
+  <form>
+    <h4>
+      <u>General</u>
+      <u>Information </u>
+    </h4>
+    <hr>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Product Name</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" class="form-control input_fix">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Value</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" class="form-control input_fix">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Taxes</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" class="form-control input_fix">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Color</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown">
+                <option>Select</option>
+                  <option *ngFor = "let color of colorList?.ColorList">{{ color.Name }}</option>
+              </select>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Brand</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown">
+                  <option>Select</option>
+                    <option *ngFor = "let brand of brandList?.BrandList">{{ brand.Name }}</option>
+                </select>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Main Category</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown" (change)="onSelect($event.target.value)">
+                  <option>Select</option>
+                    <option *ngFor = "let mainCat of mainCategory?.CategoryList" [value]="mainCat.ID">{{ mainCat.Name }}</option>
+                </select>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Category</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown">
+                <option>Select</option>
+                  <option *ngFor = "let subCat of getSubCatList?.CategoryList">{{ subCat.Name }}</option>
+              </select>
+        </div>
+      </div>
+      <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Date of Purchase :</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" class="form-control input_fix">
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-8 col-md-8 col-md-offset-4 col-xs-offset-5 text-right">
+        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Insurance</button>
+        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Warranty</button>
+        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">AMC</button>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12">
+        <button type="submit" class="btn btn-md btn-block btn-success m-t-15 waves-effect" routerLink="s">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
