@@ -48,6 +48,7 @@ import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bi
 import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
 import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
+import { ProductFormComponent } from './dashboard/data-panel/job-management/bill/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill
     GeneralInfoComponent,
     SellerInfoComponent,
     ProductInfoComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,

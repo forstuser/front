@@ -1,0 +1,32 @@
+<div class="body">
+  <!-- <form [formGroup]='productForm' (ngSubmit) = "createProductForm(productForm.value)"> -->
+  <div class="row clearfix">
+    <div *ngFor="let form of productForm?.FormList; let i = index">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>{{ form.ElementName}}</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" class="form-control input_fix">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
+        <select class="form-control dropdown">
+            <ng-container *ngFor="let droplist of productForm?.List">
+               <option *ngIf="form.FormID == droplist.FormID">{{droplist.DropdownName}}</option>
+            </ng-container>
+          </select>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+      <div class="col-md-12 text-right">
+          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Warranty</button>
+          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Insurance</button>
+          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">AMC</button>
+      </div>
+  </div>
+  <!-- </form> -->
+</div>

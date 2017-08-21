@@ -14,35 +14,43 @@ export class ProductInfoComponent implements OnInit {
   colorList: Color;
   mainCategory: Category;
   getSubCatList: Category;
+  productFormID: Number = null;
   constructor(private userservice: UserService) { }
 
   ngOnInit() {
     this.userservice.getBrandList()
-    .subscribe( res => {
-      this.brandList = res;
-      // console.log(this.brandList);
-    });
+      .subscribe(res => {
+        this.brandList = res;
+        // console.log(this.brandList);
+      });
     this.userservice.getColorList()
-    .subscribe( res => {
-      this.colorList = res;
-      // console.log(this.colorList);
-    });
-      // get list of main category
-      this.userservice.getCategoryList(1) // 1 for main category refer to api doc
+      .subscribe(res => {
+        this.colorList = res;
+        // console.log(this.colorList);
+      });
+    // get list of main category
+    this.userservice.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(res => {
         this.mainCategory = res;
         console.log(this.mainCategory);
       });
   }
-    // get list after select main category
-    onSelect(id) {
-      // console.log(id);
-      // const res = id.split(' ');
-      // console.log(res[1]);
-      this.userservice.getCategoryListbyID(id)
+  // get list after select main category
+  onSelectMainCategory(id) {
+    // console.log(id);
+    // const res = id.split(' ');
+    // console.log(res[1]);
+    this.userservice.getCategoryListbyRefID(id)
       .subscribe(res => {
         this.getSubCatList = res;
         console.log(this.getSubCatList);
+        // this.productFormID = res.ID;
+        // console.log(this.productFormID);
       });
-    }
+  }
+  // get list after select category
+  onSelectCategory(id) {
+    console.log(id);
+    this.productFormID = id;
+  }
 }

@@ -1,3 +1,4 @@
+import { ProductFormComponent } from './dashboard/data-panel/job-management/bill/product-form/product-form.component';
 import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
 import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
                 { path:'', component:BillInfoComponent},
                 { path:'g', component:GeneralInfoComponent},
                 { path:'g/s', component:SellerInfoComponent},
-                { path:'g/s/p', component:ProductInfoComponent}
+                { path:'g/s/p', component:ProductInfoComponent},
+                { path:'g/s/p/pf', component:ProductFormComponent}
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },

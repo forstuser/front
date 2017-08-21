@@ -69,8 +69,19 @@ export class UserService {
                         return this.http.post(this.apiLink + 'Services/DeleteManagementUser', data, options).map((response: Response) => response.json());
             }
 
-        // **^ category Services ^** //
-
+                                        // **^ category Services ^** //
+                                        
+        // get category form
+        getCategoryFormByID(ID: Number) {
+                const body = { TokenNo: this.TokenNo, ID: ID };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                // console.log(data);
+                        return this.http.post(this.apiLink + 'Services/CategoryFormByID', data, options)
+                        .map((response: Response) => response.json());
+            }
         // get list of main category ,category and sub category
         getCategoryListbyID(ID: Number) {
                 const body = { TokenNo: this.TokenNo, ID: ID };
@@ -80,6 +91,17 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 // console.log(data);
                         return this.http.post(this.apiLink + 'Services/CategoryFormByID', data, options)
+                        .map((response: Response) => response.json());
+            }
+        //  get category list after select main category
+        getCategoryListbyRefID(RefID: Number) {
+                const body = { TokenNo: this.TokenNo, RefID: RefID };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                // console.log(data);
+                        return this.http.post(this.apiLink + 'Services/CategoryList', data, options)
                         .map((response: Response) => response.json());
             }
         // get list of main category ,category and sub category
