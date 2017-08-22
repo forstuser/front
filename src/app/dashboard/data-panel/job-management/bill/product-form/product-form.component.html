@@ -26,16 +26,19 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12 text-right">
+        <button type="submit" class="btn btn-md btn-warning m-t-15" *ngIf="saved">Save</button>
+        <button type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float" *ngIf ="!saved">
+            <i class="material-icons">done</i>
+        </button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="i" [queryParams]="{ID:productFormID}">Insurance</button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="w" [queryParams]="{ID:productFormID}">Warranty</button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="a" [queryParams]="{ID:productFormID}">AMC</button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="r" [queryParams]="{ID:productFormID}">Repair/Services</button>
-        <button class="btn btn-md btn-warning m-t-15 waves-effect">Skip</button>
       </div>
     </div>
     <div class="row clearfix">
       <div class="col-md-12 ">
-        <button type="submit" class="btn btn-md btn-success btn-block m-t-15 waves-effect">Create BILL</button>
+        <button routerLink="review" [queryParams]="{ID:productFormID}" class="btn btn-md btn-success btn-block m-t-15 waves-effect">Review Data and Add Bill</button>
       </div>
     </div>
     </form>

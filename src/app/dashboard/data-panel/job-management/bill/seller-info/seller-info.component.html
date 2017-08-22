@@ -5,35 +5,41 @@
     </h4>
     <!-- <form> -->
     <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <label>Seller Type</label>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+        <label>Select Online Seller</label>
       </div>
       <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectSellerType($event.target.value)">
-              <option>Select</option>
-                <option value="online">Online</option>
-                <option value="offline">Offline</option>
-            </select>
-        </div>
-      </div>
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <label>Select Seller</label>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
-        <div class="form-group">
-          <select class="form-control dropdown" [(ngModel)]="addSeller">
+          <select class="form-control dropdown" (change)="addOnlineSeller($event.target.value)">
                 <option>Select</option>
-                  <option *ngFor = "let seller of sellerList" ngValue="{{ seller.ID }}">{{ seller.Name }}</option>
+                  <option *ngFor = "let seller of onlineSellerList?.SellerList" value="{{ seller.ID }}">{{ seller.Name }}</option>
               </select>
         </div>
       </div>
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <div class="form-group">
-          <button type="submit" class="btn btn-md btn-success m-t-3 waves-effect" (click)="addSellerToList(addSeller)">Add</button>
-        </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 form-control-label">
+        <!-- <div class="form-group">
+          <button type="submit" class="btn btn-md btn-success m-t-3 waves-effect" (click)="addOnlineSellerToList(addOnlineSeller)">Add</button>
+        </div> -->
       </div>
     </div>
+    <div class="row clearfix">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
+          <label>Select offline Seller</label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <select class="form-control dropdown" [(ngModel)]="addOfflineSeller">
+                  <option>Select</option>
+                    <option *ngFor = "let seller of offlineSellerList?.OfflineSellerList" ngValue="{{ seller.ID }}">{{ seller.Name }}</option>
+                </select>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <div class="form-group">
+            <button type="submit" class="btn btn-md btn-success m-t-3 waves-effect" (click)="addOfflineSellerToList(addOfflineSeller)">Add</button>
+          </div>
+        </div>
+      </div>
     <u>
       <p class="text-center font-bold col-blue-grey">OR</p>
     </u>
@@ -418,7 +424,7 @@
       <div class="card">
         <div class="header padding_fix">
           <h2>
-            Seller List
+            Offline Seller List
             <small>Click on Edit button for edit seller</small>
           </h2>
         </div>
@@ -433,7 +439,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let list of addedSeller">
-                <th><small>{{ list }}</small></th>
+                <th><small>{{ list.SellerList }}</small></th>
                 <!-- <th><small>{{ bill.Name }}</small></th> -->
                 <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-danger btn-xs" (click)="deleteSellerFromList(list)" title="Delete"><i class="material-icons">delete</i></span></small></th>
               </tr>
@@ -444,8 +450,8 @@
     </div>
     <div class="row clearfix">
       <div class=" col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
-        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" routerLink="p">Next</button>
-        <button type="submit" class="btn btn-md btn-success m-t-15 waves-effect">Skip</button>
+        <button type="button" class="btn btn-md btn-info m-t-15 waves-effect" (click)="sendData()" routerLink="p">Next</button>
+        <button type="button" class="btn btn-md btn-success m-t-15 waves-effect" routerLink="p">Skip</button>
       </div>
     </div>
   <!-- </form> -->

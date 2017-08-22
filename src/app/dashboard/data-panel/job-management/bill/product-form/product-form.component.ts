@@ -14,7 +14,7 @@ export class ProductFormComponent implements OnInit {
   productFormID: number;
   productMainForm: Object;
   ProductFrom: any[]=[];
-
+  saved:boolean = true;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.productFormID = route.snapshot.queryParams['ID'];
     // console.log(this.productFormID);
@@ -36,7 +36,13 @@ export class ProductFormComponent implements OnInit {
       // console.log(data[val]);
         this.ProductFrom.push({ 'CatFormID':val, 'value': data[val] });
     }
+    this.dataservice.getData(this.ProductFrom);
     console.log(this.ProductFrom)
+    this.saved =false;
+  }
+  makeBill(){
+    // final bill 
+    console.log(this.dataservice.resultArray[0])
   }
 
 }

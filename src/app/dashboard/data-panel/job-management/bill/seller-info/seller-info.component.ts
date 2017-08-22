@@ -11,61 +11,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./seller-info.component.css']
 })
 export class SellerInfoComponent implements OnInit {
-  offlineSeller: OfflineSeller;
-  onlineSeller: OnlineSeller;
+  offlineSellerList: OfflineSeller;
+  onlineSellerList: OnlineSeller;
   sellerList: Object;
   sellerFormType: String;
   addedSeller: any[] = [];
   public onlineSellerForm: FormGroup;
   public offlineSellerForm: FormGroup;
-
+  sellerData: number;
   // items: OfflineSeller [] = [];
   // items: OnlineSeller [] = [];
-  constructor(private userservice: UserService,private fb: FormBuilder) { }
+  constructor(private userservice: UserService, private fb: FormBuilder, private dataservice:DataService) { }
 
   ngOnInit() {
     // get offline seller list
     this.userservice.getOfflineSellerList()
-      .subscribe(res =>{
-        // console.log(res);
-        this.offlineSeller = res;
+      .subscribe(res => {
+        console.log(res);
+        this.offlineSellerList = res;
       })
     // get online seller list
     this.userservice.getOnlineSellerList()
-      .subscribe(res =>{
-        // console.log(res);
-        this.onlineSeller = res;
+      .subscribe(res => {
+        console.log(res);
+        this.onlineSellerList = res;
       })
-      // create online seller form
-      this.onlineSellerForm = this.fb.group({
-        'Name' : ['', Validators.required],
-        'URL' : '',
-        'GstinNo': '',
-         Details: this.fb.array([ this.createItemOnline(), ])
-      });
-      // create offline seller form
-      this.offlineSellerForm = this.fb.group({
-        'Name' : [null, Validators.required],
-        'OwnerName': '',
-        'GstinNo': '',
-        'PanNo':  '',
-        'RegNo': '',
-        'ServiceProvider': '',
-        'Onboarded': '',
-        'HouseNo': '',
-        'Block': '',
-        'Street': '',
-        'Sector': '',
-        'City': [null, Validators.required],
-        'State': [null, Validators.required],
-        'PinCode': '',
-        'NearBy': '',
-        'Lattitude': '',
-        'Longitude': '',
-        Details: this.fb.array([ this.createItemOffline(), ])
-      });
+    // create online seller form
+    this.onlineSellerForm = this.fb.group({
+      'Name': ['', Validators.required],
+      'URL': '',
+      'GstinNo': '',
+      Details: this.fb.array([this.createItemOnline(),])
+    });
+    // create offline seller form
+    this.offlineSellerForm = this.fb.group({
+      'Name': [null, Validators.required],
+      'OwnerName': '',
+      'GstinNo': '',
+      'PanNo': '',
+      'RegNo': '',
+      'ServiceProvider': '',
+      'Onboarded': '',
+      'HouseNo': '',
+      'Block': '',
+      'Street': '',
+      'Sector': '',
+      'City': [null, Validators.required],
+      'State': [null, Validators.required],
+      'PinCode': '',
+      'NearBy': '',
+      'Lattitude': '',
+      'Longitude': '',
+      Details: this.fb.array([this.createItemOffline(),])
+    });
   }
-// online form functions
+  // online form functions
   createItemOnline() {
     return this.fb.group({
       'DetailTypeID': '',
@@ -114,31 +114,32 @@ export class SellerInfoComponent implements OnInit {
     //     this.offlineSellerForm.reset();
     //   });
   }
-  // select seller type in dropdown
-  selectSellerType(data){
-    console.log(data);
-    if(data=='offline'){
-      this.sellerList = this.offlineSeller.OfflineSellerList;
-    } else{
-      this.sellerList = this.onlineSeller.SellerList;
-    }
-    console.log(this.sellerList);
-  }
 
   // array of selected seller
-  addSellerToList(data:number){
+  addOnlineSeller(data: number) {
+    // this.sellerData.splice(0, this.sellerData.length)
+    this.sellerData = data;
+    console.log(this.sellerData);
+  }
+  // array of selected seller
+  addOfflineSellerToList(data: number) {
     // console.log(data);
     this.addedSeller.push(data);
-    // console.log(this.addedSeller);
+    console.log(this.addedSeller);
   }
-  deleteSellerFromList(id){
+  deleteSellerFromList(id) {
     var index = this.addedSeller.indexOf(id);
-    this.addedSeller.splice(index,1);
+    this.addedSeller.splice(index, 1);
   }
 
-    // select seller type in dropdown
-    selectSellerType2(data){
-      console.log(data);
-      this.sellerFormType = data;
-    }
+  // select seller type in dropdown for show offline/online form
+  selectSellerType2(data) {
+    console.log(data);
+    this.sellerFormType = data;
+  }
+  // send data to data service
+  sendData() {
+    this.dataservice.getData(this.sellerData);
+    this.dataservice.getData(this.addedSeller);
+  }
 }

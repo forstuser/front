@@ -1,9 +1,10 @@
+import { DataService } from './../../../../../_services/data.service';
 import { Inclusion } from './../../../../../_models/inclusion';
 import { Exclusion } from './../../../../../_models/exclusion';
 import { Brand } from './../../../../../_models/brand.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from './../../../../../_services/user.service';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, NgForm } from '@angular/forms';
 import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
@@ -27,7 +28,12 @@ export class InsuranceFormComponent implements OnInit {
   brandList: Brand;
   // items: OfflineSeller [] = [];
   // items: OnlineSeller [] = [];
-  constructor(private _location: Location,private route: ActivatedRoute, private router: Router, private userservice: UserService, private fb: FormBuilder) {
+  constructor(private _location: Location,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userservice: UserService,
+    private fb: FormBuilder,
+    private dataservice: DataService) {
     this.productFormID = route.snapshot.queryParams['ID'];
     console.log(this.productFormID);
   }
@@ -117,10 +123,14 @@ export class InsuranceFormComponent implements OnInit {
         })
     }
   }
-  backClicked(){
+  backClicked() {
     this._location.back();
   }
-  skip(){
+  skip() {
     this._location.back();
+  }
+  insuranceFormData(form: NgForm) {
+    console.log(form.value);
+    this.dataservice.getData(form.value);
   }
 }

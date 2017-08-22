@@ -99,7 +99,10 @@
     </div>
     <div class="row clearfix">
       <div class="col-lg-8 col-md-8 col-md-offset-4 col-xs-offset-5 text-right">
-        <button type="submit" class="btn btn-md btn-success m-t-15 waves-effect">Submit</button>
+        <button type="submit" class="btn btn-md btn-warning m-t-15 waves-effect" *ngIf="saved">Save</button>
+        <button type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float" *ngIf ="!saved">
+            <i class="material-icons">done</i>
+        </button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" [routerLink]="['pf']" [queryParams]="{ID:productFormID}">Next</button>
       </div>
     </div>

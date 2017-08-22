@@ -148,7 +148,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-              <select class="form-control dropdown">
+              <select class="form-control dropdown" name="BrandID" ngModel>
                   <option>Select</option>
                   <option *ngFor="let list of brandList?.BrandList">{{ list.Name}}</option>
                 </select>
@@ -161,7 +161,7 @@
           </div>
           <div class="col-lg-4 col-md-4 ">
             <div class="form-group">
-                <select class="form-control dropdown">
+                <select class="form-control dropdown" name="SellerInfo" ngModel>
                     <option>Select</option>
                     <option *ngFor="let list of offlineSellerList?.OfflineSellerList">{{ list.Name}}</option>
                   </select>
@@ -433,7 +433,7 @@
     <div class="row clearfix">
       <div class="col-lg-8 col-md-8 col-md-offset-4 text-right">
         <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" (click)="backClicked()">ADD Insurance Form</button>          
-        <button type="submit" class="btn btn-md btn-warning m-t-15 waves-effect" (click)="skip()">Skip</button>
+        <button type="button" class="btn btn-md btn-warning m-t-15 waves-effect" (click)="skip()">Skip</button>
       </div>
     </div>
   </form>

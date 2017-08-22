@@ -545,4 +545,14 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerBillByID', data, options)
                         .map((response: Response) => response.json());
         }
+        // Create authorized service center
+        createBill(bill: any) {
+                bill['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(bill);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/AddConsumerBill', data, options)
+                        .map((response: Response) => response.json());
+        }
 }

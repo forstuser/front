@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class GeneralInfoComponent implements OnInit {
   url:String;
+  saved:boolean = true;
   constructor(private dataservice:DataService,private router: Router) { }
 
   ngOnInit() {
@@ -19,6 +20,7 @@ export class GeneralInfoComponent implements OnInit {
   generalFormData(form:NgForm){
     console.log(form.value);
     this.dataservice.getData(form.value);
-    alert('General Information Added !!')
+    this.saved = false;
+    // alert('General Information Added !!')
   }
 }

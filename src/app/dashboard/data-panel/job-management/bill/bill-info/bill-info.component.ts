@@ -1,3 +1,4 @@
+import { DataService } from './../../../../../_services/data.service';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
@@ -10,19 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BillInfoComponent implements OnInit {
   consumerBill: ConsumerBill;
-  billId:number;
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
+  billId: number;
+  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
 
 
   ngOnInit() {
-        // get current bill details
-        this.userservice.getConsumerBillByID(this.billId)
-        .subscribe(res => {
-          console.log(res);
-          this.consumerBill = res;
-        })
+    // get current bill details
+    this.userservice.getConsumerBillByID(this.billId)
+      .subscribe(res => {
+        // console.log(res);
+        this.consumerBill = res;
+        this.dataservice.getData({'BillID':res.BillID,'UserID':res.UserID});
+      })
   }
-  
+
 }
+// BillId,UserID

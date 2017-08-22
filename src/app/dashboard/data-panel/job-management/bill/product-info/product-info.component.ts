@@ -17,13 +17,14 @@ export class ProductInfoComponent implements OnInit {
   mainCategory: Category;
   getSubCatList: Category;
   productFormID: Number = null;
+  saved:boolean = true;
   constructor(private userservice: UserService, private dataservice: DataService) { }
 
   ngOnInit() {
     this.userservice.getBrandList()
       .subscribe(res => {
         this.brandList = res;
-        console.log(this.brandList);
+        // console.log(this.brandList);
       });
     this.userservice.getColorList()
       .subscribe(res => {
@@ -34,31 +35,32 @@ export class ProductInfoComponent implements OnInit {
     this.userservice.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(res => {
         this.mainCategory = res;
-        console.log(this.mainCategory);
+        // console.log(this.mainCategory);
       });
   }
   // get list after select main category
   onSelectMainCategory(id) {
-    console.log(id);
+    // console.log(id);
     const res = id.split(' ');
-    console.log(res[1]);
+    // console.log(res[1]);
     this.userservice.getCategoryListbyRefID(res[1])
       .subscribe(res => {
         this.getSubCatList = res;
-        console.log(this.getSubCatList);
+        // console.log(this.getSubCatList);
         // this.productFormID = res.ID;
         // console.log(this.productFormID);
       });
   }
   // get list after select category
   onSelectCategory(id) {
-    console.log(id);
+    // console.log(id);
     const res = id.split(' ');
-    console.log(res[1]);
+    // console.log(res[1]);
     this.productFormID = res[1];
   }
   productInfoFormData(form:NgForm){
     console.log(form.value);
     this.dataservice.getData(form.value);
+    this.saved = false;
   }
 }

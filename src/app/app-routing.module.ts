@@ -1,3 +1,4 @@
+import { ReviewComponent } from './dashboard/data-panel/job-management/bill/review/review.component';
 import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
 import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
 import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bill/insurance-form/insurance-form.component';
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
                 { path:'g/s', component:SellerInfoComponent},
                 { path:'g/s/p', component:ProductInfoComponent},
                 { path:'g/s/p/pf', component:ProductFormComponent},
+                { path:'g/s/p/pf/review', component:ReviewComponent},
                 { path:'g/s/p/pf/i', component:InsuranceFormComponent},
                 { path:'g/s/p/pf/w', component:WarrantyFormComponent},
                 { path:'g/s/p/pf/a', component:AmcFormComponent},

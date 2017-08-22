@@ -7,27 +7,37 @@
     <hr>
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Name : </b></small>
+        <small><b>Bill Image</b></small>
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Name" class="form-control input_fix" ngModel>
+            <input type="text" name="BillImage" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Phone No</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PhoneNo" class="form-control input_fix" ngModel>
+          <small><b>Name : </b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="Name" class="form-control input_fix" ngModel>
+            </div>
           </div>
         </div>
-      </div>
     </div>
     <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Phone No</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="PhoneNo" class="form-control input_fix" ngModel>
+              </div>
+            </div>
+          </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Email ID : </b></small>
       </div>
@@ -78,14 +88,17 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="DateofPurhase" class="form-control input_fix" ngModel>
+            <input type="text" name="DateofPurchase" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-lg-4 col-md-4 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-          <button type="submit" class="btn btn-md btn-success m-t-15 waves-effect">Submit</button>
+      <div class="col-lg-4 col-md-4 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 text-right">
+          <button type="submit" class="btn btn-md btn-warning m-t-15 waves-effect" *ngIf ="saved">Save</button>
+          <button type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float" *ngIf ="!saved">
+              <i class="material-icons">done</i>
+          </button>
         <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Add Seller </button>
       </div>
     </div>
