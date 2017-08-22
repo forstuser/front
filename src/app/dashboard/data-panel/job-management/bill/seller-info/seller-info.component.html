@@ -439,9 +439,9 @@
             </thead>
             <tbody>
               <tr *ngFor="let list of addedSeller">
-                <th><small>{{ list.SellerList }}</small></th>
+                <th><small>{{ list }}</small></th>
                 <!-- <th><small>{{ bill.Name }}</small></th> -->
-                <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-danger btn-xs" (click)="deleteSellerFromList(list)" title="Delete"><i class="material-icons">delete</i></span></small></th>
+                <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(list)" title="Edit"><i class="material-icons">mode_edit</i></span> <span class="btn btn-danger btn-xs" (click)="deleteSellerFromList(list)" title="Delete"><i class="material-icons">delete</i></span></small></th>
               </tr>
             </tbody>
           </table>

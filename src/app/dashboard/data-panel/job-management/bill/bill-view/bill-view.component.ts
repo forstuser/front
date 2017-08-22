@@ -57,5 +57,11 @@ export class BillViewComponent implements OnInit {
         this.repairList = res.RepairList;
       })
   }
-
+  taskComplete(){
+    this.userservice.taskCompleteQE(this.billId)
+      .subscribe(res=>{
+        console.log(res);
+      })
+      
+  }
 }

@@ -534,7 +534,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/TaskAssignedQE', data, options)
                         .map((response: Response) => response.json());
         }
-        // **^ Bill Form  Services ^** //
+                                 // **^ Bill Form  Services ^** //
 
         getConsumerBillByID(billID: Number) {
                 const body = { TokenNo: this.TokenNo, ID: billID };
@@ -545,7 +545,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerBillByID', data, options)
                         .map((response: Response) => response.json());
         }
-        // Create authorized service center
+
         createBill(bill: any) {
                 bill['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(bill);
@@ -563,6 +563,16 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/ConsumerBillDetailByID', data, options)
+                        .map((response: Response) => response.json());
+        }
+         // **^ QE  Services ^** //
+         taskCompleteQE(billID: Number) {
+                const body = { TokenNo: this.TokenNo, BID: billID };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/TaskCompleteQE', data, options)
                         .map((response: Response) => response.json());
         }
 }
