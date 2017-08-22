@@ -1,3 +1,4 @@
+import { DataService } from './../../../../../_services/data.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { OnlineSeller } from './../../../../../_models/onlineSeller.interface';
 import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
@@ -14,8 +15,10 @@ export class SellerInfoComponent implements OnInit {
   onlineSeller: OnlineSeller;
   sellerList: Object;
   sellerFormType: String;
+  addedSeller: any[] = [];
   public onlineSellerForm: FormGroup;
   public offlineSellerForm: FormGroup;
+
   // items: OfflineSeller [] = [];
   // items: OnlineSeller [] = [];
   constructor(private userservice: UserService,private fb: FormBuilder) { }
@@ -121,10 +124,18 @@ export class SellerInfoComponent implements OnInit {
     }
     console.log(this.sellerList);
   }
-  // select seller in dropdown
-  selectSeller(data){
-    console.log(data)
+
+  // array of selected seller
+  addSellerToList(data:number){
+    // console.log(data);
+    this.addedSeller.push(data);
+    // console.log(this.addedSeller);
   }
+  deleteSellerFromList(id){
+    var index = this.addedSeller.indexOf(id);
+    this.addedSeller.splice(index,1);
+  }
+
     // select seller type in dropdown
     selectSellerType2(data){
       console.log(data);

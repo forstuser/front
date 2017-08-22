@@ -1,3 +1,4 @@
+import { DataService } from './_services/data.service';
 import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import {
   ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
@@ -49,6 +50,10 @@ import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
 import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
 import { ProductFormComponent } from './dashboard/data-panel/job-management/bill/product-form/product-form.component';
+import { WarrantyFormComponent } from './dashboard/data-panel/job-management/bill/warranty-form/warranty-form.component';
+import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bill/insurance-form/insurance-form.component';
+import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
+import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +94,10 @@ import { ProductFormComponent } from './dashboard/data-panel/job-management/bill
     SellerInfoComponent,
     ProductInfoComponent,
     ProductFormComponent,
+    WarrantyFormComponent,
+    InsuranceFormComponent,
+    AmcFormComponent,
+    RepairFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +110,7 @@ import { ProductFormComponent } from './dashboard/data-panel/job-management/bill
     AppRoutingModule,
     SwiperModule
   ],
-  providers: [AuthenticationService, AuthGuard, UserService], // services will come here
+  providers: [AuthenticationService, AuthGuard, UserService,DataService], // services will come here
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

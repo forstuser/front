@@ -60,7 +60,7 @@ export class InclusionsComponent implements OnInit {
     console.log(id);
     const res = id.split(' ');
     console.log(res[1]);
-    this.userService.getCategoryListbyID(res[1])
+    this.userService.getCategoryListbyRefID(res[1])
     .subscribe(getSubCatList => {
       this.getSubCatList = getSubCatList;
       console.log(getSubCatList);

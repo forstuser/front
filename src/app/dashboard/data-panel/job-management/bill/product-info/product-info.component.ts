@@ -1,3 +1,5 @@
+import { NgForm } from '@angular/forms';
+import { DataService } from './../../../../../_services/data.service';
 import { Category } from './../../../../../_models/category';
 import { Color } from './../../../../../_models/color';
 import { Brand } from './../../../../../_models/brand.interface';
@@ -15,13 +17,13 @@ export class ProductInfoComponent implements OnInit {
   mainCategory: Category;
   getSubCatList: Category;
   productFormID: Number = null;
-  constructor(private userservice: UserService) { }
+  constructor(private userservice: UserService, private dataservice: DataService) { }
 
   ngOnInit() {
     this.userservice.getBrandList()
       .subscribe(res => {
         this.brandList = res;
-        // console.log(this.brandList);
+        console.log(this.brandList);
       });
     this.userservice.getColorList()
       .subscribe(res => {
@@ -37,10 +39,10 @@ export class ProductInfoComponent implements OnInit {
   }
   // get list after select main category
   onSelectMainCategory(id) {
-    // console.log(id);
-    // const res = id.split(' ');
-    // console.log(res[1]);
-    this.userservice.getCategoryListbyRefID(id)
+    console.log(id);
+    const res = id.split(' ');
+    console.log(res[1]);
+    this.userservice.getCategoryListbyRefID(res[1])
       .subscribe(res => {
         this.getSubCatList = res;
         console.log(this.getSubCatList);
@@ -51,6 +53,12 @@ export class ProductInfoComponent implements OnInit {
   // get list after select category
   onSelectCategory(id) {
     console.log(id);
-    this.productFormID = id;
+    const res = id.split(' ');
+    console.log(res[1]);
+    this.productFormID = res[1];
+  }
+  productInfoFormData(form:NgForm){
+    console.log(form.value);
+    this.dataservice.getData(form.value);
   }
 }

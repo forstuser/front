@@ -1,32 +1,42 @@
 <div class="body">
-  <!-- <form [formGroup]='productForm' (ngSubmit) = "createProductForm(productForm.value)"> -->
-  <div class="row clearfix">
-    <div *ngFor="let form of productForm?.FormList; let i = index">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>{{ form.ElementName}}</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" class="form-control input_fix">
+  <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
+    <h5>
+      <u>Product Form</u>
+    </h5>
+    <div class="row clearfix">
+      <div *ngFor="let form of productMainForm?.FormList; let i = index">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>{{ form.ElementName}}</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
-        <select class="form-control dropdown">
-            <ng-container *ngFor="let droplist of productForm?.List">
-               <option *ngIf="form.FormID == droplist.FormID">{{droplist.DropdownName}}</option>
+        <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
+          <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
+            <ng-container *ngFor="let droplist of productMainForm?.List">
+               <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
             </ng-container>
           </select>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row clearfix">
+    <div class="row clearfix">
       <div class="col-md-12 text-right">
-          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Warranty</button>
-          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">Insurance</button>
-          <button  class="btn btn-md btn-info m-t-15 waves-effect" routerLink="s">AMC</button>
+        <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="i" [queryParams]="{ID:productFormID}">Insurance</button>
+        <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="w" [queryParams]="{ID:productFormID}">Warranty</button>
+        <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="a" [queryParams]="{ID:productFormID}">AMC</button>
+        <button class="btn btn-md btn-info m-t-15 waves-effect" routerLink="r" [queryParams]="{ID:productFormID}">Repair/Services</button>
+        <button class="btn btn-md btn-warning m-t-15 waves-effect">Skip</button>
       </div>
-  </div>
-  <!-- </form> -->
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-12 ">
+        <button type="submit" class="btn btn-md btn-success btn-block m-t-15 waves-effect">Create BILL</button>
+      </div>
+    </div>
+    </form>
 </div>

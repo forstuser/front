@@ -24,5 +24,5 @@ export class BillInfoComponent implements OnInit {
           this.consumerBill = res;
         })
   }
-
+  
 }

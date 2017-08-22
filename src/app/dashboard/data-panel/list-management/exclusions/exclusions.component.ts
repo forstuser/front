@@ -45,6 +45,7 @@ export class ExclusionsComponent implements OnInit {
       // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
     .subscribe(getSubCatList => {
+      console.log(getSubCatList);
       this.getSubCatList = getSubCatList;
       console.log(getSubCatList);
     });
@@ -60,7 +61,7 @@ export class ExclusionsComponent implements OnInit {
     console.log(id);
     const res = id.split(' ');
     console.log(res[1]);
-    this.userService.getCategoryListbyID(res[1])
+    this.userService.getCategoryListbyRefID(res[1])
     .subscribe(getSubCatList => {
       this.getSubCatList = getSubCatList;
       console.log(getSubCatList);

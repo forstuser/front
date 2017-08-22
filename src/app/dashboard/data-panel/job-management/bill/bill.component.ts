@@ -16,7 +16,7 @@ export class BillComponent implements OnInit {
     prevButton: '.swiper-button-prev',
     spaceBetween: 30
   }
-
+  
   constructor() {
   }
 

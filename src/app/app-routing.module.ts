@@ -1,3 +1,7 @@
+import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
+import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
+import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bill/insurance-form/insurance-form.component';
+import { WarrantyFormComponent } from './dashboard/data-panel/job-management/bill/warranty-form/warranty-form.component';
 import { ProductFormComponent } from './dashboard/data-panel/job-management/bill/product-form/product-form.component';
 import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
 import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
@@ -52,7 +56,11 @@ const appRoutes: Routes = [
                 { path:'g', component:GeneralInfoComponent},
                 { path:'g/s', component:SellerInfoComponent},
                 { path:'g/s/p', component:ProductInfoComponent},
-                { path:'g/s/p/pf', component:ProductFormComponent}
+                { path:'g/s/p/pf', component:ProductFormComponent},
+                { path:'g/s/p/pf/i', component:InsuranceFormComponent},
+                { path:'g/s/p/pf/w', component:WarrantyFormComponent},
+                { path:'g/s/p/pf/a', component:AmcFormComponent},
+                { path:'g/s/p/pf/a', component:RepairFormComponent}
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },

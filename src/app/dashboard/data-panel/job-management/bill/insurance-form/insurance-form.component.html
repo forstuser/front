@@ -1,169 +1,185 @@
 <div>
+    <form #insuranceForm="ngForm" (ngSubmit)="insuranceFormData(insuranceForm)">
     <h4>
-      <u>Seller</u>
-      <u>Information </u>
+      <u>Insurance</u>
+      <u>Form </u>
     </h4>
-    <!-- <form> -->
+    <hr>
+    <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Insurance Image</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="InsuranceImage" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <label>Seller Type</label>
+        <small><b>Plan</b></small>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
+      <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectSellerType($event.target.value)">
-              <option>Select</option>
-                <option value="online">Online</option>
-                <option value="offline">Offline</option>
-            </select>
+          <div class="form-line">
+            <input type="text" name="Plan" class="form-control input_fix" ngModel>
+          </div>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <label>Select Seller</label>
+        <small><b>Policy No.</b></small>
       </div>
-      <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
+      <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <select class="form-control dropdown" [(ngModel)]="addSeller">
+          <div class="form-line">
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Amount Insured</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="AmountInsured" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Invoice Number</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="In" class="form-control input_fix">
+          </div>
+        </div>
+      </div> -->
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text"name="PremiumAmount" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyExpireDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+            <select class="form-control dropdown" name="Inclusions" ngModel>
                 <option>Select</option>
-                  <option *ngFor = "let seller of sellerList" ngValue="{{ seller.ID }}">{{ seller.Name }}</option>
+                <option *ngFor="let list of inclusionList?.InclusionsList">{{ list.Name}}</option>
               </select>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <button type="submit" class="btn btn-md btn-success m-t-3 waves-effect" (click)="addSellerToList(addSeller)">Add</button>
+            <select class="form-control dropdown" name="Exclusions" ngModel>
+                <option>Select</option>
+                <option *ngFor="let list of exclusionList?.ExclusionsList">{{ list.Name}}</option>
+              </select>
         </div>
       </div>
     </div>
-    <u>
-      <p class="text-center font-bold col-blue-grey">OR</p>
-    </u>
-    <u>
-      <p class="font-bold col-blue-grey">Create a Seller</p>
-    </u>
-
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <label>Seller Type</label>
+        <small><b>Type</b></small>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+      <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectSellerType2($event.target.value)">
-                  <option>Select</option>
-                    <option value="online">Online Seller</option>
-                    <option value="offline">Offline Seller</option>
-                </select>
+          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                <option>Select</option>
+                  <option value="brand">Brand</option>
+                  <option value="seller">Seller</option>
+              </select>
         </div>
       </div>
+      <div *ngIf="selectDropdown == 'brand'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+              <select class="form-control dropdown">
+                  <option>Select</option>
+                  <option *ngFor="let list of brandList?.BrandList">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'seller'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Select Seller</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+                <select class="form-control dropdown">
+                    <option>Select</option>
+                    <option *ngFor="let list of offlineSellerList?.OfflineSellerList">{{ list.Name}}</option>
+                  </select>
+            </div>
+          </div>
+        </div>
     </div>
-    <!-- online seller -->
-    <div class="body" *ngIf="sellerFormType =='online'">
-      <form class="form-horizontal" [formGroup]='onlineSellerForm' (ngSubmit)="createOnlineSeller(onlineSellerForm.value)">
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Name</label>
-          </div>
-          <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Name" class="form-control" placeholder="Enter Seller name here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="description">URL</label>
-          </div>
-          <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" class="form-control" formControlName="URL" placeholder="Enter url of online seller">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="description">GstinNo</label>
-          </div>
-          <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" class="form-control" formControlName="GstinNo" placeholder="Enter GstinNo of online seller">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- template for add row  -->
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="Details">Details</label>
-          </div>
-          <div class="pull-right margin-right">
-            <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItemOnline()">Add More Deatils</button>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div formArrayName="Details" *ngFor="let item of onlineSellerForm.controls.Details['controls']; let i = index;">
-            <br>
-            <div class="row clearfix" [formGroupName]="i">
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-                <label>
-                      Type
-                  </label>
-                <select class="form-control dropdown" formControlName="DetailTypeID">
-                      <option selected>Select</option>
-                      <option value="1">URL</option>
-                      <option value="2">Email ID</option>
-                      <option value="3">Phone Number</option>
-                      </select>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                      Display Name
-                  </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                      Details
-                  </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="onlineSellerForm.controls['Details'].length > 1"
-                  (click)="removeDetailsOnline(i)">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- template for add row end  -->
-        <div class="row clearfix">
-          <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-            <button type="submit" class="btn btn-lg btn-warning btn-block m-t-15 waves-effect" [disabled]="!onlineSellerForm.valid">Add Online Seller</button>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!-- end online seller -->
     <!-- offline seller -->
-    <div class="body" *ngIf="sellerFormType=='offline'">
+    <div class="body" *ngIf="selectDropdown=='seller'">
+      <b><p class="text-center">Or , Create a Seller</p></b>
       <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
         <h4>
-          <u>Information </u>
+          <u>Seller Information </u>
         </h4>
         <hr>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Name</label>
+            <small><b>Name</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -173,7 +189,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Owner Name</label>
+            <small><b>Owner Name</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -185,7 +201,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Gstin No</label>
+            <small><b>Gstin No</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -195,7 +211,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Pan No</label>
+            <small><b>Pan No</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -207,7 +223,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Reg No</label>
+            <small><b>Reg No</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -217,7 +233,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Service Provider</label>
+            <small><b>Service Provider</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -229,7 +245,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Onboarded</label>
+            <small><b>Onboarded</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -245,7 +261,7 @@
         <hr>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">House No</label>
+            <small><b>House No</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -255,7 +271,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Block</label>
+            <small><b>Block</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -267,7 +283,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Street</label>
+            <small><b>Street</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -277,7 +293,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Sector</label>
+            <small><b>Sector</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -289,7 +305,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">City</label>
+            <small><b>City</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -299,7 +315,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">State</label>
+            <small><b>State</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -311,7 +327,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">PinCode</label>
+            <small><b>PinCode</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -321,7 +337,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">NearBy</label>
+            <small><b>NearBy</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -333,7 +349,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Lattitude</label>
+            <small><b>Lattitude</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -343,7 +359,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Longitude</label>
+            <small><b>Longitude</b></small>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
             <div class="form-group">
@@ -368,33 +384,33 @@
             <br>
             <div class="row clearfix" [formGroupName]="i">
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-                <label>
-                    Type
-                </label>
+                <small><b>
+                          Type
+                      </b></small>
                 <select class="form-control dropdown" formControlName="DetailTypeID">
-                    <option selected>Select</option>
-                    <option value="1">URL</option>
-                    <option value="2">Email ID</option>
-                    <option value="3">Phone Number</option>
-                    </select>
+                          <option selected>Select</option>
+                          <option value="1">URL</option>
+                          <option value="2">Email ID</option>
+                          <option value="3">Phone Number</option>
+                          </select>
               </div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                    Display Name
-                </label>
+                <small><b>
+                          Display Name
+                      </b></small>
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
+                    <input type="text" class="form-control" formControlName="DisplayName">
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                    Details
-                </label>
+                <small><b>
+                          Details
+                      </b></small>
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
+                    <input type="text" class="form-control" formControlName="Details">
                   </div>
                 </div>
               </div>
@@ -408,45 +424,17 @@
         <!-- template for add row end  -->
         <div class="row clearfix">
           <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-            <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+            <button type="submit" class="btn btn-md btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Add Seller</button>
           </div>
         </div>
       </form>
     </div>
     <!-- end offline seller -->
     <div class="row clearfix">
-      <div class="card">
-        <div class="header padding_fix">
-          <h2>
-            Seller List
-            <small>Click on Edit button for edit seller</small>
-          </h2>
-        </div>
-        <div class="body table-responsive">
-          <table class="table table-condensed">
-            <thead>
-              <tr>
-                <th><small>ID</small></th>
-                <!-- <th><small>Name</small></th> -->
-                <th><small>Action</small></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let list of addedSeller">
-                <th><small>{{ list }}</small></th>
-                <!-- <th><small>{{ bill.Name }}</small></th> -->
-                <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-danger btn-xs" (click)="deleteSellerFromList(list)" title="Delete"><i class="material-icons">delete</i></span></small></th>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="col-lg-8 col-md-8 col-md-offset-4 text-right">
+        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" (click)="backClicked()">ADD Insurance Form</button>          
+        <button type="submit" class="btn btn-md btn-warning m-t-15 waves-effect" (click)="skip()">Skip</button>
       </div>
     </div>
-    <div class="row clearfix">
-      <div class=" col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
-        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" routerLink="p">Next</button>
-        <button type="submit" class="btn btn-md btn-success m-t-15 waves-effect">Skip</button>
-      </div>
-    </div>
-  <!-- </form> -->
+  </form>
 </div>

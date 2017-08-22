@@ -1,7 +1,7 @@
 <div>
-  <form>
+  <form #productInfoForm="ngForm" (ngSubmit)="productInfoFormData(productInfoForm)">
     <h4>
-      <u>General</u>
+      <u>Product</u>
       <u>Information </u>
     </h4>
     <hr>
@@ -12,7 +12,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" class="form-control input_fix">
+            <input type="text" name="ProductName" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" class="form-control input_fix">
+            <input type="text" name="Value" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" class="form-control input_fix">
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
@@ -43,9 +43,9 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown">
+          <select class="form-control dropdown" name="ColorID" ngModel>
                 <option>Select</option>
-                  <option *ngFor = "let color of colorList?.ColorList">{{ color.Name }}</option>
+                  <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
               </select>
         </div>
       </div>
@@ -56,9 +56,9 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown">
+          <select class="form-control dropdown" name="BrandID" ngModel>
                   <option>Select</option>
-                    <option *ngFor = "let brand of brandList?.BrandList">{{ brand.Name }}</option>
+                    <option *ngFor = "let brand of brandList?.BrandList" ngValue="{{brand.ID}}">{{ brand.Name }}</option>
                 </select>
         </div>
       </div>
@@ -67,9 +67,9 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)">
+          <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel>
                   <option>Select</option>
-                    <option *ngFor = "let mainCat of mainCategory?.CategoryList" [value]="mainCat.ID">{{ mainCat.Name }}</option>
+                    <option *ngFor = "let mainCat of mainCategory?.CategoryList" ngValue="{{mainCat.ID}}">{{ mainCat.Name }}</option>
                 </select>
         </div>
       </div>
@@ -80,26 +80,27 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)">
+          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID" ngModel>
                 <option>Select</option>
-                  <option *ngFor = "let subCat of getSubCatList?.CategoryList"  [value]="subCat.ID">{{ subCat.Name }}</option>
+                  <option *ngFor = "let subCat of getSubCatList?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.Name }}</option>
               </select>
         </div>
       </div>
-      <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Date of Purchase :</b></small>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Tag</b></small>
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" class="form-control input_fix">
+            <input type="text" name="Tag" class="form-control input_fix" ngModel>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
     <div class="row clearfix">
       <div class="col-lg-8 col-md-8 col-md-offset-4 col-xs-offset-5 text-right">
-        <button type="submit" class="btn btn-md btn-info m-t-15 waves-effect" [routerLink]="['pf']" [queryParams]="{ID:productFormID}">Next</button>
+        <button type="submit" class="btn btn-md btn-success m-t-15 waves-effect">Submit</button>
+        <button class="btn btn-md btn-info m-t-15 waves-effect" [routerLink]="['pf']" [queryParams]="{ID:productFormID}">Next</button>
       </div>
     </div>
   </form>
