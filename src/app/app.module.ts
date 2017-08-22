@@ -55,6 +55,7 @@ import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bi
 import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
 import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
 import { ReviewComponent } from './dashboard/data-panel/job-management/bill/review/review.component';
+import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { ReviewComponent } from './dashboard/data-panel/job-management/bill/revi
     AmcFormComponent,
     RepairFormComponent,
     ReviewComponent,
+    BillViewComponent,
   ],
   imports: [
     BrowserModule,

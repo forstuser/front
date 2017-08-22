@@ -553,6 +553,16 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/AddConsumerBill', data, options)
+
+        }
+
+        getConsumerBillDetailsByID(billID: Number) {
+                const body = { TokenNo: this.TokenNo, ID: billID };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/ConsumerBillDetailByID', data, options)
                         .map((response: Response) => response.json());
         }
 }

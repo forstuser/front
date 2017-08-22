@@ -1,4 +1,5 @@
 import { ReviewComponent } from './dashboard/data-panel/job-management/bill/review/review.component';
+import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
 import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
 import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bill/insurance-form/insurance-form.component';
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
             { path: 'new', component: NewComponent },
             { path: 'new/bill/:id', component: BillComponent, children:[
                 { path:'', component:BillInfoComponent},
+                { path:'bv', component:BillViewComponent},
                 { path:'g', component:GeneralInfoComponent},
                 { path:'g/s', component:SellerInfoComponent},
                 { path:'g/s/p', component:ProductInfoComponent},
