@@ -1,0 +1,196 @@
+<div class="row" style="height: 400px;overflow-y: scroll;">
+
+  <div class="col-lg-6">
+    <h4>BillDetail</h4>
+    <div class="ui-lg-12" *ngFor="let data of billDetail">
+      <p>DetailID : {{data.DetailID}}</p>
+      <p>Name : {{data.Name}}</p>
+      <p>EmailID : {{data.EmailId}}</p>
+      <p>PhoneNo : {{data.PhoneNo}}</p>
+      <p>InvoiceNo : {{data.InvoiceNo}}</p>
+      <p>TotalValue : {{data.TotalValue}}</p>
+      <p>Tax : {{data.Tax}}</p>
+      <p>PurchaseDat : {{data.PurchaseDate | date}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>ProductList</h4>
+    <div class="ui-lg-12" *ngFor="let data of productList">
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>DetailID : {{data.DetailID}}</p>
+      <p>ProductName : {{data.ProductName}}</p>
+      <p>MasterCatID : {{data.MasterCatID}}</p>
+      <p>ColorID : {{data.ColorID}}</p>
+      <p>BrandID : {{data.BrandID}}</p>
+      <p>Value : {{data.Value}}</p>
+      <p>Taxes : {{data.Taxes}}</p>
+      <p>Tag : {{data.Tag}}</p>
+      <p>MasterCatName : {{data.MasterCatName}}</p>
+      <p>CatName : {{data.CatName}}</p>
+      <p>BrandName : {{data.BrandName}}</p>
+      <p>ColorName : {{data.ColorName}}</p>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6">
+    <h4>productForm</h4>
+    <div class="ui-lg-12" *ngFor="let data of productForm">
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>CatFormID : {{data.CatFormID}}</p>
+      <p>value : {{data.value}}</p>
+      <p>CatFormName : {{data.CatFormName}}</p>
+      <p>DropdownValue : {{data.DropdownValue}}</p>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6">
+    <h4>InsuranceList</h4>
+    <div class="ui-lg-12" *ngFor="let data of insuranceList">
+      <p>InsuranceID : {{data.InsuranceID}}</p>
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>SellerType : {{data.SellerType}}</p>
+      <p>SellerID : {{data.SellerID}}</p>
+      <p>Plan : {{data.Plan}}</p>
+      <p>PolicyNo : {{data.PolicyNo}}</p>
+      <p>AmountInsured : {{data.AmountInsured}}</p>
+      <p>PremiumType : {{data.PremiumType}}</p>
+      <p>PremiumAmount : {{data.PremiumAmount}}</p>
+      <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate | date}}</p>
+      <p>PolicyExpiryDate : {{data.PolicyExpiryDate | date}}</p>
+      <p>BrandName : {{data.BrandName}}</p>
+      <p>ColorName : {{data.ColorName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>InsuranceImage</h4>
+    <div class="ui-lg-12" *ngFor="let data of insuranceImage">
+      <p>InsuranceID : {{data.InsuranceID}}</p>
+      <p>ProductID : {{data.ImageID}}</p>
+    </div>
+  </div>
+
+
+  <div class="col-lg-6">
+    <h4>InsuranceInclusions</h4>
+    <div class="ui-lg-12" *ngFor="let data of insuranceInclusions">
+      <p>InsuranceID : {{data.InsuranceID}}</p>
+      <p>InclusionsID : {{data.InclusionsID}}</p>
+      <p>InclusionsName : {{data.InclusionsName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>InsuranceExclusions</h4>
+    <div class="ui-lg-12" *ngFor="let data of insuranceExclusions">
+      <p>InsuranceID : {{data.InsuranceID}}</p>
+      <p>ExclusionsID : {{data.ExclusionsID}}</p>
+      <p>ExclusionsName : {{data.ExclusionsName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>WarrantyList</h4>
+    <div class="ui-lg-12" *ngFor="let data of warrantyList">
+      <p>WarrantyID : {{data.WarrantyID}}</p>
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>SellerType : {{data.SellerType}}</p>
+      <p>SellerID : {{data.SellerID}}</p>
+      <p>WarrantyType : {{data.WarrantyType}}</p>
+      <p>PolicyNo : {{data.PolicyNo}}</p>
+      <p>PremiumType : {{data.PremiumType}}</p>
+      <p>PremiumAmount : {{data.PremiumAmount}}</p>
+      <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate | date}}</p>
+      <p>PolicyExpiryDate : {{data.PolicyExpiryDate | date}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>WarrantyImage</h4>
+    <div class="ui-lg-12" *ngFor="let data of warrantyImage">
+      <p>WarrantyID : {{data.WarrantyID}}</p>
+      <p>ImageID : {{data.ImageID}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>WarrantyExclusions</h4>
+    <div class="ui-lg-12" *ngFor="let data of warrantyExclusions">
+      <p>WarrantyID : {{data.WarrantyID}}</p>
+      <p>ExclusionsID : {{data.ExclusionsID}}</p>
+      <p>ExclusionsName : {{data.ExclusionsName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>WarrantyInclusions</h4>
+    <div class="ui-lg-12" *ngFor="let data of warrantyInclusions">
+      <p>WarrantyID : {{data.WarrantyID}}</p>
+      <p>InclusionsID : {{data.InclusionsID}}</p>
+      <p>InclusionsName : {{data.InclusionsName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>AMCList</h4>
+    <div class="ui-lg-12" *ngFor="let data of aMCList">
+      <p>AmcID : {{data.AmcID}}</p>
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>SellerType : {{data.SellerType}}</p>
+      <p>SellerID : {{data.SellerID}}</p>
+      <p>PolicyNo : {{data.PolicyNo}}</p>
+      <p>PremiumType : {{data.PremiumType}}</p>
+      <p>PremiumAmount : {{data.PremiumAmount}}</p>
+      <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate | date}}</p>
+      <p>PolicyExpiryDate : {{data.PolicyExpiryDate | date}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>AMCImage</h4>
+    <div class="ui-lg-12" *ngFor="let data of aMCImage">
+      <p>AmcID : {{data.AmcID}}</p>
+      <p>ImageID : {{data.ImageID}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6" *ngIf="aMCExclusion">
+    <h4>AMCExclusion</h4>
+    <div class="ui-lg-12" *ngFor="let data of aMCExclusion">
+      <p>AmcID : {{data.AmcID}}</p>
+      <p>ExclusionsID : {{data.ExclusionsID}}</p>
+      <p>ExclusionsName : {{data.ExclusionsName}}</p>
+
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>AMCInclusions</h4>
+    <div class="ui-lg-12" *ngFor="let data of aMCInclusions">
+      <p>AmcID : {{data.AmcID}}</p>
+      <p>InclusionsID : {{data.InclusionsID}}</p>
+      <p>InclusionsName : {{data.InclusionsName}}</p>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>RepairList</h4>
+    <div class="ui-lg-12" *ngFor="let data of repairList">
+      <p>RepairID : {{data.RepairID}}</p>
+      <p>ProductID : {{data.ProductID}}</p>
+      <p>SellerType : {{data.SellerType}}</p>
+      <p>SellerID : {{data.SellerID}}</p>
+      <p>RepairValue : {{data.RepairValue}}</p>
+      <p>Taxes : {{data.Taxes}}</p>
+      <p>RepairInvoiceNumber : {{data.RepairInvoiceNumber}}</p>
+      <p>RepairDate : {{data.RepairDate | date}}</p>
+    </div>
+  </div>
+
+</div>
+<div class="col-lg-12" style="text-align:right;">
+  <button type="button">SUBMIT</button>
+</div>
