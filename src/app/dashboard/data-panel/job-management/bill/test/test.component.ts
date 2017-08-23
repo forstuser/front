@@ -55,6 +55,8 @@ export class TestComponent implements OnInit {
   repairFormContent: any[] = [];
   FinalProductContent: any[] = [];
   productFormID: number = null;
+  finalData: any = {};
+  productData: any = {};
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
     this.billId = route.snapshot.params.id;
   }
@@ -64,7 +66,7 @@ export class TestComponent implements OnInit {
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        // console.log(res);
+        console.log(res);
         this.consumerBill = res;
       })
     // get offline seller list
@@ -295,8 +297,63 @@ export class TestComponent implements OnInit {
     this.showRepairForm = true;
     this.endPanel = false;
   }
-  addMoreProduct(){
-    this.endPanel = false;
-    this.showProductFormList = true;
-  }
+
+    // ********************************Bill functions ***************************************
+    addMoreProduct(){
+      // make object for product array
+      this.productData = {
+        "ProductName": this.productInfoFormContent[0].ProductName,
+        "Value": this.productInfoFormContent[0].Value,
+        "Taxes": this.productInfoFormContent[0].Taxes,
+        "Tag": this.productInfoFormContent[0].Tag,
+        "BrandID": this.productInfoFormContent[0].BrandID,
+        "ColorID": this.productInfoFormContent[0].ColorID,
+        "MasterCatID":this.productInfoFormContent[0].MasterCatID,
+        "CatID": this.productInfoFormContent[0].CatID,
+        "ProductForm": this.productFormContent[0],
+        "InsuranceList": this.insuranceFormContent,
+        "WarrantyList":this.warrantyFormContent,
+        "AMCList": this.AMCFormContent,
+        "RepairList":this.repairFormContent
+      }
+      this.FinalProductContent.push(this.productData);
+      this.productInfoFormContent = [];
+      this.productFormContent = [];
+      this.insuranceFormContent = [];
+      this.warrantyFormContent = [];
+      this.AMCFormContent = [];
+      this.repairFormContent = []
+      this.endPanel = false;
+      this.showProductFormList = true;
+    }
+    createBill(){
+      console.log('generalFormContent :',this.generalFormContent);
+      console.log(' sellerFormContent:', this.sellerFormContent);
+      console.log('productInfoFormContent :',this.productInfoFormContent);
+      console.log('productFormContent :',this.productFormContent);
+      console.log(' insuranceFormContent:',this.insuranceFormContent);
+      console.log(' warrantyFormContetn:',this.warrantyFormContent);
+      console.log('AMCFormContent :',this.AMCFormContent);
+      console.log('repairFormContent :',this.repairFormContent);
+      console.log('FinalProductContent :',this.FinalProductContent);
+      this.addMoreProduct();
+      // make final object
+      this.finalData = {
+        "BillID": this.consumerBill.BillID,
+        "UserID": this.consumerBill.UserID,
+        "InvoiceNo": this.generalFormContent[0].InvoiceNo,
+        "Name": this.generalFormContent[0].Name,
+        "EmailID": this.generalFormContent[0].EmailID,
+        "PhoneNo": this.generalFormContent[0].PhoneNo,
+        "DocID": 1,
+        "TotalValue":this.generalFormContent[0].TotalValue,
+        "Taxes": this.generalFormContent[0].Taxes,
+        "DateofPurchase": this.generalFormContent[0].DateofPurchase,
+        "BillImage": [1, 2], // it should be change
+        "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
+        "SellerList": this.sellerFormContent[0].SellerList,
+        "ProductList": this.FinalProductContent
+      }
+      console.log(this.finalData);
+    }
 }

@@ -17,6 +17,7 @@ export interface ImageList {
        statusCode: number;
        BillID: number;
        BillNo: string;
+       UserID:string; // ask amit bhaiyawhy it's not in db
        Name: string;
        EmailID: string;
        PhoneNo: string;
