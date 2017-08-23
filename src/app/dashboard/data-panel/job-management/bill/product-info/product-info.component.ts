@@ -46,9 +46,6 @@ export class ProductInfoComponent implements OnInit {
     this.userservice.getCategoryListbyRefID(res[1])
       .subscribe(res => {
         this.getSubCatList = res;
-        // console.log(this.getSubCatList);
-        // this.productFormID = res.ID;
-        // console.log(this.productFormID);
       });
   }
   // get list after select category

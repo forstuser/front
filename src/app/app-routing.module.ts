@@ -1,3 +1,4 @@
+import { TestComponent } from './dashboard/data-panel/job-management/bill/test/test.component';
 import { ReviewComponent } from './dashboard/data-panel/job-management/bill/review/review.component';
 import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
             { path: 'new/bill/:id', component: BillComponent, children:[
-                { path:'', component:BillInfoComponent},
+                { path:'', component:TestComponent},
                 { path:'bv', component:BillViewComponent},
                 { path:'g', component:GeneralInfoComponent},
                 { path:'g/s', component:SellerInfoComponent},
