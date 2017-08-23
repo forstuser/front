@@ -38,8 +38,12 @@ export class TestComponent implements OnInit {
   showProductFormList: boolean = false;
   showProductForm: boolean = false;
   showInsuranceForm: boolean = false;
+  showMidPanel1: boolean = false;
   showWarrantyForm: boolean = false;
+  showMidPanel2: boolean = false;
   showAMCForm: boolean = false;
+  showMidPanel3: boolean = false;
+  endPanel: boolean = false;
   showRepairForm: boolean = false;
   generalFormContent: any[] = [];
   sellerFormContent: any[] = [];
@@ -92,7 +96,7 @@ export class TestComponent implements OnInit {
         // console.log(this.mainCategory);
       });
   }
-  // *****************************form submit functions*****************************************
+  // *****************************General Form functions*****************************************
   openGeneralForm() {
     this.showForm = false;
     this.showGeneralForm = true;
@@ -104,42 +108,6 @@ export class TestComponent implements OnInit {
     this.showSellerForm = true;
     // console.log('generel form array:', this.generalFormContent);
   }
-  sellerFormData(form: NgForm) {
-    // console.log(form.value);
-    const data = { "OnlineSellerID": this.addedOnlineSeller, "SellerList": this.addedOfflineSeller };
-    this.sellerFormContent.push(data);
-    // console.log(this.sellerFormContent);
-    this.showSellerForm = false;
-    this.showProductFormList = true;
-  }
-  productInfoFormData(form: NgForm) {
-    console.log(form.value);
-    this.productInfoFormContent.push(form.value);
-    this.showProductFormList = false;
-    this.showProductForm = true;
-    this.userservice.getCategoryFormByID(form.value.CatID)
-      .subscribe(res => {
-        // console.log(res);
-        this.productMainForm = res;
-      })
-  }
-  productFormData(form: NgForm) {
-    const data = form.value;
-    // console.log(form.value);
-    for (var val in data) {
-      this.ProductFrom.push({ 'CatFormID': val, 'value': data[val] });
-    }
-    // console.log(this.ProductFrom);
-    this.productFormContent.push(this.ProductFrom);
-    this.ProductFrom = [];
-    this.showProductForm = false;
-    this.showInsuranceForm = true;
-
-  }
-  insuranceFormData(form: NgForm) {
-    console.log(form.value);
-  }
-
   // ********************************seller form functions ***************************************
   // select online seller
   addOnlineSeller(data: number) {
@@ -164,6 +132,15 @@ export class TestComponent implements OnInit {
   deleteSellerFromList(id) {
     var index = this.addedOfflineSeller.indexOf(id);
     this.addedOfflineSeller.splice(index, 1);
+  }
+  // seller form data on submit
+  sellerFormData(form: NgForm) {
+    // console.log(form.value);
+    const data = { "OnlineSellerID": this.addedOnlineSeller, "SellerList": this.addedOfflineSeller };
+    this.sellerFormContent.push(data);
+    // console.log(this.sellerFormContent);
+    this.showSellerForm = false;
+    this.showProductFormList = true;
   }
   // ********************************Product Info form functions ***************************************
   // get list after select main category
@@ -192,6 +169,34 @@ export class TestComponent implements OnInit {
         this.inclusionList = res;
       })
   }
+  // product info data on submit
+  productInfoFormData(form: NgForm) {
+    console.log(form.value);
+    this.productInfoFormContent.push(form.value);
+    this.showProductFormList = false;
+    this.showProductForm = true;
+    this.userservice.getCategoryFormByID(form.value.CatID)
+      .subscribe(res => {
+        // console.log(res);
+        this.productMainForm = res;
+      })
+  }
+  // ********************************Product form functions ******************************************
+
+  productFormData(form: NgForm) {
+    const data = form.value;
+    // console.log(form.value);
+    for (var val in data) {
+      this.ProductFrom.push({ 'CatFormID': val, 'value': data[val] });
+    }
+    // console.log(this.ProductFrom);
+    this.productFormContent.push(this.ProductFrom);
+    this.ProductFrom = [];
+    this.showProductForm = false;
+    this.showInsuranceForm = true;
+
+  }
+
   // ********************************Insurance form functions ***************************************
   // select type brand or seller
   selectType(data) {
@@ -211,5 +216,87 @@ export class TestComponent implements OnInit {
           this.offlineSellerList = res;
         })
     }
+  }
+  // insurance form data on submit
+  insuranceFormData(form: NgForm) {
+    // console.log(form.value);
+    this.insuranceFormContent.push(form.value);
+    this.showInsuranceForm = false;
+    this.showMidPanel1 = true;
+    console.log(this.insuranceFormContent);
+  }
+  // skip insurance form
+  skipInsurance() {
+    this.showInsuranceForm = false;
+    this.showWarrantyForm = true;
+  }
+  // ********************************Warranty form functions ***************************************
+  warrantyFormData(form: NgForm) {
+    // console.log(form.value);
+    this.warrantyFormContent.push(form.value);
+    this.showWarrantyForm = false;
+    this.showMidPanel2 = true
+  }
+  // skip warranty form
+  skipWarranty() {
+    this.showWarrantyForm = false;
+    this.showAMCForm = true;
+  }
+  // ********************************AMC form functions ***************************************
+  amcFormData(form: NgForm) {
+    console.log(form.value);
+    this.AMCFormContent.push(form.value);
+    this.showAMCForm = false;
+    this.showMidPanel3 = true
+  }
+  // skip warranty form
+  skipAMC() {
+    this.showAMCForm = false;
+    this.showRepairForm = true;
+  }
+  // ********************************Repair form functions ***************************************
+  repairFormData(form: NgForm) {
+    console.log(form.value);
+    this.repairFormContent.push(form.value);
+    this.showRepairForm = false;
+    this.endPanel = true
+  }
+  // skip warranty form
+  skipRepair() {
+    this.showAMCForm = false;
+    this.showRepairForm = true;
+  }
+  // ********************************Mid Panel functions ***************************************
+  addMoreInsurance() {
+    this.showInsuranceForm = true;
+    this.showMidPanel1 = false;
+  }
+  addWarranty() {
+    this.showMidPanel1 = false;
+    this.showWarrantyForm = true;
+  }
+  addMoreWarranty() {
+    this.showWarrantyForm = true;
+    this.showMidPanel2 = false;
+  }
+  addAMC() {
+    this.showMidPanel2 = false;
+    this.showAMCForm = true;
+  }
+  addMoreAMC() {
+    this.showAMCForm = true;
+    this.showMidPanel3 = false;
+  }
+  addRepair() {
+    this.showMidPanel3 = false;
+    this.showRepairForm = true;
+  }
+  addMoreRepair() {
+    this.showRepairForm = true;
+    this.endPanel = false;
+  }
+  addMoreProduct(){
+    this.endPanel = false;
+    this.showProductFormList = true;
   }
 }

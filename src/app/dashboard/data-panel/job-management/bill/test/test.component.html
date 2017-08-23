@@ -534,9 +534,474 @@
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
       </div>
       <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg" (click)="skip()">Skip</button>
+        <button class="btn bg-orange btn-block btn-lg" (click)="skipInsurance()">Skip</button>
       </div>
     </div>
   </form>
 </div>
 <!-- Insurance Form End -->
+
+<!-- mid panel start -->
+<div *ngIf="showMidPanel1">
+    <div class="row clearfix">
+        <div class="col-md-6">
+          <button class="btn bg-green btn-block btn-lg" (click)="addMoreInsurance()">Add More Insurance</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" (click)="addWarranty()">Add Warranty </button>
+        </div>
+      </div>
+</div>
+<!-- mid panel end -->
+
+
+<!-- Warranty Form Start -->
+<div *ngIf="showWarrantyForm">
+    <form #warranrtyForm="ngForm" (ngSubmit)="warrantyFormData(warranrtyForm)">
+      <h4>
+        <u>Warranty</u>
+        <u>Form </u>
+      </h4>
+      <hr>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Warranty Image</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="WarrantyImage" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy No.</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Premium Type</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Premium Amount</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy Effective Date</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy Expiry Date</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyExpireDate" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Inclusions</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <select class="form-control dropdown" name="Inclusions" ngModel>
+                  <option *ngFor="let list of inclusionList?.InclusionsList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Exclusions</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="Exclusions" ngModel>
+              <option *ngFor="let list of exclusionList?.ExclusionsList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Type</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                    <option value="brand">Brand</option>
+                    <option value="seller">Seller</option>
+                </select>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'brand'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Brand</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="BrandID" ngModel>
+                <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'seller'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Select Seller</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="SellerInfo" ngModel>
+                <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-8">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" (click)="skipWarranty()">Skip</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!-- Warranty Form End -->
+
+<!-- mid panel 2 start -->
+<div *ngIf="showMidPanel2">
+    <div class="row clearfix">
+        <div class="col-md-6">
+          <button class="btn bg-green btn-block btn-lg" (click)="addMoreWarranty()">Add More Warranty</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" (click)="addAMC()">Add AMC</button>
+        </div>
+      </div>
+</div>
+<!-- mid panel 2 end -->
+
+<!-- AMC Form Start -->
+<div *ngIf="showAMCForm">
+    <form #amcForm="ngForm" (ngSubmit)="amcFormData(amcForm)">
+      <h4>
+        <u>AMC</u>
+        <u>Form </u>
+      </h4>
+      <hr>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>AMC Image</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="AMCImage" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy No.</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Premium Type</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Premium Amount</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy Effective Date</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Policy Expiry Date</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="PolicyExpireDate" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Inclusions</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <select class="form-control dropdown" name="Inclusions" ngModel>
+                  <option *ngFor="let list of inclusionList?.InclusionsList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Exclusions</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="Exclusions" ngModel>
+              <option *ngFor="let list of exclusionList?.ExclusionsList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Type</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                    <option value="brand">Brand</option>
+                    <option value="seller">Seller</option>
+                </select>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'brand'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Brand</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="BrandID" ngModel>
+                <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'seller'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Select Seller</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="SellerInfo" ngModel>
+                <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-8">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" (click)="skipAMC()">Skip</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!-- AMC Form End -->
+
+<!-- mid panel 3 start -->
+<div *ngIf="showMidPanel3">
+    <div class="row clearfix">
+        <div class="col-md-6">
+          <button class="btn bg-green btn-block btn-lg" (click)="addMoreAMC()">Add More AMC</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" (click)="addRepair()">Add Repair</button>
+        </div>
+      </div>
+</div>
+<!-- mid panel 3 end -->
+
+<!-- Repair Form Start -->
+<div *ngIf="showRepairForm">
+    <form #repairForm="ngForm" (ngSubmit)="repairFormData(repairForm)">
+      <h4>
+        <u>Repair</u>
+        <u>Form </u>
+      </h4>
+      <hr>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Repair Image</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="RepairImage" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Repair Value</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="RepairValue" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Taxes</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="Taxes" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Repair Invoice Number</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Repair Date</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="RepairDate" class="form-control input_fix" ngModel>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Type</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <div class="form-group">
+            <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                    <option value="brand">Brand</option>
+                    <option value="seller">Seller</option>
+                </select>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'brand'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Brand</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="BrandID" ngModel>
+                <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="selectDropdown == 'seller'">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <small><b>Select Seller</b></small>
+          </div>
+          <div class="col-lg-4 col-md-4 ">
+            <div class="form-group">
+              <select class="form-control dropdown" name="SellerInfo" ngModel>
+                <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-md-8">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" (click)="skipRepair()">Skip</button>
+        </div>
+      </div>
+    </form>
+  </div>
+<!-- Repair Form End -->
+
+<!-- end panel start -->
+<div *ngIf="endPanel">
+    <div class="row clearfix">
+        <div class="col-md-6">
+          <button class="btn bg-green btn-block btn-lg" (click)="addMoreRepair()">Add More Repair</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" (click)="addMoreProduct()">Add More Product</button>
+        </div>
+      </div>
+      <div class="row clearfix">
+          <div class="col-md-12">
+            <button class="btn bg-teal btn-block btn-lg" (click)="createBill()">Create Bill</button>
+          </div>
+        </div>
+</div>
+<!-- end Panel end -->
