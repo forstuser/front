@@ -32,7 +32,7 @@
             <th><small>{{ bill.Invoice }}</small></th>
             <th><small>{{ bill.Name }}</small></th>
             <th><small>{{ bill.Phone }}</small></th>
-            <th><small>{{ bill.PurchaseDate | date }}</small></th>
+            <th><small>{{ bill?.PurchaseDate }}</small></th>
             <th><small>{{ bill.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span></small></th>
           </tr>
@@ -41,38 +41,38 @@
     </div>
   </div>
   <div class="card" *ngIf="consumerBill?.ProductDetail.length > 0">
-      <div class="header padding_fix">
-        <p><b>
+    <div class="header padding_fix">
+      <p><b>
         Current JOB Products
       </b></p>
-      </div>
-      <div class="body table-responsive">
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <th><small>Product Name</small></th>
-              <th><small>Main Category</small></th>
-              <th><small>Category</small></th>
-              <th><small>Brand</small></th>
-              <th><small>Tag</small></th>
-              <th><small>Value</small></th>
-              <th><small>Action</small></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let bill of consumerBill?.ProductDetail">
-              <th><small>{{ bill.ProductName }}</small></th>
-              <th><small>{{ bill.MasterCatName }}</small></th>
-              <th><small>{{ bill.CatName }}</small></th>
-              <th><small>{{ bill.brand_name }}</small></th>
-              <th><small>{{ bill.Tag }}</small></th>
-              <th><small>{{ bill.Value }}</small></th>
-              <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span></small></th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </div>
+    <div class="body table-responsive">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><small>Product Name</small></th>
+            <th><small>Main Category</small></th>
+            <th><small>Category</small></th>
+            <th><small>Brand</small></th>
+            <th><small>Tag</small></th>
+            <th><small>Value</small></th>
+            <th><small>Action</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bill of consumerBill?.ProductDetail">
+            <th><small>{{ bill.ProductName }}</small></th>
+            <th><small>{{ bill.MasterCatName }}</small></th>
+            <th><small>{{ bill.CatName }}</small></th>
+            <th><small>{{ bill.brand_name }}</small></th>
+            <th><small>{{ bill.Tag }}</small></th>
+            <th><small>{{ bill.Value }}</small></th>
+            <th><small><span class="btn btn-info btn-xs" (click)="editPreBill(bill)" title="Edit"><i class="material-icons" >mode_edit</i></span></small></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <div class="row clearfix">
     <div class="col-md-6">
       <button class="btn bg-orange btn-block btn-lg" (click)="openSearchPanel()">Serach Product</button>
@@ -1044,22 +1044,22 @@
 
 <!-- search panel start -->
 <div *ngIf="searchPanel">
-    <form #searchForm="ngForm" (ngSubmit)="serachProduct(searchForm)">
-  <div class="row clearfix">
-    <div class="col-md-8">
-      <div class="form-group">
-        <div class="form-line">
-          <input type="text" name="Search" class="form-control" placeholder="Enter Product Name, Main Category,Category or Brand" ngModel>
+  <form #searchForm="ngForm" (ngSubmit)="serachProduct(searchForm)">
+    <div class="row clearfix">
+      <div class="col-md-8">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="Search" class="form-control" placeholder="Enter Product Name, Main Category,Category or Brand" ngModel>
+          </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg">Search</button>
+      </div>
     </div>
-    <div class="col-md-4">
-      <button class="btn bg-orange btn-block btn-lg">Search</button>
-    </div>
-  </div>
-  <div class="row clearfix">
+    <div class="row clearfix">
 
-  </div>
-    </form>
+    </div>
+  </form>
 </div>
 <!-- search Panel end -->

@@ -113,7 +113,7 @@ mySettings: IMultiSelectSettings = {
   onChange() {
     console.log(this.optionsModel);
 }
-  // *****************************General Form functions*****************************************
+  // *****************************General Form functions*********************************************
   openGeneralForm() {
     this.showForm = false;
     this.showGeneralForm = true;
@@ -125,7 +125,10 @@ mySettings: IMultiSelectSettings = {
     this.showSellerForm = true;
     // console.log('generel form array:', this.generalFormContent);
   }
-  // ********************************seller form functions ***************************************
+  editPreBill(data){
+    console.log(data);
+  }
+  // ********************************seller form functions ******************************************
   // select online seller
   addOnlineSeller(data: number) {
     // this.sellerData.splice(0, this.sellerData.length)
@@ -159,7 +162,7 @@ mySettings: IMultiSelectSettings = {
     this.showSellerForm = false;
     this.showProductFormList = true;
   }
-  // ********************************Product Info form functions ***************************************
+  // ********************************Product Info form functions ************************************
   // get list after select main category
   onSelectMainCategory(id) {
     // console.log(id);
@@ -198,7 +201,7 @@ mySettings: IMultiSelectSettings = {
         this.productMainForm = res;
       })
   }
-  // ********************************Product form functions ******************************************
+  // ********************************Product form functions *****************************************
 
   productFormData(form: NgForm) {
     const data = form.value;
@@ -259,7 +262,7 @@ mySettings: IMultiSelectSettings = {
     this.showWarrantyForm = false;
     this.showAMCForm = true;
   }
-  // ********************************AMC form functions ***************************************
+  // ********************************AMC form functions *********************************************
   amcFormData(form: NgForm) {
     console.log(form.value);
     this.AMCFormContent.push(form.value);
@@ -271,7 +274,7 @@ mySettings: IMultiSelectSettings = {
     this.showAMCForm = false;
     this.showRepairForm = true;
   }
-  // ********************************Repair form functions ***************************************
+  // ********************************Repair form functions ******************************************
   repairFormData(form: NgForm) {
     console.log(form.value);
     this.repairFormContent.push(form.value);
@@ -283,7 +286,7 @@ mySettings: IMultiSelectSettings = {
     this.showRepairForm = false;
     this.endPanel = true;
   }
-  // ********************************Mid Panel functions ***************************************
+  // ********************************Mid Panel functions ********************************************
   addMoreInsurance() {
     this.showInsuranceForm = true;
     this.showMidPanel1 = false;
@@ -330,7 +333,7 @@ mySettings: IMultiSelectSettings = {
 
     }
 
-    // ********************************Bill functions ***************************************
+    // ********************************Bill functions ***********************************************
     addMoreProduct(){
       // make object for product array
       this.productData = {
