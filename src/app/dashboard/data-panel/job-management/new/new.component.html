@@ -27,7 +27,7 @@
                   <td>{{ bill.PhoneNo}}</td>
                   <td>{{ bill.EmailID}}</td>
                   <td>{{ bill.BillDate | date}}</td>
-                  <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2 ">Assign</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}"  *ngIf="userType ==3 ">Add Bill</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}/bv"  *ngIf="userType ==4 ">View Bill</button></td>
+                  <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2 ">Assign</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}"  *ngIf="userType ==3 ">Add Bill</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}/bv" [queryParams]="{ uid : bill.CE_ID }"  *ngIf="userType ==4 ">View Bill</button></td>
               </tr>
           </tbody>
       </table>

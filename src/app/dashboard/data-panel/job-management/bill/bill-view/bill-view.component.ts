@@ -1,3 +1,4 @@
+import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
@@ -9,8 +10,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bill-view.component.css']
 })
 export class BillViewComponent implements OnInit {
+  showDialog = false;
+  assignForm: FormGroup;
   consumerBill: ConsumerBill;
-  billId: number;
+  billID: number;
+  userID: number;
+  data:object;
   billDetail: any;
   productList: any;
   productForm: any;
@@ -27,17 +32,22 @@ export class BillViewComponent implements OnInit {
   aMCExclusion: any;
   aMCInclusions: any;
   repairList: any;
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
-    this.billId = this.route.snapshot.parent.params['id'];
-    console.log(this.billId);
+  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService,private fb: FormBuilder) {
+    this.billID = this.route.snapshot.parent.params['id'];
+    this.userID = this.route.snapshot.queryParams['uid'];
+    console.log(this.userID);
+    console.log(this.billID);
+    this.assignForm = this.fb.group({
+      'Comments': '',
+    });
   }
 
 
   ngOnInit() {
     // get current bill details
-    this.userservice.getConsumerBillDetailsByID(this.billId)
+    this.userservice.getConsumerBillDetailsByID(this.billID)
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         this.consumerBill = res;
         this.billDetail = res.BillDetail;
         this.productList = res.ProductList;
@@ -58,10 +68,26 @@ export class BillViewComponent implements OnInit {
       })
   }
   taskComplete(){
-    this.userservice.taskCompleteQE(this.billId)
+    this.userservice.taskCompleteQE(this.billID)
       .subscribe(res=>{
         console.log(res);
+      })  
+  }
+  reAssign(){
+    this.showDialog = true; // for show dialog
+  }
+  assignBill(item: any) {
+    console.log(item);
+    this.data = {
+      'BID':this.billID,
+      'UID':this.userID,
+      'Comments':item.Comments
+    }
+    this.userservice.qeAssignCE(this.data)
+      .subscribe(res=>{
+        console.log(res);
+        alert("success");
+        this.showDialog =false;
       })
-      
   }
 }

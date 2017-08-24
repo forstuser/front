@@ -1,5 +1,5 @@
 import { Inclusion } from './../../../../../_models/inclusion';
-import { Exclusion } from './../../../../../_models/exclusion';
+import { Exclusion, ExclusionsList } from './../../../../../_models/exclusion';
 import { Category } from './../../../../../_models/category';
 import { Color } from './../../../../../_models/color';
 import { Brand } from './../../../../../_models/brand';
@@ -10,6 +10,7 @@ import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
 import { Component, OnInit } from '@angular/core';
+import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-test',
@@ -17,6 +18,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
+  // Settings configuration
+mySettings: IMultiSelectSettings = {
+  enableSearch: true,
+  checkedStyle: 'fontawesome',
+  buttonClasses: 'btn btn-default btn-block',
+  dynamicTitleMaxItems: 3,
+  displayAllSelectedText: true
+};
+  search:any = {};
+  optionsModel: number[];
+  inclusionList: IMultiSelectOption[];
+  exclusionList: IMultiSelectOption[];
   selectDropdown: String = null;
   consumerBill: ConsumerBill;
   offlineSellerList: OfflineSeller;
@@ -30,8 +43,6 @@ export class TestComponent implements OnInit {
   billId: number;
   productMainForm: Object;
   ProductFrom: any[] = [];
-  exclusionList: Exclusion;
-  inclusionList: Inclusion;
   showForm: boolean = true;
   showGeneralForm: boolean = false;
   showSellerForm: boolean = false;
@@ -44,6 +55,7 @@ export class TestComponent implements OnInit {
   showAMCForm: boolean = false;
   showMidPanel3: boolean = false;
   endPanel: boolean = false;
+  searchPanel:boolean = false;
   showRepairForm: boolean = false;
   generalFormContent: any[] = [];
   sellerFormContent: any[] = [];
@@ -98,6 +110,9 @@ export class TestComponent implements OnInit {
         // console.log(this.mainCategory);
       });
   }
+  onChange() {
+    console.log(this.optionsModel);
+}
   // *****************************General Form functions*****************************************
   openGeneralForm() {
     this.showForm = false;
@@ -161,14 +176,14 @@ export class TestComponent implements OnInit {
     // get exclusion list by catid
     this.userservice.getExclusionsListbyCategoryID(res[1])
       .subscribe(res => {
-        // console.log(res);
-        this.exclusionList = res;
+        this.exclusionList = res.ExclusionsList;
       })
     // get inclusion list by catid
     this.userservice.getInclusionsListbyCategoryID(res[1])
       .subscribe(res => {
-        // console.log(res);
-        this.inclusionList = res;
+        console.log(res);
+        this.inclusionList = res.InclusionsList;
+
       })
   }
   // product info data on submit
@@ -265,8 +280,8 @@ export class TestComponent implements OnInit {
   }
   // skip warranty form
   skipRepair() {
-    this.showAMCForm = false;
-    this.showRepairForm = true;
+    this.showRepairForm = false;
+    this.endPanel = true;
   }
   // ********************************Mid Panel functions ***************************************
   addMoreInsurance() {
@@ -297,6 +312,23 @@ export class TestComponent implements OnInit {
     this.showRepairForm = true;
     this.endPanel = false;
   }
+    // ********************************Search Panel functions ***************************************
+    openSearchPanel(){
+      this.showForm = false;
+      this.searchPanel = true;
+    }
+    serachProduct(form: NgForm) {
+      console.log(form.value)
+      this.search = {
+        "ConsumerID":this.consumerBill.UserID,
+        "Search":form.value.Search
+      }
+      this.userservice.serachProduct(this.search)
+        .subscribe(res=>{
+          console.log(res);
+        })
+
+    }
 
     // ********************************Bill functions ***************************************
     addMoreProduct(){
@@ -337,6 +369,8 @@ export class TestComponent implements OnInit {
       console.log('repairFormContent :',this.repairFormContent);
       console.log('FinalProductContent :',this.FinalProductContent);
       this.addMoreProduct();
+      this.endPanel = true;
+      this.showProductFormList = false;
       // make final object
       this.finalData = {
         "BillID": this.consumerBill.BillID,
@@ -355,5 +389,9 @@ export class TestComponent implements OnInit {
         "ProductList": this.FinalProductContent
       }
       console.log(this.finalData);
+      this.userservice.createBill(this.finalData)
+        .subscribe(res=>{
+          console.log(res);
+        })
     }
 }

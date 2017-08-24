@@ -565,6 +565,15 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerBillDetailByID', data, options)
                         .map((response: Response) => response.json());
         }
+        serachProduct(search: string) {
+                search['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(search);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/ConsumerProductSearch', data, options)
+                        .map((response: Response) => response.json());
+        }
          // **^ QE  Services ^** //
          taskCompleteQE(billID: Number) {
                 const body = { TokenNo: this.TokenNo, BID: billID };
@@ -573,6 +582,15 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/TaskCompleteQE', data, options)
+                        .map((response: Response) => response.json());
+        }
+        qeAssignCE(req:any) {
+                req['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(req);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/QEAssignedCE', data, options)
                         .map((response: Response) => response.json());
         }
 }

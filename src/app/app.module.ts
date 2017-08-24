@@ -45,18 +45,9 @@ import { NewComponent } from './dashboard/data-panel/job-management/new/new.comp
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { SwiperModule } from 'angular2-useful-swiper';
-import { BillInfoComponent } from './dashboard/data-panel/job-management/bill/bill-info/bill-info.component';
-import { GeneralInfoComponent } from './dashboard/data-panel/job-management/bill/general-info/general-info.component';
-import { SellerInfoComponent } from './dashboard/data-panel/job-management/bill/seller-info/seller-info.component';
-import { ProductInfoComponent } from './dashboard/data-panel/job-management/bill/product-info/product-info.component';
-import { ProductFormComponent } from './dashboard/data-panel/job-management/bill/product-form/product-form.component';
-import { WarrantyFormComponent } from './dashboard/data-panel/job-management/bill/warranty-form/warranty-form.component';
-import { InsuranceFormComponent } from './dashboard/data-panel/job-management/bill/insurance-form/insurance-form.component';
-import { AmcFormComponent } from './dashboard/data-panel/job-management/bill/amc-form/amc-form.component';
-import { RepairFormComponent } from './dashboard/data-panel/job-management/bill/repair-form/repair-form.component';
-import { ReviewComponent } from './dashboard/data-panel/job-management/bill/review/review.component';
 import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { TestComponent } from './dashboard/data-panel/job-management/bill/test/test.component';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 @NgModule({
   declarations: [
@@ -92,16 +83,6 @@ import { TestComponent } from './dashboard/data-panel/job-management/bill/test/t
     CompletedComponent,
     UnderProgressComponent,
     BillComponent,
-    BillInfoComponent,
-    GeneralInfoComponent,
-    SellerInfoComponent,
-    ProductInfoComponent,
-    ProductFormComponent,
-    WarrantyFormComponent,
-    InsuranceFormComponent,
-    AmcFormComponent,
-    RepairFormComponent,
-    ReviewComponent,
     BillViewComponent,
     TestComponent,
   ],
@@ -114,7 +95,8 @@ import { TestComponent } from './dashboard/data-panel/job-management/bill/test/t
     MdCheckboxModule,
     HttpModule,
     AppRoutingModule,
-    SwiperModule
+    SwiperModule,
+    MultiselectDropdownModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService], // services will come here
   bootstrap: [AppComponent]
