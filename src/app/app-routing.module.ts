@@ -1,4 +1,5 @@
-import { TestComponent } from './dashboard/data-panel/job-management/bill/test/test.component';
+import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
+import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
 import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
@@ -45,8 +46,9 @@ const appRoutes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
             { path: 'new/bill/:id', component: BillComponent, children:[
-                { path:'', component:TestComponent},
-                { path:'bv', component:BillViewComponent},
+                { path:'', component:BillCreateComponent},
+                { path:'view', component:BillViewComponent},
+                { path:'edit/:id', component:BillEditComponent},
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },

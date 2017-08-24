@@ -1,17 +1,22 @@
 .card .header {
     padding-bottom: 4px;
     padding-top: 10px;
-}
-.input_fix{
+  }
+  
+  .input_fix {
     margin-top: -10px;
-}
-.form-group{
+  }
+  
+  .form-group {
     margin-bottom: 0px !important;
-}
-.btn-circle{
+  }
+  
+  .btn-circle {
     margin-top: 16px;
     margin-right: 5px;
-}
-.dropdown{
-    border:1px solid #ccc;
-}
+  }
+  
+  .dropdown {
+    border: 1px solid #ccc;
+  }
+  

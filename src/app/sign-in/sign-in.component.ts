@@ -41,8 +41,16 @@ export class SignInComponent implements OnInit {
     this.authenticationService.login(this.EmailID, this.Password)
     .subscribe(
       data => {
-        console.log('data is' + data);
+        console.log(data);
+        if(data.statusCode==100){
         this.router.navigate([this.returnUrl]);
+        } else if(data.statusCode==101){
+          alert("Invalid Token");
+        } else if(data.statusCode==103){
+          alert("Invalid Username/Password")
+        } else{
+          alert("Bad Request");
+        }
       },
       error => {
         console.log('error is ', error);

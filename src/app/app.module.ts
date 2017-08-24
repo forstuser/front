@@ -46,8 +46,9 @@ import { CompletedComponent } from './dashboard/data-panel/job-management/comple
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { SwiperModule } from 'angular2-useful-swiper';
 import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
-import { TestComponent } from './dashboard/data-panel/job-management/bill/test/test.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
+import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
     UnderProgressComponent,
     BillComponent,
     BillViewComponent,
-    TestComponent,
+    BillCreateComponent,
+    BillEditComponent,
   ],
   imports: [
     BrowserModule,

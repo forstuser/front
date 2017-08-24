@@ -565,6 +565,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerBillDetailByID', data, options)
                         .map((response: Response) => response.json());
         }
+        
         serachProduct(search: string) {
                 search['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(search);

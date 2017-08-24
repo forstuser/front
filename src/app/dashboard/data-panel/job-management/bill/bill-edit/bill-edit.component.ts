@@ -10,28 +10,29 @@ import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
 import { Component, OnInit } from '@angular/core';
-import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  selector: 'app-bill-edit',
+  templateUrl: './bill-edit.component.html',
+  styleUrls: ['./bill-edit.component.css']
 })
-export class TestComponent implements OnInit {
+export class BillEditComponent implements OnInit {
   // Settings configuration
-mySettings: IMultiSelectSettings = {
-  enableSearch: true,
-  checkedStyle: 'fontawesome',
-  buttonClasses: 'btn btn-default btn-block',
-  dynamicTitleMaxItems: 3,
-  displayAllSelectedText: true
-};
-  search:any = {};
+  mySettings: IMultiSelectSettings = {
+    enableSearch: true,
+    checkedStyle: 'fontawesome',
+    buttonClasses: 'btn btn-default btn-block',
+    dynamicTitleMaxItems: 3,
+    displayAllSelectedText: true
+  };
+  search: any = {};
   optionsModel: number[];
   inclusionList: IMultiSelectOption[];
   exclusionList: IMultiSelectOption[];
   selectDropdown: String = null;
   consumerBill: ConsumerBill;
+  consumerBillDetail: ConsumerBill;
   offlineSellerList: OfflineSeller;
   onlineSellerList: OnlineSeller;
   brandList: Brand;
@@ -43,8 +44,7 @@ mySettings: IMultiSelectSettings = {
   billId: number;
   productMainForm: Object;
   ProductFrom: any[] = [];
-  showForm: boolean = true;
-  showGeneralForm: boolean = false;
+  showGeneralForm: boolean = true;
   showSellerForm: boolean = false;
   showProductFormList: boolean = false;
   showProductForm: boolean = false;
@@ -55,7 +55,7 @@ mySettings: IMultiSelectSettings = {
   showAMCForm: boolean = false;
   showMidPanel3: boolean = false;
   endPanel: boolean = false;
-  searchPanel:boolean = false;
+  searchPanel: boolean = false;
   showRepairForm: boolean = false;
   generalFormContent: any[] = [];
   sellerFormContent: any[] = [];
@@ -71,12 +71,13 @@ mySettings: IMultiSelectSettings = {
   productData: any = {};
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
     this.billId = route.snapshot.params.id;
+    console.log(this.billId);
   }
 
 
   ngOnInit() {
     // get current bill details
-    this.userservice.getConsumerBillByID(this.billId)
+    this.userservice.getConsumerBillDetailsByID(this.billId)
       .subscribe(res => {
         console.log(res);
         this.consumerBill = res;
@@ -112,12 +113,8 @@ mySettings: IMultiSelectSettings = {
   }
   onChange() {
     console.log(this.optionsModel);
-}
-  // *****************************General Form functions*********************************************
-  openGeneralForm() {
-    this.showForm = false;
-    this.showGeneralForm = true;
   }
+  // *****************************General Form functions*********************************************
   generalFormData(form: NgForm) {
     // console.log(form.value);
     this.generalFormContent.push(form.value);
@@ -125,7 +122,7 @@ mySettings: IMultiSelectSettings = {
     this.showSellerForm = true;
     // console.log('generel form array:', this.generalFormContent);
   }
-  editPreBill(data){
+  editPreBill(data) {
     console.log(data);
   }
   // ********************************seller form functions ******************************************
@@ -315,86 +312,88 @@ mySettings: IMultiSelectSettings = {
     this.showRepairForm = true;
     this.endPanel = false;
   }
-    // ********************************Search Panel functions ***************************************
-    openSearchPanel(){
-      this.showForm = false;
-      this.searchPanel = true;
+  // ********************************Search Panel functions ***************************************
+  serachProduct(form: NgForm) {
+    console.log(form.value)
+    this.search = {
+      "ConsumerID": this.consumerBill.UserID,
+      "Search": form.value.Search
     }
-    serachProduct(form: NgForm) {
-      console.log(form.value)
-      this.search = {
-        "ConsumerID":this.consumerBill.UserID,
-        "Search":form.value.Search
-      }
-      this.userservice.serachProduct(this.search)
-        .subscribe(res=>{
-          console.log(res);
-        })
+    this.userservice.serachProduct(this.search)
+      .subscribe(res => {
+        console.log(res);
+      })
 
-    }
+  }
 
-    // ********************************Bill functions ***********************************************
-    addMoreProduct(){
-      // make object for product array
-      this.productData = {
-        "ProductName": this.productInfoFormContent[0].ProductName,
-        "Value": this.productInfoFormContent[0].Value,
-        "Taxes": this.productInfoFormContent[0].Taxes,
-        "Tag": this.productInfoFormContent[0].Tag,
-        "BrandID": this.productInfoFormContent[0].BrandID,
-        "ColorID": this.productInfoFormContent[0].ColorID,
-        "MasterCatID":this.productInfoFormContent[0].MasterCatID,
-        "CatID": this.productInfoFormContent[0].CatID,
-        "ProductForm": this.productFormContent[0],
-        "InsuranceList": this.insuranceFormContent,
-        "WarrantyList":this.warrantyFormContent,
-        "AMCList": this.AMCFormContent,
-        "RepairList":this.repairFormContent
-      }
-      this.FinalProductContent.push(this.productData);
-      this.productInfoFormContent = [];
-      this.productFormContent = [];
-      this.insuranceFormContent = [];
-      this.warrantyFormContent = [];
-      this.AMCFormContent = [];
-      this.repairFormContent = []
-      this.endPanel = false;
-      this.showProductFormList = true;
+  // ********************************Bill functions ***********************************************
+  addMoreProduct() {
+    // make object for product array
+    this.productData = {
+      "ProductName": this.productInfoFormContent[0].ProductName,
+      "Value": this.productInfoFormContent[0].Value,
+      "Taxes": this.productInfoFormContent[0].Taxes,
+      "Tag": this.productInfoFormContent[0].Tag,
+      "BrandID": this.productInfoFormContent[0].BrandID,
+      "ColorID": this.productInfoFormContent[0].ColorID,
+      "MasterCatID": this.productInfoFormContent[0].MasterCatID,
+      "CatID": this.productInfoFormContent[0].CatID,
+      "ProductForm": this.productFormContent[0],
+      "InsuranceList": this.insuranceFormContent,
+      "WarrantyList": this.warrantyFormContent,
+      "AMCList": this.AMCFormContent,
+      "RepairList": this.repairFormContent
     }
-    createBill(){
-      console.log('generalFormContent :',this.generalFormContent);
-      console.log(' sellerFormContent:', this.sellerFormContent);
-      console.log('productInfoFormContent :',this.productInfoFormContent);
-      console.log('productFormContent :',this.productFormContent);
-      console.log(' insuranceFormContent:',this.insuranceFormContent);
-      console.log(' warrantyFormContetn:',this.warrantyFormContent);
-      console.log('AMCFormContent :',this.AMCFormContent);
-      console.log('repairFormContent :',this.repairFormContent);
-      console.log('FinalProductContent :',this.FinalProductContent);
-      this.addMoreProduct();
-      this.endPanel = true;
-      this.showProductFormList = false;
-      // make final object
-      this.finalData = {
-        "BillID": this.consumerBill.BillID,
-        "UserID": this.consumerBill.UserID,
-        "InvoiceNo": this.generalFormContent[0].InvoiceNo,
-        "Name": this.generalFormContent[0].Name,
-        "EmailID": this.generalFormContent[0].EmailID,
-        "PhoneNo": this.generalFormContent[0].PhoneNo,
-        "DocID": 1,
-        "TotalValue":this.generalFormContent[0].TotalValue,
-        "Taxes": this.generalFormContent[0].Taxes,
-        "DateofPurchase": this.generalFormContent[0].DateofPurchase,
-        "BillImage": [1, 2], // it should be change
-        "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
-        "SellerList": this.sellerFormContent[0].SellerList,
-        "ProductList": this.FinalProductContent
-      }
-      console.log(this.finalData);
-      this.userservice.createBill(this.finalData)
-        .subscribe(res=>{
-          console.log(res);
-        })
+    this.FinalProductContent.push(this.productData);
+    this.productInfoFormContent = [];
+    this.productFormContent = [];
+    this.insuranceFormContent = [];
+    this.warrantyFormContent = [];
+    this.AMCFormContent = [];
+    this.repairFormContent = []
+    this.endPanel = false;
+    this.showProductFormList = true;
+  }
+  createBill() {
+    console.log('generalFormContent :', this.generalFormContent);
+    console.log(' sellerFormContent:', this.sellerFormContent);
+    console.log('productInfoFormContent :', this.productInfoFormContent);
+    console.log('productFormContent :', this.productFormContent);
+    console.log(' insuranceFormContent:', this.insuranceFormContent);
+    console.log(' warrantyFormContetn:', this.warrantyFormContent);
+    console.log('AMCFormContent :', this.AMCFormContent);
+    console.log('repairFormContent :', this.repairFormContent);
+    console.log('FinalProductContent :', this.FinalProductContent);
+    this.addMoreProduct();
+    this.endPanel = false;
+    this.showProductFormList = false;
+    // make final object
+    this.finalData = {
+      "BillID": this.consumerBill.BillID,
+      "UserID": this.consumerBill.UserID,
+      "InvoiceNo": this.generalFormContent[0].InvoiceNo,
+      "Name": this.generalFormContent[0].Name,
+      "EmailID": this.generalFormContent[0].EmailID,
+      "PhoneNo": this.generalFormContent[0].PhoneNo,
+      "DocID": 1,
+      "TotalValue": this.generalFormContent[0].TotalValue,
+      "Taxes": this.generalFormContent[0].Taxes,
+      "DateofPurchase": this.generalFormContent[0].DateofPurchase,
+      "BillImage": [1, 2], // it should be change
+      "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
+      "SellerList": this.sellerFormContent[0].SellerList,
+      "ProductList": this.FinalProductContent
     }
+    console.log(this.finalData);
+    this.userservice.createBill(this.finalData)
+      .subscribe(res => {
+        console.log(res);
+        // get current bill details
+        this.userservice.getConsumerBillByID(this.billId)
+          .subscribe(res => {
+            console.log(res);
+            this.consumerBill = res;
+          })
+      })
+  }
 }
