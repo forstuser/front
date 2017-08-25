@@ -1,4 +1,4 @@
-import { Brand } from './../../../../_models/brand.interface';
+import { Brand } from './../../../../_models/brand';
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
 import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
@@ -20,8 +20,8 @@ export class ServiceCenterListComponent implements OnInit {
   ngOnInit() {
     // get brand list
     this.userService.getBrandList()
-    .subscribe( brandList => {
-      this.brands = brandList;
+    .subscribe( res => {
+      this.brands = res;
       console.log(this.brands);
     });
     this.authorizedServiceCenterForm = this.fb.group({
