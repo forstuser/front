@@ -32,13 +32,14 @@ export class BillEditComponent implements OnInit {
   exclusionList: IMultiSelectOption[];
   selectDropdown: String = null;
   consumerBill: ConsumerBill;
-  consumerBillDetail: ConsumerBill;
+  consumerBillDetail: any;
   offlineSellerList: OfflineSeller;
   onlineSellerList: OnlineSeller;
   brandList: Brand;
   colorList: Color;
   mainCategory: Category;
   getSubCatList: Category;
+  getSubCatList2: Category;
   addedOnlineSeller: number = null;
   addedOfflineSeller: any[] = [];
   billId: number;
@@ -69,6 +70,16 @@ export class BillEditComponent implements OnInit {
   productFormID: number = null;
   finalData: any = {};
   productData: any = {};
+  // Fill product form
+  ProductName:string;
+  Value:string;
+  Taxes:string;
+  Color:number;
+  Brand:number;
+  MainCategory:number;
+  Category:number;
+  Tag:string;
+
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
     this.billId = route.snapshot.params.id;
     console.log(this.billId);
@@ -80,7 +91,7 @@ export class BillEditComponent implements OnInit {
     this.userservice.getConsumerBillDetailsByID(this.billId)
       .subscribe(res => {
         console.log(res);
-        this.consumerBill = res;
+        this.consumerBillDetail = res;
       })
     // get offline seller list
     this.userservice.getOfflineSellerList()
@@ -197,6 +208,21 @@ export class BillEditComponent implements OnInit {
         // console.log(res);
         this.productMainForm = res;
       })
+  }
+  fillProductInfoForm(index){
+    this.ProductName = this.consumerBillDetail.ProductList[index].ProductName;
+    this.Value = this.consumerBillDetail.ProductList[index].Value;
+    this.Taxes = this.consumerBillDetail.ProductList[index].Taxes;
+    this.Color = this.consumerBillDetail.ProductList[index].ColorID;
+    this.Brand = this.consumerBillDetail.ProductList[index].BrandID;
+    this.MainCategory = this.consumerBillDetail.ProductList[index].MasterCatID;
+    this.userservice.getCategoryListbyRefID(this.MainCategory)
+    .subscribe(res => {
+      this.getSubCatList = res;
+      console.log(res);
+    });
+    this.Category = this.consumerBillDetail.ProductList[index].CatID;
+    this.Tag = this.consumerBillDetail.ProductList[index].Tag;
   }
   // ********************************Product form functions *****************************************
 

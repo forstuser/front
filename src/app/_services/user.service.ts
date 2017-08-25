@@ -555,6 +555,16 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/AddConsumerBill', data, options)
 
         }
+        // final bill complete
+        completeJob(bill: number) {
+                const body = { TokenNo:this.TokenNo, BID:bill}
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/TaskCompleteCE', data, options)
+
+        }
 
         getConsumerBillDetailsByID(billID: Number) {
                 const body = { TokenNo: this.TokenNo, ID: billID };
@@ -593,5 +603,10 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/QEAssignedCE', data, options)
                         .map((response: Response) => response.json());
+        }
+        // get call for get image from server
+        getImage(){
+                return this.http.get('http://52.66.17.137:3000/bills/5/files')
+                .map((response:Response) => response);
         }
 }

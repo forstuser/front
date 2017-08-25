@@ -1,3 +1,4 @@
+import { Brand } from './../../../../_models/brand.interface';
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
 import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
@@ -9,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./service-center-list.component.css']
 })
 export class ServiceCenterListComponent implements OnInit {
+  brands:Brand;
   authorizedServiceCenter: AuthorizedCenter;
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
@@ -16,6 +18,12 @@ export class ServiceCenterListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get brand list
+    this.userService.getBrandList()
+    .subscribe( brandList => {
+      this.brands = brandList;
+      console.log(this.brands);
+    });
     this.authorizedServiceCenterForm = this.fb.group({
       'ID':'',
       'Name' : ['', Validators.required],

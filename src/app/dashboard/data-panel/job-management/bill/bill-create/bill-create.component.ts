@@ -1,3 +1,5 @@
+import { DataService } from './../../../../../_services/data.service';
+import { BillComponent } from './../bill.component';
 import { SearchList } from './../../../../../_models/search.interface';
 import { Inclusion } from './../../../../../_models/inclusion';
 import { Exclusion, ExclusionsList } from './../../../../../_models/exclusion';
@@ -10,15 +12,21 @@ import { NgForm } from '@angular/forms';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
-
 @Component({
   selector: 'app-bill-create',
   templateUrl: './bill-create.component.html',
   styleUrls: ['./bill-create.component.css']
 })
 export class BillCreateComponent implements OnInit {
+  imageArray:any[]=[];
+  billImageArray: any[] = [];
+  insuranceImageArray: any[] = [];
+  warrantyImageArray: any[] = [];
+  amcImageArray: any[] = [];
+  repairImageArray: any[] = [];
+  message: string;
   // Settings configuration
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
@@ -71,16 +79,31 @@ export class BillCreateComponent implements OnInit {
   productFormID: number = null;
   finalData: any = {};
   productData: any = {};
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
+  insuranceData:any = {};
+  warrantyData:any = {};
+  amcData:any = {};
+  repairData:any = {};
+  nameOfImage: string;
+  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
 
 
   ngOnInit() {
+
+    this.dataservice.currentMessage
+      .subscribe(res => {
+        // this.message = res;
+        if (this.imageArray.includes(res)) {
+          alert("Image already added");
+        } else {
+          this.imageArray.push(res);
+        }
+      })
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        console.log(res);
+        console.log('bill details', res);
         this.consumerBill = res;
       })
     // get offline seller list
@@ -122,10 +145,33 @@ export class BillCreateComponent implements OnInit {
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
+    this.billImageArray = this.imageArray;
+    this.billImageArray.splice(0,1);
+    console.log(this.billImageArray);
+    this.imageArray = [];
     this.generalFormContent.push(form.value);
     this.showGeneralForm = false;
     this.showSellerForm = true;
     // console.log('generel form array:', this.generalFormContent);
+  }
+  completeJob() {
+
+    this.userservice.completeJob(this.billId)
+      .subscribe(res => {
+        console.log(res);
+        // redirect to previous page
+      })
+  }
+  // remove image from array
+  removeMainImage(data) {
+    console.log(data);
+    for (var i = 0; i < this.imageArray.length; i++) {
+      if (this.imageArray[i] == data) {
+        this.imageArray.splice(i, 1);
+        break;
+      }
+    }
+    console.log(this.imageArray);
   }
   editPreBill(data) {
     console.log(data);
@@ -242,10 +288,27 @@ export class BillCreateComponent implements OnInit {
   // insurance form data on submit
   insuranceFormData(form: NgForm) {
     // console.log(form.value);
-    this.insuranceFormContent.push(form.value);
+    this.insuranceImageArray = this.imageArray;
+    // console.log(this.insuranceImageArray);
+    this.imageArray = [];
+    this.insuranceData = {
+      "Plan":form.value.Plan,
+      "PolicyNo":form.value.PolicyNo,
+      "AmountInsured":form.value.AmountInsured,
+      "PremiumType":form.value.PremiumType,
+      "PremiumAmount":form.value.PremiumAmount,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "BrandID":form.value.BrandID,
+      "SellerInfo":form.value.SellerInfo,
+      "Inclusions":form.value.Inclusions,
+      "Exclusions":form.value.Exclusions,
+      "InsuranceImage":this.insuranceImageArray,
+    }
+    this.insuranceFormContent.push(this.insuranceData);
     this.showInsuranceForm = false;
     this.showMidPanel1 = true;
-    console.log(this.insuranceFormContent);
+    // console.log(this.insuranceFormContent);
   }
   // skip insurance form
   skipInsurance() {
@@ -255,7 +318,22 @@ export class BillCreateComponent implements OnInit {
   // ********************************Warranty form functions ***************************************
   warrantyFormData(form: NgForm) {
     // console.log(form.value);
-    this.warrantyFormContent.push(form.value);
+    this.warrantyImageArray = this.imageArray;
+    this.imageArray = [];
+    this.warrantyData = {
+      "WarrantyType":form.value.WarrantyType,
+      "PolicyNo":form.value.PolicyNo,
+      "PremiumType":form.value.PremiumType,
+      "PremiumAmount":form.value.PremiumAmount,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "BrandID":form.value.BrandID,
+      "SellerInfo":form.value.SellerInfo,
+      "Inclusions":form.value.Inclusions,
+      "Exclusions":form.value.Exclusions,
+      "WarrantyImage":this.warrantyImageArray,
+    }
+    this.warrantyFormContent.push(this.warrantyData);
     this.showWarrantyForm = false;
     this.showMidPanel2 = true
   }
@@ -266,8 +344,22 @@ export class BillCreateComponent implements OnInit {
   }
   // ********************************AMC form functions *********************************************
   amcFormData(form: NgForm) {
-    console.log(form.value);
-    this.AMCFormContent.push(form.value);
+    // console.log(form.value);
+    this.amcImageArray = this.imageArray;
+    this.imageArray = [];
+    this.amcData = {
+      "PolicyNo":form.value.PolicyNo,
+      "PremiumType":form.value.PremiumType,
+      "PremiumAmount":form.value.PremiumAmount,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "BrandID":form.value.BrandID,
+      "SellerInfo":form.value.SellerInfo,
+      "Inclusions":form.value.Inclusions,
+      "Exclusions":form.value.Exclusions,
+      "AMCImage":this.amcImageArray,
+    }
+    this.AMCFormContent.push(this.amcData);
     this.showAMCForm = false;
     this.showMidPanel3 = true
   }
@@ -278,8 +370,19 @@ export class BillCreateComponent implements OnInit {
   }
   // ********************************Repair form functions ******************************************
   repairFormData(form: NgForm) {
-    console.log(form.value);
-    this.repairFormContent.push(form.value);
+    // console.log(form.value);
+    this.repairImageArray = this.imageArray;
+    this.imageArray = [];
+    this.repairData = {
+      "RepairValue":form.value.RepairValue,
+      "Taxes":form.value.Taxes,
+      "RepairInvoiceNumber":form.value.RepairInvoiceNumber,
+      "RepairDate":form.value.RepairDate,
+      "BrandID":form.value.BrandID,
+      "SellerInfo":form.value.SellerInfo,
+      "RepairImage":this.repairImageArray
+    }
+    this.repairFormContent.push(this.repairData);
     this.showRepairForm = false;
     this.endPanel = true
   }
@@ -390,7 +493,7 @@ export class BillCreateComponent implements OnInit {
       "TotalValue": this.generalFormContent[0].TotalValue,
       "Taxes": this.generalFormContent[0].Taxes,
       "DateofPurchase": this.generalFormContent[0].DateofPurchase,
-      "BillImage": [1, 2], // it should be change
+      "BillImage": this.billImageArray,
       "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
       "SellerList": this.sellerFormContent[0].SellerList,
       "ProductList": this.FinalProductContent
