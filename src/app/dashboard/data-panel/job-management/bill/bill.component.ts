@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bill.component.css']
 })
 export class BillComponent implements OnInit {
+  billId:number;
+  imageArray :any[] = [];
   images: string[];
   config: any = {
     pagination: '.swiper-pagination',
@@ -18,20 +20,29 @@ export class BillComponent implements OnInit {
     spaceBetween: 30
   }
   
-  constructor(private dataservice:DataService,private userservice:UserService) {
+  constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
+    this.billId = route.snapshot.params.id;
+    // console.log(this.billId);
   }
 
   ngOnInit() {
+    // get bill details
+    this.userservice.getConsumerBillByID(this.billId)
+    .subscribe(res => {
+      // console.log('bill details', res);
+      this.imageArray = res.ImageList;
+      console.log(this.imageArray);
+    })
     // this.userservice.getImage()
     //   .subscribe(res=>{
     //     console.log(res);
     //     // this.images = res;
     //   })
     this.images = [
-      'http://52.66.17.137:3000/bills/4/files',
-      'http://52.66.17.137:3000/bills/5/files',
-      'http://52.66.17.137:3000/bills/6/files',
-      'http://52.66.17.137:3000/bills/7/files'
+      // 'http://52.66.17.137:3000/bills/4/files',
+      // 'http://52.66.17.137:3000/bills/5/files',
+      // 'http://52.66.17.137:3000/bills/6/files',
+      // 'http://52.66.17.137:3000/bills/7/files'
     ];
   }
   getCurrentImage(image){

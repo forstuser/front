@@ -103,7 +103,7 @@ export class BillCreateComponent implements OnInit {
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        console.log('bill details', res);
+        // console.log('bill details', res);
         this.consumerBill = res;
       })
     // get offline seller list

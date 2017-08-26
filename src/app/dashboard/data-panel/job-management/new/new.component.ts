@@ -79,6 +79,7 @@ export class NewComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
+        this.showDialog =false;
         this.userservice.getAdminBillList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;

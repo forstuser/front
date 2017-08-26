@@ -96,6 +96,8 @@ export class CategoryComponent implements OnInit {
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
         console.log(res);
+        alert('New Category added succesfully');
+        this.createCategoryForm.reset();
         this.userService.getCategoryList(2) // list update after createcat
           .subscribe(getCat => {
             this.cat = getCat;

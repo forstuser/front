@@ -66,12 +66,15 @@ export class UnderProgressComponent implements OnInit {
     this.userservice.assignTaskCE(item)
       .subscribe(res => {
         console.log(res);
-        alert('assign successfull');
-        this.userservice.getAdminBillList(6) // incomplete = 6 refer api doc
-          .subscribe(bill => {
-            this.bills = bill;
-            console.log(this.bills);
-          });
+        if (res.statusCode == 100) {
+          alert('assign successfull');
+          this.showDialog = false;
+          this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
+            .subscribe(bill => {
+              this.bills = bill;
+              console.log(this.bills);
+            });
+        }
       });
   }
   // open model for qe assign
@@ -91,7 +94,7 @@ export class UnderProgressComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
-        this.userservice.getAdminBillList(6) // incomplete = 6 refer api doc
+        this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);

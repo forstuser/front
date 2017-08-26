@@ -490,7 +490,7 @@ export class UserService {
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
-                // console.log(data);
+                console.log(data);
                 return this.http.post(this.apiLink + 'Services/AdminConsumerBillsList', data, options)
                         .map((response: Response) => response.json());
         }
