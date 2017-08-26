@@ -11,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class BillComponent implements OnInit {
   billId:number;
   imageArray :any[] = [];
-  images: string[];
+  images: string[]=[];
+  imageID:string;
   config: any = {
     pagination: '.swiper-pagination',
     paginationClickable: true,
@@ -31,22 +32,21 @@ export class BillComponent implements OnInit {
     .subscribe(res => {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
-      console.log(this.imageArray);
+      for(let i of res.ImageList){
+        // console.log(i.ImageID);
+        this.images.push('http://52.66.17.137:3000/bills/'+i.ImageID+'/files')
+      }
     })
     // this.userservice.getImage()
     //   .subscribe(res=>{
     //     console.log(res);
     //     // this.images = res;
     //   })
-    this.images = [
-      // 'http://52.66.17.137:3000/bills/4/files',
-      // 'http://52.66.17.137:3000/bills/5/files',
-      // 'http://52.66.17.137:3000/bills/6/files',
-      // 'http://52.66.17.137:3000/bills/7/files'
-    ];
+    console.log(this.images);
   }
   getCurrentImage(image){
-    console.log(image[31]);
-    this.dataservice.changeMessage(image[31]);
+    console.log(image);
+    this.imageID = image.split('bills/').pop().split('/files').shift(); 
+    this.dataservice.changeMessage(this.imageID);
   }
 }
