@@ -97,7 +97,15 @@ export class CategoryComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('New Category added succesfully');
-        this.createCategoryForm.reset();
+        // this.createCategoryForm.reset();
+        // reset  editCategory form
+        this.editCategoryForm = new FormGroup({
+          Name: new FormControl(''),
+          ID: new FormControl(''),
+          RefID: new FormControl(''),
+          FormList: new FormArray([])
+        });
+
         this.userService.getCategoryList(2) // list update after createcat
           .subscribe(getCat => {
             this.cat = getCat;
@@ -120,7 +128,7 @@ export class CategoryComponent implements OnInit {
     this.userService.getCategoryListbyID(item.ID)
       .subscribe(res => {
         this.showDialog = true; // for show dialog
-        console.log(res.Category);
+        console.log(res);
         this.editCategoryForm.controls['ID'].setValue(res.Category[0].ID);
         this.editCategoryForm.controls['RefID'].setValue(res.Category[0].RefID);
         this.editCategoryForm.controls['Name'].setValue(res.Category[0].Name);

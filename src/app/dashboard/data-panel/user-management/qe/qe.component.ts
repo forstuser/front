@@ -55,7 +55,7 @@ export class QeComponent implements OnInit {
     }
     // populate prefilled value in form
     this.editUserForm.setValue({
-      UserType: 5,
+      UserType: 4,
       Name: item.Name,
       EmailID: item.EmailID,
       Status: this.statusCode,
