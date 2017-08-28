@@ -424,18 +424,18 @@ export class LeftPanelItemsComponent implements OnInit {
     this.userType = info.UserType;
     // console.log("userType", this.userType)
 
-    if (this.userType == 1) {
+    if (this.userType === '1') {
       this.LeftPanelItems = this.superAdmin;
       // console.log(this.superAdmin)
     }
 
-    else if (this.userType == 2) {
+    else if (this.userType === '2') {
       this.LeftPanelItems = this.admin;
       // console.log(this.admin)
 
     }
 
-    else if (this.userType == 3 || this.userType == 4) {
+    else if (this.userType === '3' || this.userType === '4') {
       this.LeftPanelItems = this.ce_qe;
     }
   }

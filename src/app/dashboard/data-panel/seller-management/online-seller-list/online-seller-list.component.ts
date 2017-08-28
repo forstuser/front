@@ -1,5 +1,5 @@
 import { UserService } from './../../../../_services/user.service';
-import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { OnlineSeller } from './../../../../_models/onlineSeller.interface';
 import { Component, OnInit } from '@angular/core';
 
@@ -17,7 +17,7 @@ export class OnlineSellerListComponent implements OnInit {
 
   ngOnInit() {
      this.onlineSellerForm = new FormGroup({
-      Name: new FormControl(''),
+      Name: new FormControl('',Validators.required),
       URL: new FormControl(''),
       GstinNo: new FormControl(''),
       ID: new FormControl(''),

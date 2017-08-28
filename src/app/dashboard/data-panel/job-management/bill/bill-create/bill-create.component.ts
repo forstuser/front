@@ -468,15 +468,15 @@ export class BillCreateComponent implements OnInit {
     this.showProductFormList = true;
   }
   createBill() {
-    console.log('generalFormContent :', this.generalFormContent);
-    console.log(' sellerFormContent:', this.sellerFormContent);
-    console.log('productInfoFormContent :', this.productInfoFormContent);
-    console.log('productFormContent :', this.productFormContent);
-    console.log(' insuranceFormContent:', this.insuranceFormContent);
-    console.log(' warrantyFormContetn:', this.warrantyFormContent);
-    console.log('AMCFormContent :', this.AMCFormContent);
-    console.log('repairFormContent :', this.repairFormContent);
-    console.log('FinalProductContent :', this.FinalProductContent);
+    // console.log('generalFormContent :', this.generalFormContent);
+    // console.log(' sellerFormContent:', this.sellerFormContent);
+    // console.log('productInfoFormContent :', this.productInfoFormContent);
+    // console.log('productFormContent :', this.productFormContent);
+    // console.log(' insuranceFormContent:', this.insuranceFormContent);
+    // console.log(' warrantyFormContetn:', this.warrantyFormContent);
+    // console.log('AMCFormContent :', this.AMCFormContent);
+    // console.log('repairFormContent :', this.repairFormContent);
+    // console.log('FinalProductContent :', this.FinalProductContent);
     this.addMoreProduct();
     this.endPanel = false;
     this.showProductFormList = false;
@@ -498,10 +498,17 @@ export class BillCreateComponent implements OnInit {
       "SellerList": this.sellerFormContent[0].SellerList,
       "ProductList": this.FinalProductContent
     }
+    this.productInfoFormContent = [];
+    this.productFormContent = [];
+    this.insuranceFormContent = [];
+    this.warrantyFormContent = [];
+    this.AMCFormContent = [];
+    this.repairFormContent = []
     console.log(this.finalData);
     this.userservice.createBill(this.finalData)
       .subscribe(res => {
         console.log(res);
+        this.finalData = [];
         // get current bill details
         this.userservice.getConsumerBillByID(this.billId)
           .subscribe(res => {

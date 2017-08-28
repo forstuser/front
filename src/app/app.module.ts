@@ -1,3 +1,4 @@
+import { FunctionService } from './_services/function.service';
 import { DataService } from './_services/data.service';
 import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import {
@@ -100,7 +101,7 @@ import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bi
     SwiperModule,
     MultiselectDropdownModule
   ],
-  providers: [AuthenticationService, AuthGuard, UserService,DataService], // services will come here
+  providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]
 })
 export class AppModule {  }

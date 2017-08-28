@@ -132,6 +132,10 @@ export class CategoryComponent implements OnInit {
         this.editCategoryForm.controls['ID'].setValue(res.Category[0].ID);
         this.editCategoryForm.controls['RefID'].setValue(res.Category[0].RefID);
         this.editCategoryForm.controls['Name'].setValue(res.Category[0].Name);
+        // res.FormList.forEach(
+        //   (po) => {
+        //     (<FormArray>this.editCategoryForm.controls['FormList']).push(this.createDetailsFormGroup(po));
+        //   });
       })
     // populate prefilled value in form
     // this.editCategoryForm.setValue({
@@ -140,6 +144,13 @@ export class CategoryComponent implements OnInit {
     //   RefID: item.RefID
     // });
   }
+  // createDetailsFormGroup(payOffObj) {
+  //   console.log(payOffObj);
+  //   return new FormGroup({
+  //     Type: new FormControl(payOffObj.Type),
+  //     ElementName: new FormControl(payOffObj.ElementName),
+  //   });
+  // }
   updateCategory(category: any) {
     console.log(category);
     // this.userService.updateCategory(category)

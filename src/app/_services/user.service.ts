@@ -10,18 +10,19 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 export class UserService {
         apiLink: String = appConfig.apiUrl;
         currentUser: any;
-        TokenNo: String;
+        TokenNo: String = '';
         UserType: Number;
         constructor(private http: Http) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
+
         }
         // **^ user Services ^** //
 
         // get different type of user
         getAllUser() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, UserType: this.UserType };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -31,6 +32,10 @@ export class UserService {
         }
         // get list of admin,qe,ce and customer
         getUserList(UserType: String) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, UserType: UserType };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -42,6 +47,10 @@ export class UserService {
 
         // Create User
         createUser(user: User) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 user['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(user);
                 console.log(data);
@@ -52,6 +61,10 @@ export class UserService {
         }
         // Update User
         updateUser(user: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 user['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(user);
                 console.log(data);
@@ -61,6 +74,10 @@ export class UserService {
         }
         // Delete user
         deleteUser(user: User) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 user['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(user);
                 console.log(data);
@@ -73,6 +90,10 @@ export class UserService {
 
         // get category form
         getCategoryFormByID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -84,6 +105,10 @@ export class UserService {
         }
         // get list of main category ,category and sub category
         getCategoryListbyID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -95,6 +120,10 @@ export class UserService {
         }
         //  get category list after select main category
         getCategoryListbyRefID(RefID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, RefID: RefID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -106,6 +135,10 @@ export class UserService {
         }
         // get list of main category ,category and sub category
         getCategoryList(Level: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, Level: Level };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -116,6 +149,10 @@ export class UserService {
         }
         // Create category
         createCategory(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -125,6 +162,10 @@ export class UserService {
         }
         // Update category
         updateCategory(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 // console.log(data);
@@ -134,6 +175,10 @@ export class UserService {
         }
         // Delete Category
         deleteCategory(category: Category) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -145,6 +190,10 @@ export class UserService {
         // **^ brand Services ^** //
         // get details of brand by id
         getBrandDetailsbyID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 const data = JSON.stringify(body);
                 // console.log(data);
@@ -156,6 +205,10 @@ export class UserService {
         }
         // get brand list
         getBrandList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -166,6 +219,10 @@ export class UserService {
         }
         // Create category
         createBrand(brand: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 brand['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(brand);
                 console.log(data);
@@ -175,6 +232,10 @@ export class UserService {
         }
         // Update brand
         updateBrand(brand: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 brand['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(brand);
                 console.log(data);
@@ -184,6 +245,10 @@ export class UserService {
         }
         // Delete brand
         deleteBrand(brand: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 brand['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(brand);
                 console.log(data);
@@ -194,6 +259,10 @@ export class UserService {
         // **^ online seller Services ^** //
         // get details of online seller by id
         getOnlineSellerDetailsbyID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 const data = JSON.stringify(body);
                 // console.log(data);
@@ -205,6 +274,10 @@ export class UserService {
         }
         // get online seller list
         getOnlineSellerList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -215,6 +288,10 @@ export class UserService {
         }
         // Create online seller
         createOnlineSeller(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OnlineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
@@ -224,6 +301,10 @@ export class UserService {
         }
         // Update online seller
         updateOnlineSeller(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OnlineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
@@ -233,6 +314,10 @@ export class UserService {
         }
         // Delete online seller
         deleteOnlineSeller(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OnlineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
@@ -244,6 +329,10 @@ export class UserService {
 
         // get details of offline seller by id
         getOfflineSellerDetailsbyID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 // const data = JSON.stringify(body);
                 const data = JSON.stringify(body);
@@ -256,6 +345,10 @@ export class UserService {
         }
         // get offline seller list
         getOfflineSellerList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -266,6 +359,10 @@ export class UserService {
         }
         // Create offline seller
         createOfflineSeller(OfflineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OfflineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OfflineSeller);
                 console.log(data);
@@ -275,6 +372,10 @@ export class UserService {
         }
         // Update offline seller
         updateOfflineSeller(OfflineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OfflineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OfflineSeller);
                 console.log(data);
@@ -284,6 +385,10 @@ export class UserService {
         }
         // Delete offline seller
         deleteOfflineSeller(OfflineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OfflineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OfflineSeller);
                 console.log(data);
@@ -294,6 +399,10 @@ export class UserService {
         // **^ Color Services ^** //
         // get list of main category ,category and sub category
         getColorList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -305,6 +414,10 @@ export class UserService {
 
         // Create category
         createColor(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -323,6 +436,10 @@ export class UserService {
         //     }
         // Delete Category
         deleteColor(category: Category) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -334,6 +451,10 @@ export class UserService {
 
         // get list of inclusions
         getInclusionsList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -344,6 +465,10 @@ export class UserService {
         }
         // get list of inclusions by category id
         getInclusionsListbyCategoryID(RefID: number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, RefID: RefID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -355,6 +480,10 @@ export class UserService {
         }
         // Create category
         createInclusions(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log('final', data);
@@ -364,6 +493,10 @@ export class UserService {
         }
         // Update category
         updateInclusions(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -373,6 +506,10 @@ export class UserService {
         }
         // Delete Category
         deleteInclusions(category: Category) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log('final data', data);
@@ -384,6 +521,10 @@ export class UserService {
 
         // get list of main category ,category and sub category
         getExclusionsList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -394,6 +535,10 @@ export class UserService {
         }
         // get list of exclusions by category id
         getExclusionsListbyCategoryID(RefID: number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, RefID: RefID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -405,6 +550,10 @@ export class UserService {
         }
         // Create category
         createExclusions(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log('final', data);
@@ -414,6 +563,10 @@ export class UserService {
         }
         // Update category
         updateExclusions(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log(data);
@@ -423,6 +576,10 @@ export class UserService {
         }
         // Delete Category
         deleteExclusions(category: Category) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 category['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(category);
                 console.log('final data', data);
@@ -433,6 +590,10 @@ export class UserService {
         // **^ authorized service center Services ^** //
         // get details of authorized service center by id
         getAuthorizedServiceCenterByID(ID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: ID };
                 const data = JSON.stringify(body);
                 // console.log(data);
@@ -444,6 +605,10 @@ export class UserService {
         }
         // get authorized service center list
         getAuthorizedServiceCenterList() {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -454,6 +619,10 @@ export class UserService {
         }
         // Create authorized service center
         createAuthorizedServiceCenter(serviceCenter: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 serviceCenter['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(serviceCenter);
                 console.log(data);
@@ -464,6 +633,10 @@ export class UserService {
         }
         // Update authorized service center
         updateAuthorizedServiceCenter(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OnlineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
@@ -474,6 +647,10 @@ export class UserService {
         }
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 OnlineSeller['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
@@ -486,6 +663,10 @@ export class UserService {
         // get list of new,under-progress and completed list
         // get admin list
         getAdminBillList(BillType: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, Status: BillType };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -496,6 +677,10 @@ export class UserService {
         }
         // get CE list
         getCEBillList(BillType: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, Status: BillType };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -506,6 +691,10 @@ export class UserService {
         }
         // get QE list
         getQEBillList(BillType: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, Status: BillType };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -516,6 +705,10 @@ export class UserService {
         }
         // Assign bills to CE
         assignTaskCE(task: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 task['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(task);
                 console.log(data);
@@ -526,6 +719,10 @@ export class UserService {
         }
         // Assign bills to QE
         assignTaskQE(task: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 task['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(task);
                 console.log(data);
@@ -534,9 +731,13 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/TaskAssignedQE', data, options)
                         .map((response: Response) => response.json());
         }
-                                 // **^ Bill Form  Services ^** //
+        // **^ Bill Form  Services ^** //
 
         getConsumerBillByID(billID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: billID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -547,6 +748,10 @@ export class UserService {
         }
 
         createBill(bill: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 bill['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(bill);
                 console.log(data);
@@ -557,7 +762,11 @@ export class UserService {
         }
         // final bill complete
         completeJob(bill: number) {
-                const body = { TokenNo:this.TokenNo, BID:bill}
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const body = { TokenNo: this.TokenNo, BID: bill }
                 const data = JSON.stringify(body);
                 console.log(data);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
@@ -567,6 +776,10 @@ export class UserService {
         }
 
         getConsumerBillDetailsByID(billID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, ID: billID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -575,8 +788,12 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerBillDetailByID', data, options)
                         .map((response: Response) => response.json());
         }
-        
+
         serachProduct(search: string) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 search['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(search);
                 console.log(data);
@@ -585,8 +802,12 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerProductSearch', data, options)
                         .map((response: Response) => response.json());
         }
-         // **^ QE  Services ^** //
-         taskCompleteQE(billID: Number) {
+        // **^ QE  Services ^** //
+        taskCompleteQE(billID: Number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 const body = { TokenNo: this.TokenNo, BID: billID };
                 const data = JSON.stringify(body);
                 console.log(data);
@@ -595,7 +816,11 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/TaskCompleteQE', data, options)
                         .map((response: Response) => response.json());
         }
-        qeAssignCE(req:any) {
+        qeAssignCE(req: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
                 req['TokenNo'] = this.TokenNo;
                 const data = JSON.stringify(req);
                 console.log(data);
@@ -604,9 +829,5 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/QEAssignedCE', data, options)
                         .map((response: Response) => response.json());
         }
-        // get call for get image from server
-        getImage(){
-                return this.http.get('http://52.66.17.137:3000/bills/5/files')
-                .map((response:Response) => response);
-        }
+
 }

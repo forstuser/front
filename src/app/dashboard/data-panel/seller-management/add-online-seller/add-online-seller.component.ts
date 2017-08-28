@@ -1,6 +1,7 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { OnlineSeller } from './../../../../_models/onlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,7 +13,7 @@ export class AddOnlineSellerComponent implements OnInit {
   public onlineSellerForm: FormGroup;
   items: OnlineSeller [] = [];
 
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
     this.onlineSellerForm = this.fb.group({
@@ -37,6 +38,7 @@ export class AddOnlineSellerComponent implements OnInit {
     const control = <FormArray>this.onlineSellerForm.controls['Details'];
     control.removeAt(i);
   }
+  //  create online seller function
   createOnlineSeller(data: OnlineSeller) {
     console.log(data);
     this.userService.createOnlineSeller(data)
@@ -45,5 +47,9 @@ export class AddOnlineSellerComponent implements OnInit {
         alert('New Online Seller added succesfully');
         this.onlineSellerForm.reset();
       });
+  }
+  // function for avoid only space submit
+  avoidSpace(){
+    this.functionService.NoWhitespaceValidator(this.onlineSellerForm,'Name')
   }
 }
