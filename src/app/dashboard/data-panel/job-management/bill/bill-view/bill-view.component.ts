@@ -15,28 +15,23 @@ export class BillViewComponent implements OnInit {
   consumerBill: ConsumerBill;
   billID: number;
   userID: number;
-  data:object;
+  data: object;
   billDetail: any;
-  productList: any;
-  productForm: any;
-  insuranceList: any;
-  insuranceImage: any;
-  insuranceInclusions: any;
-  insuranceExclusions: any;
-  warrantyList: any;
-  warrantyImage: any;
-  warrantyExclusions: any;
-  warrantyInclusions: any;
-  aMCList: any;
-  aMCImage: any;
-  aMCExclusion: any;
-  aMCInclusions: any;
-  repairList: any;
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService,private fb: FormBuilder) {
+  billDetailbyID: any;
+  showForm: boolean = true;
+  showGeneralForm: boolean = false;
+  showSellerForm: boolean = false;
+  showProductFormList: boolean = false;
+  showProductForm: boolean = false;
+  showInsuranceForm: boolean = false;
+  showWarrantyForm: boolean = false;
+  showAMCForm: boolean = false;
+  showRepairForm: boolean = false;
+  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private fb: FormBuilder) {
     this.billID = this.route.snapshot.parent.params['id'];
     this.userID = this.route.snapshot.queryParams['uid'];
-    console.log(this.userID);
-    console.log(this.billID);
+    // console.log("user id is ",this.userID);
+    // console.log("bill id is ",this.billID);
     this.assignForm = this.fb.group({
       'Comments': '',
     });
@@ -45,49 +40,105 @@ export class BillViewComponent implements OnInit {
 
   ngOnInit() {
     // get current bill details
-    this.userservice.getConsumerBillDetailsByID(this.billID)
+    this.userservice.getConsumerBillByID(this.billID)
       .subscribe(res => {
         // console.log(res);
         this.consumerBill = res;
-        this.billDetail = res.BillDetail;
-        this.productList = res.ProductList;
-        this.productForm = res.ProductForm;
-        this.insuranceList = res.InsuranceList
-        this.insuranceImage = res.InsuranceImage;
-        this.insuranceInclusions = res.InsuranceInclusions;
-        this.insuranceExclusions = res.InsuranceExclusions;
-        this.warrantyList = res.WarrantyList;
-        this.warrantyImage = res.WarrantyImage;
-        this.warrantyExclusions = res.WarrantyExclusions;
-        this.warrantyInclusions = res.WarrantyInclusions;
-        this.aMCList = res.AMCList;
-        this.aMCImage = res.AMCImage;
-        this.aMCExclusion = res.AMCExclusion;
-        this.aMCInclusions = res.AMCInclusions;
-        this.repairList = res.RepairList;
       })
   }
-  taskComplete(){
-    this.userservice.taskCompleteQE(this.billID)
-      .subscribe(res=>{
+  // Get current bill detials
+  getDetailofCurrentBill(res) {
+    console.log(res);
+    this.userservice.getConsumerBillDetailsByID(res.DetailID)
+      .subscribe(res => {
         console.log(res);
-      })  
+        this.billDetailbyID = res;
+        this.showGeneralForm = true;
+        this.showForm = false;
+      })
   }
-  reAssign(){
+  nextToSeller() {
+    this.showGeneralForm = false;
+    this.showSellerForm = true;
+  }
+  backToGeneral() {
+    this.showForm = true;
+    this.showGeneralForm = false;
+  }
+  // get seller details
+  nextToProductInfo() {
+    this.showSellerForm = false;
+    this.showProductFormList = true;
+  }
+  backToGeneralInfo() {
+    this.showGeneralForm = true;
+    this.showSellerForm = false;
+  }
+  backToProductInfo() {
+    this.showProductFormList = true;
+    this.showProductForm = false;
+  }
+  nextToProductForm() {
+    this.showProductForm = true;
+    this.showProductFormList = false;
+  }
+  backToProductForm() {
+    this.showProductForm = false;
+    this.showProductFormList = true;
+  }
+  nextToInsuranceForm() {
+    this.showInsuranceForm = true;
+    this.showProductForm = false;
+  }
+  backToInsuranceForm() {
+    this.showInsuranceForm = false;
+    this.showProductForm = true;
+  }
+  nextToWarrantyForm() {
+    this.showWarrantyForm = true;
+    this.showInsuranceForm = false;
+  }
+  backToWarrantyForm() {
+    this.showInsuranceForm = true;
+    this.showWarrantyForm = false;
+  }
+  nextToAMCForm() {
+    this.showAMCForm = true;
+    this.showWarrantyForm = false;
+  }
+  backToAMCForm() {
+    this.showWarrantyForm = true;
+    this.showAMCForm = false;
+  }
+  nextToRepairForm() {
+    this.showRepairForm = true;
+    this.showWarrantyForm = false;
+  }
+  backToRepairForm() {
+    this.showRepairForm = true;
+    this.showAMCForm = false;
+  }
+  taskComplete() {
+    this.userservice.taskCompleteQE(this.billID)
+      .subscribe(res => {
+        console.log(res);
+      })
+  }
+  reAssign() {
     this.showDialog = true; // for show dialog
   }
   assignBill(item: any) {
     console.log(item);
     this.data = {
-      'BID':this.billID,
-      'UID':this.userID,
-      'Comments':item.Comments
+      'BID': this.billID,
+      'UID': this.userID,
+      'Comments': item.Comments
     }
     this.userservice.qeAssignCE(this.data)
-      .subscribe(res=>{
+      .subscribe(res => {
         console.log(res);
         alert("success");
-        this.showDialog =false;
+        this.showDialog = false;
       })
   }
 }

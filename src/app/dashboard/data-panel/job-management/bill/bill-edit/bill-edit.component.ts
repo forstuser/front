@@ -1,3 +1,4 @@
+import { DataService } from './../../../../../_services/data.service';
 import { Inclusion } from './../../../../../_models/inclusion';
 import { Exclusion, ExclusionsList } from './../../../../../_models/exclusion';
 import { Category } from './../../../../../_models/category';
@@ -18,6 +19,12 @@ import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-mul
   styleUrls: ['./bill-edit.component.css']
 })
 export class BillEditComponent implements OnInit {
+  imageArray:any[]=[];
+  billImageArray: any[] = [];
+  insuranceImageArray: any[] = [];
+  warrantyImageArray: any[] = [];
+  amcImageArray: any[] = [];
+  repairImageArray: any[] = [];
   // Settings configuration
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
@@ -70,7 +77,7 @@ export class BillEditComponent implements OnInit {
   productFormID: number = null;
   finalData: any = {};
   productData: any = {};
-  // Fill product form
+  // Fill product info form
   ProductName:string;
   Value:string;
   Taxes:string;
@@ -79,14 +86,35 @@ export class BillEditComponent implements OnInit {
   MainCategory:number;
   Category:number;
   Tag:string;
-
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService) {
+  // fill product form
+  Drops:number;
+  //fill insurance form
+  Plan:string;
+  PolicyNo:string;
+  AmountInsured:string;
+  PremiumType:string;
+  PremiumAmount:string;
+  PolicyEffectiveDate:string;
+  PolicyExpiryDate:string;
+  SellerType:number;
+  SellerInfo:number;
+  BrandID:number;
+  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService,private dataservice:DataService) {
     this.billId = route.snapshot.params.id;
     console.log(this.billId);
   }
 
 
   ngOnInit() {
+    this.dataservice.currentMessage
+    .subscribe(res => {
+      // this.message = res;
+      if (this.imageArray.includes(res)) {
+        alert("Image already added");
+      } else {
+        this.imageArray.push(res);
+      }
+    })
     // get current bill details
     this.userservice.getConsumerBillDetailsByID(this.billId)
       .subscribe(res => {
@@ -128,6 +156,11 @@ export class BillEditComponent implements OnInit {
   // *****************************General Form functions*********************************************
   generalFormData(form: NgForm) {
     // console.log(form.value);
+        // console.log(form.value);
+    this.billImageArray = this.imageArray;
+    this.billImageArray.splice(0,1);
+    console.log(this.billImageArray);
+    this.imageArray = [];
     this.generalFormContent.push(form.value);
     this.showGeneralForm = false;
     this.showSellerForm = true;
@@ -239,6 +272,13 @@ export class BillEditComponent implements OnInit {
     this.showInsuranceForm = true;
 
   }
+  // fill Product form
+  fillProductForm(index){
+    console.log(this.consumerBillDetail.ProductForm[index]);
+    for(let i=0;i<this.consumerBillDetail.ProductForm.length;i++){
+      this['Drops'+i] = this.consumerBillDetail.ProductForm[i].value;
+    }
+  }
 
   // ********************************Insurance form functions ***************************************
   // select type brand or seller
@@ -272,6 +312,21 @@ export class BillEditComponent implements OnInit {
   skipInsurance() {
     this.showInsuranceForm = false;
     this.showWarrantyForm = true;
+  }
+  // fill Insurance Form
+  fillInsuranceForm(index){
+    console.log(index);
+    this.Plan = this.consumerBillDetail.InsuranceList[index].Plan;
+    this.PolicyNo = this.consumerBillDetail.InsuranceList[index].PolicyNo;
+    this.AmountInsured = this.consumerBillDetail.InsuranceList[index].AmountInsured;
+    this.PremiumType = this.consumerBillDetail.InsuranceList[index].PremiumType;
+    this.PremiumAmount = this.consumerBillDetail.InsuranceList[index].PremiumAmount;
+    this.PolicyEffectiveDate = this.consumerBillDetail.InsuranceList[index].PolicyEffectiveDate;
+    this.PolicyExpiryDate = this.consumerBillDetail.InsuranceList[index].PolicyExpiryDate;
+    this.SellerType = this.consumerBillDetail.InsuranceList[index].SellerType;
+    this.BrandID = this.consumerBillDetail.InsuranceList[index].BrandID;
+    this.SellerInfo = this.consumerBillDetail.InsuranceList[index].SellerInfo;
+
   }
   // ********************************Warranty form functions ***************************************
   warrantyFormData(form: NgForm) {

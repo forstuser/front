@@ -457,6 +457,6 @@ export class LeftPanelItemsComponent implements OnInit {
     // this.isIn = bool === false ? true : false;
   }
   doNothing() {
-    console.log('do nothing');
+    // console.log('do nothing');
   }
 }

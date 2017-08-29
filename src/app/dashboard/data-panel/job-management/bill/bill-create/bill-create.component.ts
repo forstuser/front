@@ -159,6 +159,8 @@ export class BillCreateComponent implements OnInit {
     this.userservice.completeJob(this.billId)
       .subscribe(res => {
         console.log(res);
+        alert("Job Completed");
+        this.router.navigateByUrl('/dashboard/new');
         // redirect to previous page
       })
   }
@@ -510,6 +512,7 @@ export class BillCreateComponent implements OnInit {
         console.log(res);
         this.finalData = [];
         // get current bill details
+        alert("Bill Created Successfully");
         this.userservice.getConsumerBillByID(this.billId)
           .subscribe(res => {
             console.log(res);

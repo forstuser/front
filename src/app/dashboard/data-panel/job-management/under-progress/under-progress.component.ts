@@ -94,6 +94,7 @@ export class UnderProgressComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
+        this.showQeDialog = false;
         this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;

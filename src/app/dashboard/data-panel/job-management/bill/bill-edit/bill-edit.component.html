@@ -294,6 +294,11 @@
 
 <!-- Product Form Start -->
 <div *ngIf="showProductForm">
+  <div class="row clearfix">
+    <div *ngFor="let i of consumerBillDetail?.ProductList; let j=index ">
+      <button class="btn btn-sm btn-info" (click)="fillProductForm(j)">{{i.ProductName}}</button>
+    </div>
+  </div>
   <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
     <h5>
       <u>Product Form</u>
@@ -306,12 +311,12 @@
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel>
+              <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel="{{this['Drops'+i]}}">
             </div>
           </div>
         </div>
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
-          <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
+          <select class="form-control dropdown" name="{{form.FormID}}" ngModel="{{this['Drops'+i]}}">
                 <ng-container *ngFor="let droplist of productMainForm?.List">
                    <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
                 </ng-container>
@@ -330,24 +335,30 @@
 
 <!-- Insurance Form Start -->
 <div *ngIf="showInsuranceForm">
+
+  <div class="row clearfix">
+    <div *ngFor="let i of consumerBillDetail?.ProductList; let j=index ">
+      <button class="btn btn-sm btn-info" (click)="fillInsuranceForm(j)">{{i.ProductName}}</button>
+    </div>
+  </div>
   <form #insuranceForm="ngForm" (ngSubmit)="insuranceFormData(insuranceForm)">
     <h4>
       <u>Insurance</u>
       <u>Form </u>
     </h4>
     <hr>
-    <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Insurance Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="InsuranceImage" class="form-control input_fix" ngModel>
+    <!-- <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Insurance Image</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" name="InsuranceImage" class="form-control input_fix" ngModel>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div> -->
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Plan</b></small>
@@ -355,7 +366,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Plan" class="form-control input_fix" ngModel>
+            <input type="text" name="Plan" class="form-control input_fix" ngModel="{{Plan}}">
           </div>
         </div>
       </div>
@@ -365,7 +376,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel="{{PolicyNo}}">
           </div>
         </div>
       </div>
@@ -377,7 +388,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="AmountInsured" class="form-control input_fix" ngModel>
+            <input type="text" name="AmountInsured" class="form-control input_fix" ngModel="{{AmountInsured}}">
           </div>
         </div>
       </div>
@@ -387,7 +398,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel="{{PremiumType}}">
           </div>
         </div>
       </div>
@@ -399,7 +410,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel="{{PremiumAmount}}">
           </div>
         </div>
       </div>
@@ -409,7 +420,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel="{{PolicyEffectiveDate}}">
           </div>
         </div>
       </div>
@@ -421,7 +432,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyExpireDate" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel="{{PolicyExpiryDate}}">
           </div>
         </div>
       </div>
@@ -450,11 +461,11 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectType($event.target.value)">
-                    <option>Select</option>
-                    <option value="brand">Brand</option>
-                    <option value="seller">Seller</option>
-                </select>
+          <select class="form-control dropdown" (change)="selectType($event.target.value)" name="SellerType" ngModel="{{SellerType}}">
+                      <option>Select</option>
+                      <option value="brand">Brand</option>
+                      <option value="seller">Seller</option>
+                  </select>
         </div>
       </div>
       <div *ngIf="selectDropdown == 'brand'">
@@ -463,9 +474,10 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel>
-                <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
-              </select>
+            <select class="form-control dropdown" name="BrandID" ngModel ="{{BrandID}}">
+                  <option>Select</option>
+                  <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
           </div>
         </div>
       </div>
@@ -475,9 +487,9 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel>
-                <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
-              </select>
+            <select class="form-control dropdown" name="SellerInfo" ngModel ="{{SellerInfo}}">
+                  <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
           </div>
         </div>
       </div>
@@ -490,9 +502,26 @@
         <button class="btn bg-orange btn-block btn-lg" (click)="skipInsurance()">Skip</button>
       </div>
     </div>
+    <div *ngIf="imageArray.length > 0">
+      <div class="row clearfix">
+        <div *ngFor="let image of imageArray">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+              <div class="caption">
+                <p class="text-center">
+                  <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </form>
 </div>
 <!-- Insurance Form End -->
+
 
 <!-- mid panel start -->
 <div *ngIf="showMidPanel1">

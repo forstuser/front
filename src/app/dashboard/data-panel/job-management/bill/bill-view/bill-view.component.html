@@ -1,226 +1,1050 @@
-<div>
-  <div class="row" style="height: 400px;overflow-y: scroll;">
-
-    <div class="col-lg-6">
-      <h4>BillDetail</h4>
-      <div class="ui-lg-12" *ngFor="let data of billDetail">
-        <p>DetailID : {{data.DetailID}}</p>
-        <p>Name : {{data.Name}}</p>
-        <p>EmailID : {{data.EmailId}}</p>
-        <p>PhoneNo : {{data.PhoneNo}}</p>
-        <p>InvoiceNo : {{data.InvoiceNo}}</p>
-        <p>TotalValue : {{data.TotalValue}}</p>
-        <p>Tax : {{data.Tax}}</p>
-        <p>PurchaseDat : {{data.PurchaseDate }}</p>
-      </div>
+<div *ngIf="showForm">
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <p><b>Bill No : </b>{{ consumerBill?.BillNo }}</p>
+      <p><b>Name : </b>{{ consumerBill?.Name }}</p>
     </div>
-
-    <div class="col-lg-6">
-      <h4>ProductList</h4>
-      <div class="ui-lg-12" *ngFor="let data of productList">
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>DetailID : {{data.DetailID}}</p>
-        <p>ProductName : {{data.ProductName}}</p>
-        <p>MasterCatID : {{data.MasterCatID}}</p>
-        <p>ColorID : {{data.ColorID}}</p>
-        <p>BrandID : {{data.BrandID}}</p>
-        <p>Value : {{data.Value}}</p>
-        <p>Taxes : {{data.Taxes}}</p>
-        <p>Tag : {{data.Tag}}</p>
-        <p>MasterCatName : {{data.MasterCatName}}</p>
-        <p>CatName : {{data.CatName}}</p>
-        <p>BrandName : {{data.BrandName}}</p>
-        <p>ColorName : {{data.ColorName}}</p>
-      </div>
+    <div class="col-md-6">
+      <p><b>Email : </b>{{ consumerBill?.EmailID }}</p>
+      <p><b>Phone No : </b>{{ consumerBill?.PhoneNo }}</p>
     </div>
-
-
-    <div class="col-lg-6">
-      <h4>productForm</h4>
-      <div class="ui-lg-12" *ngFor="let data of productForm">
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>CatFormID : {{data.CatFormID}}</p>
-        <p>value : {{data.value}}</p>
-        <p>CatFormName : {{data.CatFormName}}</p>
-        <p>DropdownValue : {{data.DropdownValue}}</p>
-      </div>
-    </div>
-
-
-    <div class="col-lg-6">
-      <h4>InsuranceList</h4>
-      <div class="ui-lg-12" *ngFor="let data of insuranceList">
-        <p>InsuranceID : {{data.InsuranceID}}</p>
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>SellerType : {{data.SellerType}}</p>
-        <p>SellerID : {{data.SellerID}}</p>
-        <p>Plan : {{data.Plan}}</p>
-        <p>PolicyNo : {{data.PolicyNo}}</p>
-        <p>AmountInsured : {{data.AmountInsured}}</p>
-        <p>PremiumType : {{data.PremiumType}}</p>
-        <p>PremiumAmount : {{data.PremiumAmount}}</p>
-        <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate }}</p>
-        <p>PolicyExpiryDate : {{data.PolicyExpiryDate }}</p>
-        <p>BrandName : {{data.BrandName}}</p>
-        <p>ColorName : {{data.ColorName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>InsuranceImage</h4>
-      <div class="ui-lg-12" *ngFor="let data of insuranceImage">
-        <p>InsuranceID : {{data.InsuranceID}}</p>
-        <p>ProductID : {{data.ImageID}}</p>
-      </div>
-    </div>
-
-
-    <div class="col-lg-6">
-      <h4>InsuranceInclusions</h4>
-      <div class="ui-lg-12" *ngFor="let data of insuranceInclusions">
-        <p>InsuranceID : {{data.InsuranceID}}</p>
-        <p>InclusionsID : {{data.InclusionsID}}</p>
-        <p>InclusionsName : {{data.InclusionsName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>InsuranceExclusions</h4>
-      <div class="ui-lg-12" *ngFor="let data of insuranceExclusions">
-        <p>InsuranceID : {{data.InsuranceID}}</p>
-        <p>ExclusionsID : {{data.ExclusionsID}}</p>
-        <p>ExclusionsName : {{data.ExclusionsName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>WarrantyList</h4>
-      <div class="ui-lg-12" *ngFor="let data of warrantyList">
-        <p>WarrantyID : {{data.WarrantyID}}</p>
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>SellerType : {{data.SellerType}}</p>
-        <p>SellerID : {{data.SellerID}}</p>
-        <p>WarrantyType : {{data.WarrantyType}}</p>
-        <p>PolicyNo : {{data.PolicyNo}}</p>
-        <p>PremiumType : {{data.PremiumType}}</p>
-        <p>PremiumAmount : {{data.PremiumAmount}}</p>
-        <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate }}</p>
-        <p>PolicyExpiryDate : {{data.PolicyExpiryDate }}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>WarrantyImage</h4>
-      <div class="ui-lg-12" *ngFor="let data of warrantyImage">
-        <p>WarrantyID : {{data.WarrantyID}}</p>
-        <p>ImageID : {{data.ImageID}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>WarrantyExclusions</h4>
-      <div class="ui-lg-12" *ngFor="let data of warrantyExclusions">
-        <p>WarrantyID : {{data.WarrantyID}}</p>
-        <p>ExclusionsID : {{data.ExclusionsID}}</p>
-        <p>ExclusionsName : {{data.ExclusionsName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>WarrantyInclusions</h4>
-      <div class="ui-lg-12" *ngFor="let data of warrantyInclusions">
-        <p>WarrantyID : {{data.WarrantyID}}</p>
-        <p>InclusionsID : {{data.InclusionsID}}</p>
-        <p>InclusionsName : {{data.InclusionsName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>AMCList</h4>
-      <div class="ui-lg-12" *ngFor="let data of aMCList">
-        <p>AmcID : {{data.AmcID}}</p>
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>SellerType : {{data.SellerType}}</p>
-        <p>SellerID : {{data.SellerID}}</p>
-        <p>PolicyNo : {{data.PolicyNo}}</p>
-        <p>PremiumType : {{data.PremiumType}}</p>
-        <p>PremiumAmount : {{data.PremiumAmount}}</p>
-        <p>PolicyEffectiveDate : {{data.PolicyEffectiveDate }}</p>
-        <p>PolicyExpiryDate : {{data.PolicyExpiryDate }}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>AMCImage</h4>
-      <div class="ui-lg-12" *ngFor="let data of aMCImage">
-        <p>AmcID : {{data.AmcID}}</p>
-        <p>ImageID : {{data.ImageID}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6" *ngIf="aMCExclusion">
-      <h4>AMCExclusion</h4>
-      <div class="ui-lg-12" *ngFor="let data of aMCExclusion">
-        <p>AmcID : {{data.AmcID}}</p>
-        <p>ExclusionsID : {{data.ExclusionsID}}</p>
-        <p>ExclusionsName : {{data.ExclusionsName}}</p>
-
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>AMCInclusions</h4>
-      <div class="ui-lg-12" *ngFor="let data of aMCInclusions">
-        <p>AmcID : {{data.AmcID}}</p>
-        <p>InclusionsID : {{data.InclusionsID}}</p>
-        <p>InclusionsName : {{data.InclusionsName}}</p>
-      </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h4>RepairList</h4>
-      <div class="ui-lg-12" *ngFor="let data of repairList">
-        <p>RepairID : {{data.RepairID}}</p>
-        <p>ProductID : {{data.ProductID}}</p>
-        <p>SellerType : {{data.SellerType}}</p>
-        <p>SellerID : {{data.SellerID}}</p>
-        <p>RepairValue : {{data.RepairValue}}</p>
-        <p>Taxes : {{data.Taxes}}</p>
-        <p>RepairInvoiceNumber : {{data.RepairInvoiceNumber}}</p>
-        <p>RepairDate : {{data.RepairDate }}</p>
-      </div>
-    </div>
-
   </div>
-  <p></p>
-  <div class="col-lg-12" style="text-align:right;">
-    <button type="button" class="btn btn-info" (click)="reAssign()">Reassign</button>
-    <button type="button" class="btn btn-success" (click)="taskComplete()">Complete Bill</button>
-  </div>
-  <app-dialog [(visible)]="showDialog">
-    <div class="modal-header">
-      <h4 class="modal-title" id="smallModalLabel">Re-assign Bill</h4>
+  <div class="card" *ngIf="consumerBill?.Detail?.length > 0">
+    <div class="header padding_fix">
+      <p><b>
+        Current JOB Bills
+      </b></p>
     </div>
-    <div class="modal-body">
-      <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="assignBill(assignForm.value)">
-        <div class="row clearfix">
-          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Comments</label>
+    <div class="body table-responsive">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><small>Invoice</small></th>
+            <th><small>Name</small></th>
+            <th><small>Phone</small></th>
+            <th><small>Purchase Date</small></th>
+            <th><small>Total Amount</small></th>
+            <th><small>Action</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bill of consumerBill?.Detail">
+            <th><small>{{ bill.Invoice }}</small></th>
+            <th><small>{{ bill.Name }}</small></th>
+            <th><small>{{ bill.Phone }}</small></th>
+            <th><small>{{ bill?.PurchaseDate }}</small></th>
+            <th><small>{{ bill.TotalAmount }}</small></th>
+            <th><small><span class="btn btn-info btn-xs" title="View" (click)="getDetailofCurrentBill(bill)" ><i class="material-icons" >visibility</i></span></small></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card" *ngIf="consumerBill?.ProductDetail?.length > 0">
+    <div class="header padding_fix">
+      <p><b>
+          Current JOB Products
+        </b></p>
+    </div>
+    <div class="body table-responsive">
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th><small>Product Name</small></th>
+            <th><small>Main Category</small></th>
+            <th><small>Category</small></th>
+            <th><small>Brand</small></th>
+            <th><small>Tag</small></th>
+            <th><small>Value</small></th>
+            <th><small>Action</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bill of consumerBill?.ProductDetail">
+            <th><small>{{ bill.ProductName }}</small></th>
+            <th><small>{{ bill.MasterCatName }}</small></th>
+            <th><small>{{ bill.CatName }}</small></th>
+            <th><small>{{ bill.brand_name }}</small></th>
+            <th><small>{{ bill.Tag }}</small></th>
+            <th><small>{{ bill.Value }}</small></th>
+            <th><small><span class="btn btn-info btn-xs" title="Edit"><i class="material-icons" >visibility</i></span></small></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" (click)="reAssign()">Reassign</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-indigo btn-block btn-lg" (click)="taskComplete()">Complete Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- general form start -->
+<div *ngIf="showGeneralForm">
+    <h4>
+      <u>General</u>
+      <u>Information </u>
+    </h4>
+    <hr>
+    <div class="row clearfix">
+      <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Bill Image</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="BillImage" class="form-control input_fix" ngModel>
           </div>
-          <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <textarea rows="5" cols="60" formControlName="Comments"></textarea>
+        </div>
+      </div> -->
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Name : </b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.BillDetail[0].Name}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Phone No</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].PhoneNo}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Email ID : </b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].EmailID}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Invoice Number: </b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].InvoiceNo}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Total Value :</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].TotalValue}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Taxes </b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].Tax}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Date of Purchase :</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+            <p>{{billDetailbyID?.BillDetail[0].PurchaseDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="billDetailbyID?.BillImage?.length > 0">
+      <div class="row clearfix">
+        <div *ngFor="let image of billDetailbyID?.BillImage">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
+              <div class="caption">
               </div>
             </div>
           </div>
         </div>
-        <div class="row clearfix">
-          <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
-            <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignForm.valid">
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToGeneral()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToSeller()">Next</button>
+      </div>
+    </div>
+
+</div>
+<!-- general form end -->
+
+<!-- seller form start -->
+<div *ngIf="showSellerForm">
+  <h4>
+    <u>Seller</u>
+    <u>Information </u>
+  </h4>
+  <div class="row clearfix">
+    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+      <small><b>Online Seller </b></small>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <div class="form-group">
+          <p>{{billDetailbyID?.BillOnlineSeller[0]?.Name}}</p>
+      </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+      <small><b>Offline Seller</b></small>
+    </div>
+    <div class="col-lg-4 col-md-4 ">
+      <div class="form-group" *ngFor="let seller of billDetailbyID?.BillOfflineSeller[0]">
+          <p>{{seller}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToGeneralInfo()">Back</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToProductInfo()">Next</button>
+    </div>
+  </div>
+</div>
+<!-- seller form end -->
+
+<!-- Product General Form Start -->
+<div *ngIf="showProductFormList">
+  <h4>
+    <u>Product</u>
+    <u>Information </u>
+  </h4>
+  <hr>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Product Name</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.ProductName}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Value</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.Value}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Taxes</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.Taxes}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Color</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.ColorName}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Brand</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.BrandName}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Main Category</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.MasterCatName}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Category</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.CatName}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Tag</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.ProductList[0]?.Tag}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToProductInfo()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToProductForm()">Next</button>
+      </div>
+    </div>
+</div>
+<!-- Product General Form End -->
+
+<!-- Product Form Start -->
+<div *ngIf="showProductForm">
+    <h5>
+      <u>Product Form</u>
+    </h5>
+    <div class="row clearfix" *ngFor="let data of billDetailbyID?.ProductForm">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>{{data?.CatFormName}}</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group" *ngIf="!data?.DropdownValue">
+          <p>{{data?.value}}</p>
+        </div>
+        <div class="form-group" *ngIf="data?.DropdownValue">
+          <p>{{data?.DropdownValue}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToProductForm()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToInsuranceForm()">Next</button>
+      </div>
+    </div>
+</div>
+<!-- Product Form End -->
+
+<!-- Insurance Form Start -->
+<div *ngIf="showInsuranceForm">
+    <h4>
+      <u>Insurance</u>
+      <u>Form </u>
+    </h4>
+    <hr>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Plan</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].Plan}}</p>
+      </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy No.</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyNo}}</p>
+      </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Amount Insured</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].AmountInsured}}</p>
+      </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PremiumType}}</p>
+      </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PremiumAmount}}</p>
+      </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyEffectiveDate}}</p>
+      </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyExpiryDate}}</p>
+      </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceInclusions">
+          <p>{{list}}</p>
+      </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceExclusions">
+          <p>{{list}}</p>
+      </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div *ngIf="billDetailbyID?.InsuranceList[0].BrandName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.InsuranceList[0].BrandName}}</p>
+        </div>
+        </div>
+      </div>
+      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.InsuranceList[0].SellerName}}</p>
+        </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="billDetailbyID?.InsuranceImage?.length > 0">
+      <div class="row clearfix">
+        <div *ngFor="let image of billDetailbyID?.InsuranceImage">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
+              <div class="caption">
+              </div>
+            </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-  </app-dialog>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToGeneral()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToSeller()">Next</button>
+      </div>
+    </div>
 </div>
+<!-- Insurance Form End -->
+
+
+
+<!-- Warranty Form Start -->
+<div *ngIf="showWarrantyForm">
+  <form #warranrtyForm="ngForm" (ngSubmit)="warrantyFormData(warranrtyForm)">
+    <h4>
+      <u>Warranty</u>
+      <u>Form </u>
+    </h4>
+    <hr>
+    <!-- <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Warranty Image</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="WarrantyImage" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy No.</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                      <option>Select</option>
+                      <option value="brand">Brand</option>
+                      <option value="seller">Seller</option>
+                  </select>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'brand'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="BrandID" ngModel>
+                  <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'seller'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Select Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="SellerInfo" ngModel>
+                  <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-8">
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" (click)="skipWarranty()">Skip</button>
+      </div>
+    </div>
+    <div *ngIf="imageArray.length > 0">
+        <div class="row clearfix">
+          <div *ngFor="let image of imageArray">
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail" *ngIf="image">
+                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                <div class="caption">
+                  <p class="text-center">
+                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+<!-- Warranty Form End -->
+
+<!-- mid panel 2 start -->
+<div *ngIf="showMidPanel2">
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" (click)="addMoreWarranty()">Add More Warranty</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" (click)="addAMC()">Add AMC</button>
+    </div>
+  </div>
+</div>
+<!-- mid panel 2 end -->
+
+<!-- AMC Form Start -->
+<div *ngIf="showAMCForm">
+  <form #amcForm="ngForm" (ngSubmit)="amcFormData(amcForm)">
+    <h4>
+      <u>AMC</u>
+      <u>Form </u>
+    </h4>
+    <hr>
+    <!-- <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>AMC Image</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="AMCImage" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy No.</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                      <option>Select</option>
+                      <option value="brand">Brand</option>
+                      <option value="seller">Seller</option>
+                  </select>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'brand'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="BrandID" ngModel>
+                  <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'seller'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Select Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="SellerInfo" ngModel>
+                  <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-8">
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" (click)="skipAMC()">Skip</button>
+      </div>
+    </div>
+    <div *ngIf="imageArray.length > 0">
+        <div class="row clearfix">
+          <div *ngFor="let image of imageArray">
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail" *ngIf="image">
+                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                <div class="caption">
+                  <p class="text-center">
+                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+<!-- AMC Form End -->
+
+<!-- mid panel 3 start -->
+<div *ngIf="showMidPanel3">
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" (click)="addMoreAMC()">Add More AMC</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" (click)="addRepair()">Add Repair</button>
+    </div>
+  </div>
+</div>
+<!-- mid panel 3 end -->
+
+<!-- Repair Form Start -->
+<div *ngIf="showRepairForm">
+  <form #repairForm="ngForm" (ngSubmit)="repairFormData(repairForm)">
+    <h4>
+      <u>Repair</u>
+      <u>Form </u>
+    </h4>
+    <hr>
+    <!-- <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Repair Image</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="RepairImage" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Repair Value</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="RepairValue" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Taxes</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Repair Invoice Number</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Repair Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="RepairDate" class="form-control input_fix" ngModel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+                     <option>Select</option>
+                      <option value="brand">Brand</option>
+                      <option value="seller">Seller</option>
+                  </select>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'brand'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="BrandID" ngModel>
+                  <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="selectDropdown == 'seller'">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Select Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <select class="form-control dropdown" name="SellerInfo" ngModel>
+                  <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-8">
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
+      </div>
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" (click)="skipRepair()">Skip</button>
+      </div>
+    </div>
+    <div *ngIf="imageArray.length > 0">
+        <div class="row clearfix">
+          <div *ngFor="let image of imageArray">
+            <div class="col-sm-6 col-md-3">
+              <div class="thumbnail" *ngIf="image">
+                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                <div class="caption">
+                  <p class="text-center">
+                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+<!-- Repair Form End -->
+
+<!-- end panel start -->
+<div *ngIf="endPanel">
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" (click)="addMoreRepair()">Add More Repair</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" (click)="addMoreProduct()">Add More Product</button>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12">
+      <button class="btn bg-teal btn-block btn-lg" (click)="createBill()">Create Bill</button>
+    </div>
+  </div>
+</div>
+<!-- end Panel end -->
+
+<!-- search panel start -->
+<div *ngIf="searchPanel">
+  <form #searchForm="ngForm" (ngSubmit)="serachProduct(searchForm)">
+    <div class="row clearfix">
+      <div class="col-md-8">
+        <div class="form-group">
+          <div class="form-line">
+            <input type="text" name="Search" class="form-control" placeholder="Enter Product Name, Main Category,Category or Brand" ngModel>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg">Search</button>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="searchList?.ProductList.length > 0">
+      <div class="body table-responsive">
+        <table class="table table-condensed">
+          <thead>
+            <tr class="success">
+              <th><small>Product Name</small></th>
+              <th><small>Main Category</small></th>
+              <th><small>Category</small></th>
+              <th><small>Brand</small></th>
+              <th><small>Tag</small></th>
+              <th><small>Value</small></th>
+              <th><small>Action</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of searchList?.ProductList">
+              <th><small>{{ list.ProductName }}</small></th>
+              <th><small>{{ list.MasterCatName }}</small></th>
+              <th><small>{{ list.CatName }}</small></th>
+              <th><small>{{ list.brand_name }}</small></th>
+              <th><small>{{ list.Tag }}</small></th>
+              <th><small>{{ list.Value }}</small></th>
+              <th><small><span class="btn btn-info btn-xs" routerLink="bill/{{ list.DetailID }}/edit" title="add"><i class="material-icons" >add</i></span></small></th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- search Panel end -->
+
+<!-- reassign panel -->
+<app-dialog [(visible)]="showDialog">
+  <div class="modal-header">
+    <h4 class="modal-title" id="smallModalLabel">Re-assign Bill</h4>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="assignBill(assignForm.value)">
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Comments</label>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <div class="form-line">
+              <textarea rows="5" cols="60" formControlName="Comments"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+          <input type="submit" value="Re-assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignForm.valid">
+        </div>
+      </div>
+    </form>
+  </div>
+</app-dialog>
