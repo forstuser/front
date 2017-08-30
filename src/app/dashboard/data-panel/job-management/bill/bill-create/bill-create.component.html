@@ -1158,7 +1158,7 @@
               <th><small>{{ list.brand_name }}</small></th>
               <th><small>{{ list.Tag }}</small></th>
               <th><small>{{ list.Value }}</small></th>
-              <th><small><span class="btn btn-info btn-xs" routerLink="bill/{{ list.DetailID }}/edit" title="add"><i class="material-icons" >add</i></span></small></th>
+              <th><small><span class="btn btn-info btn-xs" (click)="addons(list)" title="add"><i class="material-icons" >add</i></span></small></th>
             </tr>
           </tbody>
         </table>

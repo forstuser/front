@@ -6,7 +6,13 @@
     </h2>
   </div>
   <div class="body table-responsive">
-    <table class="table table-condensed table-bordered">
+    <nav>
+      <ul class="pager">
+        <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()" >Previous</a></li>
+        <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+      </ul>
+    </nav>
+    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
       <thead>
         <tr>
           <th>#</th>
@@ -24,6 +30,9 @@
         </tr>
       </tbody>
     </table>
+    <ng-template #elseBlock>
+       <h4> No Data Available </h4>
+      </ng-template>
   </div>
   <app-dialog [(visible)]="showDialog">
     <div class="modal-header">
@@ -71,28 +80,28 @@
             <div class="row clearfix" [formGroupName]="i">
               <div class="col-md-2 col-lg-2 col-md-offset-1">
                 <label>
-                                    Category
-                                </label>
+                    Category
+                </label>
                 <select class="form-control dropdown" formControlName="CategoryID">
-                                        <option>Select</option>
-                                        <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
-                                      </select>
+                  <option>Select</option>
+                  <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
+                </select>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
                 <label>
-                                        Type
-                                    </label>
+                    Type
+                </label>
                 <select class="form-control dropdown" formControlName="DetailTypeID">
-                                        <option selected>Select</option>
-                                        <option value="1">URL</option>
-                                        <option value="2">Email ID</option>
-                                        <option value="3">Phone Number</option>
-                                </select>
+                    <option selected>Select</option>
+                    <option value="1">URL</option>
+                    <option value="2">Email ID</option>
+                    <option value="3">Phone Number</option>
+                </select>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
                 <label>
-                                        Display Name
-                                    </label>
+                    Display Name
+                </label>
                 <div class="form-group">
                   <div class="form-line">
                     <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">

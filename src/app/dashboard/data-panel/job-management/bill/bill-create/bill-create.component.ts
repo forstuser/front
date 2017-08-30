@@ -118,7 +118,7 @@ export class BillCreateComponent implements OnInit {
         // console.log(res);
         this.onlineSellerList = res;
       })
-    this.userservice.getBrandList()
+    this.userservice.getBrandList2(null,null)
       .subscribe(res => {
         this.brandList = res;
         // console.log(this.brandList);
@@ -275,7 +275,7 @@ export class BillCreateComponent implements OnInit {
     if (data == 'brand') {
       console.log(data);
       this.selectDropdown = data;
-      this.userservice.getBrandList()
+      this.userservice.getBrandList2(null,null)
         .subscribe(res => {
           this.brandList = res;
         })
@@ -441,6 +441,9 @@ export class BillCreateComponent implements OnInit {
         console.log(res);
       })
 
+  }
+  addons(data){
+    console.log(data);
   }
 
   // ********************************Bill functions ***********************************************

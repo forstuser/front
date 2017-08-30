@@ -133,7 +133,7 @@ export class BillEditComponent implements OnInit {
         // console.log(res);
         this.onlineSellerList = res;
       })
-    this.userservice.getBrandList()
+    this.userservice.getBrandList2(null,null)
       .subscribe(res => {
         this.brandList = res;
         // console.log(this.brandList);
@@ -286,7 +286,7 @@ export class BillEditComponent implements OnInit {
     if (data == 'brand') {
       console.log(data);
       this.selectDropdown = data;
-      this.userservice.getBrandList()
+      this.userservice.getBrandList2(null,null)
         .subscribe(res => {
           this.brandList = res;
         })

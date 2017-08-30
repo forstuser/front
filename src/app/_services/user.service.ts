@@ -209,11 +209,25 @@ export class UserService {
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
+                const body = { TokenNo: this.TokenNo};
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 // console.log(data);
+                return this.http.post(this.apiLink + 'Services/BrandList', data, options)
+                        .map((response: Response) => response.json());
+        }
+        // get brand list
+        getBrandList2(offset,limit) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const body = { TokenNo: this.TokenNo, OffSet:offset ,Limit:limit};
+                const data = JSON.stringify(body);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                console.log(data);
                 return this.http.post(this.apiLink + 'Services/BrandList', data, options)
                         .map((response: Response) => response.json());
         }
@@ -676,12 +690,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get CE list
-        getCEBillList(BillType: Number) {
+        getCEBillList(BillType: Number,offset,limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType };
+                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet:offset ,Limit:limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });

@@ -167,10 +167,10 @@ export class CategoryComponent implements OnInit {
   }
   deleteCategory(category: any) {
     this.del = { 'ID': category.ID };
-    confirm('Confirm');
     this.userService.deleteCategory(this.del)
       .subscribe(res => {
         console.log(res);
+        alert("Deleted Successfully");
         this.userService.getCategoryList(2) // list update after delete
           .subscribe(getCat => {
             this.cat = getCat;
