@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Brand } from './../../../../_models/brand';
 import { UserService } from './../../../../_services/user.service';
@@ -12,10 +13,17 @@ export class BrandListComponent implements OnInit {
   brands: Brand;
   showDialog = false;
   editBrandForm: FormGroup;
+  cat:Category;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+        // get list of category
+        this.userService.getCategoryList(2) // 2 for category refer to api doc
+        .subscribe(getCat => {
+          this.cat = getCat;
+          console.log('category is ' + getCat);
+        });
      this.editBrandForm = new FormGroup({
       Name: new FormControl(''),
       Description: new FormControl(''),
@@ -32,6 +40,7 @@ export class BrandListComponent implements OnInit {
   createItem() {
     return this.fb.group({
       'DetailID': [null],
+      'CategoryID':[null],
       'DetailTypeID': [null],
       'DisplayName': [null],
       'Details': [null]
@@ -73,6 +82,7 @@ export class BrandListComponent implements OnInit {
  createDetailsFormGroup(payOffObj) {
     return new FormGroup({
       DetailID: new FormControl(payOffObj.DetailID),
+      CategoryID: new FormControl(payOffObj.CategoryID),
       DetailTypeID: new FormControl(payOffObj.DetailTypeID),
       DisplayName: new FormControl(payOffObj.DisplayName),
       Details: new FormControl(payOffObj.Details)

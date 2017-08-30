@@ -64,6 +64,11 @@ export class BillViewComponent implements OnInit {
   backToGeneral() {
     this.showForm = true;
     this.showGeneralForm = false;
+    this.showRepairForm = false;
+  }
+  backToSellorForm(){
+    this.showSellerForm = true;
+    this.showProductFormList =false;
   }
   // get seller details
   nextToProductInfo() {
@@ -83,24 +88,24 @@ export class BillViewComponent implements OnInit {
     this.showProductFormList = false;
   }
   backToProductForm() {
-    this.showProductForm = false;
-    this.showProductFormList = true;
+    this.showProductForm = true;
+    this.showInsuranceForm = false;
   }
   nextToInsuranceForm() {
     this.showInsuranceForm = true;
     this.showProductForm = false;
   }
   backToInsuranceForm() {
-    this.showInsuranceForm = false;
-    this.showProductForm = true;
+    this.showInsuranceForm = true;
+    this.showWarrantyForm = false;
   }
   nextToWarrantyForm() {
     this.showWarrantyForm = true;
     this.showInsuranceForm = false;
   }
   backToWarrantyForm() {
-    this.showInsuranceForm = true;
-    this.showWarrantyForm = false;
+    this.showWarrantyForm = true;
+    this.showAMCForm = false;
   }
   nextToAMCForm() {
     this.showAMCForm = true;
@@ -112,11 +117,11 @@ export class BillViewComponent implements OnInit {
   }
   nextToRepairForm() {
     this.showRepairForm = true;
-    this.showWarrantyForm = false;
+    this.showAMCForm = false;
   }
   backToRepairForm() {
-    this.showRepairForm = true;
-    this.showAMCForm = false;
+    this.showRepairForm = false;
+    this.showAMCForm = true;
   }
   taskComplete() {
     this.userservice.taskCompleteQE(this.billID)

@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand.interface';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 })
 export class AddBrandComponent implements OnInit {
   public brandForm: FormGroup;
+  cat:Category;
   // items: Brand [] = [];
 
   constructor(private userService: UserService, private fb: FormBuilder) {
@@ -20,9 +22,17 @@ export class AddBrandComponent implements OnInit {
       'Description' : '',
        Details: this.fb.array([ this.createItem(), ])
     });
+    // get list of category
+    this.userService.getCategoryList(2) // 2 for category refer to api doc
+    .subscribe(getCat => {
+      this.cat = getCat;
+      console.log('category is ' + getCat);
+    });
+
   }
   createItem() {
     return this.fb.group({
+      'CategoryID':'',
       'DetailTypeID': '',
       'DisplayName': '',
       'Details': ''
