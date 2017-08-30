@@ -345,128 +345,133 @@
 
 <!-- Insurance Form Start -->
 <div *ngIf="showInsuranceForm">
-  <h4>
-    <u>Insurance</u>
-    <u>Form </u>
-  </h4>
-  <hr>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Plan</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].Plan}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy No.</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].PolicyNo}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Amount Insured</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].AmountInsured}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Premium Type</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].PremiumType}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Premium Amount</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].PremiumAmount}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy Effective Date</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].PolicyEffectiveDate}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy Expiry Date</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.InsuranceList[0].PolicyExpiryDate}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Inclusions</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceInclusions">
-        <p>{{list?.InclusionsName}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Exclusions</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceExclusions">
-        <p>{{list?.ExclusionsName}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div *ngIf="billDetailbyID?.InsuranceList[0].BrandName">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Brand</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].BrandName}}</p>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Seller</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].SellerName}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="billDetailbyID?.InsuranceImage?.length > 0">
+  <div *ngIf="billDetailbyID?.InsuranceList.length>0 else elseTemplate">
+    <h4>
+      <u>Insurance</u>
+      <u>Form </u>
+    </h4>
+    <hr>
     <div class="row clearfix">
-      <div *ngFor="let image of billDetailbyID?.InsuranceImage">
-        <div class="col-sm-6 col-md-3">
-          <div class="thumbnail" *ngIf="image">
-            <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
-            <div class="caption">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Plan</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].Plan}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy No.</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyNo}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Amount Insured</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].AmountInsured}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PremiumType}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PremiumAmount}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyEffectiveDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.InsuranceList[0].PolicyExpiryDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="billDetailbyID?.InsuranceInclusions.length > 0 || billDetailbyID?.InsuranceExclusions.length">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceInclusions">
+          <p>{{list?.InclusionsName}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.InsuranceExclusions">
+          <p>{{list?.ExclusionsName}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div *ngIf="billDetailbyID?.InsuranceList[0].BrandName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.InsuranceList[0].BrandName}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.InsuranceList[0].SellerName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="billDetailbyID?.InsuranceImage?.length > 0">
+      <div class="row clearfix">
+        <div *ngFor="let image of billDetailbyID?.InsuranceImage">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
+              <div class="caption">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #elseTemplate>
+    <h3>Insurance Not Available</h3>
+  </ng-template>
   <div class="row clearfix">
     <div class="col-md-6">
       <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToProductForm()">Back</button>
@@ -482,110 +487,115 @@
 
 <!-- Warranty Form Start -->
 <div *ngIf="showWarrantyForm">
-  <h4>
-    <u>Warranty</u>
-    <u>Form </u>
-  </h4>
-  <hr>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy No.</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.WarrantyList[0].PolicyNo}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Premium Type</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.WarrantyList[0].PremiumType}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Premium Amount</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.WarrantyList[0].PremiumAmount}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy Effective Date</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group">
-        <p>{{billDetailbyID?.WarrantyList[0].PolicyEffectiveDate}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Policy Expiry Date</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group">
-        <p>{{billDetailbyID?.WarrantyList[0].PolicyExpiryDate}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Inclusions</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4">
-      <div class="form-group" *ngFor="let list of billDetailbyID?.WarrantyInclusions">
-        <p>{{list.InclusionsName}}</p>
-      </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-      <small><b>Exclusions</b></small>
-    </div>
-    <div class="col-lg-4 col-md-4 ">
-      <div class="form-group" *ngFor="let list of billDetailbyID?.WarrantyExclusions">
-        <p>{{list?.ExclusionsName}}</p>
-      </div>
-    </div>
-  </div>
-  <div class="row clearfix">
-    <div *ngIf="billDetailbyID?.WarrantyList[0].BrandName">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Brand</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].BrandName}}</p>
-        </div>
-      </div>
-    </div>
-    <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Seller</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].SellerName}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="billDetailbyID?.WarrantyImage?.length > 0">
+  <div *ngIf="billDetailbyID?.WarrantyList.length>0 else elseTemplate">
+    <h4>
+      <u>Warranty</u>
+      <u>Form </u>
+    </h4>
+    <hr>
     <div class="row clearfix">
-      <div *ngFor="let image of billDetailbyID?.WarrantyImage">
-        <div class="col-sm-6 col-md-3">
-          <div class="thumbnail" *ngIf="image">
-            <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
-            <div class="caption">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy No.</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.WarrantyList[0].PolicyNo}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Type</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.WarrantyList[0].PremiumType}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Premium Amount</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.WarrantyList[0].PremiumAmount}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Effective Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group">
+          <p>{{billDetailbyID?.WarrantyList[0].PolicyEffectiveDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Policy Expiry Date</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group">
+          <p>{{billDetailbyID?.WarrantyList[0].PolicyExpiryDate}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Inclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.WarrantyInclusions">
+          <p>{{list.InclusionsName}}</p>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <small><b>Exclusions</b></small>
+      </div>
+      <div class="col-lg-4 col-md-4 ">
+        <div class="form-group" *ngFor="let list of billDetailbyID?.WarrantyExclusions">
+          <p>{{list?.ExclusionsName}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row clearfix">
+      <div *ngIf="billDetailbyID?.WarrantyList[0].BrandName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Brand</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.WarrantyList[0].BrandName}}</p>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Seller</b></small>
+        </div>
+        <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+            <p>{{billDetailbyID?.WarrantyList[0].SellerName}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="billDetailbyID?.WarrantyImage?.length > 0">
+      <div class="row clearfix">
+        <div *ngFor="let image of billDetailbyID?.WarrantyImage">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
+              <div class="caption">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #elseTemplate>
+    <h3>Warranty Not Available</h3>
+  </ng-template>
   <div class="row clearfix">
     <div class="col-md-6">
       <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToInsuranceForm()">Back</button>
@@ -600,6 +610,7 @@
 
 <!-- AMC Form Start -->
 <div *ngIf="showAMCForm">
+  <div *ngIf="billDetailbyID?.AMCList.length>0 else elseTemplate">
     <h4>
       <u>AMC</u>
       <u>Form </u>
@@ -704,20 +715,25 @@
         </div>
       </div>
     </div>
-    <div class="row clearfix">
-      <div class="col-md-6">
-        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToWarrantyForm()">Back</button>
-      </div>
-      <div class="col-md-6">
-        <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToRepairForm()">Next</button>
-      </div>
+  </div>
+  <ng-template #elseTemplate>
+    <h3>AMC Not Available</h3>
+  </ng-template>
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToWarrantyForm()">Back</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" type="button" (click)="nextToRepairForm()">Next</button>
     </div>
   </div>
+</div>
 <!-- AMC Form End -->
 
 
 <!-- Repair Form Start -->
 <div *ngIf="showRepairForm">
+  <div *ngIf="billDetailbyID?.RepairList.length>0 else elseTemplate">
     <h4>
       <u>Repair</u>
       <u>Form </u>
@@ -794,15 +810,19 @@
         </div>
       </div>
     </div>
-    <div class="row clearfix">
-      <div class="col-md-6">
-        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToRepairForm()">Back</button>
-      </div>
-      <div class="col-md-6">
-        <button class="btn bg-green btn-block btn-lg" type="button" (click)="backToGeneral()">Finish</button>
-      </div>
+  </div>
+  <ng-template #elseTemplate>
+    <h3>Repair Not Available</h3>
+  </ng-template>
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backToRepairForm()">Back</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn bg-green btn-block btn-lg" type="button" (click)="backToGeneral()">Finish</button>
     </div>
   </div>
+</div>
 <!-- Repair Form End -->
 
 

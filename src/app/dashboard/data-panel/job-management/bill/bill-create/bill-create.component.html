@@ -95,6 +95,7 @@
       <u>General</u>
       <u>Information </u>
     </h4>
+    <p><b>Click on Image to attach the image to current Bill.</b></p>
     <hr>
     <div class="row clearfix">
       <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -399,9 +400,9 @@
     <h5>
       <u>Product Form</u>
     </h5>
+    <div *ngFor="let form of productMainForm?.FormList; let i = index">
     <div class="row clearfix">
-      <div *ngFor="let form of productMainForm?.FormList; let i = index">
-        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-5 form-control-label">
           <small><b>{{ form.ElementName}}</b></small>
         </div>
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">

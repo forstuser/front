@@ -127,6 +127,8 @@ export class BillViewComponent implements OnInit {
     this.userservice.taskCompleteQE(this.billID)
       .subscribe(res => {
         console.log(res);
+        alert("Task Completed Successfully");
+        this.router.navigateByUrl('/dashboard/new');
       })
   }
   reAssign() {

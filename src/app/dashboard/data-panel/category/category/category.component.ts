@@ -87,7 +87,7 @@ export class CategoryComponent implements OnInit {
         console.log('category is ' + getCat);
       });
   }
-
+  
   // create category
   createCategory(category: any) {
     console.log(category);

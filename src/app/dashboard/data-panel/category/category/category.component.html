@@ -175,21 +175,21 @@
           </div>
         </div>
         <!-- template for add form  -->
-        <div class="row clearfix">
+        <!-- <div class="row clearfix">
           <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
             <label for="Details">Form</label>
           </div>
           <div class="pull-right margin-right">
             <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More</button>
           </div>
-        </div>
-        <div class="panel panel-default">
+        </div> -->
+        <!-- <div class="panel panel-default"> -->
           <!-- main form array start -->
-          <div formArrayName="FormList">
+          <!-- <div formArrayName="FormList">
             <div [formGroupName]="i" *ngFor="let item of editCategoryForm.controls.FormList['controls']; let i = index;">
               <br>
-              <div class="row clearfix">
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
+              <div class="row clearfix"> -->
+                <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
                   <label>
                       Type 
                       
@@ -198,8 +198,8 @@
                     <option value="1">Input</option>     
                     <option value="2">Dropdown</option>
                   </select>
-                </div>
-                <div *ngIf="this['Dropdown'+i] >  0">
+                </div> -->
+                <!-- <div *ngIf="this['Dropdown'+i] >  0">
                   <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <label>
                       Input Name
@@ -210,10 +210,10 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <!--Dropdown value array start -->
-                <div *ngIf="this['Dropdown'+i] == 2">
+                <!-- <div *ngIf="this['Dropdown'+i] == 2">
                   <div formArrayName="List">
                     <div [formGroupName]="j" *ngFor="let item2 of item.controls.List.controls; let j = index;">
                       <div class="col-lg-6 col-md-6 col-sm-6 " *ngIf="j!=0">
@@ -236,24 +236,24 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!--Dropdown value array end  -->
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                <!-- <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                   <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editCategoryForm.controls['FormList'].length > 1"
                     (click)="removeItem(i)">Remove</button>
-                </div>
-              </div>
-              <div *ngIf='i>=0'>
+                </div> -->
+              <!-- </div> -->
+              <!-- <div *ngIf='i>=0'>
                 <hr>
-              </div>
-            </div>
-          </div>
+              </div> -->
+            <!-- </div>
+          </div> -->
           <!-- template for add row end  -->
-        </div>
+        <!-- </div> -->
 
         <div class="row clearfix">
           <div class="col-lg-3 col-lg-offset-9  col-md-3 col-md-offset-9 col-sm-4 col-xs-6">
-            <input type="submit" value="CREATE" class="btn btn-success m-t-15 waves-effect" [disabled]="!editCategoryForm.valid">
+            <input type="submit" value="Save" class="btn btn-success m-t-15 waves-effect" [disabled]="!editCategoryForm.valid">
           </div>
         </div>
       </form>

@@ -95,7 +95,7 @@ export class BillCreateComponent implements OnInit {
       .subscribe(res => {
         // this.message = res;
         if (this.imageArray.includes(res)) {
-          alert("Image already added");
+          console.log("Image already added");
         } else {
           this.imageArray.push(res);
         }
@@ -109,7 +109,7 @@ export class BillCreateComponent implements OnInit {
     // get offline seller list
     this.userservice.getOfflineSellerList()
       .subscribe(res => {
-        // console.log(res);
+        console.log(res);
         this.offlineSellerList = res;
       })
     // get online seller list
@@ -142,6 +142,8 @@ export class BillCreateComponent implements OnInit {
   openGeneralForm() {
     this.showForm = false;
     this.showGeneralForm = true;
+    this.imageArray = [];
+
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
