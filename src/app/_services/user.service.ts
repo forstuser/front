@@ -676,12 +676,12 @@ export class UserService {
         // **^ Bill  Services ^** //
         // get list of new,under-progress and completed list
         // get admin list
-        getAdminBillList(BillType: Number) {
+        getAdminBillList(BillType: Number,offset,limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType };
+                const body = { TokenNo: this.TokenNo, Status: BillType ,OffSet:offset ,Limit:limit};
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -704,12 +704,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get QE list
-        getQEBillList(BillType: Number) {
+        getQEBillList(BillType: Number,offset,limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType };
+                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet:offset ,Limit:limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });

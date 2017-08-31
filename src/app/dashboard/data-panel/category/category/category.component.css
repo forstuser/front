@@ -7,3 +7,6 @@
 .fix-margin{
     margin-bottom: -20px !important;  
 }
+.form-group {
+    margin-bottom: 8px !important;
+  }

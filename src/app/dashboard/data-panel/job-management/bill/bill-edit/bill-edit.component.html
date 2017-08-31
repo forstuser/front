@@ -96,7 +96,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-        <button class="btn bg-green btn-block btn-lg" type="submit">Add Seller</button>
+        <button class="btn bg-green btn-block btn-lg" type="submit">Next</button>
       </div>
     </div>
   </form>
@@ -182,7 +182,7 @@
 <div *ngIf="showProductFormList">
   <div class="row clearfix">
     <div *ngFor="let i of consumerBillDetail?.ProductList; let j=index ">
-      <button class="btn btn-sm btn-info" (click)="fillProductInfoForm(j)">{{i.ProductName}}</button>
+      <button class="btn btn-sm btn-info" (click)=" bk(j)">{{i.ProductName}}</button>
     </div>
   </div>
   <h4>

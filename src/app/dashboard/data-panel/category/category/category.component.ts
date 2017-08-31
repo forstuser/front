@@ -12,10 +12,12 @@ export class CategoryComponent implements OnInit {
   cat: Category;
   mainCat: Category;
   showDialog = false;
+  viewCat = false;
   editCategoryForm: FormGroup;
   createCategoryForm: FormGroup;
   createCat: any = {};
   del: any = {};
+  productMainForm:any;
 
   constructor(private userService: UserService, private fb: FormBuilder) {
 
@@ -152,18 +154,19 @@ export class CategoryComponent implements OnInit {
   //   });
   // }
   updateCategory(category: any) {
-    console.log(category);
-    // this.userService.updateCategory(category)
-    //   .subscribe(res => {
-    //     // console.log(res);
-    //     alert('category updated successfully');
-    //     this.showDialog = false;
-    //     this.userService.getCategoryList(2) // list update after edit
-    //       .subscribe(getCat => {
-    //         this.cat = getCat;
-    //         // console.log(getCat);
-    //       });
-    //   });
+    console.log("caregory",category);
+    category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
+    this.userService.updateCategory(category)
+      .subscribe(res => {
+        // console.log(res);
+        alert('category updated successfully');
+        this.showDialog = false;
+        this.userService.getCategoryList(2) // list update after edit
+          .subscribe(getCat => {
+            this.cat = getCat;
+            // console.log(getCat);
+          });
+      });
   }
   deleteCategory(category: any) {
     this.del = { 'ID': category.ID };
@@ -177,6 +180,15 @@ export class CategoryComponent implements OnInit {
             // console.log(getCat);
           });
       });
+  }
+  viewCategory(data:any){
+    console.log(data)
+    this.userService.getCategoryListbyID(data.ID)
+    .subscribe(res => {
+      this.productMainForm = res;
+      this.viewCat = true; // for show dialog
+      console.log(res);
+    })
   }
 
 }

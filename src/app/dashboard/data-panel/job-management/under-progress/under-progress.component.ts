@@ -19,6 +19,11 @@ export class UnderProgressComponent implements OnInit {
   showQeDialog = false;
   item: Object = {}; // object for single user
   statusCode: Number;
+  prev:number=0;
+  next:number=10;
+  leftFlag:boolean= true;
+  rightFlag:boolean = false;
+  noData:boolean = false;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
@@ -33,7 +38,7 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
+    this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
       .subscribe(bills => {
         this.bills = bills;
         console.log(this.bills);
@@ -51,6 +56,40 @@ export class UnderProgressComponent implements OnInit {
         console.log(users);
       });
   }
+    // function for pagination
+    left(){
+      this.noData = false;
+      this.prev = this.prev-10;
+      if(this.prev ==0){
+        this.leftFlag = true;
+      }
+      this.userservice.getAdminBillList(8,this.prev,this.next)
+      .subscribe( bills => {
+        console.log(bills.statusCode)
+        if(bills.statusCode==100){
+          this.rightFlag = false;
+        }
+        this.bills = bills;
+        console.log(this.bills);
+      });
+    }
+    right(){
+      this.noData = false;
+      this.leftFlag = false;
+      this.prev = this.prev+10;
+      console.log(this.prev);
+      console.log(this.next);
+      this.userservice.getAdminBillList(8,this.prev,this.next)
+      .subscribe( bills => {
+        console.log(bills.statusCode)
+        if(bills.statusCode==105){
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.bills = bills;
+        console.log(this.bills);
+      });
+    }
   // passs current user as argument and open the popup
   openModel(item: any) {
     console.log(item);
@@ -69,7 +108,7 @@ export class UnderProgressComponent implements OnInit {
         if (res.statusCode == 100) {
           alert('assign successfull');
           this.showDialog = false;
-          this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
+          this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
             .subscribe(bill => {
               this.bills = bill;
               console.log(this.bills);
@@ -95,7 +134,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showQeDialog = false;
-        this.userservice.getAdminBillList(8) // incomplete = 6 refer api doc
+        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
