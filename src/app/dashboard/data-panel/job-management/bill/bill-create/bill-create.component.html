@@ -114,7 +114,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Name" class="form-control input_fix" ngModel>
+            <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel required>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="EmailID" class="form-control input_fix" ngModel>
+            <input type="email" name="EmailID" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="TotalValue" class="form-control input_fix" ngModel>
+            <input type="number" name="TotalValue" class="form-control input_fix" ngModel>
           </div>
         </div>
       </div>
@@ -179,9 +179,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="DateofPurchase" class="form-control input_fix" ngModel>
-          </div>
+          <my-date-picker name="DateofPurchase" [options]="myDatePickerOptions" ngModel required></my-date-picker>
         </div>
       </div>
     </div>
@@ -253,7 +251,7 @@
         <div class="header padding_fix">
           <h2>
             Offline Seller List
-            <small>Click on Edit button for edit seller</small>
+            <small>Click on Delete button to delete the seller</small>
           </h2>
         </div>
         <div class="body table-responsive">
@@ -351,7 +349,7 @@
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Main Category</b></small>
+        <small><b>* Main Category</b></small>
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
@@ -364,7 +362,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Category</b></small>
+        <small><b>* Category</b></small>
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
@@ -401,7 +399,7 @@
       <u>Product Form</u>
     </h5>
     <div *ngFor="let form of productMainForm?.FormList; let i = index">
-    <div class="row clearfix">
+      <div class="row clearfix">
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-5 form-control-label">
           <small><b>{{ form.ElementName}}</b></small>
         </div>
@@ -510,9 +508,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -522,9 +519,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>            
+            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -594,21 +590,21 @@
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
-        <div class="row clearfix">
-          <div *ngFor="let image of imageArray">
-            <div class="col-sm-6 col-md-3">
-              <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
-                <div class="caption">
-                  <p class="text-center">
-                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
-                  </p>
-                </div>
+      <div class="row clearfix">
+        <div *ngFor="let image of imageArray">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+              <div class="caption">
+                <p class="text-center">
+                  <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 <!-- Insurance Form End -->
@@ -685,9 +681,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
-          </div>
+            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
         </div>
       </div>
     </div>
@@ -697,9 +692,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
-          </div>
+              <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
+            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -768,21 +762,21 @@
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
-        <div class="row clearfix">
-          <div *ngFor="let image of imageArray">
-            <div class="col-sm-6 col-md-3">
-              <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
-                <div class="caption">
-                  <p class="text-center">
-                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
-                  </p>
-                </div>
+      <div class="row clearfix">
+        <div *ngFor="let image of imageArray">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+              <div class="caption">
+                <p class="text-center">
+                  <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 <!-- Warranty Form End -->
@@ -858,9 +852,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
-          </div>
+            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
         </div>
       </div>
     </div>
@@ -870,9 +863,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
-          </div>
+            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
+            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
         </div>
       </div>
     </div>
@@ -941,21 +933,21 @@
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
-        <div class="row clearfix">
-          <div *ngFor="let image of imageArray">
-            <div class="col-sm-6 col-md-3">
-              <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
-                <div class="caption">
-                  <p class="text-center">
-                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
-                  </p>
-                </div>
+      <div class="row clearfix">
+        <div *ngFor="let image of imageArray">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+              <div class="caption">
+                <p class="text-center">
+                  <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 <!-- AMC Form End -->
@@ -1031,9 +1023,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="RepairDate" class="form-control input_fix" ngModel>
-          </div>
+            <!-- <input type="text" name="RepairDate" class="form-control input_fix" ngModel> -->
+            <my-date-picker name="RepairDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
         </div>
       </div>
     </div>
@@ -1084,21 +1075,21 @@
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
-        <div class="row clearfix">
-          <div *ngFor="let image of imageArray">
-            <div class="col-sm-6 col-md-3">
-              <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
-                <div class="caption">
-                  <p class="text-center">
-                    <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
-                  </p>
-                </div>
+      <div class="row clearfix">
+        <div *ngFor="let image of imageArray">
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail" *ngIf="image">
+              <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+              <div class="caption">
+                <p class="text-center">
+                  <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </form>
 </div>
 <!-- Repair Form End -->

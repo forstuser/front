@@ -14,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
 import { Component, OnInit, Inject } from '@angular/core';
 import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import { IMyDpOptions } from 'mydatepicker';
+
 @Component({
   selector: 'app-bill-create',
   templateUrl: './bill-create.component.html',
@@ -28,6 +30,10 @@ export class BillCreateComponent implements OnInit {
   repairImageArray: any[] = [];
   message: string;
   // Settings configuration
+  private myDatePickerOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+};
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'fontawesome',
@@ -85,6 +91,7 @@ export class BillCreateComponent implements OnInit {
   repairData:any = {};
   nameOfImage: string;
   userID:string;
+  maxLength= '12';
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -149,11 +156,14 @@ export class BillCreateComponent implements OnInit {
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
+    const form_data = form.value;
+    form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
+    // console.log(form_data); 
     this.billImageArray = this.imageArray;
     this.billImageArray.splice(0,1);
     console.log(this.billImageArray);
     this.imageArray = [];
-    this.generalFormContent.push(form.value);
+    this.generalFormContent.push(form_data);
     this.showGeneralForm = false;
     this.showSellerForm = true;
     // console.log('generel form array:', this.generalFormContent);
@@ -184,7 +194,8 @@ export class BillCreateComponent implements OnInit {
   }
   // ********************************seller form functions ******************************************
   // select online seller
-  addOnlineSeller(data: number) {
+  addOnlineSeller(data) {
+    // console.log(data);
     // this.sellerData.splice(0, this.sellerData.length)
     this.addedOnlineSeller = data;
     // console.log(this.addedOnlineSeller);
@@ -293,7 +304,7 @@ export class BillCreateComponent implements OnInit {
   }
   // insurance form data on submit
   insuranceFormData(form: NgForm) {
-    // console.log(form.value);
+    // console.log("insurance Form data",form.value);
     this.insuranceImageArray = this.imageArray;
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
@@ -303,14 +314,15 @@ export class BillCreateComponent implements OnInit {
       "AmountInsured":form.value.AmountInsured,
       "PremiumType":form.value.PremiumType,
       "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
       "BrandID":form.value.BrandID,
       "SellerInfo":form.value.SellerInfo,
       "Inclusions":form.value.Inclusions,
       "Exclusions":form.value.Exclusions,
       "InsuranceImage":this.insuranceImageArray,
     }
+    console.log(this.insuranceData);
     this.insuranceFormContent.push(this.insuranceData);
     this.showInsuranceForm = false;
     this.showMidPanel1 = true;
@@ -331,8 +343,8 @@ export class BillCreateComponent implements OnInit {
       "PolicyNo":form.value.PolicyNo,
       "PremiumType":form.value.PremiumType,
       "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
       "BrandID":form.value.BrandID,
       "SellerInfo":form.value.SellerInfo,
       "Inclusions":form.value.Inclusions,
@@ -357,8 +369,8 @@ export class BillCreateComponent implements OnInit {
       "PolicyNo":form.value.PolicyNo,
       "PremiumType":form.value.PremiumType,
       "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
       "BrandID":form.value.BrandID,
       "SellerInfo":form.value.SellerInfo,
       "Inclusions":form.value.Inclusions,
@@ -383,7 +395,7 @@ export class BillCreateComponent implements OnInit {
       "RepairValue":form.value.RepairValue,
       "Taxes":form.value.Taxes,
       "RepairInvoiceNumber":form.value.RepairInvoiceNumber,
-      "RepairDate":form.value.RepairDate,
+      "RepairDate":form.value.RepairDate.formatted,
       "BrandID":form.value.BrandID,
       "SellerInfo":form.value.SellerInfo,
       "RepairImage":this.repairImageArray
