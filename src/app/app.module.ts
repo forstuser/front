@@ -50,6 +50,7 @@ import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bi
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
 import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
+import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bi
     BillViewComponent,
     BillCreateComponent,
     BillEditComponent,
+    ProductAddonsComponent,
   ],
   imports: [
     BrowserModule,

@@ -816,6 +816,32 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerProductSearch', data, options)
                         .map((response: Response) => response.json());
         }
+        addConsumerProduct(data: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                data['TokenNo'] = this.TokenNo;
+                const body = JSON.stringify(data);
+                console.log(body);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/AddConsumerProduct', body, options)
+                        .map((response: Response) => response.json());
+        }
+        consumerBillProductByID(id: number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const body = { TokenNo: this.TokenNo, ID: id };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/ConsumerBillProductByID', data, options)
+                        .map((response: Response) => response.json());
+        }
         // **^ QE  Services ^** //
         taskCompleteQE(billID: Number) {
                 // get login user credentials from localstorage

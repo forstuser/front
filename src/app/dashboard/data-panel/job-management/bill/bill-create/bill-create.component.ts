@@ -84,6 +84,7 @@ export class BillCreateComponent implements OnInit {
   amcData:any = {};
   repairData:any = {};
   nameOfImage: string;
+  userID:string;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -103,8 +104,9 @@ export class BillCreateComponent implements OnInit {
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        // console.log('bill details', res);
+        console.log('bill details', res);
         this.consumerBill = res;
+        this.userID = res.UserID;
       })
     // get offline seller list
     this.userservice.getOfflineSellerList()
@@ -443,7 +445,7 @@ export class BillCreateComponent implements OnInit {
 
   }
   addons(data){
-    console.log(data);
+    console.log(data);  
   }
 
   // ********************************Bill functions ***********************************************

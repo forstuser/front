@@ -1,3 +1,4 @@
+import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
 import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
 import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
                 { path:'', component:BillCreateComponent},
                 { path:'view', component:BillViewComponent},
                 { path:'edit/:id', component:BillEditComponent},
+                { path:'addons/:uid/:bid/:pid', component:ProductAddonsComponent},
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },

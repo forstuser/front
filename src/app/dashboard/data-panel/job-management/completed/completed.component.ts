@@ -28,7 +28,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === '3' ) {  
-      this.userservice.getCEBillList(5) // new = 4 refer api doc
+      this.userservice.getCEBillList(5,0,10) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
