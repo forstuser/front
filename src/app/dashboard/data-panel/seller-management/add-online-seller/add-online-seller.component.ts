@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { FunctionService } from './../../../../_services/function.service';
 import { OnlineSeller } from './../../../../_models/onlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
@@ -12,10 +13,17 @@ import { Component, OnInit } from '@angular/core';
 export class AddOnlineSellerComponent implements OnInit {
   public onlineSellerForm: FormGroup;
   items: OnlineSeller [] = [];
+  cat:Category;
 
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
+      // get list of category
+      this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      }); 
     this.onlineSellerForm = this.fb.group({
       'Name' : ['', Validators.required],
       'URL' : '',
@@ -25,6 +33,7 @@ export class AddOnlineSellerComponent implements OnInit {
   }
   createItem() {
     return this.fb.group({
+      'CategoryID':'',
       'DetailTypeID': '',
       'DisplayName': '',
       'Details': '',

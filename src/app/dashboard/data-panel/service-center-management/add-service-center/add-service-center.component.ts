@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand';
 import { UserService } from './../../../../_services/user.service';
 import { OfflineSeller } from './../../../../_models/offlineSeller.interface';
@@ -13,9 +14,16 @@ export class AddServiceCenterComponent implements OnInit {
   public offlineSellerForm: FormGroup;
   items: OfflineSeller;
   brands: Brand;
+  cat:Category;
   constructor(private userService: UserService, private fb: FormBuilder) {
    }
   ngOnInit() {
+      // get list of category
+      this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
     this.userService.getBrandList()
       .subscribe( brandList => {
         this.brands = brandList;
@@ -42,6 +50,7 @@ export class AddServiceCenterComponent implements OnInit {
   }
   createItem() {
     return this.fb.group({
+      'CategoryID':'',
       'DetailTypeID': '',
       'DisplayName': '',
       'Details': ''

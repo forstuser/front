@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand';
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
 import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
@@ -14,10 +15,17 @@ export class ServiceCenterListComponent implements OnInit {
   authorizedServiceCenter: AuthorizedCenter;
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
+  cat:Category
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+      // get list of category
+      this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
     // get brand list
     this.userService.getBrandList()
     .subscribe( res => {
@@ -52,6 +60,7 @@ export class ServiceCenterListComponent implements OnInit {
   // function for add row in detials field
   createItem() {
     return this.fb.group({
+      'CategoryID':[null],
       'DetailID': [null],
       'DetailTypeID': [null],
       'DisplayName': [null],
@@ -116,6 +125,7 @@ export class ServiceCenterListComponent implements OnInit {
   }
  createDetailsFormGroup(payOffObj) {
     return new FormGroup({
+      CategoryID:new FormControl(payOffObj.CategoryID),
       DetailID: new FormControl(payOffObj.DetailID),
       DetailTypeID: new FormControl(payOffObj.DetailTypeID),
       DisplayName: new FormControl(payOffObj.DisplayName),

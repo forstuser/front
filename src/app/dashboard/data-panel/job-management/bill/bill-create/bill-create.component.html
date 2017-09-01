@@ -116,6 +116,9 @@
           <div class="form-line">
             <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel required>
           </div>
+          <div *ngIf="EnterName">
+            <p class="text-danger">Please Enter Name</p>
+          </div>
         </div>
       </div>
     </div>
@@ -186,6 +189,11 @@
     <div class="row clearfix">
       <div class="col-md-12">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Seller</button>
+      </div>
+    </div>
+    <div class="row clearfix" *ngIf="billImage">
+      <div class="col-md-12">
+        <p class="text-danger">Please Select Image</p>
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
@@ -343,9 +351,9 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" name="BrandID" ngModel>
-                      <option>Select</option>
-                        <option *ngFor = "let brand of brandList?.BrandList" ngValue="{{brand.ID}}">{{ brand.Name }}</option>
-                    </select>
+            <option>Select</option>
+              <option *ngFor = "let brand of brandList?.BrandList" ngValue="{{brand.ID}}">{{ brand.Name }}</option>
+          </select>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -354,9 +362,12 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel>
-                      <option>Select</option>
-                        <option *ngFor = "let mainCat of mainCategory?.CategoryList" ngValue="{{mainCat.ID}}">{{ mainCat.Name }}</option>
-                    </select>
+            <option>Select</option>
+              <option *ngFor = "let mainCat of mainCategory?.CategoryList" ngValue="{{mainCat.ID}}">{{ mainCat.Name }}</option>
+          </select>
+          <div *ngIf="PleaseSelectMainCategory">
+            <p class="text-center text-danger">Please select Main Category</p>
+          </div>
         </div>
       </div>
     </div>
@@ -370,6 +381,9 @@
                     <option>Select</option>
                       <option *ngFor = "let subCat of getSubCatList?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.Name }}</option>
                   </select>
+            <div *ngIf="PleaseSelectCategory">
+                <p class="text-center text-danger">Please select  Category</p>
+              </div>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">

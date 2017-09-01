@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { OfflineSeller } from './../../../../_models/offlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -11,10 +12,16 @@ import { Component, OnInit } from '@angular/core';
 export class AddOfflineSellerComponent implements OnInit {
   public offlineSellerForm: FormGroup;
   items: OfflineSeller [] = [];
-
+  cat:Category;
   constructor(private userService: UserService, private fb: FormBuilder) {
    }
   ngOnInit() {
+      // get list of category
+      this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
     this.offlineSellerForm = this.fb.group({
       'Name' : [null, Validators.required],
       'OwnerName': '',
@@ -38,6 +45,7 @@ export class AddOfflineSellerComponent implements OnInit {
   }
   createItem() {
     return this.fb.group({
+      'CategoryID':'',
       'DetailTypeID': '',
       'DisplayName': '',
       'Details': ''

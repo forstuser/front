@@ -1,3 +1,4 @@
+import { Category } from './../../../../_models/category';
 import { OfflineSeller } from './../../../../_models/offlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
@@ -13,10 +14,17 @@ export class OfflineSellerListComponent implements OnInit {
   offlineSeller: OfflineSeller;
   showDialog = false;
   offlineSellerForm: FormGroup;
+  cat:Category;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+      // get list of category
+      this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
      this.offlineSellerForm = new FormGroup({
       ID: new FormControl(''),
       Name: new FormControl(''),
@@ -47,6 +55,7 @@ export class OfflineSellerListComponent implements OnInit {
   // function for add row in detials field
   createItem() {
     return this.fb.group({
+      'CategoryID':[null],
       'DetailID': [null],
       'DetailTypeID': [null],
       'DisplayName': [null],
@@ -120,6 +129,7 @@ export class OfflineSellerListComponent implements OnInit {
   }
  createDetailsFormGroup(payOffObj) {
     return new FormGroup({
+      CategoryID:new FormControl(payOffObj.CategoryID),
       DetailID: new FormControl(payOffObj.DetailID),
       DetailTypeID: new FormControl(payOffObj.DetailTypeID),
       DisplayName: new FormControl(payOffObj.DisplayName),

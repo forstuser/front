@@ -8,10 +8,26 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
   currentUser:any;
   constructor() { }
-
+  theme:string;
+  userType: number;
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log("chechk",this.currentUser)
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(currentUser); 
+    if (currentUser.UserType == '1') {
+      this.theme = 'theme-teal'
+    } else if (currentUser.UserType == '2') {
+      this.theme = 'theme-teal'
+    } else if (currentUser.UserType == '3') {
+      this.theme = 'theme-deep-purple'
+    } else if (currentUser.UserType == '4') {
+      this.theme = 'theme-green'
+    } else if (currentUser.UserType == '5') {
+      this.theme = 'theme-teal'
+    } else if (currentUser.UserType == '6') {
+      this.theme = 'theme-teal'
+    } else if (currentUser.UserType == '7') {
+      this.theme = 'theme-teal'
+    }
   }
 
 }

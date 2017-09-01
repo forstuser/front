@@ -92,6 +92,12 @@ export class BillCreateComponent implements OnInit {
   nameOfImage: string;
   userID:string;
   maxLength= '12';
+  PleaseSelectMainCategory:boolean = false;
+  PleaseSelectCategory:boolean = false;
+  EnterName:boolean = false;
+  billImage:boolean = false;
+  
+  
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -149,6 +155,15 @@ export class BillCreateComponent implements OnInit {
   }
   // *****************************General Form functions*********************************************
   openGeneralForm() {
+    this.generalFormContent = [];
+    this.sellerFormContent = [];
+    this.productInfoFormContent = [];
+    this.productFormContent= [];
+    this.insuranceFormContent= [];
+    this.warrantyFormContent = [];
+    this.AMCFormContent = [];
+    this.repairFormContent= [];
+    this.FinalProductContent= [];
     this.showForm = false;
     this.showGeneralForm = true;
     this.imageArray = [];
@@ -156,16 +171,25 @@ export class BillCreateComponent implements OnInit {
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
-    const form_data = form.value;
-    form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
-    // console.log(form_data); 
-    this.billImageArray = this.imageArray;
-    this.billImageArray.splice(0,1);
-    console.log(this.billImageArray);
-    this.imageArray = [];
-    this.generalFormContent.push(form_data);
-    this.showGeneralForm = false;
-    this.showSellerForm = true;
+    // console.log(this.imageArray.length,"image");
+    if(form.value.Name===""){
+      this.EnterName = true;
+    }
+    if(this.imageArray.length ==0){
+      this.billImage = true;
+    }
+    else{
+      const form_data = form.value;
+      form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
+      // console.log(form_data); 
+      this.billImageArray = this.imageArray;
+      this.billImageArray.splice(0,1);
+      console.log(this.billImageArray);
+      this.imageArray = [];
+      this.generalFormContent.push(form_data);
+      this.showGeneralForm = false;
+      this.showSellerForm = true;
+    }
     // console.log('generel form array:', this.generalFormContent);
   }
   completeJob() {
@@ -256,15 +280,21 @@ export class BillCreateComponent implements OnInit {
   }
   // product info data on submit
   productInfoFormData(form: NgForm) {
-    console.log(form.value);
-    this.productInfoFormContent.push(form.value);
-    this.showProductFormList = false;
-    this.showProductForm = true;
-    this.userservice.getCategoryFormByID(form.value.CatID)
-      .subscribe(res => {
-        // console.log(res);
-        this.productMainForm = res;
-      })
+    if(form.value.MasterCatID ===""){
+      this.PleaseSelectMainCategory = true;
+    } else if(form.value.CatID ===""){
+      this.PleaseSelectCategory = true;
+    }else {
+      console.log(form.value);
+      this.productInfoFormContent.push(form.value);
+      this.showProductFormList = false;
+      this.showProductForm = true;
+      this.userservice.getCategoryFormByID(form.value.CatID)
+        .subscribe(res => {
+          // console.log(res);
+          this.productMainForm = res;
+        })
+    }
   }
   // ********************************Product form functions *****************************************
 
@@ -539,4 +569,6 @@ export class BillCreateComponent implements OnInit {
           })
       })
   }
+
+  /*****************************Validation Functions***************************************/
 }
