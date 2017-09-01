@@ -39,6 +39,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Completed',
           'd_icon': 'check',
           'd_link': 'completed'
+        },
+        {
+          'd_name': 'Discarded',
+          'd_icon': 'check',
+          'd_link': 'discarded'
         }
       ]
     },
@@ -61,11 +66,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_icon': 'build',
           'd_link': 'admin'
         },
-        // {
-        //   'd_name': 'Customer',
-        //   'd_icon': 'account_box',
-        //   'd_link': 'customer'
-        // },
+        {
+          'd_name': 'Customer',
+          'd_icon': 'account_box',
+          'd_link': 'customer'
+        },
         {
           'd_name': 'Customer Executive',
           'd_icon': 'headset_mic',

@@ -1,3 +1,4 @@
+import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
 import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
@@ -54,6 +55,7 @@ const appRoutes: Routes = [
             ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },
+            { path: 'discarded', component: DiscardedComponent },
             { path: 'AddUser', component: AddUserComponent },
             { path: 'admin', component: AdminComponent },
             { path: 'customer', component: CustomerComponent },

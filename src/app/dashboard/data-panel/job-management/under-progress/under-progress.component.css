@@ -4,3 +4,8 @@
 .pager{
     text-align: right;
 }
+.textareaDitto{
+    height:100px;
+    width:500px;
+    word-break: break-word;
+}

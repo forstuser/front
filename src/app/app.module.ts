@@ -52,6 +52,7 @@ import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/
 import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
 import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { MyDatePickerModule } from 'mydatepicker';
+import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,6 +91,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     BillCreateComponent,
     BillEditComponent,
     ProductAddonsComponent,
+    DiscardedComponent,
   ],
   imports: [
     BrowserModule,

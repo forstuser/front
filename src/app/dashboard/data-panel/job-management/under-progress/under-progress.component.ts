@@ -15,8 +15,10 @@ export class UnderProgressComponent implements OnInit {
   bills: Bill;
   assignForm: FormGroup;
   assignQeForm: FormGroup;
-  showDialog = false;
-  showQeDialog = false;
+  discardForm:FormGroup;
+  showDialog:boolean = false;
+  showQeDialog:boolean = false;
+  discardDialog:boolean = false;
   item: Object = {}; // object for single user
   statusCode: Number;
   prev:number=0;
@@ -34,6 +36,11 @@ export class UnderProgressComponent implements OnInit {
       'UID': ['', Validators.required],
       // 'Comments' : '',
       'BID': ''
+    });
+    this.discardForm = this.fb.group({
+      'Comments': ['', Validators.required],
+      'BID': '',
+      'UID':''
     });
   }
 
@@ -140,5 +147,29 @@ export class UnderProgressComponent implements OnInit {
             console.log(this.bills);
           });
       });
+  }
+  // opn model for discard bills
+  discard(item:any){
+    console.log(item);
+    this.discardDialog = true;
+    this.discardForm.setValue({
+      BID: item.BID,
+      UID: item.UID,
+      Comments:'',
+    });
+  } 
+  discardBill(item:any){
+    console.log(item);
+    this.userservice.discardConsumerBill(item)
+      .subscribe(res=>{
+        console.log(res);
+        alert("Bill Discarded");
+        this.discardDialog = false;
+        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+        .subscribe(bill => {
+          this.bills = bill;
+          console.log(this.bills);
+        });
+      })
   }
 }

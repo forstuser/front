@@ -124,7 +124,7 @@ export class BillCreateComponent implements OnInit {
     // get offline seller list
     this.userservice.getOfflineSellerList()
       .subscribe(res => {
-        console.log(res);
+        console.log("Offline Seller List",res);
         this.offlineSellerList = res;
       })
     // get online seller list

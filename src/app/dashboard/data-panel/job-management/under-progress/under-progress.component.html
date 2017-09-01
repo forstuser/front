@@ -22,6 +22,7 @@
           <th>Bill Date</th>
           <th>Customer Executive</th>
           <th>Quality Executive</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of bills?.BillList; let i = index">
@@ -47,6 +48,7 @@
                         <i class="material-icons">done</i><span>Assign</span></button>
             </span>
           </td>
+          <td><span class="btn btn-danger" (click)="discard(bill)">Discard</span></td>
         </tr>
       </tbody>
     </table>
@@ -67,8 +69,8 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                            <option *ngFor="let user of ceUsers?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
-                        </select>
+                  <option *ngFor="let user of ceUsers?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
+              </select>
             </div>
           </div>
         </div>
@@ -133,4 +135,31 @@
       </form>
     </div>
   </app-dialog>
+  <!-- for discard model -->
+  <app-dialog [(visible)]="discardDialog">
+      <div class="modal-header">
+        <h4 class="modal-title" id="smallModalLabel">Assign Bill (QE)</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" [formGroup]='discardForm' (ngSubmit)="discardBill(discardForm.value)">
+          <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label for="name">Comments</label>
+              </div>
+              <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                  <div class="form-group">
+                      <div class="form-line">
+                          <input formControlName="Comments" type="text" class="textareaDitto">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
+              <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!discardForm.valid">
+            </div>
+          </div>
+        </form>
+      </div>
+    </app-dialog>
 </div>

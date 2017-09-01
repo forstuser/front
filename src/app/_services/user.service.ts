@@ -44,7 +44,20 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ManagementUserList', data, options)
                         .map((response: Response) => response.json());
         }
-
+        // get list of admin,qe,ce and customer
+        getConsumerList(offset,limit) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const body = { TokenNo: this.TokenNo,OffSet:offset ,Limit:limit };
+                const data = JSON.stringify(body);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                // console.log(data);
+                return this.http.post(this.apiLink + 'Services/ConsumerList', data, options)
+                        .map((response: Response) => response.json());
+        }
         // Create User
         createUser(user: User) {
                 // get login user credentials from localstorage
@@ -867,6 +880,20 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/QEAssignedCE', data, options)
+                        .map((response: Response) => response.json());
+        }
+
+        discardConsumerBill(req:any){
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                req['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(req);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/DiscardConsumerBill', data, options)
                         .map((response: Response) => response.json());
         }
 

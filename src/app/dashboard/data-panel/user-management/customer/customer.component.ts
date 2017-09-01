@@ -11,72 +11,33 @@ import { Component, OnInit } from '@angular/core';
 export class CustomerComponent implements OnInit {
   users: User;
   dropdownUser: UserType;
-  item: Object = { }; // object for single user
-  del: any = { };
+  item: Object = {}; // object for single user
+  del: any = {};
   showDialog = false;
   name: String = '';
-  editUserForm: FormGroup ;
+  editUserForm: FormGroup;
   statusCode: Number;
-  constructor(private userService: UserService, private fb: FormBuilder) {
-    this.editUserForm = this.fb.group({
-      'UserType' : [null, Validators.required],
-      'Name' : [null, Validators.required],
-      'EmailID' : [null, Validators.required],
-      'Status' : [null, Validators.required],
-      'ID': [null, Validators.required],
-      'Password' : null
-    });
-   }
+  prev:number=0;
+  next:number=10;
+  leftFlag:boolean= true;
+  rightFlag:boolean = false;
+  noData:boolean = false;
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
-    // get list of admin
-    this.userService.getUserList('5') // 5 for customer refer to api doc
-    .subscribe(users => {
-      this.users = users;
-      console.log(users);
-    });
+    // get list of ce
+    this.userService.getConsumerList(this.prev,this.next) 
+      .subscribe(users => {
+        this.users = users;
+        console.log(users);
+      });
     // get dropdown list
     this.userService.getAllUser()
-    .subscribe(users => {
-      this.dropdownUser = users;
-      console.log(users);
-    });
-  }
-
-  // passs current user as argument and open the popup
-  openUserModel(item: any) {
-    this.showDialog = true ; // for show dialog
-    this.item = item;
-    if (item.Status === 'Active') {
-      this.statusCode = 1;
-    } else {
-      this.statusCode = 2;
-    }
-    // populate prefilled value in form
-    this.editUserForm.setValue({
-      UserType: 5,
-      Name: item.Name,
-      EmailID: item.EmailID,
-      Status: this.statusCode,
-      ID: item.ID,
-      Password: ''
-    });
-  }
-
-  updateUser(user: any) {
-    console.log(user);
-    this.userService.updateUser(user)
-      .subscribe( res => {
-        // console.log(res);
-        alert('User updated successfully');
-        this.showDialog = false ;
-        this.userService.getUserList('5') // list update after edit
-          .subscribe(users => {
-          this.users = users;
-          // console.log(users);
-        });
+      .subscribe(users => {
+        this.dropdownUser = users;
+        console.log(users);
       });
-
   }
   deleteUser(user: any) {
     console.log(user);
@@ -85,11 +46,45 @@ export class CustomerComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('Deleted');
-        this.userService.getUserList('5') // list update after edit
+        this.userService.getConsumerList(this.prev,this.next) 
           .subscribe(users => {
-          this.users = users;
+            this.users = users;
             // console.log(users);
-        });
-    });
+          });
+      });
   }
+    // function for pagination
+    left(){
+      this.noData = false;
+      this.prev = this.prev-10;
+      if(this.prev ==0){
+        this.leftFlag = true;
+      }
+      this.userService.getConsumerList(this.prev,this.next)
+      .subscribe( users => {
+        console.log(users.statusCode)
+        if(users.statusCode==100){
+          this.rightFlag = false;
+        }
+        this.users = users;
+        console.log(this.users);
+      });
+    }
+    right(){
+      this.noData = false;
+      this.leftFlag = false;
+      this.prev = this.prev+10;
+      console.log(this.prev);
+      console.log(this.next);
+      this.userService.getConsumerList(this.prev,this.next)
+      .subscribe( users => {
+        console.log(users.statusCode)
+        if(users.statusCode==105){
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.users = users;
+        console.log(this.users);
+      });
+    }
 }
