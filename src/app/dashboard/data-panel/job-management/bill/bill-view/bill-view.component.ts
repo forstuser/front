@@ -145,6 +145,7 @@ export class BillViewComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert("success");
+        this.router.navigateByUrl('/dashboard/new');
         this.showDialog = false;
       })
   }

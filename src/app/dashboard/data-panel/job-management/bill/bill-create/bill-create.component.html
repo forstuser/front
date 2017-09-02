@@ -31,7 +31,7 @@
           <tr *ngFor="let bill of consumerBill?.Detail">
             <th><small>{{ bill.Invoice }}</small></th>
             <th><small>{{ bill.Name }}</small></th>
-            <th><small>{{ bill.Phone }}</small></th>
+            <th><small>{{ bill.PhoneNo }}</small></th>
             <th><small>{{ bill?.PurchaseDate }}</small></th>
             <th><small>{{ bill.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" routerLink="edit/{{ bill.DetailID }}" title="Edit"><i class="material-icons" >mode_edit</i></span></small></th>
@@ -98,23 +98,13 @@
     <p><b>Click on Image to attach the image to current Bill.</b></p>
     <hr>
     <div class="row clearfix">
-      <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Bill Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="BillImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div> -->
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Name : </b></small>
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel required>
+            <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel="{{generalFormContent[0]?.Name}}" required>
           </div>
           <div *ngIf="EnterName">
             <p class="text-danger">Please Enter Name</p>
@@ -129,7 +119,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PhoneNo" class="form-control input_fix" ngModel>
+            <input type="text" name="PhoneNo" class="form-control input_fix" ngModel="{{generalFormContent[0]?.PhoneNo}}">
           </div>
         </div>
       </div>
@@ -139,7 +129,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="email" name="EmailID" class="form-control input_fix" ngModel>
+            <input type="email" name="EmailID" class="form-control input_fix" ngModel="{{generalFormContent[0]?.EmailID}}">
           </div>
         </div>
       </div>
@@ -151,7 +141,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="InvoiceNo" class="form-control input_fix" ngModel>
+            <input type="text" name="InvoiceNo" class="form-control input_fix" ngModel="{{generalFormContent[0]?.InvoiceNo}}">
           </div>
         </div>
       </div>
@@ -161,7 +151,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="number" name="TotalValue" class="form-control input_fix" ngModel>
+            <input type="number" name="TotalValue" class="form-control input_fix" ngModel="{{generalFormContent[0]?.TotalValue}}">
           </div>
         </div>
       </div>
@@ -173,7 +163,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Taxes" class="form-control input_fix" ngModel>
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel="{{generalFormContent[0]?.Taxes}}">
           </div>
         </div>
       </div>
@@ -182,12 +172,15 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <my-date-picker name="DateofPurchase" [options]="myDatePickerOptions" ngModel required></my-date-picker>
+          <my-date-picker name="DateofPurchase" [options]="myDatePickerOptions" ngModel></my-date-picker>
         </div>
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-12">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowForm()">Back</button>
+      </div>
+      <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Seller</button>
       </div>
     </div>
@@ -283,7 +276,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-12">
+        <div class="col-md-6">
+            <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowGeneralForm()">Back</button>
+        </div>
+      <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Product</button>
       </div>
     </div>
@@ -308,7 +304,7 @@
           <div class="form-line">
             <input type="text" name="ProductName" class="form-control input_fix" ngModel>
           </div>
-        </div>
+        </div> 
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Value</b></small>
@@ -338,9 +334,9 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" name="ColorID" ngModel>
-                    <option>Select</option>
-                      <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
-                  </select>
+            <option>Select</option>
+              <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
+          </select>
         </div>
       </div>
     </div>
@@ -398,7 +394,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-12">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowSellerForm()">Back</button>
+      </div>
+      <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Product Form</button>
       </div>
     </div>
@@ -434,7 +433,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-12">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductFormList()">Back</button>
+      </div>
+      <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
       </div>
     </div>
@@ -450,18 +452,6 @@
       <u>Form </u>
     </h4>
     <hr>
-    <!-- <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Insurance Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="InsuranceImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Plan</b></small>
@@ -563,10 +553,10 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" (change)="selectType($event.target.value)">
-                    <option>Select</option>
-                    <option value="brand">Brand</option>
-                    <option value="seller">Seller</option>
-                </select>
+            <option>Select</option>
+            <option value="brand">Brand</option>
+            <option value="seller">Seller</option>
+          </select>
         </div>
       </div>
       <div *ngIf="selectDropdown == 'brand'">
@@ -596,11 +586,16 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
-        <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
+      <div class="col-md-12">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
+        </div>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductForm()">Back</button>
       </div>
-      <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg" (click)="skipInsurance()">Skip</button>
+      <div class="col-md-6">
+        <button class="btn bg-blue btn-block btn-lg" (click)="skipInsurance()">Skip</button>
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
@@ -768,11 +763,16 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
-        <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+      <div class="col-md-12">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
       </div>
-      <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg" (click)="skipWarranty()">Skip</button>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowInsuranceForm()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-blue btn-block btn-lg" (click)="skipWarranty()">Skip</button>
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
@@ -939,11 +939,16 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
-        <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
+      <div class="col-md-12">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
       </div>
-      <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg" (click)="skipAMC()">Skip</button>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-blue btn-block btn-lg" (click)="skipAMC()">Skip</button>
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
@@ -1081,11 +1086,16 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
-        <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
+      <div class="col-md-12">
+          <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
       </div>
-      <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg" (click)="skipRepair()">Skip</button>
+    </div>
+    <div class="row clearfix">
+      <div class="col-md-6">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowAMCForm()">Back</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn bg-blue btn-block btn-lg" (click)="skipRepair()">Skip</button>
       </div>
     </div>
     <div *ngIf="imageArray.length > 0">
@@ -1112,15 +1122,20 @@
 <div *ngIf="endPanel">
   <div class="row clearfix">
     <div class="col-md-6">
-      <button class="btn bg-green btn-block btn-lg" (click)="addMoreRepair()">Add More Repair</button>
+      <button class="btn bg-green btn-block btn-lg" (click)="backtoShowRepairForm()">Back</button>
     </div>
     <div class="col-md-6">
-      <button class="btn bg-orange btn-block btn-lg" (click)="addMoreProduct()">Add More Product</button>
+      <button class="btn bg-orange btn-block btn-lg" (click)="addMoreRepair()">Add More Repair</button>
     </div>
   </div>
   <div class="row clearfix">
     <div class="col-md-12">
-      <button class="btn bg-teal btn-block btn-lg" (click)="createBill()">Create Bill</button>
+      <button class="btn bg-teal btn-block btn-lg" (click)="addMoreProduct()">Add More Product</button>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-md-12">
+      <button class="btn bg-purple btn-block btn-lg" (click)="createBill()">Create Bill</button>
     </div>
   </div>
 </div>

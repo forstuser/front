@@ -95,9 +95,7 @@ export class BillCreateComponent implements OnInit {
   PleaseSelectMainCategory:boolean = false;
   PleaseSelectCategory:boolean = false;
   EnterName:boolean = false;
-  billImage:boolean = false;
-  
-  
+  billImage:boolean = false;  
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -172,15 +170,16 @@ export class BillCreateComponent implements OnInit {
   generalFormData(form: NgForm) {
     // console.log(form.value);
     // console.log(this.imageArray.length,"image");
-    if(form.value.Name===""){
+    if(form.value.Name.length==0 ){
       this.EnterName = true;
     }
-    if(this.imageArray.length ==0){
+    else if(this.imageArray.length ==0){
       this.billImage = true;
     }
     else{
       const form_data = form.value;
-      form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
+      console.log("form data",form_data);
+      // form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
       // console.log(form_data); 
       this.billImageArray = this.imageArray;
       this.billImageArray.splice(0,1);
@@ -192,8 +191,8 @@ export class BillCreateComponent implements OnInit {
     }
     // console.log('generel form array:', this.generalFormContent);
   }
+  // function for complete job
   completeJob() {
-
     this.userservice.completeJob(this.billId)
       .subscribe(res => {
         console.log(res);
@@ -570,5 +569,42 @@ export class BillCreateComponent implements OnInit {
       })
   }
 
-  /*****************************Validation Functions***************************************/
+  /*****************************Validation and Back Functions***************************************/
+  backtoShowForm(){
+    this.showForm = true;
+    this.showGeneralForm = false;
+  }
+  backtoShowGeneralForm(){
+    this.showGeneralForm=true;
+    this.showSellerForm = false;
+  }
+  backtoShowSellerForm(){
+    this.showProductFormList = false;
+    this.showSellerForm = true;
+  }
+  backtoShowProductFormList(){
+    this.showProductForm = false;
+    this.showProductFormList = true;
+  }
+  backtoShowProductForm(){
+    this.showInsuranceForm = false;
+    this.showProductForm = true;
+  }
+  backtoShowInsuranceForm(){
+    this.showInsuranceForm = true;
+    this.showWarrantyForm = false;
+  }
+  backtoShowWarrantyForm(){
+    this.showAMCForm = false;
+    this.showWarrantyForm = true;
+  }
+  backtoShowAMCForm(){
+    this.showAMCForm = true;
+    this.showRepairForm = false;
+  }
+  backtoShowRepairForm(){
+    this.showRepairForm = true;
+    this.endPanel = false;
+  }
+
 }
