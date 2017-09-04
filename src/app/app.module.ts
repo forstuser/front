@@ -53,6 +53,7 @@ import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bi
 import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
+import { AngularDraggableModule } from 'angular2-draggable';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +105,8 @@ import { DiscardedComponent } from './dashboard/data-panel/job-management/discar
     AppRoutingModule,
     SwiperModule,
     MultiselectDropdownModule,
-    MyDatePickerModule
+    MyDatePickerModule,
+    AngularDraggableModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]

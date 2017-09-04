@@ -6,7 +6,7 @@
     <div class="row clearfix">
       <!-- Image Slider Start -->
       <div class="col-md-4">
-        <section>
+        <!-- <section>
           <swiper class="swiper" [config]="config">
             <div class="swiper-wrapper test">
               <img class="swiper-slide" *ngFor="let image of images" [src]="image" (click)="getCurrentImage(image)" style="cursor:pointer">
@@ -15,7 +15,34 @@
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
           </swiper>
-        </section>
+        </section> -->
+        <div class="row clearfix" style="overflow:hidden ">
+          <div class="col-md-12" style="height:500px;width:500px">
+              <img [src]="images[0]" alt="" [style.width.%]="width" [style.height.%]="height" ngDraggable (started)="onDragBegin($event)" (stopped)="onDragEnd($event)" ngDraggable>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <button class="btn btn-warning btn-block" (click)="prevImage()">Prev</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn btn-info btn-block" (click)="zoomOut()">-</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn btn-info btn-block" (click)="zoomIn()">+</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn btn-warning btn-block" (click)="nextImage()">Next</button>
+          </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-md-6">
+              <button class="btn btn-danger btn-block" (click)="discard()">Discard</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-success btn-block" (click)="select()">Select</button>
+            </div>
+          </div>
       </div>
       <!-- Image Slider END -->
       <!-- Form 1 Start -->

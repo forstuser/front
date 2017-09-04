@@ -20,7 +20,8 @@ export class BillComponent implements OnInit {
     prevButton: '.swiper-button-prev',
     spaceBetween: 30
   }
-  
+  width:number = 100;
+  height:number = 100; 
   constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
     this.billId = route.snapshot.params.id;
     // console.log(this.billId);
@@ -33,20 +34,42 @@ export class BillComponent implements OnInit {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
-        // console.log(i.ImageID);
         this.images.push('http://52.66.17.137:3000/bills/'+i.ImageID+'/files')
       }
     })
-    // this.userservice.getImage()
-    //   .subscribe(res=>{
-    //     console.log(res);
-    //     // this.images = res;
-    //   })
     console.log(this.images);
   }
   getCurrentImage(image){
     console.log(image);
     this.imageID = image.split('bills/').pop().split('/files').shift(); 
     this.dataservice.changeMessage(this.imageID);
+  }
+  zoomOut(){
+    if(this.height > 100 && this.width > 100){
+    this.width = this.width-5;
+    this.height =this.height-5;
+  }
+  }
+  zoomIn(){
+  this.width = this.width+5;
+  this.height =this.height+5;
+  }
+  prevImage(){
+    
+  }
+  nextImage(){
+
+  }
+  discard(){
+
+  }
+  select(){
+
+  }
+  onDragBegin(e){
+    console.log(e)
+  }
+  onDragEnd(e){
+    console.log(e)
   }
 }

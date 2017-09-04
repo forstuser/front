@@ -7,3 +7,6 @@ swiper {
     padding-bottom: 7px;
     padding-top: 7px;
 }
+.ng-draggable {
+    cursor: move;
+  }
