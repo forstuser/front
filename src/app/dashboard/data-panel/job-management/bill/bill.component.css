@@ -10,3 +10,6 @@ swiper {
 .ng-draggable {
     cursor: move;
   }
+.zindex{
+    z-index: 0 !important;
+}

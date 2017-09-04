@@ -18,7 +18,7 @@
         </section> -->
         <div class="row clearfix" style="overflow:hidden ">
           <div class="col-md-12" style="height:500px;width:500px">
-              <img [src]="images[0]" alt="" [style.width.%]="width" [style.height.%]="height" ngDraggable (started)="onDragBegin($event)" (stopped)="onDragEnd($event)" ngDraggable>
+              <img class="zindex" [src]="images[imageIndex]" alt="" [style.width.%]="width" [style.height.%]="height" ngDraggable (started)="onDragBegin($event)" (stopped)="onDragEnd($event)" ngDraggable>
           </div>
         </div>
         <div class="row clearfix">

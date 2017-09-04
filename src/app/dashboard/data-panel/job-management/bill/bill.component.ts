@@ -22,6 +22,7 @@ export class BillComponent implements OnInit {
   }
   width:number = 100;
   height:number = 100; 
+  imageIndex:number = 0;
   constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
     this.billId = route.snapshot.params.id;
     // console.log(this.billId);
@@ -34,16 +35,16 @@ export class BillComponent implements OnInit {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
-        this.images.push('http://52.66.17.137:3000/bills/'+i.ImageID+'/files')
+        this.images.push('http://13.126.5.210:3000/bills/'+i.ImageID+'/files')
       }
     })
     console.log(this.images);
   }
-  getCurrentImage(image){
-    console.log(image);
-    this.imageID = image.split('bills/').pop().split('/files').shift(); 
-    this.dataservice.changeMessage(this.imageID);
-  }
+  // getCurrentImage(image){
+  //   console.log(image);
+  //   this.imageID = image.split('bills/').pop().split('/files').shift(); 
+  //   this.dataservice.changeMessage(this.imageID);
+  // }
   zoomOut(){
     if(this.height > 100 && this.width > 100){
     this.width = this.width-5;
@@ -55,16 +56,17 @@ export class BillComponent implements OnInit {
   this.height =this.height+5;
   }
   prevImage(){
-    
+    this.imageIndex = this.imageIndex - 1;
   }
   nextImage(){
-
+    this.imageIndex = this.imageIndex + 1;
   }
   discard(){
 
   }
   select(){
-
+    this.dataservice.changeMessage(this.images[this.imageIndex]);
+    console.log(this.images[this.imageIndex]);
   }
   onDragBegin(e){
     console.log(e)
