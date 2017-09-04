@@ -302,7 +302,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="ProductName" class="form-control input_fix" ngModel>
+            <input type="text" name="ProductName" class="form-control input_fix" ngModel="{{productInfoFormContent[0]?.ProductName}}">
           </div>
         </div> 
       </div>
@@ -312,7 +312,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Value" class="form-control input_fix" ngModel>
+            <input type="text" name="Value" class="form-control input_fix" ngModel="{{productInfoFormContent[0]?.Value}}">
           </div>
         </div>
       </div>
@@ -324,7 +324,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Taxes" class="form-control input_fix" ngModel>
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel="{{productInfoFormContent[0]?.Taxes}}">
           </div>
         </div>
       </div>
@@ -333,7 +333,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" name="ColorID" ngModel>
+          <select class="form-control dropdown" name="ColorID" ngModel="{{productInfoFormContent[0]?.ColorID}}">
             <option>Select</option>
               <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
           </select>
@@ -346,7 +346,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" name="BrandID" ngModel>
+          <select class="form-control dropdown" name="BrandID" ngModel="{{productInfoFormContent[0]?.BrandID}}">
             <option>Select</option>
               <option *ngFor = "let brand of brandList?.BrandList" ngValue="{{brand.ID}}">{{ brand.Name }}</option>
           </select>
@@ -357,7 +357,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel>
+          <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel="{{productInfoFormContent[0]?.MasterCatID}}">
             <option>Select</option>
               <option *ngFor = "let mainCat of mainCategory?.CategoryList" ngValue="{{mainCat.ID}}">{{ mainCat.Name }}</option>
           </select>
@@ -373,7 +373,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID" ngModel>
+          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID"ngModel="{{productInfoFormContent[0]?.CatID}}">
                     <option>Select</option>
                       <option *ngFor = "let subCat of getSubCatList?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.Name }}</option>
                   </select>
@@ -388,7 +388,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Tag" class="form-control input_fix" ngModel>
+            <input type="text" name="Tag" class="form-control input_fix" ngModel="{{productInfoFormContent[0]?.Tag}}">
           </div>
         </div>
       </div>
@@ -424,7 +424,7 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
-          <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
+          <select class="form-control dropdown" name="{{form.FormID}}"  ngModel>
                 <ng-container *ngFor="let droplist of productMainForm?.List">
                    <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
                 </ng-container>
@@ -459,7 +459,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Plan" class="form-control input_fix" ngModel>
+            <input type="text" name="Plan" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.Plan}}>
           </div>
         </div>
       </div>
@@ -469,7 +469,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.PolicyNo}}>
           </div>
         </div>
       </div>
@@ -481,7 +481,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="AmountInsured" class="form-control input_fix" ngModel>
+            <input type="text" name="AmountInsured" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.AmountInsured}}>
           </div>
         </div>
       </div>
@@ -491,7 +491,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.PremiumType}}>
           </div>
         </div>
       </div>
@@ -503,7 +503,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.PremiumAmount}}>
           </div>
         </div>
       </div>
@@ -565,7 +565,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel>
+            <select class="form-control dropdown" name="BrandID" ngModel={{insuranceFormContent[0]?.BrandID}}>
                 <option>Select</option>
                 <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
               </select>
@@ -578,7 +578,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel>
+            <select class="form-control dropdown" name="SellerInfo" ngModel={{insuranceFormContent[0]?.SellerInfo}}>
                 <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
               </select>
           </div>
@@ -659,7 +659,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel="{{warrantyFormContent[0]?.PolicyNo}}">
           </div>
         </div>
       </div>
@@ -669,7 +669,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel="{{warrantyFormContent[0]?.PremiumType}}">
           </div>
         </div>
       </div>
@@ -681,7 +681,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel="{{warrantyFormContent[0]?.PremiumAmount}}">
           </div>
         </div>
       </div>
@@ -743,7 +743,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel>
+            <select class="form-control dropdown" name="BrandID" ngModel="{{warrantyFormContent[0]?.BrandID}}">
                   <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -755,7 +755,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel>
+            <select class="form-control dropdown" name="SellerInfo" ngModel="{{warrantyFormContent[0]?.SellerInfo}}">
                   <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -835,7 +835,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel>
+            <input type="text" name="PolicyNo" class="form-control input_fix" ngModel="{{AMCFormContent[0]?.PolicyNo}}">
           </div>
         </div>
       </div>
@@ -845,7 +845,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumType" class="form-control input_fix" ngModel="{{AMCFormContent[0]?.PremiumType}}">
           </div>
         </div>
       </div>
@@ -857,7 +857,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel>
+            <input type="text" name="PremiumAmount" class="form-control input_fix" ngModel="{{AMCFormContent[0]?.PremiumAmount}}">
           </div>
         </div>
       </div>
@@ -919,7 +919,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel>
+            <select class="form-control dropdown" name="BrandID" ngModel="{{AMCFormContent[0]?.BrandID}}">
                   <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -931,7 +931,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel>
+            <select class="form-control dropdown" name="SellerInfo" ngModel="{{AMCFormContent[0]?.SellerInfo}}">
                   <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -1011,7 +1011,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="RepairValue" class="form-control input_fix" ngModel>
+            <input type="text" name="RepairValue" class="form-control input_fix" ngModel="repairFormContent[0]?.RepairValue">
           </div>
         </div>
       </div>
@@ -1021,7 +1021,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Taxes" class="form-control input_fix" ngModel>
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel="repairFormContent[0]?.Taxes">
           </div>
         </div>
       </div>
@@ -1033,7 +1033,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel>
+            <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel="repairFormContent[0]?.RepairInvoiceNumber">
           </div>
         </div>
       </div>
@@ -1066,7 +1066,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel>
+            <select class="form-control dropdown" name="BrandID" ngModel="repairFormContent[0]?.BrandID">
                   <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -1078,7 +1078,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel>
+            <select class="form-control dropdown" name="SellerInfo" ngModel="repairFormContent[0]?.SellerInfo">
                   <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>

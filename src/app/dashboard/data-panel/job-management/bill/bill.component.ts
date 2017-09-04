@@ -62,10 +62,15 @@ export class BillComponent implements OnInit {
     this.imageIndex = this.imageIndex + 1;
   }
   discard(){
+    const imageurl = this.images[this.imageIndex];
+    this.imageID = imageurl.split('bills/').pop().split('/files').shift(); 
+    console.log("id is",this.imageID)
+    this.dataservice.changeMessage(this.imageID);
 
   }
   select(){
     this.dataservice.changeMessage(this.images[this.imageIndex]);
+    console.log(this.imageIndex);
     console.log(this.images[this.imageIndex]);
   }
   onDragBegin(e){

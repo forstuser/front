@@ -106,6 +106,7 @@ export class BillCreateComponent implements OnInit {
     this.dataservice.currentMessage
       .subscribe(res => {
         // this.message = res;
+        console.log('response is',res);
         if (this.imageArray.includes(res)) {
           console.log("Image already added");
         } else {
@@ -305,7 +306,8 @@ export class BillCreateComponent implements OnInit {
     }
     // console.log(this.ProductFrom);
     this.productFormContent.push(this.ProductFrom);
-    this.ProductFrom = [];
+    console.log("Product Form Data",this.productFormContent);
+    // this.ProductFrom = [];
     this.showProductForm = false;
     this.showInsuranceForm = true;
 
