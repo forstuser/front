@@ -22,7 +22,7 @@ import { IMyDpOptions } from 'mydatepicker';
   styleUrls: ['./bill-create.component.css']
 })
 export class BillCreateComponent implements OnInit {
-  imageArray:any[]=[];
+  imageArray: any[] = [];
   billImageArray: any[] = [];
   insuranceImageArray: any[] = [];
   warrantyImageArray: any[] = [];
@@ -33,7 +33,7 @@ export class BillCreateComponent implements OnInit {
   private myDatePickerOptions: IMyDpOptions = {
     // other options...
     dateFormat: 'yyyy-mm-dd',
-};
+  };
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'fontawesome',
@@ -85,18 +85,19 @@ export class BillCreateComponent implements OnInit {
   productFormID: number = null;
   finalData: any = {};
   productData: any = {};
-  insuranceData:any = {};
-  warrantyData:any = {};
-  amcData:any = {};
-  repairData:any = {};
+  insuranceData: any = {};
+  warrantyData: any = {};
+  amcData: any = {};
+  repairData: any = {};
   nameOfImage: string;
-  userID:string;
-  maxLength= '12';
-  PleaseSelectMainCategory:boolean = false;
-  PleaseSelectCategory:boolean = false;
-  EnterName:boolean = false;
-  billImage:boolean = false;  
-  discardImage:object;
+  userID: string;
+  maxLength = '12';
+  PleaseSelectMainCategory: boolean = false;
+  PleaseSelectCategory: boolean = false;
+  EnterName: boolean = false;
+  billImage: boolean = false;
+  discardImage: object;
+  imageID: number;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -107,23 +108,27 @@ export class BillCreateComponent implements OnInit {
     this.dataservice.currentMessage
       .subscribe(res => {
         // this.message = res;
-        if(typeof(res)=='number'){
+        if (typeof (res) == 'number') {
           this.discardImage = {
-            'BID':this.billId,
-            'UID':this.userID,
-            'ImageID':res
+            'BID': this.billId,
+            'UID': this.userID,
+            'ImageID': res
           }
           this.userservice.discardConsumerBillImage(this.discardImage)
-            .subscribe(res=>{
+            .subscribe(res => {
               console.log(res)
               alert('Image discarded');
             })
-        } else{
-          // console.log('response is',res);
+        } else {
+          console.log('response is', res);
           if (this.imageArray.includes(res)) {
             console.log("Image already added");
           } else {
-            this.imageArray.push(res);
+            //get image id for push
+            this.imageID = res.split('bills/').pop().split('/files').shift();
+            console.log("image id ", this.imageID)
+            this.imageArray.push(this.imageID);
+            console.log('image array is',this.imageArray)
           }
         }
       })
@@ -137,7 +142,7 @@ export class BillCreateComponent implements OnInit {
     // get offline seller list
     this.userservice.getOfflineSellerList()
       .subscribe(res => {
-        console.log("Offline Seller List",res);
+        console.log("Offline Seller List", res);
         this.offlineSellerList = res;
       })
     // get online seller list
@@ -146,7 +151,7 @@ export class BillCreateComponent implements OnInit {
         // console.log(res);
         this.onlineSellerList = res;
       })
-    this.userservice.getBrandList2(null,null)
+    this.userservice.getBrandList2(null, null)
       .subscribe(res => {
         this.brandList = res;
         // console.log(this.brandList);
@@ -171,12 +176,12 @@ export class BillCreateComponent implements OnInit {
     this.generalFormContent = [];
     this.sellerFormContent = [];
     this.productInfoFormContent = [];
-    this.productFormContent= [];
-    this.insuranceFormContent= [];
+    this.productFormContent = [];
+    this.insuranceFormContent = [];
     this.warrantyFormContent = [];
     this.AMCFormContent = [];
-    this.repairFormContent= [];
-    this.FinalProductContent= [];
+    this.repairFormContent = [];
+    this.FinalProductContent = [];
     this.showForm = false;
     this.showGeneralForm = true;
     this.imageArray = [];
@@ -185,20 +190,20 @@ export class BillCreateComponent implements OnInit {
   generalFormData(form: NgForm) {
     // console.log(form.value);
     // console.log(this.imageArray.length,"image");
-    if(form.value.Name.length==0 ){
+    if (form.value.Name.length == 0) {
       this.EnterName = true;
     }
-    else if(this.imageArray.length ==0){
+    else if (this.imageArray.length == 0) {
       this.billImage = true;
     }
-    else{
+    else {
       const form_data = form.value;
-      console.log("form data",form_data);
-      // form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
-      // console.log(form_data); 
+      console.log("form data", form_data);
+      form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
+      console.log(form_data);
       this.billImageArray = this.imageArray;
-      this.billImageArray.splice(0,1);
-      console.log(this.billImageArray);
+      // this.billImageArray.splice(0, 1);
+      console.log('image after push',this.billImageArray);
       this.imageArray = [];
       this.generalFormContent.push(form_data);
       this.showGeneralForm = false;
@@ -225,7 +230,7 @@ export class BillCreateComponent implements OnInit {
         break;
       }
     }
-    console.log(this.imageArray);
+    console.log('after remove', this.imageArray);
   }
   editPreBill(data) {
     console.log(data);
@@ -294,11 +299,11 @@ export class BillCreateComponent implements OnInit {
   }
   // product info data on submit
   productInfoFormData(form: NgForm) {
-    if(form.value.MasterCatID ===""){
+    if (form.value.MasterCatID === "") {
       this.PleaseSelectMainCategory = true;
-    } else if(form.value.CatID ===""){
+    } else if (form.value.CatID === "") {
       this.PleaseSelectCategory = true;
-    }else {
+    } else {
       console.log(form.value);
       this.productInfoFormContent.push(form.value);
       this.showProductFormList = false;
@@ -320,7 +325,7 @@ export class BillCreateComponent implements OnInit {
     }
     // console.log(this.ProductFrom);
     this.productFormContent.push(this.ProductFrom);
-    console.log("Product Form Data",this.productFormContent);
+    console.log("Product Form Data", this.productFormContent);
     // this.ProductFrom = [];
     this.showProductForm = false;
     this.showInsuranceForm = true;
@@ -333,7 +338,7 @@ export class BillCreateComponent implements OnInit {
     if (data == 'brand') {
       console.log(data);
       this.selectDropdown = data;
-      this.userservice.getBrandList2(null,null)
+      this.userservice.getBrandList2(null, null)
         .subscribe(res => {
           this.brandList = res;
         })
@@ -354,18 +359,18 @@ export class BillCreateComponent implements OnInit {
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
     this.insuranceData = {
-      "Plan":form.value.Plan,
-      "PolicyNo":form.value.PolicyNo,
-      "AmountInsured":form.value.AmountInsured,
-      "PremiumType":form.value.PremiumType,
-      "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
-      "BrandID":form.value.BrandID,
-      "SellerInfo":form.value.SellerInfo,
-      "Inclusions":form.value.Inclusions,
-      "Exclusions":form.value.Exclusions,
-      "InsuranceImage":this.insuranceImageArray,
+      "Plan": form.value.Plan,
+      "PolicyNo": form.value.PolicyNo,
+      "AmountInsured": form.value.AmountInsured,
+      "PremiumType": form.value.PremiumType,
+      "PremiumAmount": form.value.PremiumAmount,
+      "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
+      "BrandID": form.value.BrandID,
+      "SellerInfo": form.value.SellerInfo,
+      "Inclusions": form.value.Inclusions,
+      "Exclusions": form.value.Exclusions,
+      "InsuranceImage": this.insuranceImageArray,
     }
     console.log(this.insuranceData);
     this.insuranceFormContent.push(this.insuranceData);
@@ -384,17 +389,17 @@ export class BillCreateComponent implements OnInit {
     this.warrantyImageArray = this.imageArray;
     this.imageArray = [];
     this.warrantyData = {
-      "WarrantyType":form.value.WarrantyType,
-      "PolicyNo":form.value.PolicyNo,
-      "PremiumType":form.value.PremiumType,
-      "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
-      "BrandID":form.value.BrandID,
-      "SellerInfo":form.value.SellerInfo,
-      "Inclusions":form.value.Inclusions,
-      "Exclusions":form.value.Exclusions,
-      "WarrantyImage":this.warrantyImageArray,
+      "WarrantyType": form.value.WarrantyType,
+      "PolicyNo": form.value.PolicyNo,
+      "PremiumType": form.value.PremiumType,
+      "PremiumAmount": form.value.PremiumAmount,
+      "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
+      "BrandID": form.value.BrandID,
+      "SellerInfo": form.value.SellerInfo,
+      "Inclusions": form.value.Inclusions,
+      "Exclusions": form.value.Exclusions,
+      "WarrantyImage": this.warrantyImageArray,
     }
     this.warrantyFormContent.push(this.warrantyData);
     this.showWarrantyForm = false;
@@ -411,16 +416,16 @@ export class BillCreateComponent implements OnInit {
     this.amcImageArray = this.imageArray;
     this.imageArray = [];
     this.amcData = {
-      "PolicyNo":form.value.PolicyNo,
-      "PremiumType":form.value.PremiumType,
-      "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate.formatted,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate.formatted,
-      "BrandID":form.value.BrandID,
-      "SellerInfo":form.value.SellerInfo,
-      "Inclusions":form.value.Inclusions,
-      "Exclusions":form.value.Exclusions,
-      "AMCImage":this.amcImageArray,
+      "PolicyNo": form.value.PolicyNo,
+      "PremiumType": form.value.PremiumType,
+      "PremiumAmount": form.value.PremiumAmount,
+      "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
+      "BrandID": form.value.BrandID,
+      "SellerInfo": form.value.SellerInfo,
+      "Inclusions": form.value.Inclusions,
+      "Exclusions": form.value.Exclusions,
+      "AMCImage": this.amcImageArray,
     }
     this.AMCFormContent.push(this.amcData);
     this.showAMCForm = false;
@@ -437,13 +442,13 @@ export class BillCreateComponent implements OnInit {
     this.repairImageArray = this.imageArray;
     this.imageArray = [];
     this.repairData = {
-      "RepairValue":form.value.RepairValue,
-      "Taxes":form.value.Taxes,
-      "RepairInvoiceNumber":form.value.RepairInvoiceNumber,
-      "RepairDate":form.value.RepairDate.formatted,
-      "BrandID":form.value.BrandID,
-      "SellerInfo":form.value.SellerInfo,
-      "RepairImage":this.repairImageArray
+      "RepairValue": form.value.RepairValue,
+      "Taxes": form.value.Taxes,
+      "RepairInvoiceNumber": form.value.RepairInvoiceNumber,
+      "RepairDate": form.value.RepairDate.formatted,
+      "BrandID": form.value.BrandID,
+      "SellerInfo": form.value.SellerInfo,
+      "RepairImage": this.repairImageArray
     }
     this.repairFormContent.push(this.repairData);
     this.showRepairForm = false;
@@ -501,8 +506,8 @@ export class BillCreateComponent implements OnInit {
       })
 
   }
-  addons(data){
-    console.log(data);  
+  addons(data) {
+    console.log(data);
   }
 
   // ********************************Bill functions ***********************************************
@@ -586,39 +591,39 @@ export class BillCreateComponent implements OnInit {
   }
 
   /*****************************Validation and Back Functions***************************************/
-  backtoShowForm(){
+  backtoShowForm() {
     this.showForm = true;
     this.showGeneralForm = false;
   }
-  backtoShowGeneralForm(){
-    this.showGeneralForm=true;
+  backtoShowGeneralForm() {
+    this.showGeneralForm = true;
     this.showSellerForm = false;
   }
-  backtoShowSellerForm(){
+  backtoShowSellerForm() {
     this.showProductFormList = false;
     this.showSellerForm = true;
   }
-  backtoShowProductFormList(){
+  backtoShowProductFormList() {
     this.showProductForm = false;
     this.showProductFormList = true;
   }
-  backtoShowProductForm(){
+  backtoShowProductForm() {
     this.showInsuranceForm = false;
     this.showProductForm = true;
   }
-  backtoShowInsuranceForm(){
+  backtoShowInsuranceForm() {
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
   }
-  backtoShowWarrantyForm(){
+  backtoShowWarrantyForm() {
     this.showAMCForm = false;
     this.showWarrantyForm = true;
   }
-  backtoShowAMCForm(){
+  backtoShowAMCForm() {
     this.showAMCForm = true;
     this.showRepairForm = false;
   }
-  backtoShowRepairForm(){
+  backtoShowRepairForm() {
     this.showRepairForm = true;
     this.endPanel = false;
   }

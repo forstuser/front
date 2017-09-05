@@ -194,7 +194,7 @@
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src="{{image}}">
+              <img src="http://13.126.5.210:3000/bills/{{image}}/files">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -1011,7 +1011,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="RepairValue" class="form-control input_fix" ngModel="repairFormContent[0]?.RepairValue">
+            <input type="text" name="RepairValue" class="form-control input_fix" ngModel="{{repairFormContent[0]?.RepairValue}}">
           </div>
         </div>
       </div>
@@ -1021,7 +1021,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Taxes" class="form-control input_fix" ngModel="repairFormContent[0]?.Taxes">
+            <input type="text" name="Taxes" class="form-control input_fix" ngModel="{{repairFormContent[0]?.Taxes}}">
           </div>
         </div>
       </div>
@@ -1033,7 +1033,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel="repairFormContent[0]?.RepairInvoiceNumber">
+            <input type="text" name="RepairInvoiceNumber" class="form-control input_fix" ngModel="{{repairFormContent[0]?.RepairInvoiceNumber}}">
           </div>
         </div>
       </div>
@@ -1066,7 +1066,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel="repairFormContent[0]?.BrandID">
+            <select class="form-control dropdown" name="BrandID" ngModel="{{repairFormContent[0]?.BrandID}}">
                   <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
@@ -1078,7 +1078,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel="repairFormContent[0]?.SellerInfo">
+            <select class="form-control dropdown" name="SellerInfo" ngModel="{{repairFormContent[0]?.SellerInfo}}">
                   <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
