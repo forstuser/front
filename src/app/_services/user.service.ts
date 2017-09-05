@@ -45,12 +45,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get list of admin,qe,ce and customer
-        getConsumerList(offset,limit) {
+        getConsumerList(offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo,OffSet:offset ,Limit:limit };
+                const body = { TokenNo: this.TokenNo, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -222,7 +222,7 @@ export class UserService {
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo};
+                const body = { TokenNo: this.TokenNo };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -231,12 +231,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get brand list
-        getBrandList2(offset,limit) {
+        getBrandList2(offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, OffSet:offset ,Limit:limit};
+                const body = { TokenNo: this.TokenNo, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -689,12 +689,12 @@ export class UserService {
         // **^ Bill  Services ^** //
         // get list of new,under-progress and completed list
         // get admin list
-        getAdminBillList(BillType: Number,offset,limit) {
+        getAdminBillList(BillType: Number, offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType ,OffSet:offset ,Limit:limit};
+                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -703,12 +703,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get CE list
-        getCEBillList(BillType: Number,offset,limit) {
+        getCEBillList(BillType: Number, offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet:offset ,Limit:limit };
+                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -717,12 +717,12 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get QE list
-        getQEBillList(BillType: Number,offset,limit) {
+        getQEBillList(BillType: Number, offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet:offset ,Limit:limit };
+                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -883,7 +883,7 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
 
-        discardConsumerBill(req:any){
+        discardConsumerBill(req: any) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
@@ -895,6 +895,20 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/DiscardConsumerBill', data, options)
                         .map((response: Response) => response.json());
+        }
+        discardConsumerBillImage(req: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                req['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(req);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/DiscardConsumerBillImage', data, options)
+                        .map((response: Response) => response.json());
+
         }
 
 }

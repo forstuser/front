@@ -96,6 +96,7 @@ export class BillCreateComponent implements OnInit {
   PleaseSelectCategory:boolean = false;
   EnterName:boolean = false;
   billImage:boolean = false;  
+  discardImage:object;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.id;
   }
@@ -106,11 +107,24 @@ export class BillCreateComponent implements OnInit {
     this.dataservice.currentMessage
       .subscribe(res => {
         // this.message = res;
-        console.log('response is',res);
-        if (this.imageArray.includes(res)) {
-          console.log("Image already added");
-        } else {
-          this.imageArray.push(res);
+        if(typeof(res)=='number'){
+          this.discardImage = {
+            'BID':this.billId,
+            'UID':this.userID,
+            'ImageID':res
+          }
+          this.userservice.discardConsumerBillImage(this.discardImage)
+            .subscribe(res=>{
+              console.log(res)
+              alert('Image discarded');
+            })
+        } else{
+          // console.log('response is',res);
+          if (this.imageArray.includes(res)) {
+            console.log("Image already added");
+          } else {
+            this.imageArray.push(res);
+          }
         }
       })
     // get current bill details

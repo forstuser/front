@@ -23,6 +23,7 @@ export class BillComponent implements OnInit {
   width:number = 100;
   height:number = 100; 
   imageIndex:number = 0;
+  imagerotation:number = 0;
   constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
     this.billId = route.snapshot.params.id;
     // console.log(this.billId);
@@ -65,7 +66,8 @@ export class BillComponent implements OnInit {
     const imageurl = this.images[this.imageIndex];
     this.imageID = imageurl.split('bills/').pop().split('/files').shift(); 
     console.log("id is",this.imageID)
-    this.dataservice.changeMessage(this.imageID);
+    const imageNum = parseInt(this.imageID);
+    this.dataservice.changeMessage(imageNum);
 
   }
   select(){
@@ -78,5 +80,8 @@ export class BillComponent implements OnInit {
   }
   onDragEnd(e){
     console.log(e)
+  }
+  rotate(){
+this.imagerotation =  this.imagerotation + 90;
   }
 }
