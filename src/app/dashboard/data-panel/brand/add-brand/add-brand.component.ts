@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand.interface';
 import { UserService } from './../../../../_services/user.service';
@@ -14,7 +15,7 @@ export class AddBrandComponent implements OnInit {
   cat:Category;
   // items: Brand [] = [];
 
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder,  private functionService:FunctionService) {
    }
   ngOnInit() {
     this.brandForm = this.fb.group({
@@ -58,4 +59,9 @@ export class AddBrandComponent implements OnInit {
         }
       });
   }
+    // function for avoid only space submit
+    avoidSpace(e){
+      console.log(e);
+      this.functionService.NoWhitespaceValidator(this.brandForm,e)
+    }
 }

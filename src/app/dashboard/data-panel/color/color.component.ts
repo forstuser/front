@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../_services/function.service';
 import { Color } from './../../../_models/color';
 import { UserService } from './../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -12,7 +13,7 @@ export class ColorComponent implements OnInit {
   color: Color;
   colorForm: FormGroup ;
   del: any = { };
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
     // main color form
     this.colorForm = this.fb.group({
       'Name' : [null, Validators.required]
@@ -57,5 +58,8 @@ export class ColorComponent implements OnInit {
         });
     });
   }
-
+    // function for avoid only space submit
+    avoidSpace(e){
+      this.functionService.NoWhitespaceValidator(this.colorForm,e)
+    }
 }

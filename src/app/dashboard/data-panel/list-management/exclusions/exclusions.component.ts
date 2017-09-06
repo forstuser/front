@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Exclusion } from './../../../../_models/exclusion';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,19 +16,19 @@ export class ExclusionsComponent implements OnInit {
   exclusion: Exclusion;
   getSubCatList: Category;
   showDialog = false;
-  editCategoryForm: FormGroup ;
-  createSubCategoryForm: FormGroup;
+  editExclusionForm: FormGroup ;
+  createExclusionForm: FormGroup;
   createCat: any = { };
   del: any = { };
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
     // edit main category form
-    this.editCategoryForm = this.fb.group({
+    this.editExclusionForm = this.fb.group({
       'Name' : [null, Validators.required],
       'CatID': [null, Validators.required],
       'ID': ''
     });
     // create main category form
-    this.createSubCategoryForm = this.fb.group({
+    this.createExclusionForm = this.fb.group({
       'Name': [null, Validators.required],
       'CatID': [null, Validators.required],
       'RefID': ['']
@@ -84,10 +85,10 @@ export class ExclusionsComponent implements OnInit {
   }
     // passs current user as argument and open the popup
   openCategoryModel(item: any) {
-    // console.log(item);
+    console.log(item);
     this.showDialog = true ; // for show dialog
     // populate prefilled value in form
-    this.editCategoryForm.setValue({
+    this.editExclusionForm.setValue({
       Name: item.Name,
       ID: item.ID,
       CatID: item.CatID
@@ -122,5 +123,9 @@ export class ExclusionsComponent implements OnInit {
         });
     });
   }
-
+      // function for avoid only space submit
+      avoidSpace(e){
+        console.log(e);
+        this.functionService.NoWhitespaceValidator(this.createExclusionForm,e)
+      }
 }

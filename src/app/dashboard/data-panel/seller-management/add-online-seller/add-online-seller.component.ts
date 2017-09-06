@@ -58,7 +58,7 @@ export class AddOnlineSellerComponent implements OnInit {
       });
   }
   // function for avoid only space submit
-  avoidSpace(){
-    this.functionService.NoWhitespaceValidator(this.onlineSellerForm,'Name')
+  avoidSpace(e){
+    this.functionService.NoWhitespaceValidator(this.onlineSellerForm,e)
   }
 }

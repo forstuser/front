@@ -13,7 +13,7 @@
             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Seller name here" (keyup)="avoidSpace()">
+                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Seller name here" (keyup)="avoidSpace('Name')">
                     </div>
                     <!-- <div *ngIf="onlineSellerForm.hasError('whitespace')">Please enter Valid Data</div> -->
                 </div>
@@ -26,7 +26,7 @@
             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" class="form-control" formControlName="URL" placeholder="Enter url of online seller">
+                        <input type="text" class="form-control" formControlName="URL" placeholder="Enter url of online seller" (keyup)="avoidSpace('URL')">
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" class="form-control" formControlName="GstinNo" placeholder="Enter GstinNo of online seller">
+                        <input type="text" class="form-control" formControlName="GstinNo" placeholder="Enter GstinNo of online seller" (keyup)="avoidSpace('GstinNo')">
                     </div>
                 </div>
             </div>

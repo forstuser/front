@@ -5,7 +5,7 @@
         </h2>
     </div>
     <div class="body">
-        <form [formGroup]='createSubCategoryForm' (ngSubmit) = "createCategory(createSubCategoryForm.value)">
+        <form [formGroup]='createExclusionForm' (ngSubmit) = "createCategory(createExclusionForm.value)">
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                   <label>
@@ -35,13 +35,13 @@
                   </label>
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Name">
+                            <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')">
                         </div>
-                        <p class="text-danger" *ngIf="!createSubCategoryForm.controls['Name'].valid && createSubCategoryForm.controls['Name'].touched">Name is required</p>
+                        <p class="text-danger" *ngIf="!createExclusionForm.controls['Name'].valid && createExclusionForm.controls['Name'].touched">Name is required</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!createSubCategoryForm.valid" >
+                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!createExclusionForm.valid" >
                 </div>
             </div>
         </form>
@@ -50,8 +50,8 @@
 <div class="card">
   <div class="header">
       <h2>
-          Sub Category List
-          <small> For change the category details click on the edit button</small>
+          Exclusion List
+          <small> For change the exclusion click on the edit button</small>
       </h2>
   </div>
   <div class="body table-responsive">
@@ -67,8 +67,8 @@
            <tbody *ngFor="let list of exclusion?.ExclusionsList; let i = index">
               <tr>
                   <th scope="row">{{ i+1 }}</th>
-                  <td>{{ list.Name }}</td>
                   <td>{{ list.CatName }}</td>
+                  <td>{{ list.Name }}</td>
                   <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
               </tr>
           </tbody>
@@ -76,10 +76,10 @@
   </div>
     <app-dialog [(visible)]="showDialog">
       <div class="modal-header">
-          <h4 class="modal-title" id="smallModalLabel">Edit Main Category</h4>
+          <h4 class="modal-title" id="smallModalLabel">Edit Exclusion</h4>
       </div>
       <div class="modal-body">
-          <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit) = "updateExclusions(editCategoryForm.value)">
+          <form class="form-horizontal" [formGroup]='editExclusionForm' (ngSubmit) = "updateExclusions(editExclusionForm.value)">
               <div class="row clearfix">
                   <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                       <label for="name">Name</label>
@@ -89,13 +89,13 @@
                           <div class="form-line">
                               <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
                           </div>
-                          <p class="text-danger" *ngIf="!editCategoryForm.controls['Name'].valid && editCategoryForm.controls['Name'].touched">Name is required</p>
+                          <p class="text-danger" *ngIf="!editExclusionForm.controls['Name'].valid && editExclusionForm.controls['Name'].touched">Name is required</p>
                       </div>
                   </div>
               </div>
               <div class="row clearfix">
                   <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
-                      <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editCategoryForm.valid" >
+                      <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editExclusionForm.valid" >
                   </div>
               </div>
           </form>

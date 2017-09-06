@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Inclusion } from './../../../../_models/inclusion';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,19 +16,19 @@ export class InclusionsComponent implements OnInit {
   inclusionList: Inclusion;
   getSubCatList: Category;
   showDialog = false;
-  editCategoryForm: FormGroup ;
-  createSubCategoryForm: FormGroup;
+  editInclusionForm: FormGroup ;
+  createInclusionForm: FormGroup;
   createCat: any = { };
   del: any = { };
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
     // edit main category form
-    this.editCategoryForm = this.fb.group({
+    this.editInclusionForm = this.fb.group({
       'Name' : [null, Validators.required],
       'CatID': [null, Validators.required],
       'ID': ''
     });
     // create main category form
-    this.createSubCategoryForm = this.fb.group({
+    this.createInclusionForm = this.fb.group({
       'Name': [null, Validators.required],
       'CatID': [null, Validators.required],
       'RefID': ['']
@@ -86,7 +87,7 @@ export class InclusionsComponent implements OnInit {
     // console.log(item);
     this.showDialog = true ; // for show dialog
     // populate prefilled value in form
-    this.editCategoryForm.setValue({
+    this.editInclusionForm.setValue({
       Name: item.Name,
       ID: item.ID,
       CatID: item.CatID
@@ -121,5 +122,10 @@ export class InclusionsComponent implements OnInit {
         });
     });
   }
+    // function for avoid only space submit
+    avoidSpace(e){
+      console.log(e);
+      this.functionService.NoWhitespaceValidator(this.createInclusionForm,e)
+    }
 
 }

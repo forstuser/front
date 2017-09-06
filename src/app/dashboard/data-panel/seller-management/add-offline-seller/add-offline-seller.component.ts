@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
 import { OfflineSeller } from './../../../../_models/offlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
@@ -13,7 +14,7 @@ export class AddOfflineSellerComponent implements OnInit {
   public offlineSellerForm: FormGroup;
   items: OfflineSeller [] = [];
   cat:Category;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
       // get list of category
@@ -67,4 +68,8 @@ export class AddOfflineSellerComponent implements OnInit {
         this.offlineSellerForm.reset();
       });
   }
+    // function for avoid only space submit
+    avoidSpace(e){
+      this.functionService.NoWhitespaceValidator(this.offlineSellerForm,e)
+    }
 }

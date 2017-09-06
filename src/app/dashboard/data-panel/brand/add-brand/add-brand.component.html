@@ -13,7 +13,7 @@
         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" formControlName="Name" class="form-control" placeholder="Enter brand name here">
+              <input type="text" formControlName="Name" class="form-control" placeholder="Enter brand name here" (keyup)="avoidSpace('Name')">
             </div>
           </div>
         </div>
@@ -25,7 +25,7 @@
         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" class="form-control" formControlName="Description" placeholder="Enter description of brand">
+              <input type="text" class="form-control" formControlName="Description" placeholder="Enter description of brand" (keyup)="avoidSpace('Description')">
             </div>
           </div>
         </div>

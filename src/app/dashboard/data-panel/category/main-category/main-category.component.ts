@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
 import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
@@ -15,7 +16,7 @@ export class MainCategoryComponent implements OnInit {
   createCategoryForm: FormGroup;
   createCat: any = { };
   del: any = { };
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
     // edit main category form
     this.editCategoryForm = this.fb.group({
       'Name' : [null, Validators.required],
@@ -92,5 +93,8 @@ export class MainCategoryComponent implements OnInit {
         });
     });
   }
-
+  // function for avoid only space submit
+  avoidSpace(e){
+    this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
+  }
 }

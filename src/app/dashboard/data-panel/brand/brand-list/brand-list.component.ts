@@ -11,7 +11,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrandListComponent implements OnInit {
   brands: Brand;
-  showDialog = false;
   editBrandForm: FormGroup;
   cat:Category;
   prev:number=0;
@@ -19,6 +18,7 @@ export class BrandListComponent implements OnInit {
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;
+  showBrandList:boolean = true;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -107,7 +107,7 @@ export class BrandListComponent implements OnInit {
     this.userService.getBrandDetailsbyID(item.ID)
       .subscribe(res => {
       console.log(res);
-      this.showDialog = true ; // for show dialog
+      this.showBrandList = false;
       // prop autofill data to form
       this.editBrandForm.controls['ID'].setValue(res.ID);
       this.editBrandForm.controls['Name'].setValue(res.Name);
@@ -133,7 +133,7 @@ export class BrandListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('brand updated successfully');
-        this.showDialog = false ;
+        this.showBrandList =true;
         this.userService.getBrandList2(0,10) // list update after edit
           .subscribe(brandList => {
           this.brands = brandList;
@@ -153,5 +153,8 @@ export class BrandListComponent implements OnInit {
           this.brands = brandList;
         });
     });
+  }
+  back(){
+    this.showBrandList = true;
   }
 }

@@ -14,7 +14,6 @@
                    </label>
           <div class="form-group">
             <select class="form-control dropdown" formControlName="RefID">
-                     <option>Select</option>
                      <option *ngFor="let mainCategoryList of mainCat?.CategoryList" [ngValue]="mainCategoryList.ID">{{ mainCategoryList.Name }}</option>
                    </select>
           </div>
@@ -25,7 +24,7 @@
                    </label>
           <div class="form-group">
             <div class="form-line">
-              <input type="text" class="form-control" formControlName="Name">
+              <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')">
             </div>
             <p class="text-danger" *ngIf="!createCategoryForm.controls['Name'].valid && createCategoryForm.controls['Name'].touched">Name is required</p>
           </div>
