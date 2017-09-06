@@ -5,7 +5,7 @@
         </h2>
     </div>
     <div class="body">
-      <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit) = "createOfflineSeller(offlineSellerForm.value)">
+      <form class="form-horizontal" [formGroup]='addserviceCenterForm' (ngSubmit) = "createOfflineSeller(addserviceCenterForm.value)">
         <h4> <u>Information </u></h4>
         <hr>
         <div class="row clearfix">
@@ -15,7 +15,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here">
+                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('Name')">
                     </div>
                 </div>
             </div>
@@ -25,7 +25,6 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <select class="form-control dropdown" formControlName="BrandID">
-                    <option>Select</option>
                     <option *ngFor="let brandList of brands?.BrandList" [ngValue]="brandList.ID">{{ brandList.Name }}</option>
                   </select>
                 </div>
@@ -40,7 +39,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here">
+                        <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here" (keyup)="avoidSpace('HouseNo')">
                     </div>
                 </div>
             </div>
@@ -50,7 +49,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here">
+                        <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here" (keyup)="avoidSpace('Block')">
                     </div>
                 </div>
             </div>
@@ -62,7 +61,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here">
+                        <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here"  (keyup)="avoidSpace('Street')">
                     </div>
                 </div>
             </div>
@@ -72,7 +71,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here">
+                        <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here" (keyup)="avoidSpace('Sector')">
                     </div>
                 </div>
             </div>
@@ -84,7 +83,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here">
+                        <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('City')">
                     </div>
                 </div>
             </div>
@@ -94,7 +93,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here">
+                        <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('State')">
                     </div>
                 </div>
             </div>
@@ -106,7 +105,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here">
+                        <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here" (keyup)="avoidSpace('PinCode')">
                     </div>
                 </div>
             </div>
@@ -116,7 +115,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy Name here">
+                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy here" (keyup)="avoidSpace('NearBy')">
                     </div>
                 </div>
             </div>
@@ -128,7 +127,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude Name here">
+                        <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude  here" (keyup)="avoidSpace('Lattitude')">
                     </div>
                 </div>
             </div>
@@ -138,7 +137,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here">
+                        <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('Longitude')">
                     </div>
                 </div>
             </div>
@@ -150,7 +149,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="OpenDays" class="form-control" placeholder="Enter OpenDays Name here">
+                        <input type="text" formControlName="OpenDays" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('OpenDays')">
                     </div>
                 </div>
             </div>
@@ -160,7 +159,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Timings" class="form-control" placeholder="Enter Longitude here">
+                        <input type="text" formControlName="Timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('Timings')">
                     </div>
                 </div>
             </div>
@@ -174,13 +173,12 @@
             </div>
         </div>
         <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls.Details['controls']; let i = index;">
+            <div formArrayName="Details" *ngFor="let item of addserviceCenterForm.controls.Details['controls']; let i = index;">
             <br>
                 <div class="row clearfix" [formGroupName]="i">
                 <div class="col-md-2 col-lg-2 col-md-offset-1">
                 <label> Category </label>
                     <select class="form-control dropdown" formControlName="CategoryID">
-                        <option>Select</option>
                         <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
                     </select>
                 </div>
@@ -189,7 +187,6 @@
                     Type
                 </label>
                     <select class="form-control dropdown" formControlName="DetailTypeID">
-                    <option selected>Select</option>
                     <option value="1">URL</option>
                     <option value="2">Email ID</option>
                     <option value="3">Phone Number</option>
@@ -216,7 +213,7 @@
                     </div>        
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="offlineSellerForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
+                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="addserviceCenterForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
                 </div>
                 </div>
             </div>
@@ -224,7 +221,7 @@
         <!-- template for add row end  -->
         <div class="row clearfix">
             <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!addserviceCenterForm.valid">Submit</button>
             </div>
         </div>
       </form>

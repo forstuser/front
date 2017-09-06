@@ -22,7 +22,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" formControlName="Password" placeholder="Password" required>
+                            <input type="password" onpaste="return false" class="form-control" formControlName="Password" placeholder="Password" required>
                         </div>
                         <p class="text-danger" *ngIf="!rForm.controls['Password'].valid && rForm.controls['Password'].touched">Password is required</p>
                     </div>

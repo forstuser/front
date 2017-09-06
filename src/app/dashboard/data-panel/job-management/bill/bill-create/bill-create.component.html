@@ -119,7 +119,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="PhoneNo" class="form-control input_fix" ngModel="{{generalFormContent[0]?.PhoneNo}}">
+            <input type="number" name="PhoneNo" class="form-control input_fix" ngModel="{{generalFormContent[0]?.PhoneNo}}">
           </div>
         </div>
       </div>
@@ -246,6 +246,11 @@
           <button type="button" class="btn btn-md btn-success m-t-3 waves-effect" (click)="addOfflineSellerToList(addOfflineSeller)">Add</button>
         </div>
       </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+        <div class="form-group">
+          <button type="button" class="btn btn-md btn-warning m-t-3 waves-effect" (click)="addNewOfflineSeller()">Add New Seller</button>
+        </div>
+      </div>
     </div>
     <div class="row clearfix">
       <div class="card">
@@ -334,7 +339,6 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" name="ColorID" ngModel="{{productInfoFormContent[0]?.ColorID}}">
-            <option>Select</option>
               <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
           </select>
         </div>

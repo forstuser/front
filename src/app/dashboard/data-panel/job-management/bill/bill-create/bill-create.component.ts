@@ -120,13 +120,11 @@ export class BillCreateComponent implements OnInit {
               alert('Image discarded');
             })
         } else {
-          console.log('response is', res);
-          if (this.imageArray.includes(res)) {
+          // console.log('response is', res);
+          this.imageID = res.split('bills/').pop().split('/files').shift();
+          if (this.imageArray.includes(this.imageID)) {
             console.log("Image already added");
-          } else {
-            //get image id for push
-            this.imageID = res.split('bills/').pop().split('/files').shift();
-            console.log("image id ", this.imageID)
+          } else {;
             this.imageArray.push(this.imageID);
             console.log('image array is',this.imageArray)
           }
@@ -269,6 +267,10 @@ export class BillCreateComponent implements OnInit {
     // console.log(this.sellerFormContent);
     this.showSellerForm = false;
     this.showProductFormList = true;
+  }
+  // Add new Seller function
+  addNewOfflineSeller(){
+    
   }
   // ********************************Product Info form functions ************************************
   // get list after select main category

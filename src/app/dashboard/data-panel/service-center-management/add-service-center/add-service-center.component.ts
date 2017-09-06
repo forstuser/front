@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand';
 import { UserService } from './../../../../_services/user.service';
@@ -11,11 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-service-center.component.css']
 })
 export class AddServiceCenterComponent implements OnInit {
-  public offlineSellerForm: FormGroup;
+  public addserviceCenterForm: FormGroup;
   items: OfflineSeller;
   brands: Brand;
   cat:Category;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
       // get list of category
@@ -30,7 +31,7 @@ export class AddServiceCenterComponent implements OnInit {
         console.log(this.brands);
       });
 
-    this.offlineSellerForm = this.fb.group({
+    this.addserviceCenterForm = this.fb.group({
       'Name' : ['', Validators.required],
       'BrandID' : ['', Validators.required],
       'HouseNo' : '',
@@ -57,11 +58,11 @@ export class AddServiceCenterComponent implements OnInit {
     });
   }
   addItem() {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
+    const control = <FormArray>this.addserviceCenterForm.controls['Details'];
     control.push(this.createItem());
   }
   removeDetails(i: number) {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
+    const control = <FormArray>this.addserviceCenterForm.controls['Details'];
     control.removeAt(i);
   }
   createOfflineSeller(data: OfflineSeller) {
@@ -69,7 +70,12 @@ export class AddServiceCenterComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('New Service center added succesfully');
-        this.offlineSellerForm.reset();
+        this.addserviceCenterForm.reset();
       });
+  }
+  // function for avoid only space submit
+  avoidSpace(e){
+    console.log(e);
+    this.functionService.NoWhitespaceValidator(this.addserviceCenterForm,e)
   }
 }
