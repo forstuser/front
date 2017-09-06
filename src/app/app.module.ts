@@ -54,6 +54,7 @@ import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bi
 import { MyDatePickerModule } from 'mydatepicker';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { AngularDraggableModule } from 'angular2-draggable';
+import {ModalModule} from "ng2-modal";
 @NgModule({
   declarations: [
     AppComponent,
@@ -106,7 +107,8 @@ import { AngularDraggableModule } from 'angular2-draggable';
     SwiperModule,
     MultiselectDropdownModule,
     MyDatePickerModule,
-    AngularDraggableModule
+    AngularDraggableModule,
+    ModalModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]

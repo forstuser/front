@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../../_services/function.service';
 import { DataService } from './../../../../../_services/data.service';
 import { BillComponent } from './../bill.component';
 import { SearchList } from './../../../../../_models/search.interface';
@@ -8,7 +9,7 @@ import { Color } from './../../../../../_models/color';
 import { Brand } from './../../../../../_models/brand';
 import { OnlineSeller } from './../../../../../_models/onlineSeller.interface';
 import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
@@ -98,7 +99,10 @@ export class BillCreateComponent implements OnInit {
   billImage: boolean = false;
   discardImage: object;
   imageID: number;
-  constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
+  public offlineSellerForm: FormGroup;
+  items: OfflineSeller[] = [];
+  cat: Category;
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
   }
 
@@ -112,7 +116,8 @@ export class BillCreateComponent implements OnInit {
           this.discardImage = {
             'BID': this.billId,
             'UID': this.userID,
-            'ImageID': res
+            'ImageID': res,
+            'Comments':'Image Discarded'
           }
           this.userservice.discardConsumerBillImage(this.discardImage)
             .subscribe(res => {
@@ -124,9 +129,10 @@ export class BillCreateComponent implements OnInit {
           this.imageID = res.split('bills/').pop().split('/files').shift();
           if (this.imageArray.includes(this.imageID)) {
             console.log("Image already added");
-          } else {;
+          } else {
+            ;
             this.imageArray.push(this.imageID);
-            console.log('image array is',this.imageArray)
+            console.log('image array is', this.imageArray)
           }
         }
       })
@@ -165,10 +171,70 @@ export class BillCreateComponent implements OnInit {
         this.mainCategory = res;
         // console.log(this.mainCategory);
       });
+    // get list of category
+    this.userservice.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
+    this.offlineSellerForm = this.fb.group({
+      'Name': [null, Validators.required],
+      'OwnerName': '',
+      'GstinNo': '',
+      'PanNo': '',
+      'RegNo': '',
+      'ServiceProvider': '',
+      'Onboarded': '',
+      'HouseNo': '',
+      'Block': '',
+      'Street': '',
+      'Sector': '',
+      'City': [null, Validators.required],
+      'State': [null, Validators.required],
+      'PinCode': '',
+      'NearBy': '',
+      'Lattitude': '',
+      'Longitude': '',
+      Details: this.fb.array([this.createItem(),])
+    });
+  }
+  createItem() {
+    return this.fb.group({
+      'CategoryID': '',
+      'DetailTypeID': '',
+      'DisplayName': '',
+      'Details': ''
+    });
+  }
+  addItem() {
+    const control = <FormArray>this.offlineSellerForm.controls['Details'];
+    control.push(this.createItem());
+  }
+  removeDetails(i: number) {
+    const control = <FormArray>this.offlineSellerForm.controls['Details'];
+    control.removeAt(i);
+  }
+  createOfflineSeller(data: OfflineSeller) {
+    this.userservice.createOfflineSeller(data)
+      .subscribe(res => {
+        console.log(res);
+        alert('Offline Seller added succesfully');
+        this.offlineSellerForm.reset();
+        // update offline seller list
+        this.userservice.getOfflineSellerList()
+          .subscribe(res => {
+            this.offlineSellerList = res;
+          })
+      });
+  }
+  // function for avoid only space submit
+  avoidSpace(e) {
+    this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
   }
   onChange() {
     console.log(this.optionsModel);
   }
+
   // *****************************General Form functions*********************************************
   openGeneralForm() {
     this.generalFormContent = [];
@@ -201,7 +267,7 @@ export class BillCreateComponent implements OnInit {
       console.log(form_data);
       this.billImageArray = this.imageArray;
       // this.billImageArray.splice(0, 1);
-      console.log('image after push',this.billImageArray);
+      console.log('image after push', this.billImageArray);
       this.imageArray = [];
       this.generalFormContent.push(form_data);
       this.showGeneralForm = false;
@@ -269,8 +335,8 @@ export class BillCreateComponent implements OnInit {
     this.showProductFormList = true;
   }
   // Add new Seller function
-  addNewOfflineSeller(){
-    
+  addNewOfflineSeller() {
+
   }
   // ********************************Product Info form functions ************************************
   // get list after select main category
