@@ -4,6 +4,8 @@ import { appConfig } from './../app.config';
 import { User } from './../_models/user';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { RequestOptionsArgs } from '@angular/http';
+import { ResponseContentType } from '@angular/http';
 
 
 @Injectable()
@@ -159,6 +161,19 @@ export class UserService {
                 // console.log(data);
                 return this.http.post(this.apiLink + 'Services/CategoryLevelList', data, options)
                         .map((response: Response) => response.json());
+        }
+        // Create category
+        createMainCategory(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                category['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(category);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/AddCategory', data, options).map((response: Response) => response.json());
         }
         // Create category
         createCategory(category: any) {
@@ -910,5 +925,18 @@ export class UserService {
                         .map((response: Response) => response.json());
 
         }
+        // get image of consumer
+        getConsumerImage(imageID:number) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const headers = new Headers({ 'Content-Type': 'image/jpeg','Authorization':this.TokenNo });
+                const options = new RequestOptions({ headers: headers,responseType: ResponseContentType.Blob });
+                return this.http.get(this.apiLink + 'bill-copies/'+imageID+'/files', options)
+                        .map(res=>{
+                                return res.blob();
+                        })
 
+        }
 }
