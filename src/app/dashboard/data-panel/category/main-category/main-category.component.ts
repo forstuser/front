@@ -53,9 +53,11 @@ export class MainCategoryComponent implements OnInit {
     console.log(category);
     this.createCat = { 'Level': 1, 'RefID': null , 'Name': category.Name };
     // confirm('Confirm');
-    this.userService.createCategory(this.createCat)
+    this.userService.createMainCategory(this.createCat)
       .subscribe(res => {
         console.log(res);
+        alert("Main Category Created")
+        this.createCategoryForm.reset();
         this.userService.getCategoryList(1) // list update after create new category
           .subscribe(mainCategory => {
           this.mainCategory = mainCategory;
@@ -82,10 +84,10 @@ export class MainCategoryComponent implements OnInit {
   deleteCategory(category: any) {
     // console.log(category);
     this.del = { 'ID': category.ID };
-    confirm('Confirm');
     this.userService.deleteCategory(this.del)
       .subscribe(res => {
         console.log(res);
+        alert('Deleted');
         this.userService.getCategoryList(1) // list update after delete
           .subscribe(mainCategory => {
           this.mainCategory = mainCategory;
