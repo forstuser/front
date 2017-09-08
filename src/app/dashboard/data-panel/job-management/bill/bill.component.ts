@@ -24,8 +24,13 @@ export class BillComponent implements OnInit {
   height:number = 100; 
   imageIndex:number = 0;
   imagerotation:number = 0;
+  CELogin:boolean = false;
   constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
     this.billId = route.snapshot.params.id;
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if(currentUser.UserType == '3'){
+      this.CELogin= true;
+    }
     // console.log(this.billId);
   }
 
@@ -41,11 +46,6 @@ export class BillComponent implements OnInit {
     })
     console.log(this.images);
   }
-  // getCurrentImage(image){
-  //   console.log(image);
-  //   this.imageID = image.split('bills/').pop().split('/files').shift(); 
-  //   this.dataservice.changeMessage(this.imageID);
-  // }
   zoomOut(){
     if(this.height > 100 && this.width > 100){
     this.width = this.width-5;

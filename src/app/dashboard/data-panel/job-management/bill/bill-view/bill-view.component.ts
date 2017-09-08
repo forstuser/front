@@ -27,6 +27,10 @@ export class BillViewComponent implements OnInit {
   showWarrantyForm: boolean = false;
   showAMCForm: boolean = false;
   showRepairForm: boolean = false;
+  j:number = 0;
+  // special case for product form
+  productFormStore:any[] = [];
+  set2:any ;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private fb: FormBuilder) {
     this.billID = this.route.snapshot.parent.params['id'];
     this.userID = this.route.snapshot.queryParams['uid'];
@@ -51,77 +55,107 @@ export class BillViewComponent implements OnInit {
     console.log(res);
     this.userservice.getConsumerBillDetailsByID(res.DetailID)
       .subscribe(res => {
-        console.log(res);
+        console.log("bill detail by id",res);
         this.billDetailbyID = res;
+        this.productFormStore = res.ProductForm;
+        const set = new Set();
+        for(let i of res.ProductForm){
+          set.add(i.ProductID)
+        }
+        // console.log(set);
+        set.forEach(function(value, i) {
+          console.log(value);
+        });
+
+        
         this.showGeneralForm = true;
         this.showForm = false;
       })
   }
   nextToSeller() {
+    this.j = 0;
     this.showGeneralForm = false;
     this.showSellerForm = true;
   }
   backToGeneral() {
+    this.j = 0;
     this.showForm = true;
     this.showGeneralForm = false;
     this.showRepairForm = false;
   }
   backToSellorForm(){
+    this.j = 0;
     this.showSellerForm = true;
     this.showProductFormList =false;
   }
   // get seller details
   nextToProductInfo() {
+    this.j = 0;
     this.showSellerForm = false;
     this.showProductFormList = true;
   }
   backToGeneralInfo() {
+    this.j = 0;
     this.showGeneralForm = true;
     this.showSellerForm = false;
   }
   backToProductInfo() {
+    this.j = 0;
     this.showProductFormList = true;
     this.showProductForm = false;
   }
   nextToProductForm() {
+    this.j = 0;
     this.showProductForm = true;
     this.showProductFormList = false;
   }
   backToProductForm() {
+    this.j = 0;
     this.showProductForm = true;
     this.showInsuranceForm = false;
   }
   nextToInsuranceForm() {
+    this.j = 0;
     this.showInsuranceForm = true;
     this.showProductForm = false;
   }
   backToInsuranceForm() {
+    this.j = 0;
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
   }
   nextToWarrantyForm() {
+    this.j = 0;
     this.showWarrantyForm = true;
     this.showInsuranceForm = false;
   }
   backToWarrantyForm() {
+    this.j = 0;
     this.showWarrantyForm = true;
     this.showAMCForm = false;
   }
   nextToAMCForm() {
+    this.j = 0;
     this.showAMCForm = true;
     this.showWarrantyForm = false;
   }
   backToAMCForm() {
+    this.j = 0;
     this.showWarrantyForm = true;
     this.showAMCForm = false;
   }
   nextToRepairForm() {
+    this.j = 0;
     this.showRepairForm = true;
     this.showAMCForm = false;
   }
   backToRepairForm() {
+    this.j = 0;
     this.showRepairForm = false;
     this.showAMCForm = true;
+  }
+  fillProduct(req){
+    this.j = req;
   }
   taskComplete() {
     this.userservice.taskCompleteQE(this.billID)

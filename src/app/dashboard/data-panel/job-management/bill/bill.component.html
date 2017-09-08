@@ -35,7 +35,7 @@
             <button class="btn btn-warning btn-block" (click)="nextImage()">Next</button>
           </div>
         </div>
-        <div class="row clearfix">
+        <div class="row clearfix" *ngIf="CELogin">
             <div class="col-md-4">
                 <button class="btn btn-info btn-block" (click)="rotate()">Rotate</button>
               </div>

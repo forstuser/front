@@ -29,9 +29,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let bill of consumerBill?.Detail">
-            <th><small>{{ bill.Invoice }}</small></th>
-            <th><small>{{ bill.Name }}</small></th>
-            <th><small>{{ bill.Phone }}</small></th>
+            <th><small>{{ bill?.Invoice }}</small></th>
+            <th><small>{{ bill?.Name }}</small></th>
+            <th><small>{{ bill?.Phone }}</small></th>
             <th><small>{{ bill?.PurchaseDate }}</small></th>
             <th><small>{{ bill.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" title="View" (click)="getDetailofCurrentBill(bill)" ><i class="material-icons" >visibility</i></span></small></th>
@@ -106,7 +106,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].Name}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.Name}}</p>
       </div>
     </div>
   </div>
@@ -116,7 +116,7 @@
     </div>
     <div class="col-lg-4 col-md-4 ">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].PhoneNo}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.PhoneNo}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -124,7 +124,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].EmailID}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.EmailID}}</p>
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].InvoiceNo}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.InvoiceNo}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -142,7 +142,7 @@
     </div>
     <div class="col-lg-4 col-md-4 ">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].TotalValue}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.TotalValue}}</p>
       </div>
     </div>
   </div>
@@ -152,7 +152,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].Tax}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.Tax}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -160,17 +160,20 @@
     </div>
     <div class="col-lg-4 col-md-4 ">
       <div class="form-group">
-        <p>{{billDetailbyID?.BillDetail[0].PurchaseDate}}</p>
+        <p>{{billDetailbyID?.BillDetail[0]?.PurchaseDate}}</p>
       </div>
     </div>
   </div>
-  <div *ngIf="billDetailbyID?.BillImage?.length > 0">
+  <div *ngIf="imageArray?.length > 0">
     <div class="row clearfix">
-      <div *ngFor="let image of billDetailbyID?.BillImage">
+      <div *ngFor="let image of imageArray">
         <div class="col-sm-6 col-md-3">
           <div class="thumbnail" *ngIf="image">
-            <img src="http://52.66.17.137:3000/bills/{{image?.ImageID}}/files">
+            <img src="http://13.126.5.210:3000/bills/{{image}}/files" height="100px">
             <div class="caption">
+              <p class="text-center">
+                <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
+              </p>
             </div>
           </div>
         </div>
@@ -226,6 +229,11 @@
 
 <!-- Product General Form Start -->
 <div *ngIf="showProductFormList">
+<div class="row clearfix">
+    <div class="col-md-2" *ngFor="let prod of billDetailbyID?.ProductList; let j=index ">
+      <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Product {{j+1}}</button>
+    </div>
+  </div>
   <h4>
     <u>Product</u>
     <u>Information </u>
@@ -237,7 +245,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.ProductName}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.ProductName}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -245,7 +253,7 @@
     </div>
     <div class="col-lg-4 col-md-4 ">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.Value}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.Value}}</p>
       </div>
     </div>
   </div>
@@ -255,7 +263,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.Taxes}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.Taxes}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -263,7 +271,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.ColorName}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.ColorName}}</p>
       </div>
     </div>
   </div>
@@ -273,7 +281,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.BrandName}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.BrandName}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -281,7 +289,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.MasterCatName}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.MasterCatName}}</p>
       </div>
     </div>
   </div>
@@ -291,7 +299,7 @@
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.CatName}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.CatName}}</p>
       </div>
     </div>
     <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -299,7 +307,7 @@
     </div>
     <div class="col-lg-4 col-md-4 ">
       <div class="form-group">
-        <p>{{billDetailbyID?.ProductList[0]?.Tag}}</p>
+        <p>{{billDetailbyID?.ProductList[j]?.Tag}}</p>
       </div>
     </div>
   </div>
@@ -316,14 +324,19 @@
 
 <!-- Product Form Start -->
 <div *ngIf="showProductForm">
+<div class="row clearfix">
+    <div class="col-md-2" *ngFor="let prod of billDetailbyID?.ProductList; let j=index ">
+      <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Product {{j+1}}</button>
+    </div>
+  </div>
   <h5>
     <u>Product Form</u>
   </h5>
   <div class="row clearfix" *ngFor="let data of billDetailbyID?.ProductForm">
-    <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5 form-control-label">
       <small><b>{{data?.CatFormName}}</b></small>
     </div>
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-8 col-md-8">
       <div class="form-group" *ngIf="!data?.DropdownValue">
         <p>{{data?.value}}</p>
       </div>
@@ -346,6 +359,11 @@
 <!-- Insurance Form Start -->
 <div *ngIf="showInsuranceForm">
   <div *ngIf="billDetailbyID?.InsuranceList.length>0 else elseTemplate">
+  <div class="row clearfix">
+      <div class="col-md-2" *ngFor="let prod of billDetailbyID?.InsuranceList; let j=index ">
+        <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Insurance {{j+1}}</button>
+      </div>
+    </div>
     <h4>
       <u>Insurance</u>
       <u>Form </u>
@@ -357,7 +375,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].Plan}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.Plan}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -365,7 +383,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].PolicyNo}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.PolicyNo}}</p>
         </div>
       </div>
     </div>
@@ -375,7 +393,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].AmountInsured}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.AmountInsured}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -383,7 +401,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].PremiumType}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.PremiumType}}</p>
         </div>
       </div>
     </div>
@@ -393,7 +411,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].PremiumAmount}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.PremiumAmount}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -401,7 +419,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].PolicyEffectiveDate}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.PolicyEffectiveDate | date}}</p>
         </div>
       </div>
     </div>
@@ -411,7 +429,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.InsuranceList[0].PolicyExpiryDate}}</p>
+          <p>{{billDetailbyID?.InsuranceList[j]?.PolicyExpiryDate | date}}</p>
         </div>
       </div>
     </div>
@@ -434,23 +452,23 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div *ngIf="billDetailbyID?.InsuranceList[0].BrandName">
+      <div *ngIf="billDetailbyID?.InsuranceList[j]?.BrandName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.InsuranceList[0].BrandName}}</p>
+            <p>{{billDetailbyID?.InsuranceList[j]?.BrandName}}</p>
           </div>
         </div>
       </div>
-      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+      <div *ngIf="billDetailbyID?.InsuranceList[j]?.SellerName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Seller</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.InsuranceList[0].SellerName}}</p>
+            <p>{{billDetailbyID?.InsuranceList[j]?.SellerName}}</p>
           </div>
         </div>
       </div>
@@ -488,6 +506,11 @@
 <!-- Warranty Form Start -->
 <div *ngIf="showWarrantyForm">
   <div *ngIf="billDetailbyID?.WarrantyList.length>0 else elseTemplate">
+  <div class="row clearfix">
+      <div class="col-md-2" *ngFor="let prod of billDetailbyID?.WarrantyList; let j=index ">
+        <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Warranty {{j+1}}</button>
+      </div>
+    </div>
     <h4>
       <u>Warranty</u>
       <u>Form </u>
@@ -499,7 +522,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].PolicyNo}}</p>
+          <p>{{billDetailbyID?.WarrantyList[j]?.PolicyNo}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -507,7 +530,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].PremiumType}}</p>
+          <p>{{billDetailbyID?.WarrantyList[j]?.PremiumType}}</p>
         </div>
       </div>
     </div>
@@ -517,7 +540,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].PremiumAmount}}</p>
+          <p>{{billDetailbyID?.WarrantyList[j]?.PremiumAmount}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -525,7 +548,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].PolicyEffectiveDate}}</p>
+          <p>{{billDetailbyID?.WarrantyList[j]?.PolicyEffectiveDate}}</p>
         </div>
       </div>
     </div>
@@ -535,7 +558,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.WarrantyList[0].PolicyExpiryDate}}</p>
+          <p>{{billDetailbyID?.WarrantyList[j]?.PolicyExpiryDate}}</p>
         </div>
       </div>
     </div>
@@ -545,7 +568,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group" *ngFor="let list of billDetailbyID?.WarrantyInclusions">
-          <p>{{list.InclusionsName}}</p>
+          <p>{{list?.InclusionsName}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -558,23 +581,23 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div *ngIf="billDetailbyID?.WarrantyList[0].BrandName">
+      <div *ngIf="billDetailbyID?.WarrantyList[j]?.BrandName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.WarrantyList[0].BrandName}}</p>
+            <p>{{billDetailbyID?.WarrantyList[j]?.BrandName}}</p>
           </div>
         </div>
       </div>
-      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+      <div *ngIf="billDetailbyID?.WarrantyList[j].SellerName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Seller</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.WarrantyList[0].SellerName}}</p>
+            <p>{{billDetailbyID?.WarrantyList[j]?.SellerName}}</p>
           </div>
         </div>
       </div>
@@ -611,6 +634,11 @@
 <!-- AMC Form Start -->
 <div *ngIf="showAMCForm">
   <div *ngIf="billDetailbyID?.AMCList.length>0 else elseTemplate">
+      <div class="row clearfix">
+          <div class="col-md-2" *ngFor="let prod of billDetailbyID?.AMCList; let j=index ">
+            <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">AMC {{j+1}}</button>
+          </div>
+        </div>
     <h4>
       <u>AMC</u>
       <u>Form </u>
@@ -622,7 +650,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.AMCList[0].PolicyNo}}</p>
+          <p>{{billDetailbyID?.AMCList[j]?.PolicyNo}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -630,7 +658,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.AMCList[0].AMCType}}</p>
+          <p>{{billDetailbyID?.AMCList[j]?.AMCType}}</p>
         </div>
       </div>
     </div>
@@ -640,7 +668,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.AMCList[0].PremiumAmount}}</p>
+          <p>{{billDetailbyID?.AMCList[j]?.PremiumAmount}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -648,7 +676,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.AMCList[0].PolicyEffectiveDate}}</p>
+          <p>{{billDetailbyID?.AMCList[j]?.PolicyEffectiveDate}}</p>
         </div>
       </div>
     </div>
@@ -658,7 +686,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.AMCList[0].PolicyExpiryDate}}</p>
+          <p>{{billDetailbyID?.AMCList[j]?.PolicyExpiryDate}}</p>
         </div>
       </div>
     </div>
@@ -681,23 +709,23 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div *ngIf="billDetailbyID?.WarrantyList[0].BrandName">
+      <div *ngIf="billDetailbyID?.AMCList[j]?.BrandName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.AMCList[0].BrandName}}</p>
+            <p>{{billDetailbyID?.AMCList[j]?.BrandName}}</p>
           </div>
         </div>
       </div>
-      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+      <div *ngIf="billDetailbyID?.AMCList[j].SellerName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Seller</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.AMCList[0].SellerName}}</p>
+            <p>{{billDetailbyID?.AMCList[j]?.SellerName}}</p>
           </div>
         </div>
       </div>
@@ -734,6 +762,11 @@
 <!-- Repair Form Start -->
 <div *ngIf="showRepairForm">
   <div *ngIf="billDetailbyID?.RepairList.length>0 else elseTemplate">
+      <div class="row clearfix">
+          <div class="col-md-2" *ngFor="let prod of billDetailbyID?.RepairList; let j=index ">
+            <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Repair {{j+1}}</button>
+          </div>
+        </div>
     <h4>
       <u>Repair</u>
       <u>Form </u>
@@ -745,7 +778,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.RepairList[0].RepairValue}}</p>
+          <p>{{billDetailbyID?.RepairList[j]?.RepairValue}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -753,7 +786,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.RepairList[0].Taxes}}</p>
+          <p>{{billDetailbyID?.RepairList[j]?.Taxes}}</p>
         </div>
       </div>
     </div>
@@ -763,7 +796,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <p>{{billDetailbyID?.RepairList[0].RepairInvoiceNumber}}</p>
+          <p>{{billDetailbyID?.RepairList[j]?.RepairInvoiceNumber}}</p>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -771,28 +804,28 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <p>{{billDetailbyID?.RepairList[0].RepairDate}}</p>
+          <p>{{billDetailbyID?.RepairList[j]?.RepairDate}}</p>
         </div>
       </div>
     </div>
     <div class="row clearfix">
-      <div *ngIf="billDetailbyID?.WarrantyList[0].BrandName">
+      <div *ngIf="billDetailbyID?.RepairList[0]?.BrandName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.RepairList[0].BrandName}}</p>
+            <p>{{billDetailbyID?.RepairList[j]?.BrandName}}</p>
           </div>
         </div>
       </div>
-      <div *ngIf="billDetailbyID?.InsuranceList[0].SellerName">
+      <div *ngIf="billDetailbyID?.RepairList[0]?.SellerName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Seller</b></small>
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <p>{{billDetailbyID?.RepairList[0].SellerName}}</p>
+            <p>{{billDetailbyID?.RepairList[j]?.SellerName}}</p>
           </div>
         </div>
       </div>

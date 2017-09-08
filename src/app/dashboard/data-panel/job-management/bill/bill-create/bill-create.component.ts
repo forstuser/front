@@ -394,7 +394,7 @@ export class BillCreateComponent implements OnInit {
     // console.log(this.ProductFrom);
     this.productFormContent.push(this.ProductFrom);
     console.log("Product Form Data", this.productFormContent);
-    // this.ProductFrom = [];
+    this.ProductFrom = [];
     this.showProductForm = false;
     this.showInsuranceForm = true;
 
