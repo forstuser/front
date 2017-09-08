@@ -1149,15 +1149,18 @@
 <div *ngIf="searchPanel">
   <form #searchForm="ngForm" (ngSubmit)="serachProduct(searchForm)">
     <div class="row clearfix">
-      <div class="col-md-8">
+      <div class="col-md-6">
         <div class="form-group">
           <div class="form-line">
             <input type="text" name="Search" class="form-control" placeholder="Enter Product Name, Main Category,Category or Brand" ngModel>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <button class="btn bg-orange btn-block btn-lg">Search</button>
+      <div class="col-md-3">
+        <button class="btn bg-orange btn-block btn-lg" type="submit">Search</button>
+      </div>
+      <div class="col-md-3">
+        <button class="btn bg-blue btn-block btn-lg" type="button" (click)="backtoGeneralForm2()">Back</button>
       </div>
     </div>
     <div class="row clearfix" *ngIf="searchList?.ProductList?.length > 0">

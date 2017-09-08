@@ -571,6 +571,9 @@ export class BillCreateComponent implements OnInit {
       .subscribe(res => {
         this.searchList = res;
         console.log(res);
+        if(res.statusCode ==105){
+          alert("Data not Available")
+        }
       })
 
   }
@@ -662,6 +665,10 @@ export class BillCreateComponent implements OnInit {
   backtoShowForm() {
     this.showForm = true;
     this.showGeneralForm = false;
+  }
+  backtoGeneralForm2(){
+    this.searchPanel  =false;
+    this.showForm =true;
   }
   backtoShowGeneralForm() {
     this.showGeneralForm = true;
