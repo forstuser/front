@@ -572,7 +572,7 @@ export class BillCreateComponent implements OnInit {
         this.searchList = res;
         console.log(res);
         if(res.statusCode ==105){
-          alert("Data not Available")
+          alert("Data not Available") 
         }
       })
 

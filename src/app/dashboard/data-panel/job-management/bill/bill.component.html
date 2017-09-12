@@ -36,14 +36,17 @@
           </div>
         </div>
         <div class="row clearfix" *ngIf="CELogin">
-            <div class="col-md-4">
-                <button class="btn btn-info btn-block" (click)="rotate()">Rotate</button>
+            <div class="col-md-3">
+                <button class="btn btn-info" (click)="rotate()">Rotate</button>
               </div>
-            <div class="col-md-4">
-              <button class="btn btn-danger btn-block" (click)="discard()">Discard</button>
+            <div class="col-md-3">
+              <button class="btn btn-danger" (click)="discard()">Discard</button>
             </div>
-            <div class="col-md-4">
-              <button class="btn btn-success btn-block" (click)="select()">Select</button>
+            <div class="col-md-3">
+              <a href="{{images[imageIndex]}}"><button class="btn btn-info">Download</button></a>
+            </div>
+            <div class="col-md-3">
+              <button class="btn btn-success" (click)="select()">Select</button>
             </div>
           </div>
       </div>

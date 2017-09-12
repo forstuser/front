@@ -104,7 +104,8 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel="{{generalFormContent[0]?.Name}}" required>
+            <input type="text" name="Name" ngControl="Name" class="form-control input_fix" ngModel="{{generalFormContent[0]?.Name}}"
+              required>
           </div>
           <div *ngIf="EnterName">
             <p class="text-danger">Please Enter Name</p>
@@ -178,7 +179,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowForm()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowForm()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Seller</button>
@@ -281,9 +282,9 @@
       </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-6">
-            <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowGeneralForm()">Back</button>
-        </div>
+      <div class="col-md-6">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowGeneralForm()">Back</button>
+      </div>
       <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Product</button>
       </div>
@@ -309,7 +310,7 @@
           <div class="form-line">
             <input type="text" name="ProductName" class="form-control input_fix" ngModel="{{productInfoFormContent[0]?.ProductName}}">
           </div>
-        </div> 
+        </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Value</b></small>
@@ -377,13 +378,13 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID"ngModel="{{productInfoFormContent[0]?.CatID}}">
+          <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID" ngModel="{{productInfoFormContent[0]?.CatID}}">
                     <option>Select</option>
                       <option *ngFor = "let subCat of getSubCatList?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.Name }}</option>
                   </select>
-            <div *ngIf="PleaseSelectCategory">
-                <p class="text-center text-danger">Please select  Category</p>
-              </div>
+          <div *ngIf="PleaseSelectCategory">
+            <p class="text-center text-danger">Please select Category</p>
+          </div>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -399,7 +400,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowSellerForm()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowSellerForm()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Product Form</button>
@@ -428,7 +429,7 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
-          <select class="form-control dropdown" name="{{form.FormID}}"  ngModel>
+          <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
                 <ng-container *ngFor="let droplist of productMainForm?.List">
                    <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
                 </ng-container>
@@ -438,7 +439,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductFormList()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductFormList()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
@@ -494,8 +495,15 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel={{insuranceFormContent[0]?.PremiumType}}>
+          <div class="form-group">
+            <select class="form-control dropdown" name="PremiumType" ngModel="{{insuranceFormContent[0]?.PremiumType}}">
+              <option value="Yearly">Yearly</option>
+              <option value="HalfYearly">HalfYearly</option>
+              <option value="Quarterly">Quarterly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Daily">Daily</option>
+            </select>
           </div>
         </div>
       </div>
@@ -516,8 +524,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
-            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -527,8 +535,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>            
-            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -591,12 +599,12 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-          <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
-        </div>
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
+      </div>
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductForm()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductForm()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-blue btn-block btn-lg" (click)="skipInsurance()">Skip</button>
@@ -672,9 +680,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel="{{warrantyFormContent[0]?.PremiumType}}">
-          </div>
+          <select class="form-control dropdown" name="PremiumType" ngModel="{{warrantyFormContent[0]?.PremiumType}}">
+            <option value="Yearly">Yearly</option>
+            <option value="HalfYearly">HalfYearly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Daily">Daily</option>
+          </select>
         </div>
       </div>
     </div>
@@ -694,8 +707,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
-            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
+          <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
         </div>
       </div>
     </div>
@@ -705,8 +718,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-              <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
-            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -768,7 +781,7 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-          <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
       </div>
     </div>
     <div class="row clearfix">
@@ -848,9 +861,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel="{{AMCFormContent[0]?.PremiumType}}">
-          </div>
+          <select class="form-control dropdown" name="PremiumType" ngModel="{{AMCFormContent[0]?.PremiumType}}">
+            <option value="Yearly">Yearly</option>
+            <option value="HalfYearly">HalfYearly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Daily">Daily</option>
+          </select>
         </div>
       </div>
     </div>
@@ -870,8 +888,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-            <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
-            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
+          <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
         </div>
       </div>
     </div>
@@ -881,8 +899,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-            <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
-            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
+          <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
         </div>
       </div>
     </div>
@@ -944,12 +962,12 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-          <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
       </div>
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-blue btn-block btn-lg" (click)="skipAMC()">Skip</button>
@@ -1046,8 +1064,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-            <!-- <input type="text" name="RepairDate" class="form-control input_fix" ngModel> -->
-            <my-date-picker name="RepairDate" [options]="myDatePickerOptions" ngModel></my-date-picker> 
+          <!-- <input type="text" name="RepairDate" class="form-control input_fix" ngModel> -->
+          <my-date-picker name="RepairDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
         </div>
       </div>
     </div>
@@ -1091,12 +1109,12 @@
     </div>
     <div class="row clearfix">
       <div class="col-md-12">
-          <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
+        <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
       </div>
     </div>
     <div class="row clearfix">
       <div class="col-md-6">
-          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowAMCForm()">Back</button>
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowAMCForm()">Back</button>
       </div>
       <div class="col-md-6">
         <button class="btn bg-blue btn-block btn-lg" (click)="skipRepair()">Skip</button>
@@ -1197,276 +1215,276 @@
 <!-- Seller Model  -->
 <div>
   <div>
-<modal #addSeller modalClass="right" [closeOnOutsideClick]="true">
-  <!-- <modal-header>
+    <modal #addSeller modalClass="right" [closeOnOutsideClick]="true">
+      <!-- <modal-header>
       <h1>Add New Seller</h1>
   </modal-header> -->
-  <modal-content>
-      <div class="body">
-        <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
-          <h4>
-            <u>Information </u>
-          </h4>
-          <hr>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span><small> Name</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Name" class="form-control" (keyup)="avoidSpace('Name')">
+      <modal-content>
+        <div class="body">
+          <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
+            <h4>
+              <u>Information </u>
+            </h4>
+            <hr>
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><span style="color:red">*</span><small> Name</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Name" class="form-control" (keyup)="avoidSpace('Name')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Owner Name</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="OwnerName" class="form-control" (keyup)="avoidSpace('OwnerName')">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Owner Name</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="OwnerName" class="form-control" (keyup)="avoidSpace('OwnerName')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Gstin No</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="GstinNo" class="form-control" (keyup)="avoidSpace('GstinNo')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Pan No</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="PanNo" class="form-control" (keyup)="avoidSpace('PanNo')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Gstin No</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="GstinNo" class="form-control" (keyup)="avoidSpace('GstinNo')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Reg No</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="RegNo" class="form-control" (keyup)="avoidSpace('RegNo')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Service Provider</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="ServiceProvider" class="form-control" (keyup)="avoidSpace('ServiceProvider')">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Pan No</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="PanNo" class="form-control"  (keyup)="avoidSpace('PanNo')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Onboarded</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Onboarded" class="form-control" (keyup)="avoidSpace('Onboarded')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Reg No</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="RegNo" class="form-control" (keyup)="avoidSpace('RegNo')">
+            <h4>
+              <u>Address </u>
+            </h4>
+            <hr>
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>House No</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="HouseNo" class="form-control" (keyup)="avoidSpace('HouseNo')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Block</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Block" class="form-control" (keyup)="avoidSpace('Block')">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Service Provider</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="ServiceProvider" class="form-control" (keyup)="avoidSpace('ServiceProvider')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Street</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Street" class="form-control" (keyup)="avoidSpace('Street')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Sector</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Sector" class="form-control" (keyup)="avoidSpace('Sector')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Onboarded</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Onboarded" class="form-control" (keyup)="avoidSpace('Onboarded')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><span style="color:red">*</span> <small>City</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="City" class="form-control" (keyup)="avoidSpace('City')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><span style="color:red">*</span> <small>State</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="State" class="form-control" (keyup)="avoidSpace('State')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <h4>
-            <u>Address </u>
-          </h4>
-          <hr>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>House No</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="HouseNo" class="form-control" (keyup)="avoidSpace('HouseNo')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>PinCode</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="PinCode" class="form-control" (keyup)="avoidSpace('PinCode')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>NearBy</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="NearBy" class="form-control" (keyup)="avoidSpace('NearBy')">
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Block</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Block" class="form-control" (keyup)="avoidSpace('Block')">
+            <div class="row clearfix">
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Latitude</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Lattitude" class="form-control" (keyup)="avoidSpace('Lattitude')">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name"><small>Longitude</small></label>
+              </div>
+              <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" formControlName="Longitude" class="form-control" (keyup)="avoidSpace('Longitude')">
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Street</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Street" class="form-control" (keyup)="avoidSpace('Street')">
-                </div>
+            <!-- template for add row  -->
+            <h4>
+              <u>Details </u>
+            </h4>
+            <div class="row clearfix">
+              <div class="pull-right margin-right">
+                <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
+                <p>&nbsp;</p>
               </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Sector</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Sector" class="form-control"  (keyup)="avoidSpace('Sector')">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span> <small>City</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="City" class="form-control" (keyup)="avoidSpace('City')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span> <small>State</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="State" class="form-control" (keyup)="avoidSpace('State')">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>PinCode</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="PinCode" class="form-control" (keyup)="avoidSpace('PinCode')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>NearBy</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="NearBy" class="form-control" (keyup)="avoidSpace('NearBy')">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Latitude</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Lattitude" class="form-control"  (keyup)="avoidSpace('Lattitude')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Longitude</small></label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="Longitude" class="form-control"  (keyup)="avoidSpace('Longitude')">
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- template for add row  -->
-          <h4>
-            <u>Details </u>
-          </h4>
-          <div class="row clearfix">
-            <div class="pull-right margin-right">
-              <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
-              <p>&nbsp;</p>
-            </div>
-          </div>
-          <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls.Details['controls']; let i = index;">
-              <br>
-              <div class="row clearfix" [formGroupName]="i">
-                <div class="col-md-2 col-lg-2">
-                  <label> <small>Category</small> </label>
-                  <select class="form-control dropdown" formControlName="CategoryID">
+            <div class="panel panel-default">
+              <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls.Details['controls']; let i = index;">
+                <br>
+                <div class="row clearfix" [formGroupName]="i">
+                  <div class="col-md-2 col-lg-2">
+                    <label> <small>Category</small> </label>
+                    <select class="form-control dropdown" formControlName="CategoryID">
                     <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
                   </select>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                  <label>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                    <label>
                       <small>Type</small>
                     </label>
-                  <select class="form-control dropdown" formControlName="DetailTypeID">
+                    <select class="form-control dropdown" formControlName="DetailTypeID">
                         <option value="1">URL</option>
                         <option value="2">Email ID</option>
                         <option value="3">Phone Number</option>
                         </select>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                  <label>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+                    <label>
                       <small>Display Name</small>
                     </label>
-                  <div class="form-group">
-                    <div class="form-line">
-                      <input type="text" class="form-control" formControlName="DisplayName">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <input type="text" class="form-control" formControlName="DisplayName">
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                  <label>
+                  <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+                    <label>
                       <small> Details</small>
                     </label>
-                  <div class="form-group">
-                    <div class="form-line">
-                      <input type="text" class="form-control" formControlName="Details">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <input type="text" class="form-control" formControlName="Details">
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                  <button type="button" class="btn btn-danger btn-sm waves-effect" *ngIf="offlineSellerForm.controls['Details'].length > 1"
-                    (click)="removeDetails(i)">Remove</button>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+                    <button type="button" class="btn btn-danger btn-sm waves-effect" *ngIf="offlineSellerForm.controls['Details'].length > 1"
+                      (click)="removeDetails(i)">Remove</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <!-- template for add row end  -->
-          <div class="row clearfix">
-            <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-              <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+            <!-- template for add row end  -->
+            <div class="row clearfix">
+              <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-  </modal-content>
-  <!-- <modal-footer>
+          </form>
+        </div>
+      </modal-content>
+      <!-- <modal-footer>
       <button class="btn btn-primary" (click)="addSeller.close()">close</button>
   </modal-footer> -->
-</modal>
+    </modal>
