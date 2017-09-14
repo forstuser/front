@@ -19,7 +19,7 @@ export class CategoryComponent implements OnInit {
   createCat: any = {};
   del: any = {};
   productMainForm:any;
-
+  showCategoryEdit:boolean = false;
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
 
     // edit main category form
@@ -75,6 +75,29 @@ export class CategoryComponent implements OnInit {
     console.log(control);
     control.removeAt(j);
   }
+    // add array
+    addItem2() {
+      const control = <FormArray>this.editCategoryForm.controls['FormList'];
+      control.push(this.createItem());
+    }
+    // add sub array
+    addValues2(id: number) {
+      const control = <FormArray>this.editCategoryForm.get(['FormList', id, 'List']);
+      control.push(this.createValues());
+    }
+    // remove array
+    removeItem2(i: number) {
+      console.log(i);
+      const control = <FormArray>this.editCategoryForm.controls['FormList'];
+      console.log(control);
+      control.removeAt(i);
+    }
+    // remove sub array
+    removeValues2(j: number) {
+      const control = <FormArray>this.editCategoryForm.get(['FormList', j, 'List']);
+      console.log(control);
+      control.removeAt(j);
+    }
 
   ngOnInit() {
     // get list of main category
@@ -85,9 +108,9 @@ export class CategoryComponent implements OnInit {
       });
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ' + getCat);
+      .subscribe(res => {
+        this.cat = res.CategoryList;
+        console.log('category is ' + res);
       });
   }
   
@@ -98,7 +121,7 @@ export class CategoryComponent implements OnInit {
     console.log(this.createCat)
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
-        console.log(res);
+        // console.log(res);
         alert('New Category added succesfully');
         // this.createCategoryForm.reset();
         // reset  editCategory form
@@ -110,8 +133,9 @@ export class CategoryComponent implements OnInit {
         });
 
         this.userService.getCategoryList(2) // list update after createcat
-          .subscribe(getCat => {
-            this.cat = getCat;
+          .subscribe(res => {
+            this.cat = res.CategoryList;
+            // console.log(res,"category")
           });
       });
   }
@@ -119,7 +143,7 @@ export class CategoryComponent implements OnInit {
 
   // passs current user as argument and open the popup
   openCategoryModel(item: any) {
-    console.log(item);
+    // console.log('open cat is ',item);
 
     // reset  editCategory form
     this.editCategoryForm = new FormGroup({
@@ -130,15 +154,15 @@ export class CategoryComponent implements OnInit {
     });
     this.userService.getCategoryListbyID(item.ID)
       .subscribe(res => {
-        this.showDialog = true; // for show dialog
-        console.log(res);
+        this.showCategoryEdit = true; // for show dialog
+        // console.log(res);
         this.editCategoryForm.controls['ID'].setValue(res.Category[0].ID);
         this.editCategoryForm.controls['RefID'].setValue(res.Category[0].RefID);
         this.editCategoryForm.controls['Name'].setValue(res.Category[0].Name);
-        // res.FormList.forEach(
-        //   (po) => {
-        //     (<FormArray>this.editCategoryForm.controls['FormList']).push(this.createDetailsFormGroup(po));
-        //   });
+        res.FormList.forEach(
+          (po) => {
+            (<FormArray>this.editCategoryForm.controls['FormList']).push(this.createDetailsFormGroup(po));
+          });
       })
     // populate prefilled value in form
     // this.editCategoryForm.setValue({
@@ -147,13 +171,12 @@ export class CategoryComponent implements OnInit {
     //   RefID: item.RefID
     // });
   }
-  // createDetailsFormGroup(payOffObj) {
-  //   console.log(payOffObj);
-  //   return new FormGroup({
-  //     Type: new FormControl(payOffObj.Type),
-  //     ElementName: new FormControl(payOffObj.ElementName),
-  //   });
-  // }
+  createDetailsFormGroup(payOffObj) {
+    return new FormGroup({
+      Type: new FormControl(payOffObj.Type),
+      ElementName: new FormControl(payOffObj.ElementName),
+    });
+  }
   updateCategory(category: any) {
     console.log("caregory",category);
     category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
@@ -164,7 +187,7 @@ export class CategoryComponent implements OnInit {
         this.showDialog = false;
         this.userService.getCategoryList(2) // list update after edit
           .subscribe(getCat => {
-            this.cat = getCat;
+            this.cat = getCat.CategoryList;
             // console.log(getCat);
           });
       });
@@ -177,7 +200,7 @@ export class CategoryComponent implements OnInit {
         alert("Deleted Successfully");
         this.userService.getCategoryList(2) // list update after delete
           .subscribe(getCat => {
-            this.cat = getCat;
+            this.cat = getCat.CategoryList;
             // console.log(getCat);
           });
       });
@@ -195,5 +218,8 @@ export class CategoryComponent implements OnInit {
     avoidSpace(e){
       console.log(e);
       this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
+    }
+    back(){
+      this.showCategoryEdit = false;
     }
 }

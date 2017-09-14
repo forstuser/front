@@ -32,7 +32,7 @@
             <th><small>{{ bill?.Invoice }}</small></th>
             <th><small>{{ bill?.Name }}</small></th>
             <th><small>{{ bill?.Phone }}</small></th>
-            <th><small>{{ bill?.PurchaseDate }}</small></th>
+            <th><small>{{ bill?.PurchaseDate | date}}</small></th>
             <th><small>{{ bill.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" title="View" (click)="getDetailofCurrentBill(bill)" ><i class="material-icons" >visibility</i></span></small></th>
           </tr>
