@@ -9,7 +9,7 @@
       <p><b>Phone No : </b>{{ consumerBill?.PhoneNo }}</p>
     </div>
   </div>
-  <div class="card" *ngIf="consumerBill?.Detail.length > 0">
+  <div class="card" *ngIf="consumerBill?.Detail?.length > 0">
     <div class="header padding_fix">
       <p><b>
         Current JOB Bills
@@ -81,7 +81,7 @@
       <button class="btn bg-indigo btn-block btn-lg" (click)="openGeneralForm()">Add New Bill</button>
     </div>
   </div>
-  <div class="row clearfix" *ngIf="consumerBill?.Detail.length > 0 || consumerBill?.ProductDetail?.length > 0 ">
+  <div class="row clearfix" *ngIf="consumerBill?.Detail?.length > 0 || consumerBill?.ProductDetail?.length > 0 ">
     <div class="col-md-12">
       <button class="btn bg-green btn-block btn-lg" (click)="completeJob()">Complete JOB</button>
     </div>
@@ -171,9 +171,9 @@
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Date of Purchase :</b></small>
       </div>
-      <div class="col-lg-4 col-md-4 ">
+      <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <my-date-picker name="DateofPurchase" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="DateofPurchase" [options]="myDatePickerOptions1" [(ngModel)]="dateBind"></my-date-picker>
         </div>
       </div>
     </div>
@@ -424,7 +424,7 @@
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel>
+              <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel="{{productFormData[0]?.FormID}}">
             </div>
           </div>
         </div>

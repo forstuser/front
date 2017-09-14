@@ -13,7 +13,7 @@ export class LeftPanelComponent implements OnInit {
   userTypeName: string;
   constructor(private authservice: AuthenticationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    console.log("info", info);
+    // console.log("info", info);
     this.emailID = info.EmailID;
     if (info.UserType == '1') {
       this.userTypeName = 'Super Admin'

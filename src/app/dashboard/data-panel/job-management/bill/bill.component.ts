@@ -2,6 +2,8 @@ import { DataService } from './../../../../_services/data.service';
 import { UserService } from './../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-bill',
@@ -41,7 +43,7 @@ export class BillComponent implements OnInit {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
-        this.images.push('http://13.126.5.210:3000/bills/'+i.ImageID+'/files')
+        this.images.push('http://consumer.dev.binbill.com/bills/'+i.ImageID+'/files')
       }
     })
     console.log(this.images);
@@ -57,10 +59,17 @@ export class BillComponent implements OnInit {
   this.height =this.height+5;
   }
   prevImage(){
-    this.imageIndex = this.imageIndex - 1;
+    if(this.imageIndex > 0){
+      this.imageIndex = this.imageIndex - 1;
+    }
+    // console.log(this.imageIndex ,'prev')
   }
   nextImage(){
-    this.imageIndex = this.imageIndex + 1;
+    if(this.imageIndex < this.imageArray.length-1){
+      this.imageIndex = this.imageIndex + 1;
+      console.log(this.imageIndex)
+    }
+    // console.log(this.imageIndex ,'next')
   }
   discard(){
     const imageurl = this.images[this.imageIndex];

@@ -35,6 +35,10 @@ export class BillCreateComponent implements OnInit {
     // other options...
     dateFormat: 'yyyy-mm-dd',
   };
+  private myDatePickerOptions1: IMyDpOptions = {
+    // other options...
+    dateFormat: 'yyyy-mm-dd',
+  };
   mySettings: IMultiSelectSettings = {
     enableSearch: true,
     checkedStyle: 'fontawesome',
@@ -102,13 +106,15 @@ export class BillCreateComponent implements OnInit {
   public offlineSellerForm: FormGroup;
   items: OfflineSeller[] = [];
   cat: Category;
+  dateBind: Object={};
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
   }
 
 
   ngOnInit() {
-
+    const today = new Date();
+    this.myDatePickerOptions1.disableSince = {year: today.getFullYear(), month: (today.getMonth()+1), day: (today.getDate()+1)}
     this.dataservice.currentMessage
       .subscribe(res => {
         // this.message = res;
@@ -130,7 +136,6 @@ export class BillCreateComponent implements OnInit {
           if (this.imageArray.includes(this.imageID)) {
             console.log("Image already added");
           } else {
-            ;
             this.imageArray.push(this.imageID);
             console.log('image array is', this.imageArray)
           }
@@ -249,6 +254,7 @@ export class BillCreateComponent implements OnInit {
     this.showForm = false;
     this.showGeneralForm = true;
     this.imageArray = [];
+    
 
   }
   generalFormData(form: NgForm) {
@@ -262,7 +268,7 @@ export class BillCreateComponent implements OnInit {
     }
     else {
       const form_data = form.value;
-      console.log("form data", form_data);
+      console.log("form data", form.value);
       form_data['DateofPurchase'] = form.value.DateofPurchase.formatted;
       console.log(form_data);
       this.billImageArray = this.imageArray;
@@ -302,7 +308,7 @@ export class BillCreateComponent implements OnInit {
   // ********************************seller form functions ******************************************
   // select online seller
   addOnlineSeller(data) {
-    // console.log(data);
+    console.log(data);
     // this.sellerData.splice(0, this.sellerData.length)
     this.addedOnlineSeller = data;
     // console.log(this.addedOnlineSeller);
@@ -683,22 +689,27 @@ export class BillCreateComponent implements OnInit {
     this.showProductFormList = true;
   }
   backtoShowProductForm() {
+    this.productFormContent = [];
     this.showInsuranceForm = false;
     this.showProductForm = true;
   }
   backtoShowInsuranceForm() {
+    this.insuranceFormContent = [];
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
   }
   backtoShowWarrantyForm() {
+    this.warrantyFormContent = [];
     this.showAMCForm = false;
     this.showWarrantyForm = true;
   }
   backtoShowAMCForm() {
+    this.AMCFormContent = [];
     this.showAMCForm = true;
     this.showRepairForm = false;
   }
   backtoShowRepairForm() {
+    this.repairFormContent = [];
     this.showRepairForm = true;
     this.endPanel = false;
   }

@@ -19,9 +19,9 @@ export class AuthenticationService {
         .map((response: Response) => {
                 // login successful if there's a jwt token in the response
           const user = response.json();
-          console.log(user);
+          // console.log(user);
           if (user && user.token) {
-              console.log(user.token);
+              // console.log(user.token);
               // store user details and jwt token in local storage to keep user logged in between page refreshes
               localStorage.setItem('currentUser', JSON.stringify(user));
           }
@@ -30,7 +30,7 @@ export class AuthenticationService {
     }
   logout() {
     // remove user from local storage to log user out
-    console.log("inside logout");
+    // console.log("inside logout");
     localStorage.removeItem('currentUser');
     this.router.navigate(['login']);
   }
