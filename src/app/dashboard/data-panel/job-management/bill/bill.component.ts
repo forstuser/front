@@ -37,16 +37,24 @@ export class BillComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getImageList();
+  }
+  getImageList(){
     // get bill details
     this.userservice.getConsumerBillByID(this.billId)
     .subscribe(res => {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
+      console.log(this.imageArray.length,"length")
+      if(this.imageArray.length ==0){
+        alert("There is no image left in job !! Job Deleted")
+        this.router.navigateByUrl('/dashboard/new');
+      }
       for(let i of res.ImageList){
         this.images.push('https://consumer-dev.binbill.com/bills/'+i.ImageID+'/files')
       }
     })
-    console.log(this.images);
+    // console.log(this.images);
   }
   zoomOut(){
     if(this.height > 100 && this.width > 100){
@@ -72,12 +80,14 @@ export class BillComponent implements OnInit {
     // console.log(this.imageIndex ,'next')
   }
   discard(){
+    console.log("call hua")
     const imageurl = this.images[this.imageIndex];
     this.imageID = imageurl.split('bills/').pop().split('/files').shift(); 
     console.log("id is",this.imageID)
     const imageNum = parseInt(this.imageID);
     this.dataservice.changeMessage(imageNum);
-
+    this.images = [];
+    this.getImageList();
   }
   select(){
     this.dataservice.changeMessage(this.images[this.imageIndex]);

@@ -175,6 +175,7 @@ export class CategoryComponent implements OnInit {
     return new FormGroup({
       Type: new FormControl(payOffObj.Type),
       ElementName: new FormControl(payOffObj.ElementName),
+      List: new FormControl(payOffObj.List),
     });
   }
   updateCategory(category: any) {

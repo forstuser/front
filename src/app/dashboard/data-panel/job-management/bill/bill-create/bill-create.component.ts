@@ -122,40 +122,17 @@ export class BillCreateComponent implements OnInit {
   amcDateBindEffective:Object = {};
   amcDateBindExpiry:Object = {};
   repairDateBind:Object = {};
+  count:number  = 1;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
+    this.discardImageFun();
   }
 
 
   ngOnInit() {
     const today = new Date();
     this.myDatePickerOptions1.disableSince = {year: today.getFullYear(), month: (today.getMonth()+1), day: (today.getDate()+1)}
-    this.dataservice.currentMessage
-      .subscribe(res => {
-        // this.message = res;
-        if (typeof (res) == 'number') {
-          this.discardImage = {
-            'BID': this.billId,
-            'UID': this.userID,
-            'ImageID': res,
-            'Comments':'Image Discarded'
-          }
-          this.userservice.discardConsumerBillImage(this.discardImage)
-            .subscribe(res => {
-              console.log(res)
-              alert('Image discarded');
-            })
-        } else {
-          // console.log('response is', res);
-          this.imageID = res.split('bills/').pop().split('/files').shift();
-          if (this.imageArray.includes(this.imageID)) {
-            console.log("Image already added");
-          } else {
-            this.imageArray.push(this.imageID);
-            console.log('image array is', this.imageArray)
-          }
-        }
-      })
+   
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
@@ -254,7 +231,38 @@ export class BillCreateComponent implements OnInit {
   onChange() {
     // console.log(this.optionsModel);
   }
-
+ discardImageFun(){
+     //  for discard image
+     this.dataservice.currentMessage
+     .subscribe(res => {
+       console.log(res,"response through service")
+       console.log("yahan aaya 1")
+       // this.message = res;
+       if (typeof (res) == 'number') {
+         console.log("yahan aaya 2")
+         this.discardImage = {
+           'BID': this.billId,
+           'UID': this.userID,
+           'ImageID': res,
+           'Comments':'Image Discarded'
+         }
+         this.userservice.discardConsumerBillImage(this.discardImage)
+           .subscribe(res => {
+             console.log(res)
+             alert('Image discarded');
+           })
+       } else {
+         // console.log('response is', res);
+         this.imageID = res.split('bills/').pop().split('/files').shift();
+         if (this.imageArray.includes(this.imageID)) {
+           console.log("Image already added");
+         } else {
+           this.imageArray.push(this.imageID);
+           console.log('image array is', this.imageArray)
+         }
+       }
+     })
+ }
   // *****************************General Form functions*********************************************
   openGeneralForm() {
     this.generalFormContent = [];
