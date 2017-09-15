@@ -252,6 +252,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Completed',
           'd_icon': 'check',
           'd_link': 'completed'
+        },
+        {
+          'd_name': 'Discarded',
+          'd_icon': 'clear',
+          'd_link': 'discarded'
         }
       ]
     },

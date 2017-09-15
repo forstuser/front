@@ -110,7 +110,7 @@ export class CategoryComponent implements OnInit {
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(res => {
         this.cat = res.CategoryList;
-        console.log('category is ' + res);
+        // console.log('category is ' + res);
       });
   }
   
@@ -155,7 +155,7 @@ export class CategoryComponent implements OnInit {
     this.userService.getCategoryListbyID(item.ID)
       .subscribe(res => {
         this.showCategoryEdit = true; // for show dialog
-        // console.log(res);
+        console.log(res);
         this.editCategoryForm.controls['ID'].setValue(res.Category[0].ID);
         this.editCategoryForm.controls['RefID'].setValue(res.Category[0].RefID);
         this.editCategoryForm.controls['Name'].setValue(res.Category[0].Name);

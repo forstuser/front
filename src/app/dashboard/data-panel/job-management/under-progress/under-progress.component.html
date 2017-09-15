@@ -138,7 +138,7 @@
   <!-- for discard model -->
   <app-dialog [(visible)]="discardDialog">
       <div class="modal-header">
-        <h4 class="modal-title" id="smallModalLabel">Assign Bill (QE)</h4>
+        <h4 class="modal-title" id="smallModalLabel">Discard JOB</h4>
       </div>
       <div class="modal-body">
         <form class="form-horizontal" [formGroup]='discardForm' (ngSubmit)="discardBill(discardForm.value)">
@@ -156,7 +156,7 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
-              <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!discardForm.valid">
+              <input type="submit" value="Discard" class="btn btn-danger  m-t-15 waves-effect" [disabled]="!discardForm.valid">
             </div>
           </div>
         </form>
