@@ -22,7 +22,7 @@
                   <th>Email ID</th>
                   <th>Bill Date</th>
                   <th>Action</th>
-                  <th></th>
+                  <th>View</th>
               </tr>
           </thead>
           <tbody *ngFor="let bill of billList?.BillList; let i = index">
@@ -34,7 +34,8 @@
                   <td>{{ bill.EmailID}}</td>
                   <td>{{ bill.BillDate | date}}</td>
                   <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2 ">Assign</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}"  *ngIf="userType ==3 ">Add Bill</button> <button type="button" class="btn bg-cyan waves-effect" routerLink = "bill/{{ bill.BID }}/view" [queryParams]="{ uid : bill.CE_ID }"  *ngIf="userType ==4 ">View Bill</button></td>
-              </tr>
+                  <td><button type="button" class="btn bg-green waves-effect" (click)="openImageModel(bill)">View</button></td>
+             </tr>
           </tbody>
       </table>
       <ng-template #elseBlock>
@@ -78,6 +79,14 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </app-dialog>
+    <app-dialog [(visible)]="showImageDialog">
+        <div class="modal-header">
+            <h4 class="modal-title" id="smallModalLabel">Bill Images</h4>
+        </div>
+        <div class="modal-body">
+
         </div>
     </app-dialog>
 </div>

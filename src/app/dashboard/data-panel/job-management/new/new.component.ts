@@ -15,6 +15,7 @@ export class NewComponent implements OnInit {
   billList: NewList;
   assignForm: FormGroup;
   showDialog = false;
+  showImageDialog = false;
   item: Object = {}; // object for single user
   statusCode: Number;
   prev: number = 0;
@@ -177,5 +178,13 @@ export class NewComponent implements OnInit {
           });
       });
   }
-
+// for view image
+openImageModel(req:any){
+  this.showImageDialog = true;
+  console.log(req);
+  this.userservice.getConsumerBillByID(req.BID)
+    .subscribe(res =>{
+      console.log(res);
+    })
+}
 }
