@@ -29,11 +29,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let bill of consumerBill?.Detail">
-            <th><small>{{ bill.Invoice }}</small></th>
-            <th><small>{{ bill.Name }}</small></th>
-            <th><small>{{ bill.PhoneNo }}</small></th>
+            <th><small>{{ bill?.Invoice }}</small></th>
+            <th><small>{{ bill?.Name }}</small></th>
+            <th><small>{{ bill?.PhoneNo }}</small></th>
             <th><small>{{ bill?.PurchaseDate }}</small></th>
-            <th><small>{{ bill.TotalAmount }}</small></th>
+            <th><small>{{ bill?.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" routerLink="edit/{{ bill.DetailID }}" title="Edit"><i class="material-icons" >mode_edit</i></span></small></th>
           </tr>
         </tbody>
@@ -195,7 +195,7 @@
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src="http://13.126.5.210:3000/bills/{{image}}/files" height="100px">
+              <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -496,7 +496,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-group">
-            <select class="form-control dropdown" name="PremiumType" ngModel="{{insuranceFormContent[0]?.PremiumType}}">
+            <select class="form-control dropdown" name="PremiumType" ngModel={{insuranceFormContent[0]?.PremiumType}}>
               <option value="Yearly">Yearly</option>
               <option value="HalfYearly">HalfYearly</option>
               <option value="Quarterly">Quarterly</option>
@@ -524,7 +524,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindEffective"></my-date-picker>
           <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
@@ -535,7 +535,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindExpiry"></my-date-picker>
           <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
@@ -564,14 +564,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+          <select class="form-control dropdown" (change)="selectInsuranceType($event.target.value)" ngModel={{selectInsuranceDropdown}} [ngModelOptions]="{standalone: true}">
             <option>Select</option>
             <option value="brand">Brand</option>
             <option value="seller">Seller</option>
           </select>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'brand'">
+      <div *ngIf="selectInsuranceDropdown == 'brand'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
@@ -584,7 +584,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'seller'">
+      <div *ngIf="selectInsuranceDropdown == 'seller'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Select Seller</b></small>
         </div>
@@ -652,18 +652,6 @@
       <u>Form </u>
     </h4>
     <hr>
-    <!-- <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Warranty Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="WarrantyImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Policy No.</b></small>
@@ -680,7 +668,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" name="PremiumType" ngModel="{{warrantyFormContent[0]?.PremiumType}}">
+          <select class="form-control dropdown" name="PremiumType" ngModel={{warrantyFormContent[0]?.PremiumType}}>
             <option value="Yearly">Yearly</option>
             <option value="HalfYearly">HalfYearly</option>
             <option value="Quarterly">Quarterly</option>
@@ -708,7 +696,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
-          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="warrantyDateBindEffective"></my-date-picker>
         </div>
       </div>
     </div>
@@ -718,7 +706,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="warrantyDateBindExpiry"></my-date-picker>
           <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
@@ -747,14 +735,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+          <select class="form-control dropdown" (change)="selectWarrantyType($event.target.value)" ngModel={{selectWarrantyDropdown}} [ngModelOptions]="{standalone: true}">
                       <option>Select</option>
                       <option value="brand">Brand</option>
                       <option value="seller">Seller</option>
                   </select>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'brand'">
+      <div *ngIf="selectWarrantyDropdown == 'brand'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
@@ -766,7 +754,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'seller'">
+      <div *ngIf="selectWarrantyDropdown == 'seller'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Select Seller</b></small>
         </div>
@@ -833,18 +821,6 @@
       <u>Form </u>
     </h4>
     <hr>
-    <!-- <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>AMC Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="AMCImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Policy No.</b></small>
@@ -861,7 +837,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" name="PremiumType" ngModel="{{AMCFormContent[0]?.PremiumType}}">
+          <select class="form-control dropdown" name="PremiumType" ngModel={{AMCFormContent[0]?.PremiumType}}>
             <option value="Yearly">Yearly</option>
             <option value="HalfYearly">HalfYearly</option>
             <option value="Quarterly">Quarterly</option>
@@ -889,7 +865,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
-          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="amcDateBindEffective"></my-date-picker>
         </div>
       </div>
     </div>
@@ -900,7 +876,7 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
-          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="amcDateBindExpiry"></my-date-picker>
         </div>
       </div>
     </div>
@@ -928,14 +904,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+          <select class="form-control dropdown" (change)="selectAMCType($event.target.value)"  ngModel={{selectAMCDropdown}} [ngModelOptions]="{standalone: true}">
                       <option>Select</option>
                       <option value="brand">Brand</option>
                       <option value="seller">Seller</option>
                   </select>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'brand'">
+      <div *ngIf="selectAMCDropdown == 'brand'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
@@ -947,7 +923,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'seller'">
+      <div *ngIf="selectAMCDropdown == 'seller'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Select Seller</b></small>
         </div>
@@ -1065,7 +1041,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <!-- <input type="text" name="RepairDate" class="form-control input_fix" ngModel> -->
-          <my-date-picker name="RepairDate" [options]="myDatePickerOptions" ngModel></my-date-picker>
+          <my-date-picker name="RepairDate" [options]="myDatePickerOptions" [(ngModel)]="repairDateBind"></my-date-picker>
         </div>
       </div>
     </div>
@@ -1075,14 +1051,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <select class="form-control dropdown" (change)="selectType($event.target.value)">
+          <select class="form-control dropdown" (change)="selectRepairType($event.target.value)" ngModel={{selectRepairDropdown}} [ngModelOptions]="{standalone: true}">
                      <option>Select</option>
                       <option value="brand">Brand</option>
                       <option value="seller">Seller</option>
                   </select>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'brand'">
+      <div *ngIf="selectRepairDropdown == 'brand'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Brand</b></small>
         </div>
@@ -1094,7 +1070,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="selectDropdown == 'seller'">
+      <div *ngIf="selectRepairDropdown == 'seller'">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Select Seller</b></small>
         </div>
@@ -1478,7 +1454,7 @@
             <!-- template for add row end  -->
             <div class="row clearfix">
               <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid" (onSubmit)="addSeller.close()">Submit</button>
               </div>
             </div>
           </form>

@@ -51,7 +51,10 @@ export class BillCreateComponent implements OnInit {
   optionsModel: number[];
   inclusionList: IMultiSelectOption[];
   exclusionList: IMultiSelectOption[];
-  selectDropdown: String = null;
+  selectInsuranceDropdown: String = null;
+  selectWarrantyDropdown: String = null;
+  selectAMCDropdown: String = null;  
+  selectRepairDropdown: String = null;  
   consumerBill: ConsumerBill;
   offlineSellerList: OfflineSeller;
   onlineSellerList: OnlineSeller;
@@ -107,6 +110,13 @@ export class BillCreateComponent implements OnInit {
   items: OfflineSeller[] = [];
   cat: Category;
   dateBind: Object={};
+  insuranceDateBindEffective:Object = {};
+  insuranceDateBindExpiry:Object = {};
+  warrantyDateBindEffective:Object = {};
+  warrantyDateBindExpiry:Object = {};
+  amcDateBindEffective:Object = {};
+  amcDateBindExpiry:Object = {};
+  repairDateBind:Object = {};
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
   }
@@ -180,7 +190,7 @@ export class BillCreateComponent implements OnInit {
     this.userservice.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
         this.cat = getCat;
-        console.log('category is ' + getCat);
+        // console.log('category is ' + getCat);
       });
     this.offlineSellerForm = this.fb.group({
       'Name': [null, Validators.required],
@@ -392,6 +402,7 @@ export class BillCreateComponent implements OnInit {
   // ********************************Product form functions *****************************************
 
   productFormData(form: NgForm) {
+    this.productFormContent = [];
     const data = form.value;
     // console.log(form.value);
     for (var val in data) {
@@ -408,16 +419,16 @@ export class BillCreateComponent implements OnInit {
 
   // ********************************Insurance form functions ***************************************
   // select type brand or seller
-  selectType(data) {
+  selectInsuranceType(data) {
     if (data == 'brand') {
       console.log(data);
-      this.selectDropdown = data;
+      this.selectInsuranceDropdown = data;
       this.userservice.getBrandList2(null, null)
         .subscribe(res => {
           this.brandList = res;
         })
     } else {
-      this.selectDropdown = data;
+      this.selectInsuranceDropdown = data;
       // get offline seller list
       this.userservice.getOfflineSellerList()
         .subscribe(res => {
@@ -428,7 +439,7 @@ export class BillCreateComponent implements OnInit {
   }
   // insurance form data on submit
   insuranceFormData(form: NgForm) {
-    // console.log("insurance Form data",form.value);
+    console.log("insurance Form data",form.value);
     this.insuranceImageArray = this.imageArray;
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
@@ -458,6 +469,25 @@ export class BillCreateComponent implements OnInit {
     this.showWarrantyForm = true;
   }
   // ********************************Warranty form functions ***************************************
+    // select type brand or seller
+    selectWarrantyType(data) {
+      if (data == 'brand') {
+        console.log(data);
+        this.selectWarrantyDropdown = data;
+        this.userservice.getBrandList2(null, null)
+          .subscribe(res => {
+            this.brandList = res;
+          })
+      } else {
+        this.selectWarrantyDropdown = data;
+        // get offline seller list
+        this.userservice.getOfflineSellerList()
+          .subscribe(res => {
+            console.log(res);
+            this.offlineSellerList = res;
+          })
+      }
+    }
   warrantyFormData(form: NgForm) {
     // console.log(form.value);
     this.warrantyImageArray = this.imageArray;
@@ -485,6 +515,25 @@ export class BillCreateComponent implements OnInit {
     this.showAMCForm = true;
   }
   // ********************************AMC form functions *********************************************
+    // select type brand or seller
+    selectAMCType(data) {
+      if (data == 'brand') {
+        console.log(data);
+        this.selectAMCDropdown = data;
+        this.userservice.getBrandList2(null, null)
+          .subscribe(res => {
+            this.brandList = res;
+          })
+      } else {
+        this.selectAMCDropdown = data;
+        // get offline seller list
+        this.userservice.getOfflineSellerList()
+          .subscribe(res => {
+            console.log(res);
+            this.offlineSellerList = res;
+          })
+      }
+    }
   amcFormData(form: NgForm) {
     // console.log(form.value);
     this.amcImageArray = this.imageArray;
@@ -511,6 +560,25 @@ export class BillCreateComponent implements OnInit {
     this.showRepairForm = true;
   }
   // ********************************Repair form functions ******************************************
+    // select type brand or seller
+    selectRepairType(data) {
+      if (data == 'brand') {
+        console.log(data);
+        this.selectRepairDropdown = data;
+        this.userservice.getBrandList2(null, null)
+          .subscribe(res => {
+            this.brandList = res;
+          })
+      } else {
+        this.selectRepairDropdown = data;
+        // get offline seller list
+        this.userservice.getOfflineSellerList()
+          .subscribe(res => {
+            console.log(res);
+            this.offlineSellerList = res;
+          })
+      }
+    }
   repairFormData(form: NgForm) {
     // console.log(form.value);
     this.repairImageArray = this.imageArray;
@@ -689,27 +757,27 @@ export class BillCreateComponent implements OnInit {
     this.showProductFormList = true;
   }
   backtoShowProductForm() {
-    this.productFormContent = [];
+    // this.productFormContent = [];
     this.showInsuranceForm = false;
     this.showProductForm = true;
   }
   backtoShowInsuranceForm() {
-    this.insuranceFormContent = [];
+    // this.insuranceFormContent = [];
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
   }
   backtoShowWarrantyForm() {
-    this.warrantyFormContent = [];
+    // this.warrantyFormContent = [];
     this.showAMCForm = false;
     this.showWarrantyForm = true;
   }
   backtoShowAMCForm() {
-    this.AMCFormContent = [];
+    // this.AMCFormContent = [];
     this.showAMCForm = true;
     this.showRepairForm = false;
   }
   backtoShowRepairForm() {
-    this.repairFormContent = [];
+    // this.repairFormContent = [];
     this.showRepairForm = true;
     this.endPanel = false;
   }
