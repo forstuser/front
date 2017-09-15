@@ -407,7 +407,7 @@ export class BillCreateComponent implements OnInit {
       this.showProductForm = true;
       this.userservice.getCategoryFormByID(form.value.CatID)
         .subscribe(res => {
-          // console.log(res);
+          console.log(res,"category form");
           this.productMainForm = res;
         })
     }

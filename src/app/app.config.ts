@@ -3,5 +3,5 @@ export const appConfig = {
      apiUrl: 'https://admin-dev.binbill.com/'
     // apiUrl: 'http://35.154.4.26:3000/',
     // apiUrl: 'http://13.126.168.35:3000/',
-      // apiUrl: 'http://69b8cd11.ngrok.io/'
+      // apiUrl: 'http://b56d9e03.ngrok.io/'
 };

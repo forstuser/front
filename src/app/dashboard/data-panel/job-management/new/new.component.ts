@@ -23,6 +23,9 @@ export class NewComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
+  imageArray: any[] = [];
+  discardForm:FormGroup;
+  discardDialog:boolean = false;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -33,6 +36,11 @@ export class NewComponent implements OnInit {
       'UID': ['', Validators.required],
       'Comments': '',
       'BID': ''
+    });
+    this.discardForm = this.fb.group({
+      'Comments': ['', Validators.required],
+      'BID': '',
+      'UID':''
     });
   }
 
@@ -181,10 +189,36 @@ export class NewComponent implements OnInit {
 // for view image
 openImageModel(req:any){
   this.showImageDialog = true;
-  console.log(req);
+  // console.log(req);
   this.userservice.getConsumerBillByID(req.BID)
     .subscribe(res =>{
-      console.log(res);
+      // console.log(res);
+      this.imageArray = res.ImageList;
+      console.log(this.imageArray);
     })
 }
+  // opn model for discard bills
+  discard(item:any){
+    console.log(item);
+    this.discardDialog = true;
+    this.discardForm.setValue({
+      BID: item.BID,
+      UID: '',
+      Comments:'',
+    });
+  } 
+  discardBill(item:any){
+    console.log(item);
+    this.userservice.discardConsumerBill(item)
+      .subscribe(res=>{
+        console.log(res);
+        alert("Bill Discarded");
+        this.discardDialog = false;
+        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+        .subscribe(bill => {
+          this.billList = bill;
+          console.log(this.billList);
+        });
+      })
+  }
 }
