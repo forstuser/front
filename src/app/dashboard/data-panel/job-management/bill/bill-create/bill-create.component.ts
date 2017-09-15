@@ -48,7 +48,12 @@ export class BillCreateComponent implements OnInit {
   };
   search: any = {};
   searchList: SearchList;
-  optionsModel: number[];
+  insuranceOptionExclusion: number[];
+  insuranceOptionInclusion: number[];
+  warrantyOptionExclusion: number[];
+  warrantyOptionInclusion: number[];
+  AMCOptionExclusion: number[];
+  AMCOptionInclusion: number[];
   inclusionList: IMultiSelectOption[];
   exclusionList: IMultiSelectOption[];
   selectInsuranceDropdown: String = null;
@@ -247,7 +252,7 @@ export class BillCreateComponent implements OnInit {
     this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
   }
   onChange() {
-    console.log(this.optionsModel);
+    // console.log(this.optionsModel);
   }
 
   // *****************************General Form functions*********************************************
@@ -459,6 +464,8 @@ export class BillCreateComponent implements OnInit {
     }
     console.log(this.insuranceData);
     this.insuranceFormContent.push(this.insuranceData);
+    this.insuranceOptionExclusion = [];
+    this.insuranceOptionInclusion = [];
     this.showInsuranceForm = false;
     this.showMidPanel1 = true;
     // console.log(this.insuranceFormContent);
@@ -506,6 +513,8 @@ export class BillCreateComponent implements OnInit {
       "WarrantyImage": this.warrantyImageArray,
     }
     this.warrantyFormContent.push(this.warrantyData);
+    this.warrantyOptionExclusion = [];
+    this.warrantyOptionInclusion = [];
     this.showWarrantyForm = false;
     this.showMidPanel2 = true
   }
@@ -551,6 +560,8 @@ export class BillCreateComponent implements OnInit {
       "AMCImage": this.amcImageArray,
     }
     this.AMCFormContent.push(this.amcData);
+    this.AMCOptionExclusion = [];
+    this.AMCOptionInclusion = [];
     this.showAMCForm = false;
     this.showMidPanel3 = true
   }
@@ -680,8 +691,15 @@ export class BillCreateComponent implements OnInit {
     this.warrantyFormContent = [];
     this.AMCFormContent = [];
     this.repairFormContent = []
+    this.insuranceOptionExclusion = [];
+    this.insuranceOptionInclusion = [];
+    this.warrantyOptionExclusion = [];
+    this.warrantyOptionInclusion = [];
+    this.AMCOptionExclusion = [];
+    this.AMCOptionInclusion = [];
     this.endPanel = false;
     this.showProductFormList = true;
+
   }
   createBill() {
     // console.log('generalFormContent :', this.generalFormContent);

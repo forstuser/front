@@ -194,7 +194,7 @@
       <div class="row clearfix">
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail" *ngIf="image">
+            <div class="thumbnail fix_image" *ngIf="image">
               <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
@@ -525,7 +525,6 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindEffective"></my-date-picker>
-          <!-- <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -536,7 +535,6 @@
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
           <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindExpiry"></my-date-picker>
-          <!-- <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel> -->
         </div>
       </div>
     </div>
@@ -546,7 +544,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="insuranceOptionExclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -554,7 +552,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="insuranceOptionInclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
     </div>
@@ -614,8 +612,8 @@
       <div class="row clearfix">
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail" *ngIf="image">
-              <img src="{{image}}">
+            <div class="thumbnail fix_image" *ngIf="image">
+              <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -717,7 +715,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="warrantyOptionInclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -725,7 +723,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="warrantyOptionExclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
     </div>
@@ -784,8 +782,8 @@
       <div class="row clearfix">
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail" *ngIf="image">
-              <img src="{{image}}">
+            <div class="thumbnail fix_image" *ngIf="image">
+              <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -886,7 +884,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Inclusions" [options]="inclusionList" [settings]="mySettings" [(ngModel)]="AMCOptionInclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -894,7 +892,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          <ss-multiselect-dropdown name="Exclusions" [options]="exclusionList" [settings]="mySettings" [(ngModel)]="AMCOptionInclusion" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
         </div>
       </div>
     </div>
@@ -953,8 +951,8 @@
       <div class="row clearfix">
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail" *ngIf="image">
-              <img src="{{image}}">
+            <div class="thumbnail fix_image" *ngIf="image">
+              <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -1100,8 +1098,8 @@
       <div class="row clearfix">
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
-            <div class="thumbnail" *ngIf="image">
-              <img src="{{image}}">
+            <div class="thumbnail fix_image" *ngIf="image">
+              <img src="https://consumer-dev.binbill.com/bills/{{image}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>

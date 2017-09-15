@@ -72,7 +72,7 @@ export class ExclusionsComponent implements OnInit {
   createCategory( category: any) {
     console.log(category);
     this.createCat = { 'CatID': category.CatID, 'Name': category.Name};
-    confirm('Confirm');
+    alert('Added');
     this.userService.createExclusions(this.createCat)
       .subscribe(res => {
         console.log(res);
