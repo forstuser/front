@@ -58,8 +58,8 @@ export class BillCreateComponent implements OnInit {
   exclusionList: IMultiSelectOption[];
   selectInsuranceDropdown: String = null;
   selectWarrantyDropdown: String = null;
-  selectAMCDropdown: String = null;  
-  selectRepairDropdown: String = null;  
+  selectAMCDropdown: String = null;
+  selectRepairDropdown: String = null;
   consumerBill: ConsumerBill;
   offlineSellerList: OfflineSeller;
   onlineSellerList: OnlineSeller;
@@ -107,22 +107,22 @@ export class BillCreateComponent implements OnInit {
   maxLength = '12';
   PleaseSelectMainCategory: boolean = false;
   PleaseSelectCategory: boolean = false;
-  EnterName: boolean = false;
+  // EnterName: boolean = false;
   billImage: boolean = false;
   discardImage: object;
   imageID: number;
   public offlineSellerForm: FormGroup;
   items: OfflineSeller[] = [];
   cat: Category;
-  dateBind: Object={};
-  insuranceDateBindEffective:Object = {};
-  insuranceDateBindExpiry:Object = {};
-  warrantyDateBindEffective:Object = {};
-  warrantyDateBindExpiry:Object = {};
-  amcDateBindEffective:Object = {};
-  amcDateBindExpiry:Object = {};
-  repairDateBind:Object = {};
-  count:number  = 1;
+  dateBind: Object = {};
+  insuranceDateBindEffective: Object = {};
+  insuranceDateBindExpiry: Object = {};
+  warrantyDateBindEffective: Object = {};
+  warrantyDateBindExpiry: Object = {};
+  amcDateBindEffective: Object = {};
+  amcDateBindExpiry: Object = {};
+  repairDateBind: Object = {};
+  count: number = 1;
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
     this.discardImageFun();
@@ -131,8 +131,8 @@ export class BillCreateComponent implements OnInit {
 
   ngOnInit() {
     const today = new Date();
-    this.myDatePickerOptions1.disableSince = {year: today.getFullYear(), month: (today.getMonth()+1), day: (today.getDate()+1)}
-   
+    this.myDatePickerOptions1.disableSince = { year: today.getFullYear(), month: (today.getMonth() + 1), day: (today.getDate() + 1) }
+
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
@@ -231,38 +231,21 @@ export class BillCreateComponent implements OnInit {
   onChange() {
     // console.log(this.optionsModel);
   }
- discardImageFun(){
-     //  for discard image
-     this.dataservice.currentMessage
-     .subscribe(res => {
-       console.log(res,"response through service")
-       console.log("yahan aaya 1")
-       // this.message = res;
-       if (typeof (res) == 'number') {
-         console.log("yahan aaya 2")
-         this.discardImage = {
-           'BID': this.billId,
-           'UID': this.userID,
-           'ImageID': res,
-           'Comments':'Image Discarded'
-         }
-         this.userservice.discardConsumerBillImage(this.discardImage)
-           .subscribe(res => {
-             console.log(res)
-             alert('Image discarded');
-           })
-       } else {
-         // console.log('response is', res);
-         this.imageID = res.split('bills/').pop().split('/files').shift();
-         if (this.imageArray.includes(this.imageID)) {
-           console.log("Image already added");
-         } else {
-           this.imageArray.push(this.imageID);
-           console.log('image array is', this.imageArray)
-         }
-       }
-     })
- }
+  discardImageFun() {
+    //  for discard image
+    this.dataservice.currentMessage
+      .subscribe(res => {
+        console.log(res, "response through service")
+        this.imageID = res.split('bills/').pop().split('/files').shift();
+        if (this.imageArray.includes(this.imageID)) {
+          console.log("Image already added");
+        } else {
+          this.imageArray.push(this.imageID);
+          console.log('image array is', this.imageArray)
+        }
+
+      })
+  }
   // *****************************General Form functions*********************************************
   openGeneralForm() {
     this.generalFormContent = [];
@@ -277,16 +260,15 @@ export class BillCreateComponent implements OnInit {
     this.showForm = false;
     this.showGeneralForm = true;
     this.imageArray = [];
-    
-
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
     // console.log(this.imageArray.length,"image");
-    if (form.value.Name.length == 0) {
-      this.EnterName = true;
-    }
-    else if (this.imageArray.length == 0) {
+    // if (form.value.Name.length == 0) {
+    //   this.EnterName = true;
+    // }
+    // else 
+    if (this.imageArray.length == 0) {
       this.billImage = true;
     }
     else {
@@ -407,7 +389,7 @@ export class BillCreateComponent implements OnInit {
       this.showProductForm = true;
       this.userservice.getCategoryFormByID(form.value.CatID)
         .subscribe(res => {
-          console.log(res,"category form");
+          console.log(res, "category form");
           this.productMainForm = res;
         })
     }
@@ -452,7 +434,7 @@ export class BillCreateComponent implements OnInit {
   }
   // insurance form data on submit
   insuranceFormData(form: NgForm) {
-    console.log("insurance Form data",form.value);
+    console.log("insurance Form data", form.value);
     this.insuranceImageArray = this.imageArray;
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
@@ -484,25 +466,25 @@ export class BillCreateComponent implements OnInit {
     this.showWarrantyForm = true;
   }
   // ********************************Warranty form functions ***************************************
-    // select type brand or seller
-    selectWarrantyType(data) {
-      if (data == 'brand') {
-        console.log(data);
-        this.selectWarrantyDropdown = data;
-        this.userservice.getBrandList2(null, null)
-          .subscribe(res => {
-            this.brandList = res;
-          })
-      } else {
-        this.selectWarrantyDropdown = data;
-        // get offline seller list
-        this.userservice.getOfflineSellerList()
-          .subscribe(res => {
-            console.log(res);
-            this.offlineSellerList = res;
-          })
-      }
+  // select type brand or seller
+  selectWarrantyType(data) {
+    if (data == 'brand') {
+      console.log(data);
+      this.selectWarrantyDropdown = data;
+      this.userservice.getBrandList2(null, null)
+        .subscribe(res => {
+          this.brandList = res;
+        })
+    } else {
+      this.selectWarrantyDropdown = data;
+      // get offline seller list
+      this.userservice.getOfflineSellerList()
+        .subscribe(res => {
+          console.log(res);
+          this.offlineSellerList = res;
+        })
     }
+  }
   warrantyFormData(form: NgForm) {
     // console.log(form.value);
     this.warrantyImageArray = this.imageArray;
@@ -532,25 +514,25 @@ export class BillCreateComponent implements OnInit {
     this.showAMCForm = true;
   }
   // ********************************AMC form functions *********************************************
-    // select type brand or seller
-    selectAMCType(data) {
-      if (data == 'brand') {
-        console.log(data);
-        this.selectAMCDropdown = data;
-        this.userservice.getBrandList2(null, null)
-          .subscribe(res => {
-            this.brandList = res;
-          })
-      } else {
-        this.selectAMCDropdown = data;
-        // get offline seller list
-        this.userservice.getOfflineSellerList()
-          .subscribe(res => {
-            console.log(res);
-            this.offlineSellerList = res;
-          })
-      }
+  // select type brand or seller
+  selectAMCType(data) {
+    if (data == 'brand') {
+      console.log(data);
+      this.selectAMCDropdown = data;
+      this.userservice.getBrandList2(null, null)
+        .subscribe(res => {
+          this.brandList = res;
+        })
+    } else {
+      this.selectAMCDropdown = data;
+      // get offline seller list
+      this.userservice.getOfflineSellerList()
+        .subscribe(res => {
+          console.log(res);
+          this.offlineSellerList = res;
+        })
     }
+  }
   amcFormData(form: NgForm) {
     // console.log(form.value);
     this.amcImageArray = this.imageArray;
@@ -579,25 +561,25 @@ export class BillCreateComponent implements OnInit {
     this.showRepairForm = true;
   }
   // ********************************Repair form functions ******************************************
-    // select type brand or seller
-    selectRepairType(data) {
-      if (data == 'brand') {
-        console.log(data);
-        this.selectRepairDropdown = data;
-        this.userservice.getBrandList2(null, null)
-          .subscribe(res => {
-            this.brandList = res;
-          })
-      } else {
-        this.selectRepairDropdown = data;
-        // get offline seller list
-        this.userservice.getOfflineSellerList()
-          .subscribe(res => {
-            console.log(res);
-            this.offlineSellerList = res;
-          })
-      }
+  // select type brand or seller
+  selectRepairType(data) {
+    if (data == 'brand') {
+      console.log(data);
+      this.selectRepairDropdown = data;
+      this.userservice.getBrandList2(null, null)
+        .subscribe(res => {
+          this.brandList = res;
+        })
+    } else {
+      this.selectRepairDropdown = data;
+      // get offline seller list
+      this.userservice.getOfflineSellerList()
+        .subscribe(res => {
+          console.log(res);
+          this.offlineSellerList = res;
+        })
     }
+  }
   repairFormData(form: NgForm) {
     // console.log(form.value);
     this.repairImageArray = this.imageArray;
@@ -664,8 +646,8 @@ export class BillCreateComponent implements OnInit {
       .subscribe(res => {
         this.searchList = res;
         console.log(res);
-        if(res.statusCode ==105){
-          alert("Data not Available") 
+        if (res.statusCode == 105) {
+          alert("Data not Available")
         }
       })
 
@@ -766,9 +748,9 @@ export class BillCreateComponent implements OnInit {
     this.showForm = true;
     this.showGeneralForm = false;
   }
-  backtoGeneralForm2(){
-    this.searchPanel  =false;
-    this.showForm =true;
+  backtoGeneralForm2() {
+    this.searchPanel = false;
+    this.showForm = true;
   }
   backtoShowGeneralForm() {
     this.showGeneralForm = true;

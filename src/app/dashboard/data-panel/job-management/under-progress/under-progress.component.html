@@ -22,7 +22,8 @@
           <th>Bill Date</th>
           <th>Customer Executive</th>
           <th>Quality Executive</th>
-          <th>Action</th>
+          <th>View</th>
+          <th>Discard</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of bills?.BillList; let i = index">
@@ -48,13 +49,14 @@
                         <i class="material-icons">done</i><span>Assign</span></button>
             </span>
           </td>
-          <td><span class="btn btn-danger" (click)="discard(bill)">Discard</span></td>
+          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
+          <td><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
         </tr>
       </tbody>
     </table>
     <ng-template #elseBlock>
-            <h4> No Data Available </h4>
-          </ng-template>
+      <h4> No Data Available </h4>
+    </ng-template>
   </div>
   <app-dialog [(visible)]="showDialog">
     <div class="modal-header">
@@ -137,29 +139,50 @@
   </app-dialog>
   <!-- for discard model -->
   <app-dialog [(visible)]="discardDialog">
-      <div class="modal-header">
-        <h4 class="modal-title" id="smallModalLabel">Discard JOB</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" [formGroup]='discardForm' (ngSubmit)="discardBill(discardForm.value)">
-          <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label for="name">Comments</label>
-              </div>
-              <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                  <div class="form-group">
-                      <div class="form-line">
-                          <input formControlName="Comments" type="text" class="textareaDitto">
-                      </div>
-                  </div>
-              </div>
+    <div class="modal-header">
+      <h4 class="modal-title" id="smallModalLabel">Discard JOB</h4>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal" [formGroup]='discardForm' (ngSubmit)="discardBill(discardForm.value)">
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">Comments</label>
           </div>
-          <div class="row clearfix">
-            <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
-              <input type="submit" value="Discard" class="btn btn-danger  m-t-15 waves-effect" [disabled]="!discardForm.valid">
+          <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input formControlName="Comments" type="text" class="textareaDitto">
+              </div>
             </div>
           </div>
-        </form>
-      </div>
-    </app-dialog>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
+            <input type="submit" value="Discard" class="btn btn-danger  m-t-15 waves-effect" [disabled]="!discardForm.valid">
+          </div>
+        </div>
+      </form>
+    </div>
+  </app-dialog>
 </div>
+<modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+  <modal-content>
+    <div class="body">
+      <div class="row clearfix" style="overflow:scroll">
+          <div class="col-md-12">
+              <img  [src]="images[imageIndex]" height="450px" width="850px" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+              <p></p>
+          </div>
+      </div>
+    </div>
+    <div class="caption">
+      <p class="text-center">
+        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+        <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+        <a href="{{images[imageIndex]}}"><button type="button" class="btn btn-success btn-sm waves-effect" (click)="download()"><i class="material-icons">file_download</i><span>Download</span></button></a>
+        <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
+        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+      </p>
+    </div>
+  </modal-content>
+</modal>

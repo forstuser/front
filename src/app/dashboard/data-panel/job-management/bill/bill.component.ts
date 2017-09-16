@@ -27,11 +27,16 @@ export class BillComponent implements OnInit {
   imageIndex:number = 0;
   imagerotation:number = 0;
   CELogin:boolean = false;
+  QELogin:boolean = false;
   constructor(private dataservice:DataService,private userservice:UserService,private route: ActivatedRoute, private router: Router) {
     this.billId = route.snapshot.params.id;
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if(currentUser.UserType == '3'){
       this.CELogin= true;
+    }
+    if(currentUser.UserType == '4'){
+      this.QELogin= true;
+      this.CELogin= false;
     }
     // console.log(this.billId);
   }
@@ -45,11 +50,6 @@ export class BillComponent implements OnInit {
     .subscribe(res => {
       console.log('bill details', res);
       this.imageArray = res.ImageList;
-      console.log(this.imageArray.length,"length")
-      if(this.imageArray.length ==0){
-        alert("There is no image left in job !! Job Deleted")
-        this.router.navigateByUrl('/dashboard/new');
-      }
       for(let i of res.ImageList){
         this.images.push('https://consumer-dev.binbill.com/bills/'+i.ImageID+'/files')
       }
@@ -78,16 +78,6 @@ export class BillComponent implements OnInit {
       console.log(this.imageIndex)
     }
     // console.log(this.imageIndex ,'next')
-  }
-  discard(){
-    console.log("call hua")
-    const imageurl = this.images[this.imageIndex];
-    this.imageID = imageurl.split('bills/').pop().split('/files').shift(); 
-    console.log("id is",this.imageID)
-    const imageNum = parseInt(this.imageID);
-    this.dataservice.changeMessage(imageNum);
-    this.images = [];
-    this.getImageList();
   }
   select(){
     this.dataservice.changeMessage(this.images[this.imageIndex]);

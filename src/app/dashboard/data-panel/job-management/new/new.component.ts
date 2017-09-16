@@ -243,7 +243,7 @@ export class NewComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+        this.userservice.getAdminBillList(4, this.prev, this.next) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);

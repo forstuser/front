@@ -22,17 +22,22 @@
           </div>
         </div>
         <div class="row clearfix" *ngIf="CELogin">
-            <div class="col-md-3">
-                <button class="btn btn-info" (click)="rotate()">Rotate</button>
+            <div class="col-md-4">
+                <button class="btn btn-block btn-warning" (click)="rotate()">Rotate</button>
               </div>
-            <div class="col-md-3">
-              <button class="btn btn-danger" (click)="discard()">Discard</button>
+            <div class="col-md-4">
+              <a href="{{images[imageIndex]}}"><button class="btn btn-block btn-info">Download</button></a>
             </div>
-            <div class="col-md-3">
-              <a href="{{images[imageIndex]}}"><button class="btn btn-info">Download</button></a>
+            <div class="col-md-4">
+              <button class="btn btn-success btn-block " (click)="select()">Select</button>
             </div>
-            <div class="col-md-3">
-              <button class="btn btn-success" (click)="select()">Select</button>
+          </div>
+          <div class="row clearfix" *ngIf="QELogin">
+            <div class="col-md-6">
+                <button class="btn btn-block btn-warning" (click)="rotate()">Rotate</button>
+              </div>
+            <div class="col-md-6">
+              <a href="{{images[imageIndex]}}"><button class="btn btn-block btn-info">Download</button></a>
             </div>
           </div>
       </div>

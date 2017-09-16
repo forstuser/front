@@ -26,7 +26,18 @@ export class UnderProgressComponent implements OnInit {
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;
+  userType: String;
+  showImageDialog = false;
+  billId: number;
+  imageArray: any[] = [];
+  images: string[] = [];
+  imagerotation: number = 0;
+  imageIndex: number = 0;
+  discardImage: object;
   constructor(private userservice: UserService, private fb: FormBuilder) {
+    const info = JSON.parse(localStorage.getItem('currentUser'))
+    this.userType = info.UserType;
+    console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
       'Comments': '',
@@ -40,7 +51,6 @@ export class UnderProgressComponent implements OnInit {
     this.discardForm = this.fb.group({
       'Comments': ['', Validators.required],
       'BID': '',
-      'UID':''
     });
   }
 
@@ -148,28 +158,112 @@ export class UnderProgressComponent implements OnInit {
           });
       });
   }
-  // opn model for discard bills
-  discard(item:any){
+  // // opn model for discard bills
+  // discard(item:any){
+  //   console.log(item);
+  //   this.discardDialog = true;
+  //   this.discardForm.setValue({
+  //     BID: item.BID,
+  //     UID: item.UID,
+  //     Comments:'',
+  //   });
+  // } 
+  // discardBill(item:any){
+  //   console.log(item);
+  //   this.userservice.discardConsumerBill(item)
+  //     .subscribe(res=>{
+  //       console.log(res);
+  //       alert("Bill Discarded");
+  //       this.discardDialog = false;
+  //       this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+  //       .subscribe(bill => {
+  //         this.bills = bill;
+  //         console.log(this.bills);
+  //       });
+  //     })
+  // }
+    // for view image
+    openImageModel(req: any) {
+      this.showImageDialog = true;
+      console.log(req);
+      this.billId = req.BID;
+      this.images = [];
+      this.imageArray = [];
+      this.userservice.getConsumerBillByID(req.BID)
+        .subscribe(res => {
+          // console.log(res);
+          this.imageArray = res.ImageList;
+          // console.log(this.imageArray);
+          for (let i of res.ImageList) {
+            this.images.push('https://consumer-dev.binbill.com/bills/' + i.ImageID + '/files')
+          }
+        })
+      // this.discardBillImage(req.BID);
+    }
+      // prev image
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+    // console.log(this.imageIndex ,'prev')
+  }
+  // next image
+  nextImage() {
+    if (this.imageIndex < this.imageArray.length - 1) {
+      this.imageIndex = this.imageIndex + 1;
+      // console.log(this.imageIndex)
+    }
+    // console.log(this.imageIndex ,'next')
+  }
+  // rotete image
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
+  }
+  discard(item: any) {
     console.log(item);
     this.discardDialog = true;
     this.discardForm.setValue({
       BID: item.BID,
-      UID: item.UID,
-      Comments:'',
+      Comments: '',
     });
-  } 
-  discardBill(item:any){
+  }
+  discardBill(item: any) {
     console.log(item);
     this.userservice.discardConsumerBill(item)
-      .subscribe(res=>{
+      .subscribe(res => {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
         this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
-        .subscribe(bill => {
-          this.bills = bill;
+        .subscribe(bills => {
+          this.bills = bills;
           console.log(this.bills);
         });
       })
   }
+    // discard bill image
+    
+    discardBillImage() {
+        console.log("here")
+          // console.log(this.imageIndex,"sas");
+          const imageID = this.imageArray[this.imageIndex].ImageID;
+          console.log(imageID)
+          this.discardImage = {
+            'BID': this.billId,
+            'ImageID': imageID,
+            'Comments': 'Image Discarded'
+          }
+          this.userservice.discardConsumerBillImage(this.discardImage)
+            .subscribe(res => {
+              console.log(res)
+              alert('Image discarded');
+              // this.showImageDialog = false;
+              // if userType is Admin/SuperAdmin get list of new bills
+              this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+              .subscribe(bills => {
+                this.bills = bills;
+                console.log(this.bills);
+              });
+            })  
+        }
 }
