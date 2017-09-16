@@ -164,18 +164,13 @@ export class CategoryComponent implements OnInit {
             (<FormArray>this.editCategoryForm.controls['FormList']).push(this.createDetailsFormGroup(po));
           });
       })
-    // populate prefilled value in form
-    // this.editCategoryForm.setValue({
-    //   Name: item.category,
-    //   ID: item.ID,
-    //   RefID: item.RefID
-    // });
   }
   createDetailsFormGroup(payOffObj) {
+    console.log(payOffObj,'pay')
     return new FormGroup({
       Type: new FormControl(payOffObj.Type),
       ElementName: new FormControl(payOffObj.ElementName),
-      List: new FormControl(payOffObj.List),
+      List: new FormControl(payOffObj.List)
     });
   }
   updateCategory(category: any) {

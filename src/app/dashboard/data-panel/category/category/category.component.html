@@ -174,7 +174,7 @@
             </div>
             <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
               <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
-                <ng-container *ngFor="let droplist of productMainForm?.List">
+                <ng-container *ngFor="let droplist of form?.List">
                   <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}">{{droplist.DropdownName}}</option>
                 </ng-container>
               </select>
@@ -256,7 +256,18 @@
                   </div>
                 </div>
               </div>
-              
+              <div *ngFor="let item2 of List">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
+                    Dropdown Name
+                  </label>
+                  <div class="form-group">
+                    <div class="form-line">
+                      <input type="text" class="form-control" formControlName="DropdownName">
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!--Dropdown value array start -->
               <!-- <div *ngIf="this['Dropdown'+i] ==  2">
                 <div formArrayName="List">

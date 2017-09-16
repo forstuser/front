@@ -430,7 +430,7 @@
         </div>
         <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
           <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
-                <ng-container *ngFor="let droplist of productMainForm?.List">
+                <ng-container *ngFor="let droplist of form?.List">
                    <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
                 </ng-container>
               </select>

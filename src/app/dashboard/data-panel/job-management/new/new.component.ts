@@ -24,11 +24,11 @@ export class NewComponent implements OnInit {
   rightFlag: boolean = false;
   noData: boolean = false;
   imageArray: any[] = [];
-  images: string[]=[];
-  imageIndex:number = 0;
-  discardForm:FormGroup;
-  discardDialog:boolean = false;
-  imagerotation:number = 0;
+  images: string[] = [];
+  imageIndex: number = 0;
+  discardForm: FormGroup;
+  discardDialog: boolean = false;
+  imagerotation: number = 0;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -42,8 +42,7 @@ export class NewComponent implements OnInit {
     });
     this.discardForm = this.fb.group({
       'Comments': ['', Validators.required],
-      'BID': '',
-      'UID':''
+      'BID': ''
     });
   }
 
@@ -189,62 +188,70 @@ export class NewComponent implements OnInit {
           });
       });
   }
-// for view image
-openImageModel(req:any){
-  this.showImageDialog = true;
-  // console.log(req);
-  this.images = [];
-  this.userservice.getConsumerBillByID(req.BID)
-    .subscribe(res =>{
-      // console.log(res);
-      this.imageArray = res.ImageList;
-      console.log(this.imageArray);
-      for(let i of res.ImageList){
-        this.images.push('https://consumer-dev.binbill.com/bills/'+i.ImageID+'/files')
-      }
-    })
-}
-// prev image
-prevImage(){
-  if(this.imageIndex > 0){
-    this.imageIndex = this.imageIndex - 1;
+  // for view image
+  openImageModel(req: any) {
+    this.showImageDialog = true;
+    console.log(req);
+    this.images = [];
+    this.userservice.getConsumerBillByID(req.BID)
+      .subscribe(res => {
+        // console.log(res);
+        this.imageArray = res.ImageList;
+        console.log(this.imageArray);
+        for (let i of res.ImageList) {
+          this.images.push('https://consumer-dev.binbill.com/bills/' + i.ImageID + '/files')
+        }
+      })
   }
-  // console.log(this.imageIndex ,'prev')
-}
-// next image
-nextImage(){
-  if(this.imageIndex < this.imageArray.length-1){
-    this.imageIndex = this.imageIndex + 1;
-    console.log(this.imageIndex)
-  }
-  // console.log(this.imageIndex ,'next')
-}
-// rotete image
-rotate(){
-  this.imagerotation =  this.imagerotation + 90;
+  // prev image
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
     }
+    // console.log(this.imageIndex ,'prev')
+  }
+  // next image
+  nextImage() {
+    if (this.imageIndex < this.imageArray.length - 1) {
+      this.imageIndex = this.imageIndex + 1;
+      console.log(this.imageIndex)
+    }
+    // console.log(this.imageIndex ,'next')
+  }
+  // rotete image
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
+  }
   // opn model for discard bills
-  discard(item:any){
+  discard(item: any) {
     console.log(item);
     this.discardDialog = true;
     this.discardForm.setValue({
       BID: item.BID,
-      UID: '',
-      Comments:'',
+      Comments: '',
     });
-  } 
-  discardBill(item:any){
+  }
+  discardBill(item: any) {
     console.log(item);
     this.userservice.discardConsumerBill(item)
-      .subscribe(res=>{
+      .subscribe(res => {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
-        .subscribe(bill => {
-          this.billList = bill;
-          console.log(this.billList);
-        });
+        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+          .subscribe(bill => {
+            this.billList = bill;
+            console.log(this.billList);
+          });
       })
+  }
+  // discard bill image
+  discardBillImage(item: any) {
+    console.log(item);
+        // this.userservice.discardConsumerBillImage(s)
+        // .subscribe(res => {
+        //   console.log(res)
+        //   alert('Image discarded');
+        // })
   }
 }
