@@ -116,24 +116,20 @@
 <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
   <modal-content>
     <div class="body">
-      <div class="row clearfix">
-        <div *ngFor="let image of imageArray">
+      <div class="row clearfix" style="overflow:scroll">
           <div class="col-md-12">
-            <div>
-              <img src="https://consumer-dev.binbill.com/bills/{{image?.ImageID}}/files" height="450px" width="850px">
+              <img  [src]="images[imageIndex]" height="450px" width="850px" [style.transform]="'rotate(' + imagerotation + 'deg)'">
               <p></p>
-              <div class="caption">
-                <p class="text-center">
-                  <button type="button" class="btn btn-info btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">skip_previous</i><span>Prev</span></button>
-                  <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-                  <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">clear</i><span>Discard</span></button>
-                  <button type="button" class="btn btn-info btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">skip_next</i><span>Next</span></button>
-                </p>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
+    </div>
+    <div class="caption">
+      <p class="text-center">
+        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+        <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+        <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">clear</i><span>Discard</span></button>
+        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+      </p>
     </div>
   </modal-content>
 </modal>

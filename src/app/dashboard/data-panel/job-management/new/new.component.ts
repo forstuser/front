@@ -24,8 +24,11 @@ export class NewComponent implements OnInit {
   rightFlag: boolean = false;
   noData: boolean = false;
   imageArray: any[] = [];
+  images: string[]=[];
+  imageIndex:number = 0;
   discardForm:FormGroup;
   discardDialog:boolean = false;
+  imagerotation:number = 0;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -190,13 +193,36 @@ export class NewComponent implements OnInit {
 openImageModel(req:any){
   this.showImageDialog = true;
   // console.log(req);
+  this.images = [];
   this.userservice.getConsumerBillByID(req.BID)
     .subscribe(res =>{
       // console.log(res);
       this.imageArray = res.ImageList;
       console.log(this.imageArray);
+      for(let i of res.ImageList){
+        this.images.push('https://consumer-dev.binbill.com/bills/'+i.ImageID+'/files')
+      }
     })
 }
+// prev image
+prevImage(){
+  if(this.imageIndex > 0){
+    this.imageIndex = this.imageIndex - 1;
+  }
+  // console.log(this.imageIndex ,'prev')
+}
+// next image
+nextImage(){
+  if(this.imageIndex < this.imageArray.length-1){
+    this.imageIndex = this.imageIndex + 1;
+    console.log(this.imageIndex)
+  }
+  // console.log(this.imageIndex ,'next')
+}
+// rotete image
+rotate(){
+  this.imagerotation =  this.imagerotation + 90;
+    }
   // opn model for discard bills
   discard(item:any){
     console.log(item);
