@@ -38,7 +38,6 @@
               *ngIf="userType ==4 ">View Bill</button></td>
           <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
           <td><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
-
         </tr>
       </tbody>
     </table>
@@ -127,7 +126,7 @@
       <p class="text-center">
         <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
         <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-        <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardImage(image)"><i class="material-icons">clear</i><span>Discard</span></button>
+        <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard</span></button>
         <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
       </p>
     </div>

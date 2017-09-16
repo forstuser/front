@@ -13,6 +13,7 @@ export class NewComponent implements OnInit {
   userType: String;
   users: User;
   billList: NewList;
+  billId: number;
   assignForm: FormGroup;
   showDialog = false;
   showImageDialog = false;
@@ -29,6 +30,7 @@ export class NewComponent implements OnInit {
   discardForm: FormGroup;
   discardDialog: boolean = false;
   imagerotation: number = 0;
+  discardImage: object;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -192,16 +194,19 @@ export class NewComponent implements OnInit {
   openImageModel(req: any) {
     this.showImageDialog = true;
     console.log(req);
+    this.billId = req.BID;
     this.images = [];
+    this.imageArray = [];
     this.userservice.getConsumerBillByID(req.BID)
       .subscribe(res => {
         // console.log(res);
         this.imageArray = res.ImageList;
-        console.log(this.imageArray);
+        // console.log(this.imageArray);
         for (let i of res.ImageList) {
           this.images.push('https://consumer-dev.binbill.com/bills/' + i.ImageID + '/files')
         }
       })
+    // this.discardBillImage(req.BID);
   }
   // prev image
   prevImage() {
@@ -214,7 +219,7 @@ export class NewComponent implements OnInit {
   nextImage() {
     if (this.imageIndex < this.imageArray.length - 1) {
       this.imageIndex = this.imageIndex + 1;
-      console.log(this.imageIndex)
+      // console.log(this.imageIndex)
     }
     // console.log(this.imageIndex ,'next')
   }
@@ -246,12 +251,29 @@ export class NewComponent implements OnInit {
       })
   }
   // discard bill image
-  discardBillImage(item: any) {
-    console.log(item);
-        // this.userservice.discardConsumerBillImage(s)
-        // .subscribe(res => {
-        //   console.log(res)
-        //   alert('Image discarded');
-        // })
+  discardBillImage() {
+
+    // console.log(this.imageIndex,"sas");
+    const imageID = this.imageArray[this.imageIndex].ImageID;
+    console.log(imageID)
+    this.discardImage = {
+      'BID': this.billId,
+      'ImageID': imageID,
+      'Comments': 'Image Discarded'
+    }
+    this.userservice.discardConsumerBillImage(this.discardImage)
+      .subscribe(res => {
+        console.log(res)
+        alert('Image discarded');
+        // this.showImageDialog = false;
+        // if userType is Admin/SuperAdmin get list of new bills
+        if (this.userType === '1' || this.userType === '2') {
+          this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+            .subscribe(bill => {
+              this.billList = bill;
+              console.log(this.billList);
+            });
+        }
+      })  
   }
 }
