@@ -1,7 +1,9 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { UserService } from './../../../../_services/user.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Category } from './../../../../_models/category';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-sub-category',
@@ -11,111 +13,164 @@ import { Component, OnInit } from '@angular/core';
 export class SubCategoryComponent implements OnInit {
   cat: Category;
   mainCat: Category;
-  subCat: Category;
-  getSubCatList: Category;
   showDialog = false;
-  editCategoryForm: FormGroup ;
-  createSubCategoryForm: FormGroup;
-  createCat: any = { };
-  del: any = { };
-  constructor(private userService: UserService, private fb: FormBuilder) {
-    // edit main category form
-    this.editCategoryForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'ID' : [null, Validators.required],
-      'RefID': [null, Validators.required]
-    });
+  viewCat = false;
+  createCategoryForm: FormGroup;
+  createCat: any = {};
+  del: any = {};
+  productMainForm:any;
+  showCategoryEdit:boolean = false;
+  editCatModel:boolean =false;
+  editCategoryFormData:any;
+  editCategoryFormList:any;
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
+
+
     // create main category form
-    this.createSubCategoryForm = this.fb.group({
+    this.createCategoryForm = this.fb.group({
       'Name': [null, Validators.required],
-      'RefID': [null, Validators.required]
-      // 'Level': [null, Validators.required]
+      'RefID': [null, Validators.required],
+      FormList: this.fb.array([this.createItem(),])
     });
-   }
+  }
+
+  // for push new list
+  createItem() {
+    return this.fb.group({
+      'Type': '',
+      'ElementName': '',
+      List: this.fb.array([this.createValues(),])
+    });
+  }
+  // for push new sub list
+  createValues() {
+    return this.fb.group({
+      'DropdownName': null
+    });
+  }
+  // add array
+  addItem() {
+    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    control.push(this.createItem());
+  }
+  // add sub array
+  addValues(id: number) {
+    const control = <FormArray>this.createCategoryForm.get(['FormList', id, 'List']);
+    control.push(this.createValues());
+  }
+  // remove array
+  removeItem(i: number) {
+    console.log(i);
+    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    console.log(control);
+    control.removeAt(i);
+  }
+  // remove sub array
+  removeValues(j: number) {
+    const control = <FormArray>this.createCategoryForm.get(['FormList', j, 'List']);
+    console.log(control);
+    control.removeAt(j);
+  }
+
 
   ngOnInit() {
-  // get list of main category
+    // get list of main category
     this.userService.getCategoryList(1) // 1 for category refer to api doc
-    .subscribe(mainCat => {
-      this.mainCat = mainCat;
-      console.log(mainCat);
-    });
-      // get list of category
+      .subscribe(mainCat => {
+        this.mainCat = mainCat;
+        // console.log('mainCat' + mainCat);
+      });
+    // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
-    .subscribe(getCat => {
-      this.cat = getCat;
-      console.log(getCat);
-    });
-          // get list of category
-    this.userService.getCategoryList(3) // 3 for category refer to api doc
-    .subscribe(getSubCat => {
-      this.subCat = getSubCat;
-      console.log(getSubCat);
-    });
+      .subscribe(res => {
+        this.cat = res.CategoryList;
+        // console.log('category is ' + res);
+      });
   }
-  // get list after select main category
-  onSelect(id) {
-    console.log(id);
-    const res = id.split(' ');
-    console.log(res[1]);
-    this.userService.getCategoryListbyID(res[1])
-    .subscribe(getSubCatList => {
-      this.getSubCatList = getSubCatList;
-      console.log(getSubCatList);
-    });
-  }
+  
   // create category
-  createCategory( category: any) {
+  createCategory(category: any) {
     console.log(category);
-    this.createCat = { 'Level': 3 , 'RefID': category.RefID, 'Name': category.Name};
-    confirm('Confirm');
+    this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'FormList': category.FormList };
+    console.log(this.createCat)
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
-        console.log(res);
-        this.userService.getCategoryList(3) // list update after delete
-          .subscribe(getCat => {
-          this.subCat = getCat;
-            // console.log(users);
-        });
+        // console.log(res);
+        alert('New Category added succesfully');
+        // this.createCategoryForm.reset();
+        // reset  editCategory form
+
+
+        this.userService.getCategoryList(2) // list update after createcat
+          .subscribe(res => {
+            this.cat = res.CategoryList;
+            // console.log(res,"category")
+          });
+      });
+  }
+
+  createDetailsFormGroup(payOffObj) {
+    console.log(payOffObj,'pay')
+    return new FormGroup({
+      Type: new FormControl(payOffObj.Type),
+      ElementName: new FormControl(payOffObj.ElementName),
+      List: new FormControl(payOffObj.List)
     });
   }
-    // passs current user as argument and open the popup
-  openCategoryModel(item: any) {
-    this.showDialog = true ; // for show dialog
-    // populate prefilled value in form
-    this.editCategoryForm.setValue({
-      Name: item.subcategory,
-      ID: item.ID,
-      RefID: item.RefID
-    });
-  }
-  updateCategory( category: any) {
-    console.log(category);
+  updateCategory(category: any) {
+    console.log("caregory",category);
+    category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
     this.userService.updateCategory(category)
-      .subscribe( res => {
+      .subscribe(res => {
         // console.log(res);
         alert('category updated successfully');
-        this.showDialog = false ;
-        this.userService.getCategoryList(3) // list update after edit
+        this.showDialog = false;
+        this.userService.getCategoryList(2) // list update after edit
           .subscribe(getCat => {
-          this.subCat = getCat;
-          // console.log(getCat);
-        });
+            this.cat = getCat.CategoryList;
+            // console.log(getCat);
+          });
       });
   }
   deleteCategory(category: any) {
-    // console.log(category);
     this.del = { 'ID': category.ID };
-    confirm('Confirm');
     this.userService.deleteCategory(this.del)
       .subscribe(res => {
         console.log(res);
-        this.userService.getCategoryList(3) // list update after delete
+        alert("Deleted Successfully");
+        this.userService.getCategoryList(2) // list update after delete
           .subscribe(getCat => {
-          this.subCat = getCat;
+            this.cat = getCat.CategoryList;
             // console.log(getCat);
-        });
-    });
+          });
+      });
   }
-
+  viewCategory(data:any){
+    console.log(data)
+    this.userService.getCategoryListbyID(data.ID)   
+    .subscribe(res => {
+      this.productMainForm = res;
+      this.viewCat = true; // for show dialog
+      console.log(res);
+    })
+  }
+    // function for avoid only space submit
+    avoidSpace(e){
+      console.log(e);
+      this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
+    }
+    back(){
+      this.showCategoryEdit = false;
+    }
+    openCategoryModel(req){
+      // console.log(req);
+      this.userService.getCategoryListbyID(req.ID)
+      .subscribe(res => {
+        this.editCategoryFormData = res;
+        this.editCategoryFormList = res.FormList
+        this.showCategoryEdit = true; // for show dialog
+        console.log(res);
+        this.editCatModel = true;
+      })
+    }
 }

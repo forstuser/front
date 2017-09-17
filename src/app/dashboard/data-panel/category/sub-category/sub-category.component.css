@@ -1,3 +1,9 @@
 .dropdown{
-    border-bottom:1px solid #ccc;
+    border:1px solid #ccc;
+}
+.margin-right{
+    margin-right: 25px;
+}
+.fix-margin{
+    margin-bottom: -20px !important;  
 }
