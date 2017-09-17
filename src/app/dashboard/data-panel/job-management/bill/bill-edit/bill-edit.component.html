@@ -106,7 +106,7 @@
       </div>
       <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
         <div class="form-group">
-          <select class="form-control dropdown" name="OnlineSellerID" (change)="addOnlineSeller($event.target.value)" ngModel="{{consumerBillDetail?.BillOnlineSeller[0].SellerID}}">
+          <select class="form-control dropdown" name="OnlineSellerID" (change)="addOnlineSeller($event.target.value)" ngModel="{{consumerBillDetail?.BillOnlineSeller[0]?.SellerID}}">
               <option *ngFor = "let seller of onlineSellerList?.SellerList" value="{{seller.ID}}">{{ seller.Name }}</option>
             </select>
         </div>
@@ -148,6 +148,7 @@
                 <th><small>Action</small></th>
               </tr>
             </thead>
+            <!-- <pre>{{addedOfflineSeller | json}}</pre> -->
             <tbody>
               <tr *ngFor="let list of addedOfflineSeller">
                 <th><small>{{ list }}</small></th>
@@ -464,7 +465,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel ="{{BrandID}}">
+            <select class="form-control dropdown" name="BrandID" ngModel="{{BrandID}}">
                   <option>Select</option>
                   <option *ngFor="let list of brandList?.BrandList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
@@ -477,7 +478,7 @@
         </div>
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
-            <select class="form-control dropdown" name="SellerInfo" ngModel ="{{SellerInfo}}">
+            <select class="form-control dropdown" name="SellerInfo" ngModel="{{SellerInfo}}">
                   <option *ngFor="let list of offlineSellerList?.OfflineSellerList" ngValue="{{list.ID}}">{{ list.Name}}</option>
                 </select>
           </div>
