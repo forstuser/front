@@ -51,7 +51,7 @@ export class BillComponent implements OnInit {
       console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
-        this.images.push('https://consumer-dev.binbill.com/bills/'+i.ImageID+'/files')
+        this.images.push('https://consumer.binbill.com/bills/'+i.ImageID+'/files')
       }
     })
     // console.log(this.images);

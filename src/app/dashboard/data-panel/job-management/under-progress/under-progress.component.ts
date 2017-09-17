@@ -195,7 +195,7 @@ export class UnderProgressComponent implements OnInit {
           this.imageArray = res.ImageList;
           // console.log(this.imageArray);
           for (let i of res.ImageList) {
-            this.images.push('https://consumer-dev.binbill.com/bills/' + i.ImageID + '/files')
+            this.images.push('https://consumer.binbill.com/bills/' + i.ImageID + '/files')
           }
         })
       // this.discardBillImage(req.BID);
