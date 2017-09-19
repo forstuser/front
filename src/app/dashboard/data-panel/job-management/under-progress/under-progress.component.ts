@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../app.config';
 import { Bill } from './../../../../_models/billList.interface';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./under-progress.component.css']
 })
 export class UnderProgressComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   ceUsers: User;
   qeUsers: User;
   bills: Bill;
@@ -195,7 +197,7 @@ export class UnderProgressComponent implements OnInit {
           this.imageArray = res.ImageList;
           // console.log(this.imageArray);
           for (let i of res.ImageList) {
-            this.images.push('https://consumer.binbill.com/bills/' + i.ImageID + '/files')
+            this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
           }
         })
       // this.discardBillImage(req.BID);

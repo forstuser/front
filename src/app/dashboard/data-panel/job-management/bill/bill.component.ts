@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../app.config';
 import { DataService } from './../../../../_services/data.service';
 import { UserService } from './../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,17 +12,11 @@ declare var $ :any;
   styleUrls: ['./bill.component.css']
 })
 export class BillComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   billId:number;
   imageArray :any[] = [];
   images: string[]=[];
   imageID:string;
-  config: any = {
-    pagination: '.swiper-pagination',
-    paginationClickable: true,
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    spaceBetween: 30
-  }
   width:number = 100;
   height:number = 100; 
   imageIndex:number = 0;
@@ -51,10 +46,10 @@ export class BillComponent implements OnInit {
       console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
-        this.images.push('https://consumer.binbill.com/bills/'+i.ImageID+'/files')
+        this.images.push(this.imageLink+'bills/'+i.ImageID+"/files")
       }
     })
-    // console.log(this.images);
+    console.log(this.images,"image");
   }
   zoomOut(){
     if(this.height > 100 && this.width > 100){

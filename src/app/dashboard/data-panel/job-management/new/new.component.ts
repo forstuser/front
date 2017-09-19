@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../app.config';
 import { NewList } from './../../../../_models/billList.interface';
 import { User } from './../../../../_models/user';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   userType: String;
   users: User;
   billList: NewList;
@@ -203,7 +205,7 @@ export class NewComponent implements OnInit {
         this.imageArray = res.ImageList;
         // console.log(this.imageArray);
         for (let i of res.ImageList) {
-          this.images.push('https://consumer.binbill.com/bills/' + i.ImageID + '/files')
+          this.images.push(this.imageLink +'bills/' + i.ImageID + '/files')
         }
       })
     // this.discardBillImage(req.BID);

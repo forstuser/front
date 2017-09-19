@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../../app.config';
 import { FunctionService } from './../../../../../_services/function.service';
 import { DataService } from './../../../../../_services/data.service';
 import { BillComponent } from './../bill.component';
@@ -23,6 +24,7 @@ import { IMyDpOptions } from 'mydatepicker';
   styleUrls: ['./bill-create.component.css']
 })
 export class BillCreateComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   imageArray: any[] = [];
   billImageArray: any[] = [];
   insuranceImageArray: any[] = [];
