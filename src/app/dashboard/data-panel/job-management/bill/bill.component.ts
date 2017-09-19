@@ -43,7 +43,7 @@ export class BillComponent implements OnInit {
     // get bill details
     this.userservice.getConsumerBillByID(this.billId)
     .subscribe(res => {
-      console.log('bill details', res);
+      // console.log('bill details', res);
       this.imageArray = res.ImageList;
       for(let i of res.ImageList){
         this.images.push(this.imageLink+'bills/'+i.ImageID+"/files")

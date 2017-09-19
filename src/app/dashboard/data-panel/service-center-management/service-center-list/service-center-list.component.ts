@@ -16,6 +16,12 @@ export class ServiceCenterListComponent implements OnInit {
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
   cat:Category
+  prev:number=0;
+  next:number=10;
+  leftFlag:boolean= true;
+  rightFlag:boolean = false;
+  noData:boolean = false;
+  showASCList:boolean = true;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -51,7 +57,7 @@ export class ServiceCenterListComponent implements OnInit {
       Details: this.fb.array([ this.createItem(), ])
     });
 
-    this.userService.getAuthorizedServiceCenterList()
+    this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
@@ -140,7 +146,7 @@ export class ServiceCenterListComponent implements OnInit {
         // console.log(res);
         alert('service center updated successfully');
         this.showDialog = false ;
-        this.userService.getAuthorizedServiceCenterList() // list update after edit
+        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
@@ -154,7 +160,7 @@ export class ServiceCenterListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
-        this.userService.getAuthorizedServiceCenterList() // list update after delete
+        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after delete
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
@@ -167,7 +173,7 @@ export class ServiceCenterListComponent implements OnInit {
         console.log("response",res)
         this.showDialog=false;
         alert("edit successfully")
-        this.userService.getAuthorizedServiceCenterList() // list update after edit
+        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
         .subscribe(authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
       },err=>{
@@ -175,5 +181,39 @@ export class ServiceCenterListComponent implements OnInit {
       });
 
     })
-  }
+  } 
+    // function for pagination
+    left(){
+      this.noData = false;
+      this.prev = this.prev-10;
+      if(this.prev ==0){
+        this.leftFlag = true;
+      }
+      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      .subscribe( authorizedServiceCenterList => {
+        console.log(this.authorizedServiceCenter)
+        if(authorizedServiceCenterList.statusCode==100){
+          this.rightFlag = false;
+        }
+        this.authorizedServiceCenter = authorizedServiceCenterList;
+        console.log(this.authorizedServiceCenter);
+      });
+    }
+    right(){
+      this.noData = false;
+      this.leftFlag = false;
+      this.prev = this.prev+10;
+      console.log(this.prev);
+      console.log(this.next);
+      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      .subscribe( authorizedServiceCenterList => {
+        console.log(this.authorizedServiceCenter)
+        if(authorizedServiceCenterList.statusCode==105){
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.authorizedServiceCenter = authorizedServiceCenterList;
+        console.log(this.authorizedServiceCenter);
+      });
+    }
 }

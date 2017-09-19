@@ -6,6 +6,12 @@
     </h2>
   </div>
   <div class="body table-responsive">
+    <nav>
+        <ul class="pager">
+          <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()" >Previous</a></li>
+          <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+        </ul>
+      </nav>
     <table class="table table-condensed table-bordered">
       <thead>
         <tr>
@@ -30,6 +36,9 @@
         </tr>
       </tbody>
     </table>
+    <ng-template #elseBlock>
+        <h4> No Data Available </h4>
+        </ng-template>
   </div>
 
   <!--form new -->

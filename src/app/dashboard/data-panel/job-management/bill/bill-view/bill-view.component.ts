@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../../app.config';
 import { NgForm, FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bill-view.component.css']
 })
 export class BillViewComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   showDialog = false;
   assignForm: FormGroup;
   consumerBill: ConsumerBill;
