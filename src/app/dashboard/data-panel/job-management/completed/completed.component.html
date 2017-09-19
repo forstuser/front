@@ -1,0 +1,52 @@
+<div class="card">
+  <div class="header">
+    <h2>
+      Completed Bill List
+      <small> For assign  the bill click on the assign button</small>
+    </h2>
+  </div>
+  <div class="body table-responsive">
+    <nav>
+      <ul class="pager">
+        <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a></li>
+        <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+      </ul>
+    </nav>
+    <table class="table table-condensed" *ngIf="!noData; else elseBlock">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Bill No.</th>
+          <th>Name</th>
+          <th>Phone No.</th>
+          <th>Email ID</th>
+          <th>Bill Date</th>
+          <th>Comments</th>
+          <!-- <th>CE Name</th>
+                  <th>CE Task Date</th>
+                  <th>QE Name</th>
+                  <th>QE Task Date</th> -->
+          <th></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let bill of billList?.BillList; let i = index">
+        <tr>
+          <th scope="row">{{ i+1 }} </th>
+          <td>{{ bill.BillNo}}</td>
+          <td>{{ bill.Name}}</td>
+          <td>{{ bill.PhoneNo}}</td>
+          <td>{{ bill.EmailID}}</td>
+          <td>{{ bill.BillDate | date}}</td>
+          <td>{{ bill.Comments}}</td>
+          <!-- <td>{{ bill.CE_Name}}</td>
+                  <td>{{ bill.CE_TaskDate | date}}</td>
+                  <td>{{ bill.QE_Name}}</td>
+                  <td>{{ bill.QE_TaskDate | date}}</td> -->
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #elseBlock>
+      <h4> No Data Available </h4>
+    </ng-template>
+  </div>
+</div>

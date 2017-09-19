@@ -1,0 +1,11 @@
+.dropdown{
+    border-bottom:1px solid #ccc;
+}
+.pager{
+    text-align: right;
+}
+.textareaDitto{
+    height:100px;
+    width:500px;
+    word-break: break-word;
+}

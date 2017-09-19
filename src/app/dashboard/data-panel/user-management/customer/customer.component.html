@@ -1,0 +1,42 @@
+<div class="card">
+        <div class="header">
+            <h2>
+                List of Customers
+                <small> For change the Customer details click on the edit button</small>
+            </h2>
+        </div>
+        <div class="body table-responsive">
+            <nav>
+                <ul class="pager">
+                    <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()" >Previous</a></li>
+                    <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+                </ul>
+            </nav>
+            <table class="table table-condensed" *ngIf="!noData; else elseBlock">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email ID</th>
+                        <th>Phone </th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let user of users?.ConsumerList; let i = index">
+                    <tr>
+                        <th scope="row">{{ i+1 }} </th>
+                        <td>{{ user.Name}}</td>
+                        <td>{{ user.EmailID}}</td>
+                        <td>{{user.PhoneNo}}</td>
+                        <td><span class="label bg-green">{{ user.Status }}</span></td>
+                        <td> <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #elseBlock>
+                    <h4> No Data Available </h4>
+                   </ng-template>
+        </div>
+    </div>

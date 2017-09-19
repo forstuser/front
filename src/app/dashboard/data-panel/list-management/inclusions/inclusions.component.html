@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="header">
+        <h2>
+            Create Inclusions
+        </h2>
+    </div>
+    <div class="body">
+        <form [formGroup]='createInclusionForm' (ngSubmit) = "createCategory(createInclusionForm.value)">
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
+                    Select Main Category
+                  </label>
+                  <div class="form-group">
+                    <select class="form-control dropdown" formControlName="RefID" (change)="onSelect($event.target.value)">
+                      <option *ngFor="let mainCategoryList of mainCat?.CategoryList" [ngValue]="mainCategoryList.ID">{{ mainCategoryList.Name }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
+                    Select Category
+                  </label>
+                  <div class="form-group">
+                    <select class="form-control dropdown" formControlName="CatID">
+                      <option *ngFor="let subCategoryList of getSubCatList?.CategoryList" [ngValue]="subCategoryList.ID">{{ subCategoryList.Name }}</option>
+                    </select>
+                  </div>
+               </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                  <label>
+                        Inclusions Name
+                  </label>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')">
+                        </div>
+                        <p class="text-danger" *ngIf="!createInclusionForm.controls['Name'].valid && createInclusionForm.controls['Name'].touched">Name is required</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!createInclusionForm.valid" >
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="card">
+  <div class="header">
+      <h2>
+          Inclusion List
+          <small> For change the inclusion click on the edit button</small>
+      </h2>
+  </div>
+  <div class="body table-responsive">
+      <table class="table table-condensed table-bordered">
+          <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Category Name</th>
+                  <th>Inclusion Name</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+           <tbody *ngFor="let list of inclusionList?.InclusionsList; let i = index">
+              <tr>
+                  <th scope="row">{{ i+1 }}</th>
+                  <td>{{ list.CatName }}</td>
+                  <td>{{ list.Name }}</td>
+                  <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+    <app-dialog [(visible)]="showDialog">
+      <div class="modal-header">
+          <h4 class="modal-title" id="smallModalLabel">Edit Inclusions</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal" [formGroup]='editInclusionForm' (ngSubmit) = "updateExclusions(editInclusionForm.value)">
+              <div class="row clearfix">
+                  <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                      <label for="name">Name</label>
+                  </div>
+                  <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                      <div class="form-group">
+                          <div class="form-line">
+                              <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                          </div>
+                          <p class="text-danger" *ngIf="!editInclusionForm.controls['Name'].valid && editInclusionForm.controls['Name'].touched">Name is required</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="row clearfix">
+                  <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+                      <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editInclusionForm.valid" >
+                  </div>
+              </div>
+          </form>
+      </div>
+    </app-dialog>
+</div>

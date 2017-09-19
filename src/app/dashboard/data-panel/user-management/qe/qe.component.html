@@ -1,0 +1,116 @@
+<div class="card">
+    <div class="header">
+        <h2>
+            List of Quality Executive
+            <small> For change the Customer Executive details click on the edit button</small>
+        </h2>
+    </div>
+    <div class="body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let user of users?.UserList; let i = index">
+                <tr>
+                    <th scope="row">{{ i+1 }} </th>
+                    <td>{{ user.Name}}</td>
+                    <td>{{ user.EmailID}}</td>
+                    <td><span class="label bg-green">{{ user.Status }}</span></td>
+                    <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openUserModel(user)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <app-dialog [(visible)]="showDialog">
+        <div class="modal-header">
+            <h4 class="modal-title" id="smallModalLabel">Edit User</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup]='editUserForm' (ngSubmit) = "updateUser(editUserForm.value)">
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="email_address_2">User Type</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                        <select class="form-control dropdown" formControlName="UserType">
+                            <!-- <option>Please Select</option> -->
+                            <option *ngFor="let user of dropdownUser?.UserTypeList" [ngValue]="user.TypeID" >{{ user.Name }}</option>
+                        </select>
+                        </div>
+                    </div>  
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                            </div>
+                            <p class="text-danger" *ngIf="!editUserForm.controls['Name'].valid && editUserForm.controls['Name'].touched">Name is required</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="email_address_2">Email ID</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" formControlName="EmailID" placeholder="Enter your email address" required>
+                            </div>
+                            <p class="text-danger" *ngIf="!editUserForm.controls['EmailID'].valid && editUserForm.controls['EmailID'].touched">EmailID is required</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="password_2">Password</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="password" formControlName="Password" class="form-control" placeholder="Enter your password">
+                            </div>
+                            <!-- <p class="text-danger" *ngIf="!editUserForm.controls['Password'].valid && editUserForm.controls['Password'].touched">Password is required</p> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="status">Status</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                        <select class="form-control dropdown" formControlName="Status">
+                            <!-- <option>Please Select</option> -->
+                            <option [ngValue]="1">Active</option>
+                            <option [ngValue]="2">Inactive</option>
+                        </select>
+                        </div>
+                    </div>  
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+                        <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editUserForm.valid" >
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+            <button (click)="showDialog = !showDialog" type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+        </div> -->
+        <!-- <button (click)="showDialog = !showDialog" class="btn">Close</button> -->
+    </app-dialog>
+</div>

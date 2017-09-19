@@ -1,0 +1,15 @@
+swiper {
+    width: 300px;
+    height: 400px;
+    background: lightgray;
+}
+.padding_fix {
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
+.ng-draggable {
+    cursor: move;
+  }
+.zindex{
+    z-index: 0 !important;
+}
