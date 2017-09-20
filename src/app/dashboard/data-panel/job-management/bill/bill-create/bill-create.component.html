@@ -632,10 +632,13 @@
 <!-- mid panel start -->
 <div *ngIf="showMidPanel1">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+    <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowInsuranceForm()">Back</button>    
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreInsurance()">Add More Insurance</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addWarranty()">Add Warranty </button>
     </div>
   </div>
@@ -802,10 +805,13 @@
 <!-- mid panel 2 start -->
 <div *ngIf="showMidPanel2">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreWarranty()">Add More Warranty</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addAMC()">Add AMC</button>
     </div>
   </div>
@@ -971,10 +977,13 @@
 <!-- mid panel 3 start -->
 <div *ngIf="showMidPanel3">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+    <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowAMCForm()">Back</button>
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreAMC()">Add More AMC</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addRepair()">Add Repair</button>
     </div>
   </div>

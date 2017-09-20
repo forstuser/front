@@ -775,16 +775,19 @@ export class BillCreateComponent implements OnInit {
     // this.insuranceFormContent = [];
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
+    this.showMidPanel1 = false;
   }
   backtoShowWarrantyForm() {
     // this.warrantyFormContent = [];
     this.showAMCForm = false;
     this.showWarrantyForm = true;
+    this.showMidPanel2 = false;
   }
   backtoShowAMCForm() {
     // this.AMCFormContent = [];
     this.showAMCForm = true;
     this.showRepairForm = false;
+    this.showMidPanel3 = false;
   }
   backtoShowRepairForm() {
     // this.repairFormContent = [];
