@@ -295,6 +295,11 @@
   
   <!-- Product General Form Start -->
   <div *ngIf="showProductFormList">
+    <div class="row clearfix">
+        <div class="col-md-2" *ngFor="let prod of consumerBillDetail?.ProductList; let j=index ">
+          <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Product {{j+1}}</button>
+        </div>
+      </div>
     <h4>
       <u>Product</u>
       <u>Information </u>
@@ -308,7 +313,7 @@
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="ProductName" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[0]?.ProductName}}">
+              <input type="text" name="ProductName" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[j]?.ProductName}}">
             </div>
           </div>
         </div>
@@ -318,7 +323,7 @@
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="Value" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[0]?.Value}}">
+              <input type="text" name="Value" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[j]?.Value}}">
             </div>
           </div>
         </div>
@@ -330,7 +335,7 @@
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="Taxes" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[0]?.Taxes}}">
+              <input type="text" name="Taxes" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[j]?.Taxes}}">
             </div>
           </div>
         </div>
@@ -339,7 +344,7 @@
         </div>
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
-            <select class="form-control dropdown" name="ColorID" ngModel="{{consumerBillDetail?.ProductList[0]?.ColorID}}">
+            <select class="form-control dropdown" name="ColorID" ngModel="{{consumerBillDetail?.ProductList[j]?.ColorID}}">
                 <option *ngFor = "let color of colorList?.ColorList" ngValue="{{color.ID}}">{{ color.Name }}</option>
             </select>
           </div>
@@ -351,7 +356,7 @@
         </div>
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
-            <select class="form-control dropdown" name="BrandID" ngModel="{{consumerBillDetail?.ProductList[0]?.BrandID}}">
+            <select class="form-control dropdown" name="BrandID" ngModel="{{consumerBillDetail?.ProductList[j]?.BrandID}}">
               <option>Select</option>
                 <option *ngFor = "let brand of brandList?.BrandList" ngValue="{{brand.ID}}">{{ brand.Name }}</option>
             </select>
@@ -362,7 +367,7 @@
         </div>
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
-            <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel="{{consumerBillDetail?.ProductList[0]?.MasterCatID}}">
+            <select class="form-control dropdown" (change)="onSelectMainCategory($event.target.value)" name="MasterCatID" ngModel="{{consumerBillDetail?.ProductList[j]?.MasterCatID}}">
               <option>Select</option>
                 <option *ngFor = "let mainCat of mainCategory?.CategoryList" ngValue="{{mainCat.ID}}">{{ mainCat.Name }}</option>
             </select>
@@ -378,9 +383,9 @@
         </div>
         <div class="col-lg-4 col-md-4">
           <div class="form-group">
-            <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID" ngModel="{{consumerBillDetail?.ProductList[0]?.CatID}}">
+            <select class="form-control dropdown" (change)="onSelectCategory($event.target.value)" name="CatID" ngModel="{{consumerBillDetail?.ProductList[j]?.CatID}}">
               <option>Select</option>
-                <option *ngFor = "let subCat of cat?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.Name }}</option>
+                <option *ngFor = "let subCat of cat?.CategoryList"  ngValue="{{subCat.ID}}">{{ subCat.category }}</option>
             </select>
             <div *ngIf="PleaseSelectCategory">
               <p class="text-center text-danger">Please select Category</p>
@@ -393,7 +398,7 @@
         <div class="col-lg-4 col-md-4 ">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" name="Tag" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[0]?.Tag}}">
+              <input type="text" name="Tag" class="form-control input_fix" ngModel="{{consumerBillDetail?.ProductList[j]?.Tag}}">
             </div>
           </div>
         </div>
@@ -424,16 +429,16 @@
           <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 1">
             <div class="form-group">
               <div class="form-line">
-                <input type="text" name="{{form.FormID}}" class="form-control input_fix" ngModel="{{productFormData[0]?.FormID}}">
+                <input type="text" name="{{form.FormID}}" class="form-control input_fix" [(ngModel)]="test[i]">
               </div>
             </div>
           </div>
           <div class="col-lg-4 col-md-4" *ngIf="form?.Type == 2">
-            <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
-                  <ng-container *ngFor="let droplist of form?.List">
-                     <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
-                  </ng-container>
-                </select>
+            <select class="form-control dropdown" name="{{form.FormID}}" [(ngModel)]="test[i]">
+              <ng-container *ngFor="let droplist of form?.List">
+                  <option *ngIf="form.FormID == droplist.FormID" ngValue="{{droplist.DropdownID}}" >{{droplist.DropdownName}}</option>
+              </ng-container>
+            </select>
           </div>
         </div>
       </div>
@@ -451,6 +456,11 @@
   
   <!-- Insurance Form Start -->
   <div *ngIf="showInsuranceForm">
+    <div class="row clearfix">
+      <div class="col-md-2" *ngFor="let prod of consumerBillDetail?.ProductList; let j=index ">
+        <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Product {{j+1}}</button>
+      </div>
+    </div>
     <form #insuranceForm="ngForm" (ngSubmit)="insuranceFormData(insuranceForm)">
       <h4>
         <u>Insurance</u>

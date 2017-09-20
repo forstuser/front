@@ -25,6 +25,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./bill-edit.component.css']
 })
 export class BillEditComponent implements OnInit {
+  j:number = 0;
   imageLink: String = appConfig.imageUrl;
   imageArray: any[] = [];
   billImageArray: any[] = [];
@@ -127,6 +128,9 @@ export class BillEditComponent implements OnInit {
   repairDateBind: Object = {};
   count: number = 1;
   consumerBillDetail:any;
+  productFormFeeder:any;
+  // test:any[]=[];
+  test:any[]=[];
   constructor(private _location: Location, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
     this.discardImageFun();
@@ -140,7 +144,11 @@ export class BillEditComponent implements OnInit {
         console.log("bill details for edit",res);
         this.consumerBillDetail = res;
         this.addedOfflineSeller = this.consumerBillDetail.BillOfflineSeller;
-        
+        this.productFormFeeder = this.consumerBillDetail.ProductForm;
+        for(let i of this.productFormFeeder[0].forms){
+          this.test.push(i.value);
+          console.log("test value",this.test)
+       }
       })
     const today = new Date();
     this.myDatePickerOptions1.disableSince = { year: today.getFullYear(), month: (today.getMonth() + 1), day: (today.getDate() + 1) }
@@ -183,7 +191,7 @@ export class BillEditComponent implements OnInit {
     // get list of category
     this.userservice.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(res => {
-        console.log(res,"category")
+        // console.log(res,"category")
         this.cat = res;
         // console.log('category is ' + res);
       });
@@ -396,6 +404,7 @@ export class BillEditComponent implements OnInit {
     } else if (form.value.CatID === "") {
       this.PleaseSelectCategory = true;
     } else {
+      
       console.log(form.value);
       this.productInfoFormContent.push(form.value);
       this.showProductFormList = false;
@@ -803,5 +812,12 @@ export class BillEditComponent implements OnInit {
     this.showRepairForm = true;
     this.endPanel = false;
   }
-
+  fillProduct(req){
+    this.j = req;
+    this.test = [];
+    for(let i of this.productFormFeeder[this.j].forms){
+      this.test.push(i.value);
+      console.log("test value",this.test)
+   }
+  }
 }

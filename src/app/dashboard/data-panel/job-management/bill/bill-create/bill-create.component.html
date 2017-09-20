@@ -224,6 +224,7 @@
       <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
         <div class="form-group">
           <select class="form-control dropdown" name="OnlineSellerID" ngModel (change)="addOnlineSeller($event.target.value)">
+              <option value="">Select</option>
               <option *ngFor = "let seller of onlineSellerList?.SellerList" value="{{seller.ID}}">{{ seller.Name }}</option>
             </select>
         </div>
