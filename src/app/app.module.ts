@@ -55,6 +55,8 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import {ModalModule} from "ng2-modal";
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -108,7 +110,9 @@ import {ModalModule} from "ng2-modal";
     MultiselectDropdownModule,
     MyDatePickerModule,
     AngularDraggableModule,
-    ModalModule
+    ModalModule,
+    Ng2OrderModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]

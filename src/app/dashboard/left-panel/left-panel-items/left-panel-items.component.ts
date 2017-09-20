@@ -17,7 +17,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -48,7 +48,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'User Management',
+      'name': 'User ',
       'icon': 'accessibility',
       'link': '#',
       'class': 'menu-toggle',
@@ -84,7 +84,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Category Management',
+      'name': 'Category ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -111,7 +111,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Brand Management',
+      'name': 'Brand ',
       'icon': 'loyalty',
       'link': '#',
       'class': 'menu-toggle',
@@ -133,7 +133,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Seller Management',
+      'name': 'Seller ',
       'icon': 'shop_two',
       'link': '#',
       'class': 'menu-toggle',
@@ -165,7 +165,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Inclusion / Exclusion Management',
+      'name': 'Inclusion / Exclusion ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -187,7 +187,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Authorized Service Center Management',
+      'name': 'ASC ',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -230,7 +230,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job ',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -262,7 +262,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
 
     {
-      'name': 'Category Management',
+      'name': 'Category ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -289,7 +289,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Brand Management',
+      'name': 'Brand ',
       'icon': 'loyalty',
       'link': '#',
       'class': 'menu-toggle',
@@ -311,7 +311,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Seller Management',
+      'name': 'Seller ',
       'icon': 'shop_two',
       'link': '#',
       'class': 'menu-toggle',
@@ -343,7 +343,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Inclusion / Exclusion Management',
+      'name': 'Inclusion / Exclusion ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -365,7 +365,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Authorized Service Center Management',
+      'name': 'ASC ',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -405,7 +405,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job ',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',

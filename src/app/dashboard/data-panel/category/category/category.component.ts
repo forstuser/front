@@ -20,6 +20,7 @@ export class CategoryComponent implements OnInit {
   del: any = {};
   productMainForm:any;
   showCategoryEdit:boolean = false;
+  order: string = 'category';
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
 
     // edit main category form
