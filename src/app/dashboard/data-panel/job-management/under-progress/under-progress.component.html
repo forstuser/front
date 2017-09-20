@@ -28,7 +28,7 @@
       </thead>
       <tbody *ngFor="let bill of bills?.BillList; let i = index">
         <tr>
-          <th scope="row">{{ i+1 }} </th>
+          <th scope="row">{{ i+1+prev }} </th>
           <td>{{ bill.BillNo}}</td>
           <td>{{ bill.Name}}</td>
           <td>{{ bill.PhoneNo}}</td>

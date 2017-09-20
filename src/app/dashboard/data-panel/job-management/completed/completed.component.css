@@ -1,3 +1,6 @@
 .pager{
     text-align: right;
 }
+.disabled{
+    display: none;
+}
