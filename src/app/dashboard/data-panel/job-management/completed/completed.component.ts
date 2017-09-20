@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../app.config';
 import { Bill } from './../../../../_models/billList.interface';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./completed.component.css']
 })
 export class CompletedComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
+  showImageDialog = false;
+  billId: number;
   billList: Bill;
   userType: String;
   prev: number = 0;
@@ -15,6 +19,10 @@ export class CompletedComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
+  images: string[] = [];
+  imageArray: any[] = [];
+  imageIndex: number = 0;
+  imagerotation: number = 0;
   constructor(private userservice: UserService) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -132,5 +140,42 @@ export class CompletedComponent implements OnInit {
         });
     }
 
+  }
+    // for view image
+    openImageModel(req: any) {
+      this.showImageDialog = true;
+      console.log(req);
+      this.billId = req.BID;
+      this.images = [];
+      this.imageArray = [];
+      this.userservice.getConsumerBillByID(req.BID)
+        .subscribe(res => {
+          console.log(res,"image");
+          this.imageArray = res.ImageList;
+          // console.log(this.imageArray);
+          for (let i of res.ImageList) {
+            this.images.push(this.imageLink +'bills/' + i.ImageID + '/files')
+          }
+        })
+      // this.discardBillImage(req.BID);
+    }
+      // prev image
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+    // console.log(this.imageIndex ,'prev')
+  }
+  // next image
+  nextImage() {
+    if (this.imageIndex < this.imageArray.length - 1) {
+      this.imageIndex = this.imageIndex + 1;
+      // console.log(this.imageIndex)
+    }
+    // console.log(this.imageIndex ,'next')
+  }
+  // rotete image
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
 }

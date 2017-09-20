@@ -26,7 +26,7 @@
                   <th>CE Task Date</th>
                   <th>QE Name</th>
                   <th>QE Task Date</th> -->
-          <th></th>
+          <th>View</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of billList?.BillList; let i = index">
@@ -42,6 +42,7 @@
                   <td>{{ bill.CE_TaskDate | date}}</td>
                   <td>{{ bill.QE_Name}}</td>
                   <td>{{ bill.QE_TaskDate | date}}</td> -->
+          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
         </tr>
       </tbody>
     </table>
@@ -50,3 +51,24 @@
     </ng-template>
   </div>
 </div>
+<modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+    <modal-content>
+      <div class="body">
+        <div class="row clearfix" style="overflow:scroll">
+            <div class="col-md-12">
+                <img  [src]="images[imageIndex]" height="450px" width="850px" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+                <p></p>
+            </div>
+        </div>
+      </div>
+      <div class="caption">
+        <p class="text-center">
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+          <a href="{{images[imageIndex]}}"><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
+          <!-- <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button> -->
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+        </p>
+      </div>
+    </modal-content>
+  </modal>
