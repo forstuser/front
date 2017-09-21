@@ -164,12 +164,12 @@
       </div>
     </div>
   </div>
-  <div *ngIf="imageArray?.length > 0">
+  <div *ngIf="billDetailbyID?.BillImage?.length > 0">
     <div class="row clearfix">
-      <div *ngFor="let image of imageArray">
+      <div *ngFor="let image of billDetailbyID?.BillImage">
         <div class="col-sm-6 col-md-3">
           <div class="thumbnail" *ngIf="image">
-            <img src={{imageLink}}+"/bills/{{image}}/files" height="100px">
+              <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
             <div class="caption">
               <p class="text-center">
                 <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -478,7 +478,7 @@
         <div *ngFor="let image of billDetailbyID?.InsuranceImage">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src={{imageLink}}+"/bills/{{image}}/files" height="100px">
+              <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
               <div class="caption">
               </div>
             </div>
@@ -607,7 +607,7 @@
         <div *ngFor="let image of billDetailbyID?.WarrantyImage">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src={{imageLink}}+"/bills/{{image}}/files" height="100px">
+                <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
               <div class="caption">
               </div>
             </div>
@@ -735,7 +735,7 @@
         <div *ngFor="let image of billDetailbyID?.AMCImage">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src={{imageLink}}+"/bills/{{image}}/files" height="100px">
+                <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
               <div class="caption">
               </div>
             </div>
@@ -835,7 +835,7 @@
         <div *ngFor="let image of billDetailbyID?.RepairImage ">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail" *ngIf="image">
-              <img src={{imageLink}}+"/bills/{{image}}/files" height="100px">
+                <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
               <div class="caption">
               </div>
             </div>

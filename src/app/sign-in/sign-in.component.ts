@@ -54,7 +54,13 @@ export class SignInComponent implements OnInit {
       },
       error => {
         console.log('error is ', error);
-        alert(error.statusText);
+        if(error.status==0){
+          alert("Internet is Down/Slow")
+        } else{
+          
+          alert(error.statusText);
+        }
+        
       }
     );
   }

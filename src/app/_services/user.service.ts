@@ -802,6 +802,19 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/AddConsumerBill', data, options)
 
         }
+        editBill(bill: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                bill['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(bill);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/EditConsumerBill', data, options)
+
+        }
         // final bill complete
         completeJob(bill: number) {
                 // get login user credentials from localstorage

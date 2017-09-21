@@ -147,7 +147,7 @@ export class BillEditComponent implements OnInit {
         this.productFormFeeder = this.consumerBillDetail.ProductForm;
         for(let i of this.productFormFeeder[0].forms){
           this.test.push(i.value);
-          console.log("test value",this.test)
+          // console.log("test value",this.test)
        }
       })
     const today = new Date();
@@ -156,14 +156,14 @@ export class BillEditComponent implements OnInit {
     // get current bill details
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        // console.log('bill details', res);
+        console.log('bill details', res);
         this.consumerBill = res;
         this.userID = res.UserID;
       })
     // get offline seller list
     this.userservice.getOfflineSellerList()
       .subscribe(res => {
-        console.log("Offline Seller List", res);
+        // console.log("Offline Seller List", res);
         this.offlineSellerList = res;
       })
     // get online seller list
@@ -256,7 +256,7 @@ export class BillEditComponent implements OnInit {
     //  for discard image
     this.dataservice.currentMessage
       .subscribe(res => {
-        console.log(res, "response through service")
+        // console.log(res, "response through service")
         this.imageID = res.split('bills/').pop().split('/files').shift();
         if (this.imageArray.includes(this.imageID)) {
           console.log("Image already added");
@@ -437,7 +437,7 @@ export class BillEditComponent implements OnInit {
   // ********************************Insurance form functions ***************************************
   // select type brand or seller
   selectInsuranceType(data) {
-    if (data == 'brand') {
+    if (data == '1') {
       console.log(data);
       this.selectInsuranceDropdown = data;
       this.userservice.getBrandList2(null, null)
@@ -490,7 +490,8 @@ export class BillEditComponent implements OnInit {
   // ********************************Warranty form functions ***************************************
   // select type brand or seller
   selectWarrantyType(data) {
-    if (data == 'brand') {
+    console.log(data,"warranty Type")
+    if (data == '1') {
       console.log(data);
       this.selectWarrantyDropdown = data;
       this.userservice.getBrandList2(null, null)
@@ -502,7 +503,7 @@ export class BillEditComponent implements OnInit {
       // get offline seller list
       this.userservice.getOfflineSellerList()
         .subscribe(res => {
-          console.log(res);
+          // console.log(res);
           this.offlineSellerList = res;
         })
     }
@@ -538,7 +539,7 @@ export class BillEditComponent implements OnInit {
   // ********************************AMC form functions *********************************************
   // select type brand or seller
   selectAMCType(data) {
-    if (data == 'brand') {
+    if (data == '1') {
       console.log(data);
       this.selectAMCDropdown = data;
       this.userservice.getBrandList2(null, null)
@@ -585,7 +586,7 @@ export class BillEditComponent implements OnInit {
   // ********************************Repair form functions ******************************************
   // select type brand or seller
   selectRepairType(data) {
-    if (data == 'brand') {
+    if (data == '1') {
       console.log(data);
       this.selectRepairDropdown = data;
       this.userservice.getBrandList2(null, null)
@@ -726,16 +727,16 @@ export class BillEditComponent implements OnInit {
     this.addMoreProduct();
     this.endPanel = false;
     this.showProductFormList = false;
-    this.showForm = true;
+    // this.showGeneralForm = true;
     // make final object
     this.finalData = {
-      "BillID": this.consumerBill.BillID,
+      "DetailID": this.consumerBillDetail.BillDetail[0].DetailID,
       "UserID": this.consumerBill.UserID,
       "InvoiceNo": this.generalFormContent[0].InvoiceNo,
       "Name": this.generalFormContent[0].Name,
       "EmailID": this.generalFormContent[0].EmailID,
       "PhoneNo": this.generalFormContent[0].PhoneNo,
-      "DocID": 1,
+      // "DocID": 1,
       "TotalValue": this.generalFormContent[0].TotalValue,
       "Taxes": this.generalFormContent[0].Taxes,
       "DateofPurchase": this.generalFormContent[0].DateofPurchase,
@@ -751,12 +752,12 @@ export class BillEditComponent implements OnInit {
     this.AMCFormContent = [];
     this.repairFormContent = []
     console.log(this.finalData);
-    this.userservice.createBill(this.finalData)
+    this.userservice.editBill(this.finalData)
       .subscribe(res => {
         console.log(res);
         this.finalData = [];
         // get current bill details
-        alert("Bill Created Successfully");
+        alert("Bill Updated Successfully");
         this.userservice.getConsumerBillByID(this.billId)
           .subscribe(res => {
             console.log(res);
@@ -817,7 +818,7 @@ export class BillEditComponent implements OnInit {
     this.test = [];
     for(let i of this.productFormFeeder[this.j].forms){
       this.test.push(i.value);
-      console.log("test value",this.test)
+      // console.log("test value",this.test)
    }
   }
 }

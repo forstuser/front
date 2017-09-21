@@ -237,7 +237,7 @@ export class BillCreateComponent implements OnInit {
     //  for discard image
     this.dataservice.currentMessage
       .subscribe(res => {
-        console.log(res, "response through service")
+        // console.log(res, "response through service")
         this.imageID = res.split('bills/').pop().split('/files').shift();
         if (this.imageArray.includes(this.imageID)) {
           console.log("Image already added");
