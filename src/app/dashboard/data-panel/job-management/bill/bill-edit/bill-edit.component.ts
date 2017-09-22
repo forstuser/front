@@ -426,7 +426,7 @@ export class BillEditComponent implements OnInit {
   productFormData(form: NgForm) {
     this.productFormContent = [];
     const data = form.value;
-    // console.log(form.value);
+    console.log(form.value,"product form data");
     for (var val in data) {
       this.ProductFrom.push({ 'CatFormID': val, 'value': data[val] });
     }
@@ -768,6 +768,7 @@ export class BillEditComponent implements OnInit {
         this.finalData = [];
         // get current bill details
         alert("Bill Updated Successfully");
+        this._location.back();
         this.userservice.getConsumerBillByID(this.billId)
           .subscribe(res => {
             console.log(res);
@@ -807,16 +808,19 @@ export class BillEditComponent implements OnInit {
     // this.insuranceFormContent = [];
     this.showInsuranceForm = true;
     this.showWarrantyForm = false;
+    this.showMidPanel1 = false;
   }
   backtoShowWarrantyForm() {
     // this.warrantyFormContent = [];
     this.showAMCForm = false;
     this.showWarrantyForm = true;
+    this.showMidPanel2 = false;
   }
   backtoShowAMCForm() {
     // this.AMCFormContent = [];
     this.showAMCForm = true;
     this.showRepairForm = false;
+    this.showMidPanel3 = false;
   }
   backtoShowRepairForm() {
     // this.repairFormContent = [];

@@ -401,7 +401,7 @@ export class BillCreateComponent implements OnInit {
   productFormData(form: NgForm) {
     this.productFormContent = [];
     const data = form.value;
-    // console.log(form.value);
+    console.log(form.value,"prod form data");
     for (var val in data) {
       this.ProductFrom.push({ 'CatFormID': val, 'value': data[val] });
     }
@@ -488,7 +488,7 @@ export class BillCreateComponent implements OnInit {
     }
   }
   warrantyFormData(form: NgForm) {
-    // console.log(form.value);
+    console.log(form.value,"warranty form data");
     this.warrantyImageArray = this.imageArray;
     this.imageArray = [];
     this.warrantyData = {
