@@ -133,7 +133,7 @@ export class BillEditComponent implements OnInit {
   test:any[]=[];
   constructor(private _location: Location, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
-    this.discardImageFun();
+    this.selectImage();
   }
 
 
@@ -142,7 +142,7 @@ export class BillEditComponent implements OnInit {
       this.userservice.getConsumerBillDetailsByID(this.billId)
       .subscribe(res => {
         console.log("bill details for edit",res);
-        this.consumerBillDetail = res;
+        this.consumerBillDetail = res; // all array is here
         this.addedOfflineSeller = this.consumerBillDetail.BillOfflineSeller;
         this.productFormFeeder = this.consumerBillDetail.ProductForm;
         for(let i of this.productFormFeeder[0].forms){
@@ -252,7 +252,7 @@ export class BillEditComponent implements OnInit {
   onChange() {
     // console.log(this.optionsModel);
   }
-  discardImageFun() {
+  selectImage() {
     //  for discard image
     this.dataservice.currentMessage
       .subscribe(res => {
@@ -356,10 +356,12 @@ export class BillEditComponent implements OnInit {
   deleteSellerFromList(id) {
     var index = this.addedOfflineSeller.indexOf(id);
     this.addedOfflineSeller.splice(index, 1);
+    console.log(this.addedOfflineSeller);
   }
   // seller form data on submit
   sellerFormData(form: NgForm) {
     // console.log(form.value);
+    this.sellerFormContent = [];
     const data = { "OnlineSellerID": this.addedOnlineSeller, "SellerList": this.addedOfflineSeller };
     this.sellerFormContent.push(data);
     // console.log(this.sellerFormContent);
@@ -461,6 +463,7 @@ export class BillEditComponent implements OnInit {
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
     this.insuranceData = {
+      "InsuranceID":form.value.InsuranceID,
       "Plan": form.value.Plan,
       "PolicyNo": form.value.PolicyNo,
       "AmountInsured": form.value.AmountInsured,
@@ -513,6 +516,7 @@ export class BillEditComponent implements OnInit {
     this.warrantyImageArray = this.imageArray;
     this.imageArray = [];
     this.warrantyData = {
+      "WarrantyID":form.value.WarrantyID,
       "WarrantyType": form.value.WarrantyType,
       "PolicyNo": form.value.PolicyNo,
       "PremiumType": form.value.PremiumType,
@@ -561,6 +565,7 @@ export class BillEditComponent implements OnInit {
     this.amcImageArray = this.imageArray;
     this.imageArray = [];
     this.amcData = {
+      "AmcID":form.value.AmcID,
       "PolicyNo": form.value.PolicyNo,
       "PremiumType": form.value.PremiumType,
       "PremiumAmount": form.value.PremiumAmount,
@@ -608,6 +613,7 @@ export class BillEditComponent implements OnInit {
     this.repairImageArray = this.imageArray;
     this.imageArray = [];
     this.repairData = {
+      "RepairID":form.value.RepairID,      
       "RepairValue": form.value.RepairValue,
       "Taxes": form.value.Taxes,
       "RepairInvoiceNumber": form.value.RepairInvoiceNumber,
@@ -683,6 +689,7 @@ export class BillEditComponent implements OnInit {
   addMoreProduct() {
     // make object for product array
     this.productData = {
+      "ProductID": this.productInfoFormContent[0].ProductID,
       "ProductName": this.productInfoFormContent[0].ProductName,
       "Value": this.productInfoFormContent[0].Value,
       "Taxes": this.productInfoFormContent[0].Taxes,
@@ -741,8 +748,8 @@ export class BillEditComponent implements OnInit {
       "Taxes": this.generalFormContent[0].Taxes,
       "DateofPurchase": this.generalFormContent[0].DateofPurchase,
       "BillImage": this.billImageArray,
-      "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
-      "SellerList": this.sellerFormContent[0].SellerList,
+      // "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
+      // "SellerList": this.sellerFormContent[0].SellerList,
       "ProductList": this.FinalProductContent
     }
     this.productInfoFormContent = [];
