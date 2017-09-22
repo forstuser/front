@@ -17,7 +17,7 @@ import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
 import { Component, OnInit, Inject } from '@angular/core';
 import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 import { IMyDpOptions } from 'mydatepicker';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-bill-edit',
@@ -25,7 +25,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./bill-edit.component.css']
 })
 export class BillEditComponent implements OnInit {
-  j:number = 0;
+  j: number = 0;
   imageLink: String = appConfig.imageUrl;
   imageArray: any[] = [];
   billImageArray: any[] = [];
@@ -127,10 +127,10 @@ export class BillEditComponent implements OnInit {
   amcDateBindExpiry: Object = {};
   repairDateBind: Object = {};
   count: number = 1;
-  consumerBillDetail:any;
-  productFormFeeder:any;
+  consumerBillDetail: any;
+  productFormFeeder: any;
   // test:any[]=[];
-  test:any[]=[];
+  test: any[] = [];
   constructor(private _location: Location, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
     this.billId = route.snapshot.params.id;
     this.selectImage();
@@ -138,17 +138,20 @@ export class BillEditComponent implements OnInit {
 
 
   ngOnInit() {
-      // get current bill details
-      this.userservice.getConsumerBillDetailsByID(this.billId)
+    // get current bill details
+    this.userservice.getConsumerBillDetailsByID(this.billId)
       .subscribe(res => {
-        console.log("bill details for edit",res);
+        console.log("bill details for edit", res);
         this.consumerBillDetail = res; // all array is here
+        // console.log("date bind", this.dateBind)
         this.addedOfflineSeller = this.consumerBillDetail.BillOfflineSeller;
+        this.imageArray = this.consumerBillDetail.BillImage;
         this.productFormFeeder = this.consumerBillDetail.ProductForm;
-        for(let i of this.productFormFeeder[0].forms){
-          this.test.push(i.value);
-          // console.log("test value",this.test)
-       }
+        this.fillProduct(0);
+        //   for(let i of this.productFormFeeder[0].forms){
+        //     this.test.push(i.value);
+        //     // console.log("test value",this.test)
+        //  }
       })
     const today = new Date();
     this.myDatePickerOptions1.disableSince = { year: today.getFullYear(), month: (today.getMonth() + 1), day: (today.getDate() + 1) }
@@ -406,7 +409,7 @@ export class BillEditComponent implements OnInit {
     } else if (form.value.CatID === "") {
       this.PleaseSelectCategory = true;
     } else {
-      
+
       console.log(form.value);
       this.productInfoFormContent.push(form.value);
       this.showProductFormList = false;
@@ -463,7 +466,7 @@ export class BillEditComponent implements OnInit {
     // console.log(this.insuranceImageArray);
     this.imageArray = [];
     this.insuranceData = {
-      "InsuranceID":form.value.InsuranceID,
+      "InsuranceID": form.value.InsuranceID,
       "Plan": form.value.Plan,
       "PolicyNo": form.value.PolicyNo,
       "AmountInsured": form.value.AmountInsured,
@@ -493,7 +496,7 @@ export class BillEditComponent implements OnInit {
   // ********************************Warranty form functions ***************************************
   // select type brand or seller
   selectWarrantyType(data) {
-    console.log(data,"warranty Type")
+    console.log(data, "warranty Type")
     if (data == '1') {
       console.log(data);
       this.selectWarrantyDropdown = data;
@@ -516,7 +519,7 @@ export class BillEditComponent implements OnInit {
     this.warrantyImageArray = this.imageArray;
     this.imageArray = [];
     this.warrantyData = {
-      "WarrantyID":form.value.WarrantyID,
+      "WarrantyID": form.value.WarrantyID,
       "WarrantyType": form.value.WarrantyType,
       "PolicyNo": form.value.PolicyNo,
       "PremiumType": form.value.PremiumType,
@@ -565,7 +568,7 @@ export class BillEditComponent implements OnInit {
     this.amcImageArray = this.imageArray;
     this.imageArray = [];
     this.amcData = {
-      "AmcID":form.value.AmcID,
+      "AmcID": form.value.AmcID,
       "PolicyNo": form.value.PolicyNo,
       "PremiumType": form.value.PremiumType,
       "PremiumAmount": form.value.PremiumAmount,
@@ -613,7 +616,7 @@ export class BillEditComponent implements OnInit {
     this.repairImageArray = this.imageArray;
     this.imageArray = [];
     this.repairData = {
-      "RepairID":form.value.RepairID,      
+      "RepairID": form.value.RepairID,
       "RepairValue": form.value.RepairValue,
       "Taxes": form.value.Taxes,
       "RepairInvoiceNumber": form.value.RepairInvoiceNumber,
@@ -748,8 +751,8 @@ export class BillEditComponent implements OnInit {
       "Taxes": this.generalFormContent[0].Taxes,
       "DateofPurchase": this.generalFormContent[0].DateofPurchase,
       "BillImage": this.billImageArray,
-      // "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
-      // "SellerList": this.sellerFormContent[0].SellerList,
+      "OnlineSellerID": this.sellerFormContent[0].OnlineSellerID,
+      "SellerList": this.sellerFormContent[0].SellerList,
       "ProductList": this.FinalProductContent
     }
     this.productInfoFormContent = [];
@@ -820,12 +823,41 @@ export class BillEditComponent implements OnInit {
     this.showRepairForm = true;
     this.endPanel = false;
   }
-  fillProduct(req){
+  fillProduct(req) {
     this.j = req;
     this.test = [];
-    for(let i of this.productFormFeeder[this.j].forms){
+    for (let i of this.productFormFeeder[this.j].forms) {
       this.test.push(i.value);
       // console.log("test value",this.test)
-   }
+    }
+    //  bind dates
+    const purchaseDate = this.consumerBillDetail.BillDetail[this.j].PurchaseDate;
+    const d = new Date(purchaseDate)
+    this.dateBind = { date: { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() } };
+    // insurance
+    const InsurancePolicyEffectiveDate = this.consumerBillDetail.InsuranceList[this.j].PolicyEffectiveDate;
+    const d1 = new Date(InsurancePolicyEffectiveDate)
+    this.insuranceDateBindEffective = { date: { year: d1.getFullYear(), month: d1.getMonth() + 1, day: d1.getDate() } };
+    const InsurancePolicyExpiryDate = this.consumerBillDetail.InsuranceList[this.j].PolicyExpiryDate;
+    const d2 = new Date(InsurancePolicyExpiryDate)
+    this.insuranceDateBindExpiry = { date: { year: d2.getFullYear(), month: d2.getMonth() + 1, day: d2.getDate() } };
+    // warranty
+    const WarrantyPolicyEffectiveDate = this.consumerBillDetail.WarrantyList[this.j].PolicyEffectiveDate;
+    const d3 = new Date(WarrantyPolicyEffectiveDate)
+    this.warrantyDateBindEffective = { date: { year: d3.getFullYear(), month: d3.getMonth() + 1, day: d3.getDate() } };
+    const WarrantyPolicyExpiryDate = this.consumerBillDetail.WarrantyList[this.j].PolicyExpiryDate;
+    const d4 = new Date(WarrantyPolicyExpiryDate)
+    this.warrantyDateBindExpiry = { date: { year: d4.getFullYear(), month: d4.getMonth() + 1, day: d4.getDate() } };
+    // amc
+    const AMCPolicyEffectiveDate = this.consumerBillDetail.AMCList[this.j].PolicyEffectiveDate;
+    const d5 = new Date(AMCPolicyEffectiveDate)
+    this.amcDateBindEffective = { date: { year: d5.getFullYear(), month: d5.getMonth() + 1, day: d5.getDate() } };
+    const AMCPolicyExpiryDate = this.consumerBillDetail.AMCList[this.j].PolicyExpiryDate;
+    const d6 = new Date(AMCPolicyExpiryDate)
+    this.amcDateBindExpiry = { date: { year: d6.getFullYear(), month: d6.getMonth() + 1, day: d6.getDate() } };
+    // repair
+    const RepairPolicyEffectiveDate = this.consumerBillDetail.RepairList[this.j].RepairDate;
+    const d7 = new Date(RepairPolicyEffectiveDate)
+    this.repairDateBind = { date: { year: d7.getFullYear(), month: d7.getMonth() + 1, day: d7.getDate() } };
   }
 }

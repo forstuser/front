@@ -196,7 +196,7 @@
       Edit Category
     </h2>
   </div>
-  <pre>{{ editCategoryForm.value | json}}</pre>
+  <!-- <pre>{{ editCategoryFormData | json}}</pre> -->
   <div class="body">
     <form #editCategoryForm="ngForm" (ngSubmit)="editFormData(editCategoryForm)">
       <div class="row clearfix">
@@ -230,14 +230,14 @@
         </div>
       </div>
       <div class="panel panel-default">
-        <div class="row clearfix" *ngFor="let form of editCategoryFormList">
-          <div class="col-md-2 col-md-offset-1">
+        <div class="row clearfix" *ngFor="let form of editCategoryFormData?.FormList">
+          <div class="col-md-2 col-md-offset-1" >
               <label>
-                  Type{{ form.Type}}
+                  <!-- Type {{form | json}} -->
                 </label>
-              <select class="form-control dropdown" name="Type" ngModel="{{form.Type}}">
-                  <option [ngValue]="1">Input</option>
-                  <option [ngValue]="2">Dropdown</option>
+              <select class="form-control dropdown" name="Type" ngModel="{{form?.Type}}">
+                  <option ngValue=1>Input</option>
+                  <option ngValue=2>Dropdown</option>
                 </select>
             </div>
         </div>

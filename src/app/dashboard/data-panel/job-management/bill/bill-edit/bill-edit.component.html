@@ -195,7 +195,7 @@
         <div *ngFor="let image of imageArray">
           <div class="col-sm-6 col-md-3">
             <div class="thumbnail fix_image" *ngIf="image">
-              <img src="{{imageLink}}bills/{{image}}/files" height="100px">
+              <img src="{{imageLink}}bills/{{image?.ImageID}}/files" height="100px">
               <div class="caption">
                 <p class="text-center">
                   <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -489,7 +489,7 @@
     </div>
   </div>
   <form #insuranceForm="ngForm" (ngSubmit)="insuranceFormData(insuranceForm)">
-    <input type="text" name="InsuranceID" class="form-control input_fix" ngModel="{{consumerBillDetail?.InsuranceList[j]?.InsuranceID}}">    
+    <input type="hidden" name="InsuranceID" class="form-control input_fix" ngModel="{{consumerBillDetail?.InsuranceList[j]?.InsuranceID}}">    
       
     <h4>
       <u>Insurance</u>

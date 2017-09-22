@@ -167,7 +167,7 @@ export class SubCategoryComponent implements OnInit {
       this.userService.getCategoryListbyID(req.ID)
       .subscribe(res => {
         this.editCategoryFormData = res;
-        this.editCategoryFormList = res.FormList
+        // this.editCategoryFormList = res.FormList
         this.showCategoryEdit = true; // for show dialog
         console.log(res);
         this.editCatModel = true;
