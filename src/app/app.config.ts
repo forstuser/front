@@ -3,7 +3,7 @@ export const appConfig = {
       apiUrl: 'https://admin-dev.binbill.com/',
       // apiUrl: 'https://admin.binbill.com/',
       // apiUrl: 'http://13.126.168.35:3000/',
-      // apiUrl: 'http://cb6fca0c.ngrok.io/',
+      // apiUrl: ' http://a28cabef.ngrok.io/',
       imageUrl :'https://consumer-dev.binbill.com/'
       // imageUrl :'https://consumer.binbill.com/'
 };

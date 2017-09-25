@@ -146,7 +146,7 @@
           <td>{{ item.category }}</td>
           <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span> <span class="btn btn-warning btn-circle waves-effect waves-circle waves-float" (click)="viewCategory(list)" title="Delete"><i class="material-icons">visibility</i></span>
           </td> -->
-          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-warning btn-circle waves-effect waves-circle waves-float" (click)="viewCategory(list)" title="Delete"><i class="material-icons">visibility</i></span>
+          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(item)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-warning btn-circle waves-effect waves-circle waves-float" (click)="viewCategory(item)" title="Delete"><i class="material-icons">visibility</i></span>
           </td>
         </tr>
       </tbody>
@@ -203,9 +203,9 @@
     <hr>
     <h4 class="modal-title text-center bg-grey" id="smallModalLabel">Edit Category Form</h4>
   </div>
-  <pre>form value: <br>{{editCategoryForm.value | json}}</pre>
+  <!-- <pre>form value: <br>{{editCategoryForm.value | json}}</pre> -->
   <div class="modal-body">
-    <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit)="updateCategory(editCategoryForm.value)">
+    <form [formGroup]='editCategoryForm' (ngSubmit)="updateCategory(editCategoryForm.value)">
       <div class="row clearfix">
         <div class="col-lg-4 col-lg-offset-1  col-md-4 col-md-offset-1 col-sm-4 col-xs-6">
           <label>
@@ -213,7 +213,6 @@
           </label>
           <div class="form-group">
             <select class="form-control dropdown" formControlName="RefID">
-              <option>Select</option>
               <option *ngFor="let mainCategoryList of mainCat?.CategoryList" [ngValue]="mainCategoryList.ID">{{ mainCategoryList.Name }}</option>
             </select>
           </div>
@@ -224,13 +223,12 @@
           </label>
           <div class="form-group">
             <div class="form-line">
-              <input type="text" class="form-control" formControlName="Name">
+              <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')">
             </div>
             <p class="text-danger" *ngIf="!editCategoryForm.controls['Name'].valid && editCategoryForm.controls['Name'].touched">Name is required</p>
           </div>
         </div>
       </div>
-
       <!-- template for add form  -->
       <div class="row clearfix">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -249,9 +247,8 @@
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
                 <label>
                   Type
-
                 </label>
-                <select class="form-control dropdown" placeholder="select type" formControlName="Type">
+                <select class="form-control dropdown" [(ngModel)]="this['Dropdown'+i]" placeholder="select type" formControlName="Type">
                   <option value="1">Input</option>
                   <option value="2">Dropdown</option>
                 </select>
@@ -268,35 +265,24 @@
                   </div>
                 </div>
               </div>
-              <div *ngFor="let item2 of List">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                  <label>
-                    Dropdown Name
-                  </label>
-                  <div class="form-group">
-                    <div class="form-line">
-                      <input type="text" class="form-control" formControlName="DropdownName">
-                    </div>
-                  </div>
-                </div>
-              </div>
+
               <!--Dropdown value array start -->
-              <!-- <div *ngIf="this['Dropdown'+i] ==  2">
+              <div *ngIf="this['Dropdown'+i] == 2">
                 <div formArrayName="List">
                   <div [formGroupName]="j" *ngFor="let item2 of item.controls.List.controls; let j = index;">
                     <div class="col-lg-6 col-md-6 col-sm-6 " *ngIf="j!=0">
 
                     </div>
-                      <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 fix-margin">
-                        <label *ngIf="j==0">
-                          Dropdown Name
-                        </label>
-                        <div class="form-group">
-                          <div class="form-line">
-                            <input type="text" class="form-control" formControlName="DropdownName" placeholder="Enter display name">
-                          </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 fix-margin">
+                      <label *ngIf="j==0">
+                        Dropdown Name
+                      </label>
+                      <div class="form-group">
+                        <div class="form-line">
+                          <input type="text" class="form-control" formControlName="DropdownName" placeholder="Enter display name">
                         </div>
                       </div>
+                    </div>
                     <div class="col-lg-1 col-md-1 col-sm-1 col-xs-6 ">
                       <button type="button" class="btn btn-success  btn-xs" (click)="addValues2(i)" *ngIf="j==0">Add value</button>
                       <p></p>
@@ -304,10 +290,10 @@
                     </div>
                   </div>
                 </div>
-              </div> -->
-              <!-- Dropdown value array end  -->
+              </div>
+              <!--Dropdown value array end  -->
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editCategoryForm.controls['FormList'].length > 1" (click)="removeItem2(i)">Remove</button>
+                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editCategoryForm.controls['FormList'].length > 1" (click)="removeItem2(i);deleteForm(item._value.FormID)">Remove</button>
               </div>
             </div>
             <div *ngIf='i>=0'>
@@ -319,7 +305,7 @@
       </div>
       <div class="row clearfix">
         <div class="col-lg-3 col-lg-offset-9  col-md-3 col-md-offset-9 col-sm-4 col-xs-6">
-          <input type="submit" value="Save" class="btn btn-success m-t-15 waves-effect" [disabled]="!editCategoryForm.valid">
+          <input type="submit" value="CREATE" class="btn btn-success m-t-15 waves-effect" [disabled]="!editCategoryForm.valid">
         </div>
       </div>
     </form>

@@ -188,6 +188,19 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/AddCategoryForm', data, options).map((response: Response) => response.json());
         }
+        // Create category
+        editCategoryForm(category: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                category['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(category);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
+        }
         // Update category
         updateCategory(category: any) {
                 // get login user credentials from localstorage
@@ -951,5 +964,18 @@ export class UserService {
                                 return res.blob();
                         })
 
+        }
+        deleteCategoryForm(formID:number){
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                const body = { TokenNo: this.TokenNo, FormID: formID, DeleteAll:true };
+                const data = JSON.stringify(body);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/DeleteCategoryForm', data, options)
+                        .map((response: Response) => response.json());
         }
 }

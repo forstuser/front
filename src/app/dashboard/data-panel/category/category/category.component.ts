@@ -170,16 +170,17 @@ export class CategoryComponent implements OnInit {
     console.log(payOffObj,'pay')
     return new FormGroup({
       Type: new FormControl(payOffObj.Type),
+      FormID:new FormControl(payOffObj.FormID),
       ElementName: new FormControl(payOffObj.ElementName),
-      List: new FormControl(payOffObj.List)
+      List: new FormControl(payOffObj.List[0])
     });
   }
   updateCategory(category: any) {
+    // category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
     console.log("caregory",category);
-    category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
-    this.userService.updateCategory(category)
+    this.userService.editCategoryForm(category)
       .subscribe(res => {
-        // console.log(res);
+        console.log(res);
         alert('category updated successfully');
         this.showDialog = false;
         this.userService.getCategoryList(2) // list update after edit
@@ -218,5 +219,13 @@ export class CategoryComponent implements OnInit {
     }
     back(){
       this.showCategoryEdit = false;
+    }
+    deleteForm(drop){
+      console.log(drop,"drop");
+      this.userService.deleteCategoryForm(drop)
+        .subscribe(res=>{
+          console.log(res);
+          
+        })
     }
 }

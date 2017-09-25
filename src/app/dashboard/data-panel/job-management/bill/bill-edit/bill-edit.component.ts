@@ -145,7 +145,7 @@ export class BillEditComponent implements OnInit {
         this.consumerBillDetail = res; // all array is here
         // console.log("date bind", this.dateBind)
         this.addedOfflineSeller = this.consumerBillDetail.BillOfflineSeller;
-        this.imageArray = this.consumerBillDetail.BillImage;
+        this.imageArray = [];
         this.productFormFeeder = this.consumerBillDetail.ProductForm;
         this.fillProduct(0);
         //   for(let i of this.productFormFeeder[0].forms){
@@ -259,7 +259,7 @@ export class BillEditComponent implements OnInit {
     //  for discard image
     this.dataservice.currentMessage
       .subscribe(res => {
-        // console.log(res, "response through service")
+        console.log(res, "response through service")
         this.imageID = res.split('bills/').pop().split('/files').shift();
         if (this.imageArray.includes(this.imageID)) {
           console.log("Image already added");
@@ -378,12 +378,13 @@ export class BillEditComponent implements OnInit {
   // ********************************Product Info form functions ************************************
   // get list after select main category
   onSelectMainCategory(id) {
-    // console.log(id);
+    // console.log(id,"on select main");
     const res = id.split(' ');
-    // console.log(res[1]);
+    console.log(res[1]);
     this.userservice.getCategoryListbyRefID(res[1])
       .subscribe(res => {
-        this.getSubCatList = res;
+        console.log(res);
+        this.cat = res;
       });
   }
   // get list after select category
@@ -707,7 +708,9 @@ export class BillEditComponent implements OnInit {
       "AMCList": this.AMCFormContent,
       "RepairList": this.repairFormContent
     }
+    this.consumerBillDetail.ProductList[0].ProductID =""; // for new product
     this.FinalProductContent.push(this.productData);
+    this.consumerBillDetail.ProductList[0].ProductID = null;
     this.productInfoFormContent = [];
     this.productFormContent = [];
     this.insuranceFormContent = [];
