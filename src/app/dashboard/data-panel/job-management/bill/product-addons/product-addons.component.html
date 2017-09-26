@@ -45,9 +45,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
-          </div>
+          <select class="form-control dropdown" name="PremiumType" ngModel>
+            <option value="Yearly">Yearly</option>
+            <option value="HalfYearly">HalfYearly</option>
+            <option value="Quarterly">Quarterly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Weekly">Weekly</option>
+            <option value="Daily">Daily</option>
+         </select>
         </div>
       </div>
     </div>
@@ -67,8 +72,8 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
+          <div>
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindEffective"></my-date-picker>
           </div>
         </div>
       </div>
@@ -79,8 +84,8 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
+          <div>
+            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="insuranceDateBindExpiry"></my-date-picker>
           </div>
         </div>
       </div>
@@ -110,10 +115,10 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <select class="form-control dropdown" (change)="selectType($event.target.value)">
-                    <option>Select</option>
-                    <option value="brand">Brand</option>
-                    <option value="seller">Seller</option>
-                </select>
+              <option>Select</option>
+              <option value="brand">Brand</option>
+              <option value="seller">Seller</option>
+          </select>
         </div>
       </div>
       <div *ngIf="selectDropdown == 'brand'">
@@ -155,7 +160,7 @@
           <div *ngFor="let image of imageArray">
             <div class="col-sm-6 col-md-3">
               <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                  <img src="{{imageLink}}bills/{{image}}/files" height="100px">
                 <div class="caption">
                   <p class="text-center">
                     <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -173,10 +178,13 @@
 <!-- mid panel start -->
 <div *ngIf="showMidPanel1">
   <div class="row clearfix">
-    <div class="col-md-6">
+      <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" (click)="backtoShowInsuranceForm()">Back</button>
+        </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreInsurance()">Add More Insurance</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addWarranty()">Add Warranty </button>
     </div>
   </div>
@@ -192,18 +200,7 @@
       <u>Form </u>
     </h4>
     <hr>
-    <!-- <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>Warranty Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="WarrantyImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div>
-    </div> -->
+
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Policy No.</b></small>
@@ -220,9 +217,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
-          </div>
+            <select class="form-control dropdown" name="PremiumType" ngModel>
+                <option value="Yearly">Yearly</option>
+                <option value="HalfYearly">HalfYearly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Daily">Daily</option>
+             </select>
         </div>
       </div>
     </div>
@@ -242,9 +244,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="warrantyDateBindEffective"></my-date-picker>            
         </div>
       </div>
     </div>
@@ -254,11 +254,20 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="warrantyDateBindExpiry"></my-date-picker>
+            
         </div>
       </div>
+      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <small><b>Warranty Type</b></small>
+       </div>
+       <div class="col-lg-4 col-md-4 ">
+          <div class="form-group">
+              <div class="form-line">
+              <input type="text" name="WarrantyType" class="form-control input_fix" ngModel>          
+                </div>
+            </div>
+       </div>
     </div>
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -317,7 +326,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
+      <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowInsuranceForm()">Back</button>          
+      </div>
+      <div class="col-md-4">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
       </div>
       <div class="col-md-4">
@@ -329,7 +341,7 @@
           <div *ngFor="let image of imageArray">
             <div class="col-sm-6 col-md-3">
               <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                  <img src="{{imageLink}}bills/{{image}}/files" height="100px">
                 <div class="caption">
                   <p class="text-center">
                     <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -347,10 +359,14 @@
 <!-- mid panel 2 start -->
 <div *ngIf="showMidPanel2">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>
+        
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreWarranty()">Add More Warranty</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addAMC()">Add AMC</button>
     </div>
   </div>
@@ -365,18 +381,7 @@
       <u>Form </u>
     </h4>
     <hr>
-    <!-- <div class="row clearfix">
-      <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-        <small><b>AMC Image</b></small>
-      </div>
-      <div class="col-lg-4 col-md-4 ">
-        <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="AMCImage" class="form-control input_fix" ngModel>
-          </div>
-        </div>
-      </div>
-    </div> -->
+
     <div class="row clearfix">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Policy No.</b></small>
@@ -393,9 +398,14 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PremiumType" class="form-control input_fix" ngModel>
-          </div>
+            <select class="form-control dropdown" name="PremiumType" ngModel>
+                <option value="Yearly">Yearly</option>
+                <option value="HalfYearly">HalfYearly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Daily">Daily</option>
+             </select>
         </div>
       </div>
     </div>
@@ -415,9 +425,7 @@
       </div>
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyEffectiveDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyEffectiveDate" [options]="myDatePickerOptions" [(ngModel)]="amcDateBindEffective"></my-date-picker>            
         </div>
       </div>
     </div>
@@ -427,9 +435,7 @@
       </div>
       <div class="col-lg-4 col-md-4 ">
         <div class="form-group">
-          <div class="form-line">
-            <input type="text" name="PolicyExpiryDate" class="form-control input_fix" ngModel>
-          </div>
+            <my-date-picker name="PolicyExpiryDate" [options]="myDatePickerOptions" [(ngModel)]="amcDateBindExpiry"></my-date-picker>            
         </div>
       </div>
     </div>
@@ -490,7 +496,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
+      <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>                  
+      </div>
+      <div class="col-md-4">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
       </div>
       <div class="col-md-4">
@@ -502,7 +511,7 @@
           <div *ngFor="let image of imageArray">
             <div class="col-sm-6 col-md-3">
               <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                  <img src="{{imageLink}}bills/{{image}}/files" height="100px">
                 <div class="caption">
                   <p class="text-center">
                     <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -520,10 +529,13 @@
 <!-- mid panel 3 start -->
 <div *ngIf="showMidPanel3">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowWarrantyForm()">Back</button>        
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreAMC()">Add More AMC</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-orange btn-block btn-lg" (click)="addRepair()">Add Repair</button>
     </div>
   </div>
@@ -589,7 +601,7 @@
       <div class="col-lg-4 col-md-4">
         <div class="form-group">
           <div class="form-line">
-            <input type="text" name="RepairDate" class="form-control input_fix" ngModel>
+            <my-date-picker name="RepairDate" [options]="myDatePickerOptions" [(ngModel)]="repairDateBind"></my-date-picker>
           </div>
         </div>
       </div>
@@ -633,7 +645,10 @@
       </div>
     </div>
     <div class="row clearfix">
-      <div class="col-md-8">
+      <div class="col-md-4">
+        <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowAMCForm()">Back</button>
+      </div>
+      <div class="col-md-4">
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
       </div>
       <div class="col-md-4">
@@ -645,7 +660,7 @@
           <div *ngFor="let image of imageArray">
             <div class="col-sm-6 col-md-3">
               <div class="thumbnail" *ngIf="image">
-                <img src="http://52.66.17.137:3000/bills/{{image}}/files">
+                  <img src="{{imageLink}}bills/{{image}}/files" height="100px">
                 <div class="caption">
                   <p class="text-center">
                     <a class="btn btn-danger btn-xs waves-effect" (click)="removeMainImage(image)">Remove</a>
@@ -663,10 +678,13 @@
 <!-- end panel start -->
 <div *ngIf="endPanel">
   <div class="row clearfix">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        <button class="btn bg-teal btn-block btn-lg" (click)="backtoShowRepairForm()">Back</button>        
+    </div>
+    <div class="col-md-4">
       <button class="btn bg-green btn-block btn-lg" (click)="addMoreRepair()">Add More Repair</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button class="btn bg-teal btn-block btn-lg" (click)="createBill()">Create Bill</button>
     </div>
   </div>

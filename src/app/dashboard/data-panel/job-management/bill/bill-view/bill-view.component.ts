@@ -74,6 +74,16 @@ export class BillViewComponent implements OnInit {
         this.showForm = false;
       })
   }
+  getDetailofCurrentProduct(res){
+    console.log(res);
+    this.userservice.consumerBillProductByID(res.ProductID)
+      .subscribe(res=>{
+        console.log(res);
+        this.billDetailbyID = res;
+        this.showInsuranceForm = true;
+        this.showForm = false;
+      })
+  }
   nextToSeller() {
     this.j = 0;
     this.showGeneralForm = false;

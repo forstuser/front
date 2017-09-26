@@ -1,3 +1,4 @@
+import { appConfig } from './../../../../../app.config';
 import { ConsumerBill } from './../../../../../_models/consumerBill.interface';
 import { NgForm } from '@angular/forms';
 import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
@@ -7,13 +8,14 @@ import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { IMultiSelectOption, IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
-
+import { IMyDpOptions } from 'mydatepicker';
 @Component({
   selector: 'app-product-addons',
   templateUrl: './product-addons.component.html',
   styleUrls: ['./product-addons.component.css']
 })
 export class ProductAddonsComponent implements OnInit {
+  imageLink: String = appConfig.imageUrl;
   billId: any;
   imageArray:any[]=[];
   productID:number;
@@ -26,6 +28,15 @@ export class ProductAddonsComponent implements OnInit {
   showRepairForm: boolean = false;
   endPanel: boolean = false;
   categoryID:number;
+    // Settings configuration
+    private myDatePickerOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'yyyy-mm-dd',
+    };
+    private myDatePickerOptions1: IMyDpOptions = {
+      // other options...
+      dateFormat: 'yyyy-mm-dd',
+    };
   inclusionList: IMultiSelectOption[];
   exclusionList: IMultiSelectOption[];
   mySettings: IMultiSelectSettings = {
@@ -54,32 +65,27 @@ export class ProductAddonsComponent implements OnInit {
   FinalProductContent: any[] = [];
   finalData: any = {};
   userID:number;
+  insuranceDateBindEffective: Object = {};
+  insuranceDateBindExpiry: Object = {};
+  warrantyDateBindEffective: Object = {};
+  warrantyDateBindExpiry: Object = {};
+  amcDateBindEffective: Object = {};
+  amcDateBindExpiry: Object = {};
+  repairDateBind: Object = {};
+  imageID: number;
   constructor(private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService) {
     this.billId = route.snapshot.params.bid;
     this.productID = route.snapshot.params.pid;
     this.userID = route.snapshot.params.uid;
-    console.log(this.route,"route");
+    // console.log(this.route,"route");
+    this.imageArray = [];
+    this.discardImageFun();
 
   }
 
 
   ngOnInit() {
-        this.imageArray = [];
-        // get current bill details
-        this.userservice.getConsumerBillByID(this.billId)
-        .subscribe(res => {
-          console.log('bill details', res);
-          this.consumerBill = res;
-        })
-    this.dataservice.currentMessage
-    .subscribe(res => {
-      // this.message = res;
-      if (this.imageArray.includes(res)) {
-        console.log("Image already added");
-      } else {
-        this.imageArray.push(res);
-      }
-    })
+
     // get details of product
     this.userservice.consumerBillProductByID(this.productID)
       .subscribe(res=>{
@@ -111,7 +117,21 @@ export class ProductAddonsComponent implements OnInit {
       }
       console.log(this.imageArray);
     }
-
+    discardImageFun() {
+      //  for discard image
+      this.dataservice.currentMessage
+        .subscribe(res => {
+          // console.log(res, "response through service")
+          this.imageID = res.split('bills/').pop().split('/files').shift();
+          if (this.imageArray.includes(this.imageID)) {
+            console.log("Image already added");
+          } else {
+            this.imageArray.push(this.imageID);
+            console.log('image array is', this.imageArray)
+          }
+  
+        })
+    }
   // ********************************Insurance form functions ***************************************
   // select type brand or seller
   selectType(data) {
@@ -144,8 +164,8 @@ export class ProductAddonsComponent implements OnInit {
       "AmountInsured":form.value.AmountInsured,
       "PremiumType":form.value.PremiumType,
       "PremiumAmount":form.value.PremiumAmount,
-      "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-      "PolicyExpiryDate":form.value.PolicyExpiryDate,
+      "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+      "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
       "BrandID":form.value.BrandID,
       "SellerInfo":form.value.SellerInfo,
       "Inclusions":form.value.Inclusions,
@@ -155,7 +175,7 @@ export class ProductAddonsComponent implements OnInit {
     this.insuranceFormContent.push(this.insuranceData);
     this.showInsuranceForm = false;
     this.showMidPanel1 = true;
-    // console.log(this.insuranceFormContent);
+    console.log(this.insuranceFormContent);
   }
   // skip insurance form
   skipInsurance() {
@@ -172,8 +192,8 @@ warrantyFormData(form: NgForm) {
     "PolicyNo":form.value.PolicyNo,
     "PremiumType":form.value.PremiumType,
     "PremiumAmount":form.value.PremiumAmount,
-    "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-    "PolicyExpiryDate":form.value.PolicyExpiryDate,
+    "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+    "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
     "BrandID":form.value.BrandID,
     "SellerInfo":form.value.SellerInfo,
     "Inclusions":form.value.Inclusions,
@@ -198,8 +218,8 @@ amcFormData(form: NgForm) {
     "PolicyNo":form.value.PolicyNo,
     "PremiumType":form.value.PremiumType,
     "PremiumAmount":form.value.PremiumAmount,
-    "PolicyEffectiveDate":form.value.PolicyEffectiveDate,
-    "PolicyExpiryDate":form.value.PolicyExpiryDate,
+    "PolicyEffectiveDate": form.value.PolicyEffectiveDate.formatted,
+    "PolicyExpiryDate": form.value.PolicyExpiryDate.formatted,
     "BrandID":form.value.BrandID,
     "SellerInfo":form.value.SellerInfo,
     "Inclusions":form.value.Inclusions,
@@ -224,7 +244,7 @@ repairFormData(form: NgForm) {
     "RepairValue":form.value.RepairValue,
     "Taxes":form.value.Taxes,
     "RepairInvoiceNumber":form.value.RepairInvoiceNumber,
-    "RepairDate":form.value.RepairDate,
+    "RepairDate": form.value.RepairDate.formatted,
     "BrandID":form.value.BrandID,
     "SellerInfo":form.value.SellerInfo,
     "RepairImage":this.repairImageArray
@@ -268,11 +288,11 @@ addMoreRepair() {
   this.endPanel = false;
 }
 createBill() {
-  console.log(' insuranceFormContent:', this.insuranceFormContent);
-  console.log(' warrantyFormContetn:', this.warrantyFormContent);
-  console.log('AMCFormContent :', this.AMCFormContent);
-  console.log('repairFormContent :', this.repairFormContent);
-  console.log('FinalProductContent :', this.FinalProductContent);
+  // console.log(' insuranceFormContent:', this.insuranceFormContent);
+  // console.log(' warrantyFormContetn:', this.warrantyFormContent);
+  // console.log('AMCFormContent :', this.AMCFormContent);
+  // console.log('repairFormContent :', this.repairFormContent);
+  // console.log('FinalProductContent :', this.FinalProductContent);
   this.endPanel = false;
   // this.showForm = true;
   // make final object
@@ -300,4 +320,28 @@ createBill() {
 
     })
 }
+// back funtions
+backtoShowInsuranceForm() {
+  // this.insuranceFormContent = [];
+  this.showInsuranceForm = true;
+  this.showWarrantyForm = false;
+  this.showMidPanel1 = false;
+}
+  backtoShowWarrantyForm() {
+    // this.warrantyFormContent = [];
+    this.showAMCForm = false;
+    this.showWarrantyForm = true;
+    this.showMidPanel2 = false;
+  }
+  backtoShowAMCForm() {
+    // this.AMCFormContent = [];
+    this.showAMCForm = true;
+    this.showRepairForm = false;
+    this.showMidPanel3 = false;
+  }
+  backtoShowRepairForm() {
+    // this.repairFormContent = [];
+    this.showRepairForm = true;
+    this.endPanel = false;
+  }
 }
