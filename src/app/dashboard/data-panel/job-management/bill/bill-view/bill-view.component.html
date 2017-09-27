@@ -33,7 +33,7 @@
             <th><small>{{ bill?.Name }}</small></th>
             <th><small>{{ bill?.Phone }}</small></th>
             <th><small>{{ bill?.PurchaseDate }}</small></th>
-            <th><small>{{ bill.TotalAmount }}</small></th>
+            <th><small>{{ bill?.TotalAmount }}</small></th>
             <th><small><span class="btn btn-info btn-xs" title="View" (click)="getDetailofCurrentBill(bill)" ><i class="material-icons" >visibility</i></span></small></th>
           </tr>
         </tbody>
@@ -61,12 +61,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let bill of consumerBill?.ProductDetail">
-            <th><small>{{ bill.ProductName }}</small></th>
-            <th><small>{{ bill.MasterCatName }}</small></th>
-            <th><small>{{ bill.CatName }}</small></th>
-            <th><small>{{ bill.brand_name }}</small></th>
-            <th><small>{{ bill.Tag }}</small></th>
-            <th><small>{{ bill.Value }}</small></th>
+            <th><small>{{ bill?.ProductName }}</small></th>
+            <th><small>{{ bill?.MasterCatName }}</small></th>
+            <th><small>{{ bill?.CatName }}</small></th>
+            <th><small>{{ bill?.brand_name }}</small></th>
+            <th><small>{{ bill?.Tag }}</small></th>
+            <th><small>{{ bill?.Value }}</small></th>
             <th><small><span class="btn btn-info btn-xs" title="Edit"  (click)="getDetailofCurrentProduct(bill)"><i class="material-icons" >visibility</i></span></small></th>
           </tr>
         </tbody>
@@ -348,7 +348,7 @@
 
 <!-- Insurance Form Start -->
 <div *ngIf="showInsuranceForm">
-  <div *ngIf="billDetailbyID?.InsuranceList.length>0 else elseTemplate">
+  <div *ngIf="billDetailbyID?.InsuranceList?.length>0 else elseTemplate">
   <div class="row clearfix">
       <div class="col-md-2" *ngFor="let prod of billDetailbyID?.InsuranceList; let j=index ">
         <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Insurance {{j+1}}</button>
@@ -423,7 +423,7 @@
         </div>
       </div>
     </div>
-    <div class="row clearfix" *ngIf="billDetailbyID?.InsuranceInclusions.length > 0 || billDetailbyID?.InsuranceExclusions.length">
+    <div class="row clearfix" *ngIf="billDetailbyID?.InsuranceInclusions?.length > 0 || billDetailbyID?.InsuranceExclusions?.length">
       <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
         <small><b>Inclusions</b></small>
       </div>
@@ -589,7 +589,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="billDetailbyID?.WarrantyList[j].SellerName">
+      <div *ngIf="billDetailbyID?.WarrantyList[j]?.SellerName">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
           <small><b>Seller</b></small>
         </div>
@@ -631,7 +631,7 @@
 
 <!-- AMC Form Start -->
 <div *ngIf="showAMCForm">
-  <div *ngIf="billDetailbyID?.AMCList.length>0 else elseTemplate">
+  <div *ngIf="billDetailbyID?.AMCList?.length>0 else elseTemplate">
       <div class="row clearfix">
           <div class="col-md-2" *ngFor="let prod of billDetailbyID?.AMCList; let j=index ">
             <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">AMC {{j+1}}</button>
@@ -759,7 +759,7 @@
 
 <!-- Repair Form Start -->
 <div *ngIf="showRepairForm">
-  <div *ngIf="billDetailbyID?.RepairList.length>0 else elseTemplate">
+  <div *ngIf="billDetailbyID?.RepairList?.length>0 else elseTemplate">
       <div class="row clearfix">
           <div class="col-md-2" *ngFor="let prod of billDetailbyID?.RepairList; let j=index ">
             <button class="btn btn-sm btn-block btn-info" (click)="fillProduct(j)">Repair {{j+1}}</button>
