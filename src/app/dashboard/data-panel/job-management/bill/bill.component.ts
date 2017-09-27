@@ -45,6 +45,10 @@ export class BillComponent implements OnInit {
     .subscribe(res => {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;
+      console.log(this.imageArray.length)
+      if(this.imageArray.length ==0){
+        alert("There is no image in this bill please contact Admin")
+      }
       for(let i of res.ImageList){
         this.images.push(this.imageLink+'bills/'+i.ImageID+"/files")
       }
@@ -86,6 +90,6 @@ export class BillComponent implements OnInit {
     console.log(e)
   }
   rotate(){
-this.imagerotation =  this.imagerotation + 90;
+  this.imagerotation =  this.imagerotation + 90;
   }
 }
