@@ -15,6 +15,7 @@ export class OfflineSellerListComponent implements OnInit {
   showDialog = false;
   offlineSellerForm: FormGroup;
   cat:Category;
+  showOfflineSellerList: boolean = true; // for toggle form
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -73,7 +74,7 @@ export class OfflineSellerListComponent implements OnInit {
   // passs current brand id as argument and open the popup
   openOfflineSellerModel(item) {
 
-    this.showDialog = true ; // for show dialog
+    this.showOfflineSellerList = false ; // for show dialog
     // reset  editBrand form
     this.offlineSellerForm = new FormGroup({
       ID: new FormControl(''),
@@ -142,7 +143,7 @@ export class OfflineSellerListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('Offline Seller updated successfully');
-        this.showDialog = false ;
+        this.showOfflineSellerList = true ;
         this.userService.getOfflineSellerList() // list update after edit
           .subscribe(offlineSellerList => {
           this.offlineSeller = offlineSellerList;
@@ -163,4 +164,8 @@ export class OfflineSellerListComponent implements OnInit {
         });
     });
   }
+    // back button 
+    back() {
+      this.showOfflineSellerList = true;
+    }
 }
