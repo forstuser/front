@@ -17,17 +17,17 @@ export class UnderProgressComponent implements OnInit {
   bills: Bill;
   assignForm: FormGroup;
   assignQeForm: FormGroup;
-  discardForm:FormGroup;
-  showDialog:boolean = false;
-  showQeDialog:boolean = false;
-  discardDialog:boolean = false;
+  discardForm: FormGroup;
+  showDialog: boolean = false;
+  showQeDialog: boolean = false;
+  discardDialog: boolean = false;
   item: Object = {}; // object for single user
   statusCode: Number;
-  prev:number=0;
-  next:number=10;
-  leftFlag:boolean= true;
-  rightFlag:boolean = false;
-  noData:boolean = false;
+  prev: number = 0;
+  next: number = 10;
+  leftFlag: boolean = true;
+  rightFlag: boolean = false;
+  noData: boolean = false;
   userType: String;
   showImageDialog = false;
   billId: number;
@@ -36,6 +36,8 @@ export class UnderProgressComponent implements OnInit {
   imagerotation: number = 0;
   imageIndex: number = 0;
   discardImage: object;
+  loader: boolean = false;
+  arrayLength:number;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.UserType;
@@ -57,7 +59,7 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+    this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
       .subscribe(bills => {
         this.bills = bills;
         console.log(this.bills);
@@ -75,40 +77,40 @@ export class UnderProgressComponent implements OnInit {
         console.log(users);
       });
   }
-    // function for pagination
-    left(){
-      this.noData = false;
-      this.prev = this.prev-10;
-      if(this.prev ==0){
-        this.leftFlag = true;
-      }
-      this.userservice.getAdminBillList(8,this.prev,this.next)
-      .subscribe( bills => {
+  // function for pagination
+  left() {
+    this.noData = false;
+    this.prev = this.prev - 10;
+    if (this.prev == 0) {
+      this.leftFlag = true;
+    }
+    this.userservice.getAdminBillList(8, this.prev, this.next)
+      .subscribe(bills => {
         console.log(bills.statusCode)
-        if(bills.statusCode==100){
+        if (bills.statusCode == 100) {
           this.rightFlag = false;
         }
         this.bills = bills;
         console.log(this.bills);
       });
-    }
-    right(){
-      this.noData = false;
-      this.leftFlag = false;
-      this.prev = this.prev+10;
-      console.log(this.prev);
-      console.log(this.next);
-      this.userservice.getAdminBillList(8,this.prev,this.next)
-      .subscribe( bills => {
+  }
+  right() {
+    this.noData = false;
+    this.leftFlag = false;
+    this.prev = this.prev + 10;
+    console.log(this.prev);
+    console.log(this.next);
+    this.userservice.getAdminBillList(8, this.prev, this.next)
+      .subscribe(bills => {
         console.log(bills.statusCode)
-        if(bills.statusCode==105){
+        if (bills.statusCode == 105) {
           this.rightFlag = true;
           this.noData = true;
         }
         this.bills = bills;
         console.log(this.bills);
       });
-    }
+  }
   // passs current user as argument and open the popup
   openModel(item: any) {
     console.log(item);
@@ -127,7 +129,7 @@ export class UnderProgressComponent implements OnInit {
         if (res.statusCode == 100) {
           alert('assign successfull');
           this.showDialog = false;
-          this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+          this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
             .subscribe(bill => {
               this.bills = bill;
               console.log(this.bills);
@@ -153,7 +155,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showQeDialog = false;
-        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -184,25 +186,28 @@ export class UnderProgressComponent implements OnInit {
   //       });
   //     })
   // }
-    // for view image
-    openImageModel(req: any) {
-      this.showImageDialog = true;
-      console.log(req);
-      this.billId = req.BID;
-      this.images = [];
-      this.imageArray = [];
-      this.userservice.getConsumerBillByID(req.BID)
-        .subscribe(res => {
-          // console.log(res);
-          this.imageArray = res.ImageList;
-          // console.log(this.imageArray);
-          for (let i of res.ImageList) {
-            this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
-          }
-        })
-      // this.discardBillImage(req.BID);
-    }
-      // prev image
+  // for view image
+  openImageModel(req: any) {
+    this.loader = true;
+    this.showImageDialog = true;
+    console.log(req);
+    this.billId = req.BID;
+    this.images = [];
+    this.imageArray = [];
+    this.userservice.getConsumerBillByID(req.BID)
+      .subscribe(res => {
+        // console.log(res);
+        this.imageArray = res.ImageList;
+        this.arrayLength = this.imageArray.length;
+        // console.log(this.imageArray);
+        for (let i of res.ImageList) {
+          this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
+        }
+        this.loader = false;
+      })
+    // this.discardBillImage(req.BID);
+  }
+  // prev image
   prevImage() {
     if (this.imageIndex > 0) {
       this.imageIndex = this.imageIndex - 1;
@@ -236,36 +241,36 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
-        .subscribe(bills => {
-          this.bills = bills;
-          console.log(this.bills);
-        });
+        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+          .subscribe(bills => {
+            this.bills = bills;
+            console.log(this.bills);
+          });
       })
   }
-    // discard bill image
-    
-    discardBillImage() {
-        console.log("here")
-          // console.log(this.imageIndex,"sas");
-          const imageID = this.imageArray[this.imageIndex].ImageID;
-          console.log(imageID)
-          this.discardImage = {
-            'BID': this.billId,
-            'ImageID': imageID,
-            'Comments': 'Image Discarded'
-          }
-          this.userservice.discardConsumerBillImage(this.discardImage)
-            .subscribe(res => {
-              console.log(res)
-              alert('Image discarded');
-              // this.showImageDialog = false;
-              // if userType is Admin/SuperAdmin get list of new bills
-              this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
-              .subscribe(bills => {
-                this.bills = bills;
-                console.log(this.bills);
-              });
-            })  
-        }
+  // discard bill image
+
+  discardBillImage() {
+    console.log("here")
+    // console.log(this.imageIndex,"sas");
+    const imageID = this.imageArray[this.imageIndex].ImageID;
+    console.log(imageID)
+    this.discardImage = {
+      'BID': this.billId,
+      'ImageID': imageID,
+      'Comments': 'Image Discarded'
+    }
+    this.userservice.discardConsumerBillImage(this.discardImage)
+      .subscribe(res => {
+        console.log(res)
+        alert('Image discarded');
+        // this.showImageDialog = false;
+        // if userType is Admin/SuperAdmin get list of new bills
+        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+          .subscribe(bills => {
+            this.bills = bills;
+            console.log(this.bills);
+          });
+      })
+  }
 }

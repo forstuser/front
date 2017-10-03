@@ -166,7 +166,8 @@
   </app-dialog>
 </div>
 <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
-  <modal-content>
+    <modal-content>
+        <div *ngIf="!loader">
     <div class="body">
       <div class="row clearfix" style="overflow:scroll">
           <div class="col-md-12">
@@ -182,7 +183,13 @@
         <a href="{{images[imageIndex]}}"><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
         <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
         <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+        <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
       </p>
     </div>
+    </div>
+    <div class="text-center" *ngIf="loader">
+      <h1>Please Wait ...</h1>
+        <img src="../../../assets/images/loader.gif" alt="">
+      </div>
   </modal-content>
 </modal>

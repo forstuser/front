@@ -22,7 +22,9 @@ export class CompletedComponent implements OnInit {
   images: string[] = [];
   imageArray: any[] = [];
   imageIndex: number = 0;
-  imagerotation: number = 0;
+  imagerotation: number = 0; 
+  loader:boolean = false;
+  arrayLength:number;
   constructor(private userservice: UserService) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -144,6 +146,7 @@ export class CompletedComponent implements OnInit {
     // for view image
     openImageModel(req: any) {
       this.showImageDialog = true;
+      this.loader = true;
       console.log(req);
       this.billId = req.BID;
       this.images = [];
@@ -152,10 +155,12 @@ export class CompletedComponent implements OnInit {
         .subscribe(res => {
           console.log(res,"image");
           this.imageArray = res.ImageList;
+          this.arrayLength = this.imageArray.length;
           // console.log(this.imageArray);
           for (let i of res.ImageList) {
             this.images.push(this.imageLink +'bills/' + i.ImageID + '/files')
           }
+          this.loader = false;
         })
       // this.discardBillImage(req.BID);
     }

@@ -33,6 +33,8 @@ export class NewComponent implements OnInit {
   discardDialog: boolean = false;
   imagerotation: number = 0;
   discardImage: object;
+  loader: boolean = false;
+  arrayLength: number;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -194,19 +196,22 @@ export class NewComponent implements OnInit {
   }
   // for view image
   openImageModel(req: any) {
+    this.loader = true;
     this.showImageDialog = true;
-    console.log(req);
+    console.log(req, "image req");
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
     this.userservice.getConsumerBillByID(req.BID)
       .subscribe(res => {
-        console.log(res,"image");
+        console.log(res, "image");
         this.imageArray = res.ImageList;
-        // console.log(this.imageArray);
+        // console.log(this.imageArray.length,"lenght of array");
+        this.arrayLength = this.imageArray.length;
         for (let i of res.ImageList) {
-          this.images.push(this.imageLink +'bills/' + i.ImageID + '/files')
+          this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
         }
+        this.loader = false;
       })
     // this.discardBillImage(req.BID);
   }
@@ -254,28 +259,29 @@ export class NewComponent implements OnInit {
   }
   // discard bill image
   discardBillImage() {
-
+    // let comment = prompt("Enter Comment Message");
     // console.log(this.imageIndex,"sas");
     const imageID = this.imageArray[this.imageIndex].ImageID;
-    console.log(imageID)
-    this.discardImage = {
-      'BID': this.billId,
-      'ImageID': imageID,
-      'Comments': 'Image Discarded'
-    }
-    this.userservice.discardConsumerBillImage(this.discardImage)
-      .subscribe(res => {
-        console.log(res)
-        alert('Image discarded');
-        // this.showImageDialog = false;
-        // if userType is Admin/SuperAdmin get list of new bills
-        if (this.userType === '1' || this.userType === '2') {
-          this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
-            .subscribe(bill => {
-              this.billList = bill;
-              console.log(this.billList);
-            });
-        }
-      })  
+    // console.log(imageID)
+    // if comment is not null
+      this.discardImage = {
+        'BID': this.billId,
+        'ImageID': imageID,
+        'Comments': "Image discarded"
+      }
+      // this.userservice.discardConsumerBillImage(this.discardImage)
+      // .subscribe(res => {
+      //   console.log(res)
+      //   alert('Image discarded');
+      //   // this.showImageDialog = false;
+      //   // if userType is Admin/SuperAdmin get list of new bills
+      //   if (this.userType === '1' || this.userType === '2') {
+      //     this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+      //       .subscribe(bill => {
+      //         this.billList = bill;
+      //         console.log(this.billList);
+      //       });
+      //   }
+      // })
   }
 }
