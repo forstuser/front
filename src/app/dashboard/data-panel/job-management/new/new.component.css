@@ -12,3 +12,6 @@
 .disabled{
     display: none;
 }
+.modal .modal-content{
+    height: 600px !important;
+}

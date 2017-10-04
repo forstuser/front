@@ -1,7 +1,7 @@
 import { appConfig } from './../../../../app.config';
 import { NewList } from './../../../../_models/billList.interface';
 import { User } from './../../../../_models/user';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators ,NgForm} from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -196,6 +196,7 @@ export class NewComponent implements OnInit {
   }
   // for view image
   openImageModel(req: any) {
+    this.imageIndex =0;
     this.loader = true;
     this.showImageDialog = true;
     console.log(req, "image req");
@@ -257,31 +258,29 @@ export class NewComponent implements OnInit {
           });
       })
   }
-  // discard bill image
-  discardBillImage() {
-    // let comment = prompt("Enter Comment Message");
-    // console.log(this.imageIndex,"sas");
+   // discard bill image
+  commentBoxData(comment: string){
+    // console.log(form.value)
     const imageID = this.imageArray[this.imageIndex].ImageID;
-    // console.log(imageID)
-    // if comment is not null
-      this.discardImage = {
-        'BID': this.billId,
-        'ImageID': imageID,
-        'Comments': "Image discarded"
+    this.discardImage = {
+      'BID': this.billId,
+      'ImageID': imageID,
+      'Comments':comment
+    }
+    console.log(this.discardImage)
+  this.userservice.discardConsumerBillImage(this.discardImage)
+    .subscribe(res => {
+      console.log(res)
+      alert('Image discarded');
+      // this.showImageDialog = false;
+      // if userType is Admin/SuperAdmin get list of new bills
+      if (this.userType === '1' || this.userType === '2') {
+        this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+          .subscribe(bill => {
+            this.billList = bill;
+            console.log(this.billList);
+          });
       }
-      // this.userservice.discardConsumerBillImage(this.discardImage)
-      // .subscribe(res => {
-      //   console.log(res)
-      //   alert('Image discarded');
-      //   // this.showImageDialog = false;
-      //   // if userType is Admin/SuperAdmin get list of new bills
-      //   if (this.userType === '1' || this.userType === '2') {
-      //     this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
-      //       .subscribe(bill => {
-      //         this.billList = bill;
-      //         console.log(this.billList);
-      //       });
-      //   }
-      // })
+    })
   }
 }

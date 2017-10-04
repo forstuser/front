@@ -145,6 +145,7 @@ export class CompletedComponent implements OnInit {
   }
     // for view image
     openImageModel(req: any) {
+      this.imageIndex =0;
       this.showImageDialog = true;
       this.loader = true;
       console.log(req);

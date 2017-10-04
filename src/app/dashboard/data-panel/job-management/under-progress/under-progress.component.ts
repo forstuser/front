@@ -188,6 +188,7 @@ export class UnderProgressComponent implements OnInit {
   // }
   // for view image
   openImageModel(req: any) {
+    this.imageIndex =0;
     this.loader = true;
     this.showImageDialog = true;
     console.log(req);
@@ -248,29 +249,27 @@ export class UnderProgressComponent implements OnInit {
           });
       })
   }
-  // discard bill image
-
-  discardBillImage() {
-    console.log("here")
-    // console.log(this.imageIndex,"sas");
+   // discard bill image
+   commentBoxData(comment: string){
+    // console.log(form.value)
     const imageID = this.imageArray[this.imageIndex].ImageID;
-    console.log(imageID)
     this.discardImage = {
       'BID': this.billId,
       'ImageID': imageID,
-      'Comments': 'Image Discarded'
+      'Comments':comment
     }
+    console.log(this.discardImage)
     this.userservice.discardConsumerBillImage(this.discardImage)
-      .subscribe(res => {
-        console.log(res)
-        alert('Image discarded');
-        // this.showImageDialog = false;
-        // if userType is Admin/SuperAdmin get list of new bills
-        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
-          .subscribe(bills => {
-            this.bills = bills;
-            console.log(this.bills);
-          });
-      })
+    .subscribe(res => {
+      console.log(res)
+      alert('Image discarded');
+      // this.showImageDialog = false;
+      // if userType is Admin/SuperAdmin get list of new bills
+      this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+        .subscribe(bills => {
+          this.bills = bills;
+          console.log(this.bills);
+        });
+    })
   }
 }
