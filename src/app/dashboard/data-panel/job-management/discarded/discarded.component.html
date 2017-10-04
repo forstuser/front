@@ -28,12 +28,12 @@
             <tbody *ngFor="let bill of billList?.BillList; let i = index">
                 <tr>
                     <th scope="row">{{ i+1+prev }} </th>
-                    <td>{{ bill.BillNo}}</td>
+                    <td style="width:15%">{{ bill.BillNo}}</td>
                     <td>{{ bill.Name}}</td>
                     <td>{{ bill.PhoneNo}}</td>
                     <td>{{ bill.EmailID}}</td>
                     <td>{{ bill.BillDate | date}}</td>
-                    <td>{{bill.Comments}}</td>
+                    <td style="width:30%">{{bill.Comments}}</td>
                 </tr>
             </tbody>
         </table>
