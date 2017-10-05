@@ -52,14 +52,14 @@
   </div>
 </div>
 <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
-    <modal-content>
-      <div *ngIf="!loader">
+  <modal-content>
+    <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix" style="overflow:scroll">
-            <div class="col-md-12">
-                <img  [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
-                <p></p>
-            </div>
+          <div class="col-md-12">
+            <img [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <p></p>
+          </div>
         </div>
       </div>
       <div class="caption">
@@ -73,9 +73,9 @@
         </p>
       </div>
     </div>
-      <div class="text-center" *ngIf="loader">
-          <h1>Please Wait ...</h1>
-          <img src="../../../assets/images/loader.gif" alt="">
-        </div>
-    </modal-content>
-  </modal>
+    <div class="text-center" *ngIf="loader">
+      <h1>Please Wait ...</h1>
+      <img src="../../../assets/images/loader.gif" alt="">
+    </div>
+  </modal-content>
+</modal>

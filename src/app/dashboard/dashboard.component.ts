@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   userType: number;
   ngOnInit() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(currentUser); 
+    // console.log(currentUser); 
     if (currentUser.UserType == '1') {
       this.theme = 'theme-teal'
     } else if (currentUser.UserType == '2') {

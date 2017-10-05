@@ -22,9 +22,9 @@ export class CompletedComponent implements OnInit {
   images: string[] = ['../../../assets/images/loader.gif'];
   imageArray: any[] = [];
   imageIndex: number = 0;
-  imagerotation: number = 0; 
-  loader:boolean = false;
-  arrayLength:number;
+  imagerotation: number = 0;
+  loader: boolean = false;
+  arrayLength: number;
   constructor(private userservice: UserService) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -143,30 +143,30 @@ export class CompletedComponent implements OnInit {
     }
 
   }
-    // for view image
-    openImageModel(req: any) {
-      this.images=[];
-      this.imageIndex =0;
-      this.showImageDialog = true;
-      this.loader = true;
-      console.log(req);
-      this.billId = req.BID;
-      this.images = [];
-      this.imageArray = [];
-      this.userservice.getConsumerBillByID(req.BID)
-        .subscribe(res => {
-          console.log(res,"image");
-          this.imageArray = res.ImageList;
-          this.arrayLength = this.imageArray.length;
-          // console.log(this.imageArray);
-          for (let i of res.ImageList) {
-            this.images.push(this.imageLink +'bills/' + i.ImageID + '/files')
-          }
-          this.loader = false;
-        })
-      // this.discardBillImage(req.BID);
-    }
-      // prev image
+  // for view image
+  openImageModel(req: any) {
+    this.images = [];
+    this.imageIndex = 0;
+    this.showImageDialog = true;
+    this.loader = true;
+    console.log(req);
+    this.billId = req.BID;
+    this.images = [];
+    this.imageArray = [];
+    this.userservice.getConsumerBillByID(req.BID)
+      .subscribe(res => {
+        console.log(res, "image");
+        this.imageArray = res.ImageList;
+        this.arrayLength = this.imageArray.length;
+        // console.log(this.imageArray);
+        for (let i of res.ImageList) {
+          this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
+        }
+        this.loader = false;
+      })
+    // this.discardBillImage(req.BID);
+  }
+  // prev image
   prevImage() {
     if (this.imageIndex > 0) {
       this.imageIndex = this.imageIndex - 1;

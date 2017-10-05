@@ -73,7 +73,8 @@ export class BillEditComponent implements OnInit {
   getSubCatList: Category;
   addedOnlineSeller: number = null;
   addedOfflineSeller: any[] = [];
-  billId: number;
+  billId: any;
+  billDetailId:number;
   productMainForm: Object;
   ProductFrom: any[] = [];
   showForm: boolean = true;
@@ -132,14 +133,19 @@ export class BillEditComponent implements OnInit {
   // test:any[]=[];
   test: any[] = [];
   constructor(private _location: Location, private fb: FormBuilder, private route: ActivatedRoute, private router: Router, private userservice: UserService, private dataservice: DataService, private functionService: FunctionService) {
-    this.billId = route.snapshot.params.id;
+    this.billDetailId = route.snapshot.params.id;
+    const parsedUrl = this.router.parseUrl(this.router.url);
+    this.billId = parsedUrl.root.children.primary.segments[3].path;
+
+    console.log(parsedUrl,"p");  
     this.selectImage();
   }
 
 
   ngOnInit() {
     // get current bill details
-    this.userservice.getConsumerBillDetailsByID(this.billId)
+
+    this.userservice.getConsumerBillDetailsByID(this.billDetailId)
       .subscribe(res => {
         console.log("bill details for edit", res);
         this.consumerBillDetail = res; // all array is here
@@ -157,9 +163,10 @@ export class BillEditComponent implements OnInit {
     this.myDatePickerOptions1.disableSince = { year: today.getFullYear(), month: (today.getMonth() + 1), day: (today.getDate() + 1) }
 
     // get current bill details
+    console.log("this.bill id",this.billId)
     this.userservice.getConsumerBillByID(this.billId)
       .subscribe(res => {
-        console.log('bill details', res);
+        console.log('bill details 2', res);
         this.consumerBill = res;
         this.userID = res.UserID;
       })
