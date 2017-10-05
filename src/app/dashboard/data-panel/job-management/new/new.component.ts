@@ -27,7 +27,7 @@ export class NewComponent implements OnInit {
   rightFlag: boolean = false;
   noData: boolean = false;
   imageArray: any[] = [];
-  images: string[] = [];
+  images: string[] = ['../../../assets/images/loader.gif'];
   imageIndex: number = 0;
   discardForm: FormGroup;
   discardDialog: boolean = false;

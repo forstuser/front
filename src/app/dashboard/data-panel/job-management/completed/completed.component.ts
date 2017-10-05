@@ -19,7 +19,7 @@ export class CompletedComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
-  images: string[] = [];
+  images: string[] = ['../../../assets/images/loader.gif'];
   imageArray: any[] = [];
   imageIndex: number = 0;
   imagerotation: number = 0; 
@@ -145,6 +145,7 @@ export class CompletedComponent implements OnInit {
   }
     // for view image
     openImageModel(req: any) {
+      this.images=[];
       this.imageIndex =0;
       this.showImageDialog = true;
       this.loader = true;

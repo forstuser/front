@@ -1,3 +1,4 @@
+import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
@@ -47,12 +48,13 @@ const appRoutes: Routes = [
             [{ path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
-            { path: 'new/bill/:id', component: BillComponent, children:[
-                { path:'', component:BillCreateComponent},
-                { path:'view', component:BillViewComponent},
-                { path:'edit/:id', component:BillEditComponent},
-                { path:'addons/:uid/:bid/:pid', component:ProductAddonsComponent},
-            ] },
+            { path: 'new/bills/:id', component: BillsComponent },
+            // { path: 'new/bill/:id', component: BillComponent, children:[
+            //     { path:'', component:BillCreateComponent},
+            //     { path:'view', component:BillViewComponent},
+            //     { path:'edit/:id', component:BillEditComponent},
+            //     { path:'addons/:uid/:bid/:pid', component:ProductAddonsComponent},
+            // ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'completed', component: CompletedComponent },
             { path: 'discarded', component: DiscardedComponent },
