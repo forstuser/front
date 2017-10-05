@@ -109,6 +109,7 @@ export class BillCreateComponent implements OnInit {
   maxLength = '12';
   PleaseSelectMainCategory: boolean = false;
   PleaseSelectCategory: boolean = false;
+  conditionalMainCategory:boolean=false;
   // EnterName: boolean = false;
   billImage: boolean = false;
   discardImage: object;
@@ -265,11 +266,6 @@ export class BillCreateComponent implements OnInit {
   }
   generalFormData(form: NgForm) {
     // console.log(form.value);
-    // console.log(this.imageArray.length,"image");
-    // if (form.value.Name.length == 0) {
-    //   this.EnterName = true;
-    // }
-    // else 
     if (this.imageArray.length == 0) {
       this.billImage = true;
     }
@@ -356,7 +352,7 @@ export class BillCreateComponent implements OnInit {
   onSelectMainCategory(id) {
     // console.log(id);
     const res = id.split(' ');
-    // console.log(res[1]);
+    // console.log(res[1],"id of main category");
     this.userservice.getCategoryListbyRefID(res[1])
       .subscribe(res => {
         this.getSubCatList = res;
@@ -385,7 +381,13 @@ export class BillCreateComponent implements OnInit {
     } else if (form.value.CatID === "") {
       this.PleaseSelectCategory = true;
     } else {
-      console.log(form.value);
+      console.log(form.value.MasterCatID ,"master category");
+      if(form.value.MasterCatID>4){
+       this.conditionalMainCategory = true;
+      }
+      if(form.value.MasterCatID<4){
+        this.conditionalMainCategory = false;
+       }
       this.productInfoFormContent.push(form.value);
       this.showProductFormList = false;
       this.showProductForm = true;
@@ -691,7 +693,7 @@ export class BillCreateComponent implements OnInit {
     this.AMCOptionInclusion = [];
     this.endPanel = false;
     this.showProductFormList = true;
-
+    this.showInsuranceForm = false;
   }
   createBill() {
     // console.log('generalFormContent :', this.generalFormContent);

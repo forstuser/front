@@ -437,7 +437,7 @@
         </div>
      </div>
   </div>
-  <div class="row clearfix">
+  <div class="row clearfix" *ngIf="conditionalMainCategory">
      <div class="col-md-6">
         <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductFormList()">Back</button>
      </div>
@@ -445,6 +445,18 @@
         <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
      </div>
   </div>
+  <div class="row clearfix" *ngIf="!conditionalMainCategory">
+      <div class="col-md-4">
+          <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backtoShowProductFormList()">Back</button>
+          
+      </div>
+      <div class="col-md-4">
+         <button class="btn bg-teal btn-block btn-lg" (click)="addMoreProduct()">Add More Product</button>
+      </div>
+      <div class="col-md-4">
+          <button class="btn bg-purple btn-block btn-lg" (click)="createBill()">Create Bill</button>
+       </div>
+   </div>
   </form>
 </div>
 <!-- Product Form End -->
