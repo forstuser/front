@@ -48,7 +48,7 @@ export class BillViewComponent implements OnInit {
     // get current bill details
     this.userservice.getConsumerBillByID(this.billID)
       .subscribe(res => {
-        // console.log(res);
+        console.log(res,"consumer bill");
         this.consumerBill = res;
       })
   }

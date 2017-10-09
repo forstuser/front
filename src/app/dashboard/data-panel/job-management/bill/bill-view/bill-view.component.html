@@ -7,6 +7,7 @@
     <div class="col-md-6">
       <p><b>Email : </b>{{ consumerBill?.EmailID }}</p>
       <p><b>Phone No : </b>{{ consumerBill?.PhoneNo }}</p>
+      <p><b>Created Date : </b>{{ consumerBill?.createdAt | date}}</p>
     </div>
   </div>
   <div class="card" *ngIf="consumerBill?.Detail?.length > 0">

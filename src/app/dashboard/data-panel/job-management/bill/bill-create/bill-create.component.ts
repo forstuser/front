@@ -376,18 +376,19 @@ export class BillCreateComponent implements OnInit {
   }
   // product info data on submit
   productInfoFormData(form: NgForm) {
+    this.productInfoFormContent = [];
     if (form.value.MasterCatID === "") {
       this.PleaseSelectMainCategory = true;
     } else if (form.value.CatID === "") {
       this.PleaseSelectCategory = true;
     } else {
       console.log(form.value.MasterCatID ,"master category");
-      if(form.value.MasterCatID>4){
-       this.conditionalMainCategory = true;
-      }
-      if(form.value.MasterCatID<4){
-        this.conditionalMainCategory = false;
-       }
+      // if(form.value.MasterCatID>4){
+      //  this.conditionalMainCategory = true;
+      // }
+      // if(form.value.MasterCatID<4){
+      //   this.conditionalMainCategory = false;
+      //  }
       this.productInfoFormContent.push(form.value);
       this.showProductFormList = false;
       this.showProductForm = true;
