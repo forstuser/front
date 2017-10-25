@@ -15,7 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+// import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -104,8 +104,8 @@ import { BillsComponent } from './dashboard/data-panel/job-management/bills/bill
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MdButtonModule,
-    MdCheckboxModule,
+    // MdButtonModule,
+    // MdCheckboxModule,
     HttpModule,
     AppRoutingModule,
     SwiperModule,
