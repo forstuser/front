@@ -30,7 +30,6 @@ export class SignInComponent implements OnInit {
   ngOnInit() {
     // reset login status
     this.authenticationService.logout();
-    // get return url from route parameters or default to '/'
     // here we can set our default page after login if we want  e.g category instead of returnURL
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
@@ -38,30 +37,7 @@ export class SignInComponent implements OnInit {
  signIN(post) {
     this.EmailID = post.EmailID;
     this.Password = post.Password;
-    this.authenticationService.login(this.EmailID, this.Password)
-    .subscribe(
-      data => {
-        console.log(data);
-        if(data.statusCode==100){
-        this.router.navigate([this.returnUrl]);
-        } else if(data.statusCode==101){
-          alert("Invalid Token");
-        } else if(data.statusCode==103){
-          alert("Invalid Username/Password")
-        } else{
-          alert("Bad Request");
-        }
-      },
-      error => {
-        console.log('error is ', error);
-        if(error.status==0){
-          alert("Internet is Down/Slow")
-        } else{
-          
-          alert(error.statusText);
-        }
-        
-      }
-    );
+    this.authenticationService.login(this.EmailID, this.Password);
+    // this.router.navigate(['dashboard']);
   }
 }

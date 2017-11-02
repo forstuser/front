@@ -14,20 +14,20 @@ export class LeftPanelComponent implements OnInit {
   constructor(private authservice: AuthenticationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     // console.log("info", info);
-    this.emailID = info.EmailID;
-    if (info.UserType == '1') {
+    this.emailID = info.email;
+    if (info.role_type == '1') {
       this.userTypeName = 'Super Admin'
-    } else if (info.UserType == '2') {
+    } else if (info.role_type == '2') {
       this.userTypeName = 'Admin'
-    } else if (info.UserType == '3') {
+    } else if (info.role_type == '3') {
       this.userTypeName = 'Customer Executive'
-    } else if (info.UserType == '4') {
+    } else if (info.role_type == '4') {
       this.userTypeName = 'Qualitive Executive'
-    } else if (info.UserType == '5') {
+    } else if (info.role_type == '5') {
       this.userTypeName = 'Consumer'
-    } else if (info.UserType == '6') {
+    } else if (info.role_type == '6') {
       this.userTypeName = 'Date Manager'
-    } else if (info.UserType == '7') {
+    } else if (info.role_type == '7') {
       this.userTypeName = 'Merchant'
     }
   }

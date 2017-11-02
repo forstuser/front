@@ -58,6 +58,7 @@ import {ModalModule} from "ng2-modal";
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
+
 @NgModule({
   declarations: [
     AppComponent,

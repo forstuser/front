@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./left-panel-items.component.css']
 })
 export class LeftPanelItemsComponent implements OnInit {
-  userType: any;
+  role_type: any;
   LeftPanelItems: any;
   superAdmin = [
     {
@@ -431,21 +431,21 @@ export class LeftPanelItemsComponent implements OnInit {
   constructor() {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     // console.log("info", info)
-    this.userType = info.UserType;
-    // console.log("userType", this.userType)
+    this.role_type = info.role_type;
+    // console.log("role_type", this.role_type)
 
-    if (this.userType === '1') {
+    if (this.role_type === 1) {
       this.LeftPanelItems = this.superAdmin;
       // console.log(this.superAdmin)
     }
 
-    else if (this.userType === '2') {
+    else if (this.role_type === 2) {
       this.LeftPanelItems = this.admin;
       // console.log(this.admin)
 
     }
 
-    else if (this.userType === '3' || this.userType === '4') {
+    else if (this.role_type === 3 || this.role_type === 4) {
       this.LeftPanelItems = this.ce_qe;
     }
   }

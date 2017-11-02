@@ -1,37 +1,50 @@
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { appConfig } from './../app.config';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class AuthenticationService {
   apiLink: String = appConfig.apiUrl;
-  constructor(private http: Http, private router: Router) { }
-
+    returnUrl: String ;
+  constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
+  ngOnInit() {
+    // reset login status
+    // this.authenticationService.logout();
+    this.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
+  }
   login(EmailID: String, Password: String) {
-      const body = { EmailID : EmailID, Password: Password };
-      const data = JSON.stringify(body);
-      const headers = new Headers({ 'Content-Type': 'application/json' });
-      const options = new RequestOptions({ headers: headers });
-      return this.http.post(this.apiLink + 'Services/Management/Login', body, options)
-        .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-          const user = response.json();
-          // console.log(user);
-          if (user && user.token) {
-              // console.log(user.token);
-              // store user details and jwt token in local storage to keep user logged in between page refreshes
-              localStorage.setItem('currentUser', JSON.stringify(user));
-          }
-          return user;
-        });
-    }
+    console.log('inside post')
+    const body = { email: EmailID, password: Password };
+    const data = JSON.stringify(body);
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
+      const cookie = response.headers.get('x-csrf-token');
+      Cookie.set('x-csrf-token',cookie);
+      return response.json();
+    }).subscribe((res: any) => {
+      // console.log('inside reponse');
+      console.log(res);
+      localStorage.setItem('currentUser', JSON.stringify(res.data));
+      this.router.navigate(['dashboard']);
+    }, (error: any) => {
+      console.log(error);
+      // console.log('inside error');
+      // console.log(error.status);
+      if(error.status ==0){
+        alert('Internet is slow/down');
+      } else{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }
+    });
+  }
   logout() {
-    // remove user from local storage to log user out
-    // console.log("inside logout");
-    localStorage.removeItem('currentUser');
+    Cookie.deleteAll();
     this.router.navigate(['login']);
   }
 }
