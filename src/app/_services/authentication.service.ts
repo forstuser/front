@@ -17,7 +17,7 @@ export class AuthenticationService {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
   login(EmailID: String, Password: String) {
-    console.log('inside post')
+    // console.log('inside post')
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });

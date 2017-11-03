@@ -20,7 +20,8 @@ export class SignInComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private router: Router
-  ) {
+  )
+   {
     // form validators
     this.rForm = fb.group({
       'EmailID' : [null, Validators.required],
