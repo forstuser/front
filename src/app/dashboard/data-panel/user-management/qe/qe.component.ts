@@ -29,19 +29,16 @@ export class QeComponent implements OnInit {
     });
    }
 
+
   ngOnInit() {
     // get list of admin
-    this.userService.getUserList() // 4 for QE refer to api doc
+    this.userService.getUserList(3) // 4 for QE refer to api doc
     .subscribe(users => {
       this.users = users;
       console.log(users);
     });
     // get dropdown list
-    this.userService.getAllUser()
-    .subscribe(users => {
-      this.dropdownUser = users;
-      console.log(users);
-    });
+    
   }
 
   // passs current user as argument and open the popup
@@ -64,6 +61,7 @@ export class QeComponent implements OnInit {
     });
   }
 
+
   updateUser(user: any) {
     console.log(user);
     this.userService.updateUser(user)
@@ -71,14 +69,15 @@ export class QeComponent implements OnInit {
         // console.log(res);
         alert('User updated successfully');
         this.showDialog = false ;
-        this.userService.getUserList() // list update after edit
+        this.userService.getUserList(3) // list update after edit
           .subscribe(users => {
           this.users = users;
           // console.log(users);
         });
       });
-
   }
+
+
   deleteUser(user: any) {
     console.log(user);
     this.del = { 'ID': user.ID };
@@ -86,11 +85,13 @@ export class QeComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('Deleted');
-        this.userService.getUserList() // list update after edit
+        this.userService.getUserList(3) // list update after edit
           .subscribe(users => {
           this.users = users;
             // console.log(users);
         });
     });
   }
+
+
 }

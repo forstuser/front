@@ -17,12 +17,13 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let user of users?.UserList; let i = index">
+            <tbody *ngFor="let user of users?.data; let i = index">
                 <tr>
                     <th scope="row">{{ i+1 }} </th>
-                    <td>{{ user.Name}}</td>
-                    <td>{{ user.EmailID}}</td>
-                    <td><span class="label bg-green">{{ user.Status }}</span></td>
+                    <td>{{ user?.full_name}}</td>
+                    <td>{{ user?.email}}</td>
+                    <td *ngIf="user?.user_status_type=='1'"><span class="label bg-green">Active</span></td>
+                    <td *ngIf="user?.user_status_type=='2'"><span class="label bg-red">InActive</span></td>                    
                     <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openUserModel(user)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
                 </tr>
             </tbody>
@@ -40,14 +41,15 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
-                        <select class="form-control dropdown" formControlName="UserType">
-                            <!-- <option>Please Select</option> -->
-                            <option *ngFor="let user of dropdownUser?.UserTypeList" [ngValue]="user.TypeID" >{{ user.Name }}</option>
-                        </select>
+                            <select class="form-control dropdown" formControlName="role_type">
+                                <option [ngValue]="2"> Admin</option>
+                                <option [ngValue]="3"> Quality Executive</option>
+                                <option [ngValue]="4"> Customer Executive</option>
+                            </select>
                         </div>
                     </div>  
                 </div>
-                <div class="row clearfix">
+                <!-- <div class="row clearfix">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                         <label for="name">Name</label>
                     </div>
@@ -59,7 +61,7 @@
                             <p class="text-danger" *ngIf="!editUserForm.controls['Name'].valid && editUserForm.controls['Name'].touched">Name is required</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="row clearfix">
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                         <label for="email_address_2">Email ID</label>

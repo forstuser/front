@@ -15,9 +15,12 @@ export class UserService {
         TokenNo: String = '';
         UserType: Number;
         xcsrf:String;
+
+
         constructor(private http: Http) {
 
         }
+
         // **^ user Services ^** //
         getCSRF(){
                 const csrf = Cookie.getAll();
@@ -37,16 +40,19 @@ export class UserService {
                 // console.log(data);
                 return this.http.post(this.apiLink + 'Services/UserTypeList', data, options).map((response: Response) => response.json());
         }
+
+
         // get list of admin,qe,ce and customer
-        getUserList() {
+        getUserList(role_type:number) { 
                 this.getCSRF();
-                console.log(this.xcsrf);
                 const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.get(this.apiLink + 'api/users', options)
+                const options = new RequestOptions({ headers: headers,withCredentials:true });
+                return this.http.get(this.apiLink + 'api/users?role_type='+role_type, options)
                         .map((response: Response) => response.json());
         }
+
+
+
         // get list of admin,qe,ce and customer
         getConsumerList(offset, limit) {
                 // get login user credentials from localstorage

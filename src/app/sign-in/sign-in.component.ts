@@ -30,7 +30,7 @@ export class SignInComponent implements OnInit {
   }
   ngOnInit() {
     // reset login status
-    this.authenticationService.logout();
+    // this.authenticationService.logout();
     // here we can set our default page after login if we want  e.g category instead of returnURL
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }

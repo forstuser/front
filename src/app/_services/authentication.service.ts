@@ -21,6 +21,7 @@ export class AuthenticationService {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
     
   }
+
   login(EmailID: String, Password: String) {
     // console.log('inside post')
     const body = { email: EmailID, password: Password };
@@ -70,8 +71,12 @@ export class AuthenticationService {
     console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
       console.log(response);
-    })
-    // this.router.navigate(['login']);
+      this.router.navigateByUrl('/login')
+    }),
+    error=>{
+      console.log("logout failed")
+      alert("error")
+    }
   }
 }
 

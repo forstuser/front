@@ -65,13 +65,13 @@ export class UnderProgressComponent implements OnInit {
         console.log(this.bills);
       });
     // get list of ce
-    this.userservice.getUserList() // 3 for ce refer to api doc
+    this.userservice.getUserList(4) // 4 for ce refer to api doc
       .subscribe(users => {
         this.ceUsers = users;
         console.log(users);
       });
     // get list of qe
-    this.userservice.getUserList() // 3 for qe refer to api doc
+    this.userservice.getUserList(3) // 3 for qe refer to api doc
       .subscribe(users => {
         this.qeUsers = users;
         console.log(users);
