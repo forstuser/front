@@ -31,17 +31,22 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     // get list of admin
-    this.userService.getUserList('2') // 2 for admin refer to api doc
+    this.userService.getUserList() // 2 for admin refer to api doc
     .subscribe(users => {
-      this.users = users;
+      // this.users = users;
       console.log(users);
-    });
+    },
+    (error =>{
+      // console.log('inside error');
+      console.log(error);
+    })
+  );
     // get dropdown list
-    this.userService.getAllUser()
-    .subscribe(users => {
-      this.dropdownUser = users;
-      console.log(users);
-    });
+    // this.userService.getAllUser()
+    // .subscribe(users => {
+    //   this.dropdownUser = users;
+    //   console.log(users);
+    // });
   }
 
   // passs current user as argument and open the popup
@@ -71,7 +76,7 @@ export class AdminComponent implements OnInit {
         // console.log(res);
         alert('User updated successfully');
         this.showDialog = false ;
-        this.userService.getUserList('2') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
           // console.log(users);
@@ -86,7 +91,7 @@ export class AdminComponent implements OnInit {
     this.userService.deleteUser(this.del)
       .subscribe(res => {
         console.log(res);
-        this.userService.getUserList('2') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
             // console.log(users);
