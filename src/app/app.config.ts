@@ -1,8 +1,8 @@
 export const appConfig = {
-      apiUrl: 'https://localhost:8080/',
+      // apiUrl: 'https://admin-stage.binbill.com/',
       // apiUrl: 'https://admin-dev.binbill.com/',
       // apiUrl: 'https://admin.binbill.com/',
-      // apiUrl: 'http://13.126.168.35:3000/',
+      apiUrl: 'https://192.168.0.66:8080/',
       // apiUrl: ' http://de759f5d.ngrok.io/',
       imageUrl :'https://consumer-dev.binbill.com/'
       // imageUrl :'https://consumer.binbill.com/'

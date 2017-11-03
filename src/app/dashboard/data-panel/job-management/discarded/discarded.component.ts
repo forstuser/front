@@ -69,7 +69,7 @@ export class DiscardedComponent implements OnInit {
       });
   }
   // function for pagination
-  left() {
+  left() {  
     this.noData = false;
     this.prev = this.prev - 10;
     if (this.prev == 0) {

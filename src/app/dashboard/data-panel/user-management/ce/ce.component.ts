@@ -65,6 +65,7 @@ export class CeComponent implements OnInit {
     });
   }
 
+
   updateUser(user: any) {
     console.log(user);
     this.userService.updateUser(user)
@@ -80,6 +81,9 @@ export class CeComponent implements OnInit {
       });
 
   }
+
+
+  
   deleteUser(user: any) {
     console.log(user);
     this.del = { 'ID': user.ID };

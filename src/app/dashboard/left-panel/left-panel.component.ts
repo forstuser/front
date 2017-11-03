@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../_services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,7 +12,7 @@ export class LeftPanelComponent implements OnInit {
   emailID: string;
   userType: number;
   userTypeName: string;
-  constructor(private authservice: AuthenticationService) {
+  constructor(private authservice: AuthenticationService,private router:Router) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     // console.log("info", info);
     this.emailID = info.email;
@@ -33,12 +34,19 @@ export class LeftPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
+
+
   toggleState() { // click handler
     const bool = this.isIn;
     this.isIn = bool === false ? true : false;
   }
+
+
   logoutFun() {
     this.authservice.logout();
+    this.router.navigateByUrl('/login')
   }
+  
 }
