@@ -9,6 +9,9 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 export class AuthenticationService {
   apiLink: String = appConfig.apiUrl;
   returnUrl: String ;
+  user:any;
+  email:any;
+  role_type:number;
 
   constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
@@ -16,16 +19,18 @@ export class AuthenticationService {
     // this.authenticationService.logout();
     // this.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
+    
   }
   login(EmailID: String, Password: String) {
     // console.log('inside post')
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers,withCredentials:true });
     return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
       const cookie = response.headers.get('x-csrf-token');
       Cookie.set('x-csrf-token',cookie);
+      Cookie.set('jwt',cookie)
       return response.json();
     }).subscribe((res: any) => {
       console.log(res);
@@ -41,14 +46,27 @@ export class AuthenticationService {
       }
     });
   }
+
   logout() {
+    // localstorage
+    this.user=JSON.parse(localStorage.getItem('currentUser'));
+    console.log(this.user)
+    this.email=this.user.email;
+    console.log(this.email,"email")
+    this.role_type=this.user.role_type;
+    console.log(this.role_type);
+
+
     // Cookie.deleteAll();
-    const body = {};
+    const body = {
+      "email":this.email,
+      "role_type":this.role_type
+    };
     const csrf = Cookie.getAll();
     const cook = csrf['x-csrf-token'];
     console.log(cook);
     const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': cook });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers,withCredentials:true});
     console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
       console.log(response);

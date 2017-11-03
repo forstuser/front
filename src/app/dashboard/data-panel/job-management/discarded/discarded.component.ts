@@ -62,14 +62,14 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // get list of ce
-    this.userservice.getUserList('3') // 3 for ce refer to api doc
+    this.userservice.getUserList() // 3 for ce refer to api doc
       .subscribe(users => {
         this.users = users;
         console.log(users);
       });
   }
   // function for pagination
-  left() {
+  left() {  
     this.noData = false;
     this.prev = this.prev - 10;
     if (this.prev == 0) {
