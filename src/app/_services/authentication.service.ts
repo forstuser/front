@@ -26,6 +26,7 @@ export class AuthenticationService {
     return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
       const cookie = response.headers.get('x-csrf-token');
       Cookie.set('x-csrf-token',cookie);
+      Cookie.set('jwt', cookie);
       return response.json();
     }).subscribe((res: any) => {
       console.log(res);

@@ -19,7 +19,7 @@ export class LeftPanelItemsComponent implements OnInit {
     {
       'name': 'Job',
       'icon': 'work',
-      'link': '',
+      'link': '*',
       'class': 'menu-toggle',
       'handler': 'toggleState',
       'addClass': 'none',

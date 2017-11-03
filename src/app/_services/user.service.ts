@@ -64,15 +64,12 @@ export class UserService {
         // Create User
         createUser(user: User) {
                 // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                user['TokenNo'] = this.TokenNo;
+                this.getCSRF();
                 const data = JSON.stringify(user);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddManagementUser', data, options)
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
+                const options = new RequestOptions({ headers: headers,withCredentials:true });
+                return this.http.post(this.apiLink + 'api/users', data, options)
                         .map((response: Response) => response.json());
         }
         // Update User

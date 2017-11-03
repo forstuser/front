@@ -31,7 +31,7 @@ export class QeComponent implements OnInit {
 
   ngOnInit() {
     // get list of admin
-    this.userService.getUserList('4') // 4 for QE refer to api doc
+    this.userService.getUserList() // 4 for QE refer to api doc
     .subscribe(users => {
       this.users = users;
       console.log(users);
@@ -71,7 +71,7 @@ export class QeComponent implements OnInit {
         // console.log(res);
         alert('User updated successfully');
         this.showDialog = false ;
-        this.userService.getUserList('4') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
           // console.log(users);
@@ -86,7 +86,7 @@ export class QeComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('Deleted');
-        this.userService.getUserList('4') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
             // console.log(users);
