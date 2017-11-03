@@ -8,12 +8,13 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 @Injectable()
 export class AuthenticationService {
   apiLink: String = appConfig.apiUrl;
-    returnUrl: String ;
+  returnUrl: String ;
+
   constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
     // reset login status
     // this.authenticationService.logout();
-    this.logout();
+    // this.logout();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
   }
   login(EmailID: String, Password: String) {
@@ -27,14 +28,11 @@ export class AuthenticationService {
       Cookie.set('x-csrf-token',cookie);
       return response.json();
     }).subscribe((res: any) => {
-      // console.log('inside reponse');
       console.log(res);
       localStorage.setItem('currentUser', JSON.stringify(res.data));
       this.router.navigate(['dashboard']);
     }, (error: any) => {
       console.log(error);
-      // console.log('inside error');
-      // console.log(error.status);
       if(error.status ==0){
         alert('Internet is slow/down');
       } else{
@@ -44,8 +42,18 @@ export class AuthenticationService {
     });
   }
   logout() {
-    Cookie.deleteAll();
-    this.router.navigate(['login']);
+    // Cookie.deleteAll();
+    const body = {};
+    const csrf = Cookie.getAll();
+    const cook = csrf['x-csrf-token'];
+    console.log(cook);
+    const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': cook });
+    const options = new RequestOptions({ headers: headers });
+    console.log(options);
+    return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
+      console.log(response);
+    })
+    // this.router.navigate(['login']);
   }
 }
 

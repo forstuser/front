@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { RequestOptionsArgs } from '@angular/http';
 import { ResponseContentType } from '@angular/http';
-
+import { Cookie } from 'ng2-cookies/ng2-cookies';
 
 @Injectable()
 export class UserService {
@@ -14,11 +14,16 @@ export class UserService {
         currentUser: any;
         TokenNo: String = '';
         UserType: Number;
+        xcsrf:String;
         constructor(private http: Http) {
 
         }
         // **^ user Services ^** //
-
+        getCSRF(){
+                const csrf = Cookie.getAll();
+                this.xcsrf = csrf['x-csrf-token'];
+                
+        }
         // get different type of user
         getAllUser() {
                 // get login user credentials from localstorage
@@ -33,17 +38,13 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/UserTypeList', data, options).map((response: Response) => response.json());
         }
         // get list of admin,qe,ce and customer
-        getUserList(UserType: String) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, UserType: UserType };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+        getUserList() {
+                this.getCSRF();
+                console.log(this.xcsrf);
+                const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
                 // console.log(data);
-                return this.http.post(this.apiLink + 'Services/ManagementUserList', data, options)
+                return this.http.get(this.apiLink + 'api/users', options)
                         .map((response: Response) => response.json());
         }
         // get list of admin,qe,ce and customer
@@ -664,7 +665,7 @@ export class UserService {
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, OffSet: offset, Limit: limit};
+                const body = { TokenNo: this.TokenNo, OffSet: offset, Limit: limit };
                 const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
@@ -952,25 +953,25 @@ export class UserService {
 
         }
         // get image of consumer
-        getConsumerImage(imageID:number) {
+        getConsumerImage(imageID: number) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const headers = new Headers({ 'Content-Type': 'image/jpeg','Authorization':this.TokenNo });
-                const options = new RequestOptions({ headers: headers,responseType: ResponseContentType.Blob });
-                return this.http.get(this.apiLink + 'bill-copies/'+imageID+'/files', options)
-                        .map(res=>{
+                const headers = new Headers({ 'Content-Type': 'image/jpeg', 'Authorization': this.TokenNo });
+                const options = new RequestOptions({ headers: headers, responseType: ResponseContentType.Blob });
+                return this.http.get(this.apiLink + 'bill-copies/' + imageID + '/files', options)
+                        .map(res => {
                                 return res.blob();
                         })
 
         }
-        deleteCategoryForm(formID:number){
+        deleteCategoryForm(formID: number) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
                 this.TokenNo = this.currentUser.token;
                 this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, FormID: formID, DeleteAll:true };
+                const body = { TokenNo: this.TokenNo, FormID: formID, DeleteAll: true };
                 const data = JSON.stringify(body);
                 console.log(data);
                 const headers = new Headers({ 'Content-Type': 'application/json' });

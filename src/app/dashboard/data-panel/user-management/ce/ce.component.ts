@@ -32,7 +32,7 @@ export class CeComponent implements OnInit {
 
   ngOnInit() {
     // get list of ce
-    this.userService.getUserList('3') // 3 for ce refer to api doc
+    this.userService.getUserList() // 3 for ce refer to api doc
     .subscribe(users => {
       this.users = users;
       console.log(users);
@@ -72,7 +72,7 @@ export class CeComponent implements OnInit {
         // console.log(res);
         alert('User updated successfully');
         this.showDialog = false ;
-        this.userService.getUserList('3') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
           // console.log(users);
@@ -87,7 +87,7 @@ export class CeComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         alert('Deleted');
-        this.userService.getUserList('3') // list update after edit
+        this.userService.getUserList() // list update after edit
           .subscribe(users => {
           this.users = users;
             // console.log(users);
