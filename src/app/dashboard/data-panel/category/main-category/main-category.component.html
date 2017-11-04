@@ -8,16 +8,14 @@
     <form [formGroup]='createCategoryForm' (ngSubmit)="createCategory(createCategoryForm.value)">
       <div class="row clearfix">
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 form-control-label">
-          <label>
-                            Main Category Name
-                        </label>
+          <label>Main Category Name</label>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')">
+              <input type="text" class="form-control" formControlName="category_name" (keyup)="avoidSpace('category_name')">
             </div>
-            <p class="text-danger" *ngIf="!createCategoryForm.controls['Name'].valid && createCategoryForm.controls['Name'].touched">Name is required</p>
+            <p class="text-danger" *ngIf="!createCategoryForm.controls['category_name'].valid && createCategoryForm.controls['category_name'].touched">Name is required</p>
           </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -43,13 +41,14 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody *ngFor="let list of mainCategory?.CategoryList; let i = index">
+      <tbody *ngFor="let list of mainCategory?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1 }}</th>
-          <td>{{ list.Name }}</td>
-          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)"
-              title="Delete"><i class="material-icons">delete</i></span></td> -->
-          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td>
+          <td>{{ list.category_name }}</td>
+          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>
+            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span>
+          </td>
+          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
         </tr>
       </tbody>
     </table>
@@ -67,9 +66,9 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                <input type="text" class="form-control" formControlName="category_name" placeholder="Enter your name">
               </div>
-              <p class="text-danger" *ngIf="!editCategoryForm.controls['Name'].valid && editCategoryForm.controls['Name'].touched">Name is required</p>
+              <p class="text-danger" *ngIf="!editCategoryForm.controls['category_name'].valid && editCategoryForm.controls['category_name'].touched">Name is required</p>
             </div>
           </div>
         </div>

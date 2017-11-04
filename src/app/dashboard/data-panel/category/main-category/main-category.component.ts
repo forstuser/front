@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './main-category.component.html',
   styleUrls: ['./main-category.component.css']
 })
+
+
 export class MainCategoryComponent implements OnInit {
   mainCategory: Category;
   showDialog = false;
@@ -16,19 +18,22 @@ export class MainCategoryComponent implements OnInit {
   createCategoryForm: FormGroup;
   createCat: any = { };
   del: any = { };
+  cat_id:number;
+  
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
     // edit main category form
     this.editCategoryForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'ID' : [null, Validators.required],
-      'RefID': [null, Validators.required]
+      'category_name' : [null, Validators.required],
+      'category_id' : [null],
+      'ref_id': [null]
     });
     // create main category form
     this.createCategoryForm = this.fb.group({
-      'Name': [null, Validators.required]
+      'category_name': [null, Validators.required]
       // 'Level': [null, Validators.required]
     });
    }
+
 
   ngOnInit() {
   // get list of main category
@@ -38,24 +43,31 @@ export class MainCategoryComponent implements OnInit {
       console.log(mainCategory);
     });
   }
+
+
     // passs current user as argument and open the popup
   openCategoryModel(item: any) {
-    this.showDialog = true ; // for show dialog
+    this.cat_id=item.category_id;
+    console.log(this.cat_id,item,"categoty_id")
+    this.showDialog = true ; 
+    // this.editCategoryForm.setValue()
+    // for show dialog
     // populate prefilled value in form
     this.editCategoryForm.setValue({
-      Name: item.Name,
-      ID: item.ID,
-      RefID: item.RefID
+      category_name: item.category_name,
+      category_id: item.category_id,
+      ref_id: item.ref_id
     });
   }
+
   // create new main category
   createCategory( category: any) {
     console.log(category);
-    this.createCat = { 'Level': 1, 'RefID': null , 'Name': category.Name };
+    this.createCat = { 'category_level': 1, 'ref_id': null , 'category_name': category.category_name,'category_forms':[] };
     // confirm('Confirm');
     this.userService.createMainCategory(this.createCat)
       .subscribe(res => {
-        console.log(res);
+        console.log(res,"category")
         alert("Main Category Created")
         this.createCategoryForm.reset();
         this.userService.getCategoryList(1) // list update after create new category
@@ -65,12 +77,14 @@ export class MainCategoryComponent implements OnInit {
         });
     });
   }
+
+
   // update existing main category
   updateCategory( category: any) {
-    console.log(category);
+    console.log(category,"cat");
     this.userService.updateCategory(category)
       .subscribe( res => {
-        // console.log(res);
+        console.log(res);
         alert('category updated successfully');
         this.showDialog = false ;
         this.userService.getCategoryList(1) // list update after edit
@@ -83,8 +97,8 @@ export class MainCategoryComponent implements OnInit {
   // delete main category
   deleteCategory(category: any) {
     // console.log(category);
-    this.del = { 'ID': category.ID };
-    this.userService.deleteCategory(this.del)
+    // this.del = { 'ID': category.ID };
+    this.userService.deleteCategory(category.category_id)
       .subscribe(res => {
         console.log(res);
         alert('Deleted');
