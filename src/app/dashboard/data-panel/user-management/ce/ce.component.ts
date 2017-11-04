@@ -80,17 +80,20 @@ export class CeComponent implements OnInit {
   
   deleteUser(user: any) {
     console.log(user);
-    this.del = { 'ID': user.ID };
-    this.userService.deleteUser(this.del)
+    this.userService.deleteUser(user.id)
       .subscribe(res => {
         console.log(res);
-        alert('Deleted');
-        this.userService.getUserList(4) // list update after edit
-          .subscribe(users => {
-          this.users = users;
-            // console.log(users);
-        });
-    });
+        if (res.status == 204) {
+          alert("Deleted Successfully")
+          this.userService.getUserList(4) // list update after edit
+            .subscribe(users => {
+              this.users = users;
+            });
+        }
+      }),
+      (error => {
+        console.log(error);
+      });
   }
 }
 

@@ -69,40 +69,36 @@ export class UserService {
         }
         // Create User
         createUser(user: User) {
-                // get login user credentials from localstorage
                 this.getCSRF();
                 const data = JSON.stringify(user);
                 console.log(data);
                 const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers,withCredentials:true });
+                const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'api/users', data, options)
                         .map((response: Response) => response.json());
         }
         // Update User
         updateUser(user: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                user['TokenNo'] = this.TokenNo;
+                this.getCSRF();
+                const id = user.id;
+                delete user['id'];
+                if(user.password==null){
+                  delete user['password'];
+                }
                 const data = JSON.stringify(user);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditManagementUser', data, options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/users/'+id, data, options)
+                        .map((response: Response) => response.json());
         }
         // Delete user
-        deleteUser(user: User) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                user['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(user);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+        deleteUser(id) {
+                this.getCSRF();
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteManagementUser', data, options).map((response: Response) => response.json());
+                return this.http.delete(this.apiLink + 'api/users/'+id, options)
+                        .map((response: Response) => response);
         }
 
         // **^ category Services ^** //

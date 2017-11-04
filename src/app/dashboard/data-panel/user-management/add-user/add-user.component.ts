@@ -13,7 +13,7 @@ export class AddUserComponent implements OnInit {
   newUserForm: FormGroup ;
   TypeID: String;
   UserType:String = '';
-  Name: String = '';
+  name: String = '';
   email: String = '';
   password: String = '';
   constructor(
@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
     // form validators
     this.newUserForm = this.fb.group({
       'role_type' : [null, Validators.required],
-      // 'Name' : [null, Validators.required],
+      'name' : [null, Validators.required],
       'email' : [null, Validators.required],
       'password' : [null, Validators.required]
     });
@@ -38,12 +38,15 @@ export class AddUserComponent implements OnInit {
         .subscribe(
       data => {
         console.log(data);
-        // alert('User successfully added !!');
-        // this.newUserForm.reset();
-        // this.router.navigate([this.returnUrl]);
+        if(data.success==true){
+        alert('User successfully added !!');
+        this.newUserForm.reset();
+        }
       },
       error => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       }
     );
   }
