@@ -27,7 +27,7 @@ export class AuthenticationService {
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers,withCredentials:true });
+    const options = new RequestOptions({ headers: headers });
     return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
       const cookie = response.headers.get('x-csrf-token');
       Cookie.set('x-csrf-token',cookie);
@@ -67,7 +67,7 @@ export class AuthenticationService {
     const cook = csrf['x-csrf-token'];
     console.log(cook);
     const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': cook });
-    const options = new RequestOptions({ headers: headers,withCredentials:true});
+    const options = new RequestOptions({ headers: headers});
     console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
       console.log(response);
