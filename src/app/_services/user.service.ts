@@ -118,6 +118,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/CategoryFormByID', data, options)
                         .map((response: Response) => response.json());
         }
+
         // get list of main category ,category and sub category
         getCategoryListbyID(ID: Number) {
                 // get login user credentials from localstorage
@@ -133,6 +134,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/CategoryFormByID', data, options)
                         .map((response: Response) => response.json());
         }
+
         //  get category list after select main category
         getCategoryListbyRefID(RefID: Number) {
                 // get login user credentials from localstorage
@@ -148,33 +150,34 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/CategoryList', data, options)
                         .map((response: Response) => response.json());
         }
+
+
+
+        
         // get list of main category ,category and sub category
         getCategoryList(Level: Number) {
                 // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Level: Level };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
+                this.getCSRF();                
+                // const body = { TokenNo: this.TokenNo, Level: Level };
+                // const data = JSON.stringify(body);
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
+                const options = new RequestOptions({ headers: headers});
                 // console.log(data);
-                return this.http.post(this.apiLink + 'Services/CategoryLevelList', data, options)
+                return this.http.get(this.apiLink + 'api/categories',options)
                         .map((response: Response) => response.json());
         }
+
+
         // Create category
         createMainCategory(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
+                this.getCSRF();
                 const data = JSON.stringify(category);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddCategory', data, options).map((response: Response) => response.json());
+                return this.http.post(this.apiLink + 'api/categories', data, options).map((response: Response) => response.json());
         }
+
         // Create category
         createCategory(category: any) {
                 // get login user credentials from localstorage
@@ -201,31 +204,31 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
         }
+
+        
         // Update category
         updateCategory(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
+                const id=category.category_id;
+                this.getCSRF();
                 const data = JSON.stringify(category);
-                // console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+                console.log(data);
+                const headers = new Headers({'X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/categories/'+id,data,options).map((response: Response) => response.json());
         }
+
+
         // Delete Category
         deleteCategory(category: Category) {
                 // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
+                const id=category;
+                console.log(id,"delete id")
+                this.getCSRF();
                 const data = JSON.stringify(category);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteCategory', data, options).map((response: Response) => response.json());
+                return this.http.delete(this.apiLink + 'api/categories/'+id, options).map((response: Response) => response.json());
         }
 
         // **^ brand Services ^** //

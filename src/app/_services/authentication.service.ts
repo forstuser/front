@@ -27,11 +27,11 @@ export class AuthenticationService {
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
     const headers = new Headers({ 'Content-Type': 'application/json' });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers: headers});
     return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
       const cookie = response.headers.get('x-csrf-token');
       Cookie.set('x-csrf-token',cookie);
-      Cookie.set('jwt',cookie)
+      Cookie.set('jwt',cookie);
       return response.json();
     }).subscribe((res: any) => {
       console.log(res);
