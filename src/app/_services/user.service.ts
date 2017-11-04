@@ -195,6 +195,7 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/AddCategoryForm', data, options).map((response: Response) => response.json());
         }
+        
         // Create category
         editCategoryForm(category: any) {
                 // get login user credentials from localstorage
