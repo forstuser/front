@@ -40,8 +40,8 @@ import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-manageme
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
 import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
-import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
-import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
+// import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
+// import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
@@ -58,6 +58,8 @@ import {ModalModule} from "ng2-modal";
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
+// import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
+import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 
 @NgModule({
   declarations: [
@@ -85,8 +87,8 @@ import { BillsComponent } from './dashboard/data-panel/job-management/bills/bill
     OnlineSellerListComponent,
     OfflineSellerListComponent,
     ColorComponent,
-    ExclusionsComponent,
-    InclusionsComponent,
+    // ExclusionsComponent,
+    // InclusionsComponent,
     AddServiceCenterComponent,
     ServiceCenterListComponent,
     NewComponent,
@@ -99,6 +101,8 @@ import { BillsComponent } from './dashboard/data-panel/job-management/bills/bill
     ProductAddonsComponent,
     DiscardedComponent,
     BillsComponent,
+    // JobManagementComponent,
+    ListManagementComponent,
   ],
   imports: [
     BrowserModule,
