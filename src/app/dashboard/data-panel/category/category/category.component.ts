@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class CategoryComponent implements OnInit {
   cat: Category;
   mainCat: Category;
+  catForm:any;
   showDialog = false;
   viewCat = false;
   editCategoryForm: FormGroup;
@@ -21,6 +22,7 @@ export class CategoryComponent implements OnInit {
   productMainForm:any;
   showCategoryEdit:boolean = false;
   order: string = 'category';
+  showEdit:boolean = false;
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
 
     // edit main category form
@@ -44,14 +46,15 @@ export class CategoryComponent implements OnInit {
   createItem() {
     return this.fb.group({
       'form_type': '',
-      'ElementName': '',
-      List: this.fb.array([this.createValues(),])
+      'title': '',
+      drop_downs: this.fb.array([this.createValues(),])
     });
   }
   // for push new sub list
   createValues() {
     return this.fb.group({
-      'DropdownName': null
+      'title': null,
+      'type':null
     });
   }
   // add array
@@ -61,8 +64,10 @@ export class CategoryComponent implements OnInit {
   }
   // add sub array
   addValues(id: number) {
-    const control = <FormArray>this.createCategoryForm.get(['category_forms', id, 'List']);
+    console.log(id,"id after")
+    const control = <FormArray>this.createCategoryForm.get(['category_forms', id, 'drop_downs']);
     control.push(this.createValues());
+    id=id+1;
   }
   // remove array
   removeItem(i: number) {
@@ -73,7 +78,7 @@ export class CategoryComponent implements OnInit {
   }
   // remove sub array
   removeValues(j: number) {
-    const control = <FormArray>this.createCategoryForm.get(['category_forms', j, 'List']);
+    const control = <FormArray>this.createCategoryForm.get(['category_forms', j, 'drop_downs']);
     console.log(control);
     control.removeAt(j);
   }
@@ -84,7 +89,7 @@ export class CategoryComponent implements OnInit {
     }
     // add sub array
     addValues2(id: number) {
-      const control = <FormArray>this.editCategoryForm.get(['category_forms', id, 'List']);
+      const control = <FormArray>this.editCategoryForm.get(['category_forms', id, 'drop_downs']);
       control.push(this.createValues());
     }
     // remove array
@@ -96,7 +101,7 @@ export class CategoryComponent implements OnInit {
     }
     // remove sub array
     removeValues2(j: number) {
-      const control = <FormArray>this.editCategoryForm.get(['category_forms', j, 'List']);
+      const control = <FormArray>this.editCategoryForm.get(['category_forms', j, 'drop_downs']);
       console.log(control);
       control.removeAt(j);
     }
@@ -108,14 +113,26 @@ export class CategoryComponent implements OnInit {
         this.mainCat = mainCat;
         console.log(mainCat);
       });
-    // get list of category
-    this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(res => {
-        this.cat = res.data;
-        console.log(res,"category form");
-      });
   }
-  
+  // after select main category show list of category
+  onSelectMainCat(catID:number){
+    console.log(catID);
+    this.userService.getSubCategoryList(catID)
+    .subscribe(res => {
+      this.cat = res.data.subCategories;
+      console.log(res,"category");
+    });
+  }
+  // after select category show  category form
+  onSelectCat(catID:number){
+    this.showEdit = true;
+    console.log(catID);
+    this.userService.getSubCategoryList(catID)
+    .subscribe(res => {
+      this.catForm = res.data.categoryForms;
+      console.log(this.catForm,"category form");
+    });
+  }
   // create category
   createCategory(category: any) {
     console.log(category);
@@ -172,8 +189,8 @@ export class CategoryComponent implements OnInit {
     return new FormGroup({
       form_type: new FormControl(payOffObj.form_type),
       FormID:new FormControl(payOffObj.FormID),
-      ElementName: new FormControl(payOffObj.ElementName),
-      List: new FormControl(payOffObj.List[0])
+      title: new FormControl(payOffObj.title),
+      drop_downs: new FormControl(payOffObj.drop_downs[0])
     });
   }
   updateCategory(category: any) {
