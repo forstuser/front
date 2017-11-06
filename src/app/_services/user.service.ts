@@ -31,7 +31,7 @@ export class UserService {
                 this.options = new RequestOptions({ headers: headers });
                 
         }
-
+        // User API
         // get list of admin,qe,ce and customer
         getUserList(role_type:number) { 
                 this.getCSRF();
@@ -49,11 +49,53 @@ export class UserService {
         // Delete user
         deleteUser(id) {
                 this.getCSRF();
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.delete(this.apiLink + 'api/users/'+id, options)
+                return this.http.delete(this.apiLink + 'api/users/'+id, this.options)
                         .map((response: Response) => response);
         }
+        // Update User
+        updateUser(user: any) {
+                this.getCSRF();
+                const id = user.id;
+                delete user['id'];
+                if(user.password==null){
+                  delete user['password'];
+                }
+                const data = JSON.stringify(user);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/users/'+id, data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Category
+        // get list of main category ,category and sub category
+        // for main category category_level =1 , category_level = 2
+        getCategoryList(Level: Number) {
+                this.getCSRF();                
+                return this.http.get(this.apiLink + 'api/categories?category_level='+Level,this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Create Main category
+        createMainCategory(category: any) {
+                this.getCSRF();
+                const data = JSON.stringify(category);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
+        }
+        // Update Main category
+        updateCategory(category: any) {
+                const id=category.category_id;
+                this.getCSRF();
+                delete category['category_id'];
+                delete category['ref_id'];
+                const data = JSON.stringify(category);
+                return this.http.put(this.apiLink + 'api/categories/'+id,data,this.options).map((response: Response) => response.json());
+        }
+        // Delete Category
+        deleteCategory(id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/categories/'+id, this.options).map((response: Response) => response);
+        }
+
+
 
 //*******************************OLD API ***************************************************/
 
@@ -70,11 +112,6 @@ export class UserService {
                 // console.log(data);
                 return this.http.post(this.apiLink + 'Services/UserTypeList', data, options).map((response: Response) => response.json());
         }
-
-
-
-
-
         // get list of admin,qe,ce and customer
         getConsumerList(offset, limit) {
                 // get login user credentials from localstorage
@@ -89,24 +126,6 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerList', data, options)
                         .map((response: Response) => response.json());
         }
-
-        // Update User
-        updateUser(user: any) {
-                this.getCSRF();
-                const id = user.id;
-                delete user['id'];
-                if(user.password==null){
-                  delete user['password'];
-                }
-                const data = JSON.stringify(user);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.put(this.apiLink + 'api/users/'+id, data, options)
-                        .map((response: Response) => response.json());
-        }
-
-
         // **^ category Services ^** //
 
         // get category form
@@ -158,29 +177,6 @@ export class UserService {
         }
 
 
-
-        
-        // get list of main category ,category and sub category
-        // for main category level =1 , catgoey level = 2
-        getCategoryList(Level: Number) {
-                this.getCSRF();                
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers});
-                return this.http.get(this.apiLink + 'api/categories?category_level='+Level,options)
-                        .map((response: Response) => response.json());
-        }
-
-
-        // Create category
-        createMainCategory(category: any) {
-                this.getCSRF();
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'api/categories', data, options).map((response: Response) => response.json());
-        }
-
         // Create category
         createCategory(category: any) {
                 // get login user credentials from localstorage
@@ -207,29 +203,6 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
-        }
-
-        
-        // Update category
-        updateCategory(category: any) {
-                const id=category.category_id;
-                this.getCSRF();
-                delete category['category_id'];
-                delete category['ref_id'];
-                const data = JSON.stringify(category);
-                // console.log(data);
-                const headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.put(this.apiLink + 'api/categories/'+id,data,options).map((response: Response) => response.json());
-        }
-
-
-        // Delete Category
-        deleteCategory(id) {
-                this.getCSRF();
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.delete(this.apiLink + 'api/categories/'+id, options).map((response: Response) => response);
         }
 
         // **^ brand Services ^** //

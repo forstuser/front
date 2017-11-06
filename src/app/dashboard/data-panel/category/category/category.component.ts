@@ -28,21 +28,22 @@ export class CategoryComponent implements OnInit {
       Name: new FormControl(''),
       ID: new FormControl(''),
       RefID: new FormControl(''),
-      FormList: new FormArray([])
+      category_forms: new FormArray([])
     });
 
     // create main category form
     this.createCategoryForm = this.fb.group({
-      'Name': [null, Validators.required],
-      'RefID': [null, Validators.required],
-      FormList: this.fb.array([this.createItem(),])
+      'category_name': [null, Validators.required],
+      'ref_id': [null, Validators.required],
+      'category_level':2,
+      category_forms: this.fb.array([this.createItem(),])
     });
   }
 
   // for push new list
   createItem() {
     return this.fb.group({
-      'Type': '',
+      'form_type': '',
       'ElementName': '',
       List: this.fb.array([this.createValues(),])
     });
@@ -55,70 +56,70 @@ export class CategoryComponent implements OnInit {
   }
   // add array
   addItem() {
-    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    const control = <FormArray>this.createCategoryForm.controls['category_forms'];
     control.push(this.createItem());
   }
   // add sub array
   addValues(id: number) {
-    const control = <FormArray>this.createCategoryForm.get(['FormList', id, 'List']);
+    const control = <FormArray>this.createCategoryForm.get(['category_forms', id, 'List']);
     control.push(this.createValues());
   }
   // remove array
   removeItem(i: number) {
     console.log(i);
-    const control = <FormArray>this.createCategoryForm.controls['FormList'];
+    const control = <FormArray>this.createCategoryForm.controls['category_forms'];
     console.log(control);
     control.removeAt(i);
   }
   // remove sub array
   removeValues(j: number) {
-    const control = <FormArray>this.createCategoryForm.get(['FormList', j, 'List']);
+    const control = <FormArray>this.createCategoryForm.get(['category_forms', j, 'List']);
     console.log(control);
     control.removeAt(j);
   }
     // add array
     addItem2() {
-      const control = <FormArray>this.editCategoryForm.controls['FormList'];
+      const control = <FormArray>this.editCategoryForm.controls['category_forms'];
       control.push(this.createItem());
     }
     // add sub array
     addValues2(id: number) {
-      const control = <FormArray>this.editCategoryForm.get(['FormList', id, 'List']);
+      const control = <FormArray>this.editCategoryForm.get(['category_forms', id, 'List']);
       control.push(this.createValues());
     }
     // remove array
     removeItem2(i: number) {
       console.log(i);
-      const control = <FormArray>this.editCategoryForm.controls['FormList'];
+      const control = <FormArray>this.editCategoryForm.controls['category_forms'];
       console.log(control);
       control.removeAt(i);
     }
     // remove sub array
     removeValues2(j: number) {
-      const control = <FormArray>this.editCategoryForm.get(['FormList', j, 'List']);
+      const control = <FormArray>this.editCategoryForm.get(['category_forms', j, 'List']);
       console.log(control);
       control.removeAt(j);
     }
 
   ngOnInit() {
     // get list of main category
-    this.userService.getCategoryList(1) // 1 for category refer to api doc
+    this.userService.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(mainCat => {
         this.mainCat = mainCat;
-        // console.log('mainCat' + mainCat);
+        console.log(mainCat);
       });
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(res => {
-        this.cat = res.CategoryList;
-        // console.log('category is ' + res);
+        this.cat = res.data;
+        console.log(res,"category form");
       });
   }
   
   // create category
   createCategory(category: any) {
     console.log(category);
-    this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'FormList': category.FormList };
+    this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'category_forms': category.category_forms };
     console.log(this.createCat)
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
@@ -130,7 +131,7 @@ export class CategoryComponent implements OnInit {
           Name: new FormControl(''),
           ID: new FormControl(''),
           RefID: new FormControl(''),
-          FormList: new FormArray([])
+          category_forms: new FormArray([])
         });
 
         this.userService.getCategoryList(2) // list update after createcat
@@ -151,7 +152,7 @@ export class CategoryComponent implements OnInit {
       Name: new FormControl(''),
       ID: new FormControl(''),
       RefID: new FormControl(''),
-      FormList: new FormArray([])
+      category_forms: new FormArray([])
     });
     this.userService.getCategoryListbyID(item.ID)
       .subscribe(res => {
@@ -160,16 +161,16 @@ export class CategoryComponent implements OnInit {
         this.editCategoryForm.controls['ID'].setValue(res.Category[0].ID);
         this.editCategoryForm.controls['RefID'].setValue(res.Category[0].RefID);
         this.editCategoryForm.controls['Name'].setValue(res.Category[0].Name);
-        res.FormList.forEach(
+        res.category_forms.forEach(
           (po) => {
-            (<FormArray>this.editCategoryForm.controls['FormList']).push(this.createDetailsFormGroup(po));
+            (<FormArray>this.editCategoryForm.controls['category_forms']).push(this.createDetailsFormGroup(po));
           });
       })
   }
   createDetailsFormGroup(payOffObj) {
     console.log(payOffObj,'pay')
     return new FormGroup({
-      Type: new FormControl(payOffObj.Type),
+      form_type: new FormControl(payOffObj.form_type),
       FormID:new FormControl(payOffObj.FormID),
       ElementName: new FormControl(payOffObj.ElementName),
       List: new FormControl(payOffObj.List[0])
