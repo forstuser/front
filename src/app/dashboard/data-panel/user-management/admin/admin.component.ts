@@ -81,6 +81,8 @@ export class AdminComponent implements OnInit {
         alert("Some Error occured !!")
       });
   }
+
+  
   deleteUser(user: any) {
     console.log(user);
     this.userService.deleteUser(user.id)
