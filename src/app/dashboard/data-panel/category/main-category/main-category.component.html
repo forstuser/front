@@ -38,13 +38,16 @@
         <tr>
           <th>#</th>
           <th>Name</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody *ngFor="let list of mainCategory?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1 }}</th>
-          <td>{{ list.category_name }}</td>
+          <td>{{ list?.category_name }}</td>
+          <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>
+          <td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span></td> 
           <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>
             <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span>
           </td>
