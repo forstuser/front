@@ -177,6 +177,8 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
         }
 
+        
+
 //*******************************OLD API ***************************************************/
 
         // get different type of user
