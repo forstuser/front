@@ -468,15 +468,12 @@ export class UserService {
         // Create category
         createColor(category: any) {
                 // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
+                this.getCSRF();
                 const data = JSON.stringify(category);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddColor', data, options).map((response: Response) => response.json());
+                return this.http.post(this.apiLink + 'api/colours', data, options).map((response: Response) => response.json());
         }
         // Update category
         //     updateColor(category: any) {

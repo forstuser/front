@@ -15,9 +15,9 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')" >
+                            <input type="text" class="form-control" formControlName="colour_name" (keyup)="avoidSpace('colour_name')" >
                         </div>
-                        <p class="text-danger" *ngIf="!colorForm.controls['Name'].valid && colorForm.controls['Name'].touched">Color Name is required</p>
+                        <p class="text-danger" *ngIf="!colorForm.controls['colour_name'].valid && colorForm.controls['colour_name'].touched">Color Name is required</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">

@@ -9,16 +9,19 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './color.component.html',
   styleUrls: ['./color.component.css']
 })
+
 export class ColorComponent implements OnInit {
   color: Color;
   colorForm: FormGroup ;
   del: any = { };
+
   constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
     // main color form
     this.colorForm = this.fb.group({
-      'Name' : [null, Validators.required]
+      'colour_name' : [null, Validators.required]
     });
    }
+
 
   ngOnInit() {
   // get list of main category
@@ -29,6 +32,7 @@ export class ColorComponent implements OnInit {
     });
   }
 
+  
   // create new color
   createColor( col: any) {
     console.log(col);
