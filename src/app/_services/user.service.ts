@@ -155,15 +155,12 @@ export class UserService {
 
         
         // get list of main category ,category and sub category
+        // for main category level =1 , catgoey level = 2
         getCategoryList(Level: Number) {
-                // get login user credentials from localstorage
                 this.getCSRF();                
-                // const body = { TokenNo: this.TokenNo, Level: Level };
-                // const data = JSON.stringify(body);
                 const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers});
-                // console.log(data);
-                return this.http.get(this.apiLink + 'api/categories',options)
+                return this.http.get(this.apiLink + 'api/categories?category_level='+Level,options)
                         .map((response: Response) => response.json());
         }
 
@@ -210,25 +207,22 @@ export class UserService {
         updateCategory(category: any) {
                 const id=category.category_id;
                 this.getCSRF();
+                delete category['category_id'];
+                delete category['ref_id'];
                 const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({'X-CSRF-TOKEN': this.xcsrf });
+                // console.log(data);
+                const headers = new Headers({'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.put(this.apiLink + 'api/categories/'+id,data,options).map((response: Response) => response.json());
         }
 
 
         // Delete Category
-        deleteCategory(category: Category) {
-                // get login user credentials from localstorage
-                const id=category;
-                console.log(id,"delete id")
+        deleteCategory(id) {
                 this.getCSRF();
-                const data = JSON.stringify(category);
-                console.log(data);
                 const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
                 const options = new RequestOptions({ headers: headers });
-                return this.http.delete(this.apiLink + 'api/categories/'+id, options).map((response: Response) => response.json());
+                return this.http.delete(this.apiLink + 'api/categories/'+id, options).map((response: Response) => response);
         }
 
         // **^ brand Services ^** //

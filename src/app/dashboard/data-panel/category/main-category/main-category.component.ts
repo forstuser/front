@@ -1,6 +1,6 @@
 import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
-import { FormBuilder , FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,44 +14,42 @@ import { Component, OnInit } from '@angular/core';
 export class MainCategoryComponent implements OnInit {
   mainCategory: Category;
   showDialog = false;
-  editCategoryForm: FormGroup ;
+  editCategoryForm: FormGroup;
   createCategoryForm: FormGroup;
-  createCat: any = { };
-  del: any = { };
-  cat_id:number;
-  
-  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
+  createCat: any = {};
+  del: any = {};
+  cat_id: number;
+
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     // edit main category form
     this.editCategoryForm = this.fb.group({
-      'category_name' : [null, Validators.required],
-      'category_id' : [null],
+      'category_name': [null, Validators.required],
+      'category_id': [null],
       'ref_id': [null]
     });
     // create main category form
     this.createCategoryForm = this.fb.group({
       'category_name': [null, Validators.required]
-      // 'Level': [null, Validators.required]
-    });
-   }
-
-
-  ngOnInit() {
-  // get list of main category
-    this.userService.getCategoryList(1) // 1 for main category refer to api doc
-    .subscribe(mainCategory => {
-      this.mainCategory = mainCategory;
-      console.log(mainCategory);
     });
   }
 
 
-    // passs current user as argument and open the popup
+  ngOnInit() {
+    // get list of main category
+    this.userService.getCategoryList(1) // 1 for main category refer to api doc
+      .subscribe(mainCategory => {
+        this.mainCategory = mainCategory;
+        console.log(mainCategory);
+      });
+  }
+
+
+  // passs current user as argument and open the popup
   openCategoryModel(item: any) {
-    this.cat_id=item.category_id;
-    console.log(this.cat_id,item,"categoty_id")
-    this.showDialog = true ; 
+    this.cat_id = item.category_id;
+    // console.log(this.cat_id, item, "categoty_id")
+    this.showDialog = true;
     // this.editCategoryForm.setValue()
-    // for show dialog
     // populate prefilled value in form
     this.editCategoryForm.setValue({
       category_name: item.category_name,
@@ -61,56 +59,62 @@ export class MainCategoryComponent implements OnInit {
   }
 
   // create new main category
-  createCategory( category: any) {
+  createCategory(category: any) {
     console.log(category);
-    this.createCat = { 'category_level': 1, 'ref_id': null , 'category_name': category.category_name,'category_forms':[] };
-    // confirm('Confirm');
+    this.createCat = { 'category_level': 1, 'ref_id': null, 'category_name': category.category_name, 'category_forms': [] };
     this.userService.createMainCategory(this.createCat)
-      .subscribe(res => {
-        console.log(res,"category")
+      .subscribe((res) => {
+        console.log(res, "category")
         alert("Main Category Created")
         this.createCategoryForm.reset();
         this.userService.getCategoryList(1) // list update after create new category
           .subscribe(mainCategory => {
-          this.mainCategory = mainCategory;
-            // console.log(users);
-        });
-    });
+            this.mainCategory = mainCategory;
+          });
+      },
+      (error) => {
+        console.log(error);
+      }
+      );
   }
 
 
   // update existing main category
-  updateCategory( category: any) {
-    console.log(category,"cat");
+  updateCategory(category: any) {
+    console.log(category, "cat");
     this.userService.updateCategory(category)
-      .subscribe( res => {
+      .subscribe(res => {
         console.log(res);
         alert('category updated successfully');
-        this.showDialog = false ;
+        this.showDialog = false;
         this.userService.getCategoryList(1) // list update after edit
           .subscribe(mainCategory => {
-          this.mainCategory = mainCategory;
-          // console.log(users);
-        });
+            this.mainCategory = mainCategory;
+            // console.log(users);
+          });
       });
   }
+
   // delete main category
   deleteCategory(category: any) {
-    // console.log(category);
-    // this.del = { 'ID': category.ID };
+    console.log(category);
     this.userService.deleteCategory(category.category_id)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log(res);
         alert('Deleted');
         this.userService.getCategoryList(1) // list update after delete
           .subscribe(mainCategory => {
-          this.mainCategory = mainCategory;
-            // console.log(users);
-        });
-    });
+            this.mainCategory = mainCategory;
+          });
+      },
+      (error)=>{
+        console.log(error);
+      }
+    );
   }
+  
   // function for avoid only space submit
-  avoidSpace(e){
-    this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
+  avoidSpace(e) {
+    this.functionService.NoWhitespaceValidator(this.createCategoryForm, e)
   }
 }
