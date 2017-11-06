@@ -55,6 +55,40 @@ export class UserService {
                         .map((response: Response) => response);
         }
 
+        //Create colors
+        createColor(category: any) {
+                this.getCSRF();
+                const data = JSON.stringify(category);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/colours', data, this.options).map((response: Response) => response.json());
+        } 
+
+        //Get colors
+        getColorList() {
+                this.getCSRF();                
+                return this.http.get(this.apiLink + 'api/colours',this.options)
+                        .map((response: Response) => response.json());
+        }
+
+        // Update Color
+            updateColor(category: any) {
+                console.log(category,"colorId")
+                const id=category.colour_id;
+                this.getCSRF();      
+                delete category['colour_id'];
+                const data = JSON.stringify(category);
+                console.log(data);                          
+                return this.http.put(this.apiLink + 'api/colours/'+id,data,this.options)
+                .map((response: Response) => response.json());
+            }
+
+        // Delete Color
+        deleteColor(category: any) {
+                const id=category.colour_id;
+                this.getCSRF();      
+                return this.http.delete(this.apiLink + 'api/colours/'+id,this.options).map((response: Response) => response.json());
+        }
+
 //*******************************OLD API ***************************************************/
 
         // get different type of user
@@ -455,54 +489,9 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/DeleteOfflineSeller', data, options).map((response: Response) => response.json());
         }
-        // **^ Color Services ^** //
-        // get list of main category ,category and sub category
-        getColorList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/ColorList', data, options)
-                        .map((response: Response) => response.json());
-        }
-
-        // Create category
-        createColor(category: any) {
-                // get login user credentials from localstorage
-                this.getCSRF();
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'api/colours', data, options).map((response: Response) => response.json());
-        }
-        // Update category
-        //     updateColor(category: any) {
-        //         category['TokenNo'] = this.TokenNo;
-        //         const data = JSON.stringify(category);
-        //         // console.log(data);
-        //         const headers = new Headers({ 'Content-Type': 'application/json' });
-        //         const options = new RequestOptions({ headers: headers });
-        //         return this.http.post(this.apiLink + 'Services/EditCategory', data, options).map((response: Response) => response.json());
-        //     }
-        // Delete Category
-        deleteColor(category: Category) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteColor', data, options).map((response: Response) => response.json());
-        }
+        
+        
+        
         // **^ Inclusions Services ^** //
 
         // get list of inclusions
