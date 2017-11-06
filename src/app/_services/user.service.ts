@@ -112,6 +112,7 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
 
+
         // Update Color
             updateColor(category: any) {
                 console.log(category,"colorId")
@@ -124,11 +125,49 @@ export class UserService {
                 .map((response: Response) => response.json());
             }
 
+
         // Delete Color
         deleteColor(category: any) {
                 const id=category.colour_id;
                 this.getCSRF();      
                 return this.http.delete(this.apiLink + 'api/colours/'+id,this.options).map((response: Response) => response.json());
+        }
+
+
+         // Create detail
+         createDetail(category: any) {
+                // get login user credentials from localstorage
+                this.getCSRF();                      
+                const data = JSON.stringify(category);
+                console.log('final', data);
+                return this.http.post(this.apiLink + 'api/detailtypes', data, this.options).map((response: Response) => response.json());
+        }
+
+        //get details
+        getDetailList() {
+                // get login user credentials from localstorage
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/detailtypes',this.options)
+                        .map((response: Response) => response.json());
+        }
+
+        // Update details
+        updateDetail(category: any) {
+                const id=category.id;
+                console.log(category,"updetail")
+                this.getCSRF();
+                delete category['type']
+                delete category['id']
+                const data = JSON.stringify(category);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/detailtypes/'+id, data, this.options).map((response: Response) => response.json());
+        }
+
+        // Delete detail
+        deleteDetail(category:any) {
+                const id=category.id;
+                this.getCSRF();                      
+                return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
         }
 
 //*******************************OLD API ***************************************************/
@@ -538,19 +577,7 @@ export class UserService {
         // **^ Exclusion Services ^** //
 
         // get list of main category ,category and sub category
-        getExclusionsList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/ExclusionsList', data, options)
-                        .map((response: Response) => response.json());
-        }
+        
         // get list of exclusions by category id
         getExclusionsListbyCategoryID(RefID: number) {
                 // get login user credentials from localstorage
@@ -566,45 +593,9 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ExclusionsListByCategoryID', data, options)
                         .map((response: Response) => response.json());
         }
-        // Create category
-        createExclusions(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log('final', data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddExclusions', data, options).map((response: Response) => response.json());
-        }
-        // Update category
-        updateExclusions(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditExclusions', data, options).map((response: Response) => response.json());
-        }
-        // Delete Category
-        deleteExclusions(category: Category) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log('final data', data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteExclusions', data, options).map((response: Response) => response.json());
-        }
+       
+        
+        
         // **^ authorized service center Services ^** //
         // get details of authorized service center by id
         getAuthorizedServiceCenterByID(ID: Number) {

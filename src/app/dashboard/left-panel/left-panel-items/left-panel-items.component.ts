@@ -165,26 +165,23 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Inclusion / Exclusion ',
+      'name': 'Detail Type',
       'icon': 'menu',
-      'link': '#',
-      'class': 'menu-toggle',
-      'handler': 'toggleState',
-      'addActive': 'none',
-      'addClass': 'none',
-      'addSubClass': 'none',
-      'dropdownList': [
-        {
-          'd_name': 'Exclusions',
-          'd_icon': 'call_made',
-          'd_link': 'exclusions'
-        },
-        {
-          'd_name': 'Inclusions',
-          'd_icon': 'call_received',
-          'd_link': 'inclusions'
-        }
-      ]
+      'link': 'list-details',
+      'handler': 'doNothing',
+      'class': '',
+      // 'dropdownList': [
+      //   {
+      //     'd_name': 'Exclusions',
+      //     'd_icon': 'call_made',
+      //     'd_link': 'exclusions'
+      //   },
+      //   {
+      //     'd_name': 'Inclusions',
+      //     'd_icon': 'call_received',
+      //     'd_link': 'inclusions'
+      //   }
+      // ]
     },
     {
       'name': 'ASC ',
