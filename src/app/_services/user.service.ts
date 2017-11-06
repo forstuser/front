@@ -182,7 +182,34 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
         }
 
-        
+           // Online Seller
+        // get online seller list
+        getOnlineSellerList() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/onlineSeller', this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Create online seller
+        createOnlineSeller(OnlineSeller: any) {
+                this.getCSRF();
+                const data = JSON.stringify(OnlineSeller);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/onlineSeller', data, this.options).map((response: Response) => response.json());
+        }
+        // Delete online seller
+        deleteOnlineSeller(sellerId: number) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/onlineSeller/' + sellerId, this.options).map((response: Response) => response.json());
+        }
+        // Update online seller
+        updateOnlineSeller(OnlineSeller: any) {
+                const sid = OnlineSeller.sid;
+                this.getCSRF();
+                delete OnlineSeller['sid'];
+                const data = JSON.stringify(OnlineSeller);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/onlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
+        }
 
 //*******************************OLD API ***************************************************/
 
