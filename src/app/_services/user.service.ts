@@ -14,28 +14,28 @@ export class UserService {
         currentUser: any;
         TokenNo: String = '';
         UserType: Number;
-        xcsrf:String;
-        options:any;
+        xcsrf: String;
+        options: any;
 
         constructor(private http: Http) {
 
         }
 
-// *********************************** USER SERVICES ******************************************//
+        // *********************************** USER SERVICES ******************************************//
 
         // get all token
-        getCSRF(){
+        getCSRF() {
                 const csrf = Cookie.getAll();
                 this.xcsrf = csrf['x-csrf-token'];
                 const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf, 'Content-Type': 'application/json' });
                 this.options = new RequestOptions({ headers: headers });
-                
+
         }
         // User API
         // get list of admin,qe,ce and customer
-        getUserList(role_type:number) { 
+        getUserList(role_type: number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/users?role_type='+role_type,this.options)
+                return this.http.get(this.apiLink + 'api/users?role_type=' + role_type, this.options)
                         .map((response: Response) => response.json());
         }
         // Create User
@@ -49,7 +49,7 @@ export class UserService {
         // Delete user
         deleteUser(id) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/users/'+id, this.options)
+                return this.http.delete(this.apiLink + 'api/users/' + id, this.options)
                         .map((response: Response) => response);
         }
         // Update User
@@ -57,12 +57,12 @@ export class UserService {
                 this.getCSRF();
                 const id = user.id;
                 delete user['id'];
-                if(user.password==null){
-                  delete user['password'];
+                if (user.password == null) {
+                        delete user['password'];
                 }
                 const data = JSON.stringify(user);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/users/'+id, data, this.options)
+                return this.http.put(this.apiLink + 'api/users/' + id, data, this.options)
                         .map((response: Response) => response.json());
         }
         // Category
@@ -70,14 +70,14 @@ export class UserService {
 
         // for main category category_level =1 , category_level = 2
         getCategoryList(Level: Number) {
-                this.getCSRF();                
-                return this.http.get(this.apiLink + 'api/categories?category_level='+Level,this.options)
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/categories?category_level=' + Level, this.options)
                         .map((response: Response) => response.json());
         }
         // get category list by category id
-        getSubCategoryList(catID:number){
-                this.getCSRF();                
-                return this.http.get(this.apiLink + 'api/categories/'+catID,this.options)
+        getSubCategoryList(catID: number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/categories/' + catID, this.options)
                         .map((response: Response) => response.json());
         }
         // Create Main category
@@ -87,57 +87,62 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
+        // Create category
+        createCategory(category: any) {
+                this.getCSRF();
+                const id = category.category_id;
+                delete category['category_id'];
+                const data = JSON.stringify(category);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/categories/'+id+'/forms', data, this.options).map((response: Response) => response.json());
+        }
         // Update Main category
         updateCategory(category: any) {
-                const id=category.category_id;
+                const id = category.category_id;
                 this.getCSRF();
                 delete category['category_id'];
                 delete category['ref_id'];
                 const data = JSON.stringify(category);
-                return this.http.put(this.apiLink + 'api/categories/'+id,data,this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/categories/' + id, data, this.options).map((response: Response) => response.json());
         }
         // Delete Category
         deleteCategory(id) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/categories/'+id, this.options).map((response: Response) => response);
+                return this.http.delete(this.apiLink + 'api/categories/' + id, this.options).map((response: Response) => response);
         }
-
-
-
         //Create colors
         createColor(category: any) {
                 this.getCSRF();
                 const data = JSON.stringify(category);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/colours', data, this.options).map((response: Response) => response.json());
-        } 
-
+        }
         //Get colors
         getColorList() {
-                this.getCSRF();                
-                return this.http.get(this.apiLink + 'api/colours',this.options)
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/colours', this.options)
                         .map((response: Response) => response.json());
         }
 
 
         // Update Color
-            updateColor(category: any) {
-                console.log(category,"colorId")
-                const id=category.colour_id;
-                this.getCSRF();      
+        updateColor(category: any) {
+                console.log(category, "colorId")
+                const id = category.colour_id;
+                this.getCSRF();
                 delete category['colour_id'];
                 const data = JSON.stringify(category);
-                console.log(data);                          
-                return this.http.put(this.apiLink + 'api/colours/'+id,data,this.options)
-                .map((response: Response) => response.json());
+                console.log(data);
+                        return this.http.put(this.apiLink + 'api/colours/' + id, data, this.options)
+                        .map((response: Response) => response.json());
             }
 
 
         // Delete Color
         deleteColor(category: any) {
-                const id=category.colour_id;
-                this.getCSRF();      
-                return this.http.delete(this.apiLink + 'api/colours/'+id,this.options).map((response: Response) => response.json());
+                const id = category.colour_id;
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/colours/' + id, this.options).map((response: Response) => response.json());
         }
 
 
@@ -259,20 +264,8 @@ export class UserService {
         }
 
 
-        // Create category
-        createCategory(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddCategoryForm', data, options).map((response: Response) => response.json());
-        }
-        
+
+
         // Create category
         editCategoryForm(category: any) {
                 // get login user credentials from localstorage
@@ -386,59 +379,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/OnlineSellerByID', data, options)
                         .map((response: Response) => response.json());
         }
-        // get online seller list
-        getOnlineSellerList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/OnlineSellerList', data, options)
-                        .map((response: Response) => response.json());
-        }
-        // Create online seller
-        createOnlineSeller(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddOnlineSeller', data, options).map((response: Response) => response.json());
-        }
-        // Update online seller
-        updateOnlineSeller(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditOnlineSeller', data, options).map((response: Response) => response.json());
-        }
-        // Delete online seller
-        deleteOnlineSeller(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteOnlineSeller', data, options).map((response: Response) => response.json());
-        }
+
         // **^ offline seller Services ^** //
 
         // get details of offline seller by id
@@ -510,9 +451,9 @@ export class UserService {
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/DeleteOfflineSeller', data, options).map((response: Response) => response.json());
         }
-        
-        
-        
+
+
+
         // **^ Inclusions Services ^** //
 
         // get list of inclusions

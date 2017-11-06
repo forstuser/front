@@ -27,9 +27,9 @@ export class CategoryComponent implements OnInit {
 
     // edit main category form
     this.editCategoryForm = this.fb.group({
-      Name: new FormControl(''),
+      category_name: new FormControl(''),
       ID: new FormControl(''),
-      RefID: new FormControl(''),
+      ref_id: new FormControl(''),
       category_forms: new FormArray([])
     });
 
@@ -37,6 +37,7 @@ export class CategoryComponent implements OnInit {
     this.createCategoryForm = this.fb.group({
       'category_name': [null, Validators.required],
       'ref_id': [null, Validators.required],
+      'category_id':[null],
       'category_level':2,
       category_forms: this.fb.array([this.createItem(),])
     });
@@ -53,8 +54,7 @@ export class CategoryComponent implements OnInit {
   // for push new sub list
   createValues() {
     return this.fb.group({
-      'title': null,
-      'type':null
+      'title': null
     });
   }
   // add array
@@ -67,7 +67,6 @@ export class CategoryComponent implements OnInit {
     console.log(id,"id after")
     const control = <FormArray>this.createCategoryForm.get(['category_forms', id, 'drop_downs']);
     control.push(this.createValues());
-    id=id+1;
   }
   // remove array
   removeItem(i: number) {
@@ -116,7 +115,11 @@ export class CategoryComponent implements OnInit {
   }
   // after select main category show list of category
   onSelectMainCat(catID:number){
-    console.log(catID);
+    this.createCategoryForm.setValue({
+      category_id:catID
+    });
+    // console.log(this.createCategoryForm.value);
+    // console.log(catID);
     this.userService.getSubCategoryList(catID)
     .subscribe(res => {
       this.cat = res.data.subCategories;
@@ -135,8 +138,8 @@ export class CategoryComponent implements OnInit {
   }
   // create category
   createCategory(category: any) {
-    console.log(category);
-    this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'category_forms': category.category_forms };
+    // console.log(category);
+    this.createCat = { 'category_id':category.category_id, 'category_level': 2, 'ref_id': category.ref_id, 'category_name': category.category_name, 'category_forms': category.category_forms };
     console.log(this.createCat)
     this.userService.createCategory(this.createCat)
       .subscribe(res => {
@@ -232,7 +235,7 @@ export class CategoryComponent implements OnInit {
   }
     // function for avoid only space submit
     avoidSpace(e){
-      console.log(e);
+      // console.log(e);
       this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
     }
     back(){
