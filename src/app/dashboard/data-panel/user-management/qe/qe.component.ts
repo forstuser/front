@@ -20,44 +20,49 @@ export class QeComponent implements OnInit {
   statusCode: Number;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.editUserForm = this.fb.group({
-      'UserType' : [null, Validators.required],
-      'Name' : [null, Validators.required],
-      'EmailID' : [null, Validators.required],
-      'Status' : [null, Validators.required],
-      'ID': [null, Validators.required],
-      'Password' : null
+      'role_type': [null, Validators.required],
+      'name': null,
+      'email': [null, Validators.required],
+      'user_status_type': [null, Validators.required],
+      'id': [null, Validators.required],
+      'password': null
     });
    }
 
 
   ngOnInit() {
     // get list of admin
-    this.userService.getUserList(3) // 4 for QE refer to api doc
+    this.userService.getUserList(3) // 3 for QE refer to api doc
     .subscribe(users => {
       this.users = users;
       console.log(users);
-    });
+    },
+    (error => {
+      console.log(error);
+    })
+    );
     // get dropdown list
     
   }
 
   // passs current user as argument and open the popup
   openUserModel(item: any) {
-    this.showDialog = true ; // for show dialog
+    console.log(item);
+    this.showDialog = true; // for show dialog
     this.item = item;
-    if (item.Status === 'Active') {
+    if (item.user_status_type === 'Active') {
       this.statusCode = 1;
     } else {
       this.statusCode = 2;
     }
     // populate prefilled value in form
     this.editUserForm.setValue({
-      UserType: 4,
-      Name: item.Name,
-      EmailID: item.EmailID,
-      Status: this.statusCode,
-      ID: item.ID,
-      Password: ''
+      role_type: 3,
+      name: item.full_name,
+      email: item.email,
+      user_status_type: item.user_status_type,
+      id: item.id,
+      password:null
     });
   }
 
@@ -65,15 +70,19 @@ export class QeComponent implements OnInit {
   updateUser(user: any) {
     console.log(user);
     this.userService.updateUser(user)
-      .subscribe( res => {
+      .subscribe(res => {
         // console.log(res);
         alert('User updated successfully');
-        this.showDialog = false ;
+        this.showDialog = false;
         this.userService.getUserList(3) // list update after edit
           .subscribe(users => {
-          this.users = users;
-          // console.log(users);
-        });
+            this.users = users;
+            // console.log(users);
+          });
+      }),
+      (error => {
+        console.log(error);
+        alert("Some Error occured !!")
       });
   }
 
