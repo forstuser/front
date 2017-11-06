@@ -123,6 +123,8 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/colours', this.options)
                         .map((response: Response) => response.json());
         }
+
+
         // Update Color
         updateColor(category: any) {
                 console.log(category, "colorId")
@@ -135,6 +137,7 @@ export class UserService {
                         .map((response: Response) => response.json());
             }
 
+
         // Delete Color
         deleteColor(category: any) {
                 const id = category.colour_id;
@@ -142,35 +145,46 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/colours/' + id, this.options).map((response: Response) => response.json());
         }
 
-        // Online Seller
-        // get online seller list
-        getOnlineSellerList() {
+
+         // Create detail
+         createDetail(category: any) {
+                // get login user credentials from localstorage
+                this.getCSRF();                      
+                const data = JSON.stringify(category);
+                console.log('final', data);
+                return this.http.post(this.apiLink + 'api/detailtypes', data, this.options).map((response: Response) => response.json());
+        }
+
+        //get details
+        getDetailList() {
+                // get login user credentials from localstorage
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/onlineSeller', this.options)
+                return this.http.get(this.apiLink + 'api/detailtypes',this.options)
                         .map((response: Response) => response.json());
         }
-        // Create online seller
-        createOnlineSeller(OnlineSeller: any) {
+
+        // Update details
+        updateDetail(category: any) {
+                const id=category.id;
+                console.log(category,"updetail")
                 this.getCSRF();
-                const data = JSON.stringify(OnlineSeller);
+                delete category['type']
+                delete category['id']
+                const data = JSON.stringify(category);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/onlineSeller', data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/detailtypes/'+id, data, this.options).map((response: Response) => response.json());
         }
-        // Delete online seller
-        deleteOnlineSeller(sellerId: number) {
-                this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/onlineSeller/' + sellerId, this.options).map((response: Response) => response.json());
+
+        // Delete detail
+        deleteDetail(category:any) {
+                const id=category.id;
+                this.getCSRF();                      
+                return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
         }
-        // Update online seller
-        updateOnlineSeller(OnlineSeller: any) {
-                const sid = OnlineSeller.sid;
-                this.getCSRF();
-                delete OnlineSeller['sid'];
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                return this.http.put(this.apiLink + 'api/onlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
-        }
-        //*******************************OLD API ***************************************************/
+
+        
+
+//*******************************OLD API ***************************************************/
 
         // get different type of user
         getAllUser() {
@@ -513,19 +527,7 @@ export class UserService {
         // **^ Exclusion Services ^** //
 
         // get list of main category ,category and sub category
-        getExclusionsList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/ExclusionsList', data, options)
-                        .map((response: Response) => response.json());
-        }
+        
         // get list of exclusions by category id
         getExclusionsListbyCategoryID(RefID: number) {
                 // get login user credentials from localstorage
@@ -541,45 +543,9 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ExclusionsListByCategoryID', data, options)
                         .map((response: Response) => response.json());
         }
-        // Create category
-        createExclusions(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log('final', data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddExclusions', data, options).map((response: Response) => response.json());
-        }
-        // Update category
-        updateExclusions(category: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditExclusions', data, options).map((response: Response) => response.json());
-        }
-        // Delete Category
-        deleteExclusions(category: Category) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                category['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(category);
-                console.log('final data', data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteExclusions', data, options).map((response: Response) => response.json());
-        }
+       
+        
+        
         // **^ authorized service center Services ^** //
         // get details of authorized service center by id
         getAuthorizedServiceCenterByID(ID: Number) {

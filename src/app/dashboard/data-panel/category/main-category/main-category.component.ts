@@ -25,8 +25,10 @@ export class MainCategoryComponent implements OnInit {
     this.editCategoryForm = this.fb.group({
       'category_name': [null, Validators.required],
       'category_id': [null],
-      'ref_id': [null]
+      'ref_id': [null],
+      'status_type':[null,Validators.required]
     });
+
     // create main category form
     this.createCategoryForm = this.fb.group({
       'category_name': [null, Validators.required]
@@ -54,7 +56,8 @@ export class MainCategoryComponent implements OnInit {
     this.editCategoryForm.setValue({
       category_name: item.category_name,
       category_id: item.category_id,
-      ref_id: item.ref_id
+      ref_id: item.ref_id,
+      status_type:item.status_type
     });
   }
 
@@ -81,6 +84,7 @@ export class MainCategoryComponent implements OnInit {
 
   // update existing main category
   updateCategory(category: any) {
+    if(category.status_type==1){
     console.log(category, "cat");
     this.userService.updateCategory(category)
       .subscribe(res => {
@@ -93,6 +97,10 @@ export class MainCategoryComponent implements OnInit {
             // console.log(users);
           });
       });
+  }
+  else{
+    alert("Please Active first then update");
+  }
   }
 
   // delete main category

@@ -92,7 +92,7 @@ export class ColorComponent implements OnInit {
     })
   }
 else{
-  alert("Please Active first then update")
+  alert("Please Active first then update");
 }
 }
 
