@@ -67,10 +67,17 @@ export class UserService {
         }
         // Category
         // get list of main category ,category and sub category
+
         // for main category category_level =1 , category_level = 2
         getCategoryList(Level: Number) {
                 this.getCSRF();                
                 return this.http.get(this.apiLink + 'api/categories?category_level='+Level,this.options)
+                        .map((response: Response) => response.json());
+        }
+        // get category list by category id
+        getSubCategoryList(catID:number){
+                this.getCSRF();                
+                return this.http.get(this.apiLink + 'api/categories/'+catID,this.options)
                         .map((response: Response) => response.json());
         }
         // Create Main category
