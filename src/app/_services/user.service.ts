@@ -15,18 +15,48 @@ export class UserService {
         TokenNo: String = '';
         UserType: Number;
         xcsrf:String;
-
+        options:any;
 
         constructor(private http: Http) {
 
         }
 
-        // **^ user Services ^** //
+// *********************************** USER SERVICES ******************************************//
+
+        // get all token
         getCSRF(){
                 const csrf = Cookie.getAll();
                 this.xcsrf = csrf['x-csrf-token'];
+                const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf, 'Content-Type': 'application/json' });
+                this.options = new RequestOptions({ headers: headers });
                 
         }
+
+        // get list of admin,qe,ce and customer
+        getUserList(role_type:number) { 
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/users?role_type='+role_type,this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Create User
+        createUser(user: User) {
+                this.getCSRF();
+                const data = JSON.stringify(user);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/users', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Delete user
+        deleteUser(id) {
+                this.getCSRF();
+                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.delete(this.apiLink + 'api/users/'+id, options)
+                        .map((response: Response) => response);
+        }
+
+//*******************************OLD API ***************************************************/
+
         // get different type of user
         getAllUser() {
                 // get login user credentials from localstorage
@@ -42,14 +72,6 @@ export class UserService {
         }
 
 
-        // get list of admin,qe,ce and customer
-        getUserList(role_type:number) { 
-                this.getCSRF();
-                const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.get(this.apiLink + 'api/users?role_type='+role_type, options)
-                        .map((response: Response) => response.json());
-        }
 
 
 
@@ -67,16 +89,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ConsumerList', data, options)
                         .map((response: Response) => response.json());
         }
-        // Create User
-        createUser(user: User) {
-                this.getCSRF();
-                const data = JSON.stringify(user);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'api/users', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         // Update User
         updateUser(user: any) {
                 this.getCSRF();
@@ -92,14 +105,7 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/users/'+id, data, options)
                         .map((response: Response) => response.json());
         }
-        // Delete user
-        deleteUser(id) {
-                this.getCSRF();
-                const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': this.xcsrf });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.delete(this.apiLink + 'api/users/'+id, options)
-                        .map((response: Response) => response);
-        }
+
 
         // **^ category Services ^** //
 
