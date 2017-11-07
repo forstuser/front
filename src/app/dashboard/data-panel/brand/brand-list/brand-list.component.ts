@@ -35,7 +35,7 @@ export class BrandListComponent implements OnInit {
       ID: new FormControl(''),
       Details: new FormArray([])
     });
-    this.userService.getBrandList2(this.prev,this.next)
+    this.userService.getBrandList()
       .subscribe( brandList => {
         this.brands = brandList;
         console.log(this.brands);
@@ -141,14 +141,12 @@ export class BrandListComponent implements OnInit {
     });
   }
   // delete brand
-  deleteBrand( brand: any) {
-    console.log(brand);
-    const brandId = {'ID': brand.ID };
+  deleteBrand( brandId: number) {
     this.userService.deleteBrand(brandId)
       .subscribe( res => {
         // console.log(res);
         alert('brand deleted successfully');
-        this.userService.getBrandList2(0,10) // list update after edit
+        this.userService.getBrandList() // list update after edit
           .subscribe(brandList => {
           this.brands = brandList;
         });

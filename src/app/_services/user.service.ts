@@ -236,9 +236,20 @@ export class UserService {
         // Delete offline seller
         deleteOfflineSeller(sellerId: number) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response.json());                
+                return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);                
         }
-        
+        // Brand
+        // get brand list
+        getBrandList() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands', this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Delete brand
+        deleteBrand(brandId: any) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/brands/' + brandId, this.options).map((response: Response) => response);                
+        }
 //*******************************OLD API ***************************************************/
 
         // get different type of user
@@ -352,20 +363,6 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get brand list
-        getBrandList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/BrandList', data, options)
-                        .map((response: Response) => response.json());
-        }
-        // get brand list
         getBrandList2(offset, limit) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -404,19 +401,6 @@ export class UserService {
                 const headers = new Headers({ 'Content-Type': 'application/json' });
                 const options = new RequestOptions({ headers: headers });
                 return this.http.post(this.apiLink + 'Services/EditBrand', data, options).map((response: Response) => response.json());
-        }
-        // Delete brand
-        deleteBrand(brand: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                brand['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(brand);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteBrand', data, options).map((response: Response) => response.json());
         }
         // **^ online seller Services ^** //
         // get details of online seller by id
