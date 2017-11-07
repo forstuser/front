@@ -1,396 +1,222 @@
-<div class="card">
-  <div class="header">
-    <h2>
+<div class="card" *ngIf="showASCList">
+	<div class="header">
+		<h2>
       Authorized Service Center list
       <small> For change the Authorized Service Center details click on the edit button</small>
-    </h2>
+    </h2> </div>
+	<div class="body table-responsive">
+		<nav>
+			<ul class="pager">
+				<li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a> </li>
+				<li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a> </li>
+			</ul>
+		</nav>
+		<table class="table table-condensed table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody *ngFor="let list of authorizedServiceCenter?.data; let i = index">
+				<tr>
+					<th scope="row">{{ i+1+prev }}</th>
+					<td>{{ list.center_name }}</td>
+					<td>{{ list.center_address }}</td>
+					<td>{{ list.center_city}}</td>
+					<td>{{ list.center_state}}</td>
+					<td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span> </td>
+					<td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span> </td>
+					<td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span> <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list?.center_id)" title="Delete"><i class="material-icons">delete</i></span> </td>
+					<!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
+				</tr>
+			</tbody>
+		</table>
+		<ng-template #elseBlock>
+			<h4> No Data Available </h4> </ng-template>
   </div>
-  <div class="body table-responsive">
-    <nav>
-        <ul class="pager">
-          <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()" >Previous</a></li>
-          <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
-        </ul>
-      </nav>
-    <table class="table table-condensed table-bordered">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let list of authorizedServiceCenter?.data; let i = index">
-        <tr>
-          <th scope="row">{{ i+1+prev }}</th>
-          <td>{{ list.center_name }}</td>
-          <td>{{ list.center_address }}</td>
-          <td>{{ list.center_city}}</td>
-          <td>{{ list.center_state}}</td>
-          <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>
-          <td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span></td>
-          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>
-            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list?.center_id)"
-              title="Delete"><i class="material-icons">delete</i></span></td>
-          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
-        </tr>
-      </tbody>
-    </table>
-    <ng-template #elseBlock>
-        <h4> No Data Available </h4>
-        </ng-template>
-  </div>
-
-  <!--form new -->
-  <app-dialog [(visible)]="showDialog">
-    <div class="modal-header">
-      <h4 class="modal-title" id="smallModalLabel">Edit Brand</h4>
-    </div>
-    <div class="modal-body">
-      <form class="form-horizontal" [formGroup]='authorizedServiceCenterForm' (ngSubmit)="updateAuthService(authorizedServiceCenterForm.value)">
-        <h4>
+</div>
+	<!--form new -->
+	<div class="card" *ngIf="!showASCList">
+		<div class="modal-header">
+        <button class="btn bg-blue" (click)="back()">Back</button>
+        <hr>
+			<h4 class="modal-title" id="smallModalLabel">Edit Service Center</h4> </div>
+		<div class="modal-body">
+			<form class="form-horizontal" [formGroup]='authorizedServiceCenterForm' (ngSubmit)="updateAuthService(authorizedServiceCenterForm.value)">
+				<h4>
           <u>Information </u>
         </h4>
-        <hr>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Name</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Select Brand</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <select class="form-control dropdown" formControlName="BrandID">
-                <option>Select</option>
-                <option *ngFor="let brandList of brands?.BrandList" [ngValue]="brandList.ID">{{ brandList.Name }}</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <h4>
+				<hr>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Name</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace(center_name)"> </div>
+						</div>
+					</div>
+					<!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Select Brand</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<select class="form-control dropdown" formControlName="center_brands" multiple>
+								<option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
+							</select>
+						</div>
+					</div> -->
+				</div>
+				<h4>
           <u>Address </u>
         </h4>
-        <hr>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">House No</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Block</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Street</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Sector</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">City</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">State</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">PinCode</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">NearBy</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy Name here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Lattitude</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude Name here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Longitude</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row clearfix">
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">OpenDays</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="OpenDays" class="form-control" placeholder="Enter OpenDays Name here">
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-            <label for="name">Timings</label>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <div class="form-line">
-                <input type="text" formControlName="Timings" class="form-control" placeholder="Enter Longitude here">
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- template for add row  -->
-        <h4>
-          <u>Details </u>
-        </h4>
-        <div class="row clearfix">
-          <div class="pull-right margin-right">
-            <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
-            <p>&nbsp;</p>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div formArrayName="Details" *ngFor="let item of authorizedServiceCenterForm.controls.Details['controls']; let i = index;">
-            <br>
-            <div class="row clearfix" [formGroupName]="i">
-            <div class="col-md-2 col-lg-2 col-md-offset-1">
-              <label> Category </label>
-                  <select class="form-control dropdown" formControlName="CategoryID">
-                      <option>Select</option>
-                      <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
-                  </select>
-              </div>
-              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                <label>
-                Type
-            </label>
-                <select class="form-control dropdown" formControlName="DetailTypeID">
-                <option selected>Select</option>
-                <option value="1">URL</option>
-                <option value="2">Email ID</option>
-                <option value="3">Phone Number</option>
-                </select>
-              </div>
-              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
-                <label>
-                Display Name
-            </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                Details
-            </label>
-                <div class="form-group">
-                  <div class="form-line">
-                    <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="authorizedServiceCenterForm.controls['Details'].length > 1"
-                  (click)="removeDetails(i)">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- template for add row end  -->
-        <div class="row clearfix">
-          <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-            <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!authorizedServiceCenterForm.valid">Submit</button>
-          </div>
-        </div>
-      </form>
-
-    </div>
-  </app-dialog>
-
-
-
-
-
-
-
-
-  <!-- <app-dialog [(visible)]="showDialog">
-      <div class="modal-header">
-          <h4 class="modal-title" id="smallModalLabel">Edit Brand</h4>
-      </div>
-      <div class="modal-body">
-    <form class="form-horizontal" [formGroup]='authorizedServiceCenterForm' (ngSubmit) = "updateOnlineSeller(authorizedServiceCenterForm.value)">
-        <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">Name</label>
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter brand name here">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label for="description">URL</label>
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" formControlName="URL" placeholder="Enter URL of online Seller">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label for="description">GstinNo</label>
-            </div>
-            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" formControlName="GstinNo" placeholder="Enter GstinNo of online seller">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="Details">Details</label>
-            </div>
-            <div class="pull-right margin-right">
-                <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More</button>
-            </div>
-        </div>
-        <br>
-        <div class="panel panel-default">
-            <div formArrayName="Details" *ngFor="let item of authorizedServiceCenterForm.controls.Details['controls']; let i = index;">
-            <br>
-                <div class="row clearfix" [formGroupName]="i">
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-                <label>
-                    Type
-                </label>
-                    <select class="form-control dropdown" formControlName="DetailTypeID">
-                    <option selected>Select</option>
-                    <option value="1">URL</option>
-                    <option value="2">Email ID</option>
-                    <option value="3">Phone Number</option>
-                    </select>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                    Display Name
-                </label>
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label>
-                    Details
-                </label>
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
-                        </div>
-                    </div>        
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="authorizedServiceCenterForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
-                </div>
-                </div>
-                <br>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-                <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!authorizedServiceCenterForm.valid">Submit</button>
-            </div>
-        </div>
-      </form>
-      </div>
-    </app-dialog> -->
-</div>
+				<hr>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Address</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_address" class="form-control" placeholder="Enter Address here" (keyup)="avoidSpace('center_address')"> </div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">City</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('center_city')"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">State</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('center_state')"> </div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Pin Code</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_pin" class="form-control" placeholder="Enter Pin Code here" (keyup)="avoidSpace('center_pin')"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Latitude</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_latitude" class="form-control" placeholder="Enter Latitude here" (keyup)="avoidSpace('center_latitude')"> </div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Longitude</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('center_longitude')"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Country</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_country" class="form-control" placeholder="Enter Country Name here" (keyup)="avoidSpace('center_country')"> </div>
+						</div>
+					</div>
+				</div>
+				<div class="row clearfix">
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">OpenDays</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_days" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('center_days')"> </div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+						<label for="name">Timings</label>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+						<div class="form-group">
+							<div class="form-line">
+								<input type="text" formControlName="center_timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('center_timings')"> </div>
+						</div>
+					</div>
+				</div>
+				<!-- template for add row  -->
+				<h4>
+              <u>Details </u>
+          </h4>
+				<div class="row clearfix">
+					<div class="pull-right margin-right">
+						<button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
+						<p>&nbsp;</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div formArrayName="details" *ngFor="let item of authorizedServiceCenterForm.controls.details['controls']; let i = index;">
+						<br>
+						<div class="row clearfix" [formGroupName]="i">
+							<div class="col-md-2 col-lg-2 col-md-offset-1">
+								<label> Category </label>
+								<select class="form-control dropdown" formControlName="category_id">
+									<option selected>Select</option>
+									<option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+								</select>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+								<label> Detail Type </label>
+								<select class="form-control dropdown" formControlName="detail_type">
+									<option selected>Select</option>
+									<option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>
+								</select>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+								<label> Value </label>
+								<div class="form-group">
+									<div class="form-line">
+										<input type="text" class="form-control" formControlName="value" placeholder="Enter display name"> </div>
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+								<button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="authorizedServiceCenterForm.controls['details'].length > 1" (click)="removeDetails(i)">Remove</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- template for add row end  -->
+				<div class="row clearfix">
+					<div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+						<button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!authorizedServiceCenterForm.valid">Submit</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	

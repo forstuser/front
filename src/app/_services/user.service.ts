@@ -263,6 +263,19 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands/'+ID, this.options)
                         .map((response: Response) => response.json());
         }
+        // Update brand
+        updateBrand(brand: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                brand['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(brand);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/EditBrand', data, options).map((response: Response) => response.json());
+        }
         // ASC
         // get authorized service center list
         getAuthorizedServiceCenterList() {
@@ -281,6 +294,26 @@ export class UserService {
         DeleteAuthorizedServiceCenter(center_id: any) {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/servicecenters/' + center_id, this.options).map((response: Response) => response); 
+        }
+        // get details of authorized service center by id
+        getAuthorizedServiceCenterByID(ID: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/servicecenters/'+ID, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Update authorized service center
+        updateAuthorizedServiceCenter(OnlineSeller: any) {
+                // get login user credentials from localstorage
+                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                this.TokenNo = this.currentUser.token;
+                this.UserType = this.currentUser.UserType;
+                OnlineSeller['TokenNo'] = this.TokenNo;
+                const data = JSON.stringify(OnlineSeller);
+                console.log(data);
+                const headers = new Headers({ 'Content-Type': 'application/json' });
+                const options = new RequestOptions({ headers: headers });
+                return this.http.post(this.apiLink + 'Services/EditAuthorizedServiceCenter', data, options)
+                        .map((response: Response) => response.json());
         }
 //*******************************OLD API ***************************************************/
 
@@ -391,19 +424,6 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'Services/BrandList', data, options)
                         .map((response: Response) => response.json());
-        }
-        // Update brand
-        updateBrand(brand: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                brand['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(brand);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditBrand', data, options).map((response: Response) => response.json());
         }
         // **^ online seller Services ^** //
         // get details of online seller by id
@@ -537,35 +557,7 @@ export class UserService {
         
         
         // **^ authorized service center Services ^** //
-        // get details of authorized service center by id
-        getAuthorizedServiceCenterByID(ID: Number) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, ID: ID };
-                const data = JSON.stringify(body);
-                // console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/AuthorizedServiceCenterByID', data, options)
-                        .map((response: Response) => response.json());
-        }
-        // Update authorized service center
-        updateAuthorizedServiceCenter(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditAuthorizedServiceCenter', data, options)
-                        .map((response: Response) => response.json());
-        }
+
 
         // **^ Bill  Services ^** //
         // get list of new,under-progress and completed list
