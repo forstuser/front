@@ -15,7 +15,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('Name')">
+                        <input type="text" formControlName="center_name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('Name')">
                     </div>
                 </div>
             </div>
@@ -24,8 +24,8 @@
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
-                  <select class="form-control dropdown" formControlName="BrandID">
-                    <option *ngFor="let brandList of brands?.BrandList" [ngValue]="brandList.ID">{{ brandList.Name }}</option>
+                  <select class="form-control dropdown" formControlName="center_brands">
+                    <option *ngFor="let brandList of brands?.data" [ngValue]="brand_id">{{ brandList.brand_name }}</option>
                   </select>
                 </div>
             </div>
@@ -34,88 +34,44 @@
         <hr>
         <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">House No</label>
+                <label for="name">Address</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here" (keyup)="avoidSpace('HouseNo')">
+                        <input type="text" formControlName="center_address" class="form-control" placeholder="Enter Address here" (keyup)="avoidSpace('HouseNo')">
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">Block</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here" (keyup)="avoidSpace('Block')">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">Street</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here"  (keyup)="avoidSpace('Street')">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">Sector</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here" (keyup)="avoidSpace('Sector')">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                 <label for="name">City</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('City')">
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">State</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('State')">
+                        <input type="text" formControlName="center_city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('Block')">
                     </div>
                 </div>
             </div>
         </div>
         <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">PinCode</label>
+                <label for="name">State</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here" (keyup)="avoidSpace('PinCode')">
+                        <input type="text" formControlName="center_state" class="form-control" placeholder="Enter State Name here"  (keyup)="avoidSpace('Street')">
                     </div>
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">NearBy</label>
+                <label for="name">Pin Code</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy here" (keyup)="avoidSpace('NearBy')">
+                        <input type="text" formControlName="center_pin" class="form-control" placeholder="Enter Pin Code here" (keyup)="avoidSpace('Sector')">
                     </div>
                 </div>
             </div>
@@ -127,7 +83,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude  here" (keyup)="avoidSpace('Lattitude')">
+                        <input type="text" formControlName="center_latitude" class="form-control" placeholder="Enter Latitude here" (keyup)="avoidSpace('City')">
                     </div>
                 </div>
             </div>
@@ -137,10 +93,32 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('Longitude')">
+                        <input type="text" formControlName="center_longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('State')">
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">Country</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="center_country" class="form-control" placeholder="Enter Country Name here" (keyup)="avoidSpace('PinCode')">
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                <label for="name">NearBy</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy here" (keyup)="avoidSpace('NearBy')">
+                    </div>
+                </div>
+            </div>  -->
         </div>
         <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -149,7 +127,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="OpenDays" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('OpenDays')">
+                        <input type="text" formControlName="center_days" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('OpenDays')">
                     </div>
                 </div>
             </div>
@@ -159,7 +137,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" formControlName="Timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('Timings')">
+                        <input type="text" formControlName="center_timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('Timings')">
                     </div>
                 </div>
             </div>
@@ -208,12 +186,12 @@
                 </label>
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
+                            <input type="text" class="form-control" formControlName="Detail" placeholder="Enter display name">
                         </div>
                     </div>        
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="addserviceCenterForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
+                 <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="addserviceCenterForm.controls['Detail'].length > 1" (click)="removeDetails(i)">Remove</button>
                 </div>
                 </div>
             </div>
