@@ -19,6 +19,7 @@ export class BrandListComponent implements OnInit {
   rightFlag:boolean = false;
   noData:boolean = false;
   showBrandList:boolean = true;
+  detailType:any;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -30,16 +31,22 @@ export class BrandListComponent implements OnInit {
           console.log('category is ' + getCat);
         });
      this.editBrandForm = new FormGroup({
-      Name: new FormControl(''),
-      Description: new FormControl(''),
-      ID: new FormControl(''),
-      Details: new FormArray([])
+      brand_name: new FormControl(''),
+      brand_description: new FormControl(''),
+      brand_id: new FormControl(''),
+      details: new FormArray([])
     });
     this.userService.getBrandList()
       .subscribe( brandList => {
         this.brands = brandList;
         console.log(this.brands);
       });
+          // get list of detail type
+    this.userService.getDetailList()
+    .subscribe(detail_type =>{
+      this.detailType = detail_type;
+      console.log(this.detailType);
+    })
   }
   // function for pagination
   left(){
@@ -78,53 +85,52 @@ export class BrandListComponent implements OnInit {
   // function for add row in detials field
   createItem() {
     return this.fb.group({
-      'DetailID': [null],
-      'CategoryID':[null],
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
+      'id': [null],
+      'category_id':[null],
+      'detail_type': [null],
+      'value': [null]
     });
   }
   addItem() {
-    const control = <FormArray>this.editBrandForm.controls['Details'];
+    const control = <FormArray>this.editBrandForm.controls['details'];
     control.push(this.createItem());
   }
   removeDetails(i: number) {
-    const control = <FormArray>this.editBrandForm.controls['Details'];
+    const control = <FormArray>this.editBrandForm.controls['details'];
     control.removeAt(i);
   }
   // passs current brand id as argument and open the popup
   openBrandModel(item) {
-    // console.log(item);
+    console.log(item);
     // reset  editBrand form
     this.editBrandForm = new FormGroup({
-      Name: new FormControl(''),
-      Description: new FormControl(''),
-      ID: new FormControl(''),
-      Details: new FormArray([])
+      brand_name: new FormControl(''),
+      brand_description: new FormControl(''),
+      brand_id: new FormControl(''),
+      details: new FormArray([])
     });
     // get information of current selected brand
-    this.userService.getBrandDetailsbyID(item.ID)
+    this.userService.getBrandDetailsbyID(item.brand_id)
       .subscribe(res => {
       console.log(res);
       this.showBrandList = false;
       // prop autofill data to form
-      this.editBrandForm.controls['ID'].setValue(res.ID);
-      this.editBrandForm.controls['Name'].setValue(res.Name);
-      this.editBrandForm.controls['Description'].setValue(res.Description);
-      res.Details.forEach(
+      this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
+      this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
+      this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
+      res.data.details.forEach(
       (po) => {
-        (<FormArray>this.editBrandForm.controls['Details']).push(this.createDetailsFormGroup(po));
+        (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
       });
     });
   }
  createDetailsFormGroup(payOffObj) {
+   console.log(payOffObj);
     return new FormGroup({
-      DetailID: new FormControl(payOffObj.DetailID),
-      CategoryID: new FormControl(payOffObj.CategoryID),
-      DetailTypeID: new FormControl(payOffObj.DetailTypeID),
-      DisplayName: new FormControl(payOffObj.DisplayName),
-      Details: new FormControl(payOffObj.Details)
+      id: new FormControl(payOffObj.id),
+      category_id: new FormControl(payOffObj.category_id),
+      detail_type: new FormControl(payOffObj.detail_type),
+      value: new FormControl(payOffObj.value)
     });
   }
   updateBrand( brand: any) {

@@ -43,48 +43,36 @@
         <div formArrayName="details" *ngFor="let item of brandForm.controls.details['controls']; let i = index;">
           <br>
           <div class="row clearfix" [formGroupName]="i">
-            <div class="col-md-2 col-lg-2 col-md-offset-1">
+            <div class="col-md-3 col-lg-3 col-md-offset-1">
             <label>
                 Category
             </label>
-              <select class="form-control dropdown" formControlName="CategoryID">
-                    <option>Select</option>
-                    <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
-                  </select>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
-              <label>
-                    Type
-                </label>
-              <select class="form-control dropdown" formControlName="DetailTypeID">
-                    <option selected>Select</option>
-                    <option value="1">URL</option>
-                    <option value="2">Email ID</option>
-                    <option value="3">Phone Number</option>
-            </select>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
-              <label>
-                    Display Name
-                </label>
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
-                </div>
-              </div>
+              <select class="form-control dropdown" formControlName="category_id">
+                <option>Select</option>
+                <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+              </select>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
               <label>
-                    Details
+                    Detail Type
+                </label>
+              <select class="form-control dropdown" formControlName="detail_type">
+                    <option selected>Select</option>
+                    <option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>                    
+            </select>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+              <label>
+                    Value
                 </label>
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
+                  <input type="text" class="form-control" formControlName="value" placeholder="Enter display name">
                 </div>
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-              <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="brandForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
+              <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="brandForm.controls['details'].length > 1" (click)="removeDetails(i)">Remove</button>
             </div>
           </div>
         </div>
