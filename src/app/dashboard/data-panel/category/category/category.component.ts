@@ -51,12 +51,14 @@ export class CategoryComponent implements OnInit {
       drop_downs: this.fb.array([this.createValues(),])
     });
   }
+
   // for push new sub list
   createValues() {
     return this.fb.group({
       'title': null
     });
   }
+  
   // add array
   addItem() {
     const control = <FormArray>this.createCategoryForm.controls['category_forms'];
