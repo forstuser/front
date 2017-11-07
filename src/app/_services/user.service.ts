@@ -245,10 +245,24 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands', this.options)
                         .map((response: Response) => response.json());
         }
+        // Create Brand
+        createBrand(brand: any) {
+                this.getCSRF();
+                const data = JSON.stringify(brand);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/brands', data, this.options).map((response: Response) => response.json());
+        }
         // Delete brand
         deleteBrand(brandId: any) {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/brands/' + brandId, this.options).map((response: Response) => response);                
+        }
+                // **^ brand Services ^** //
+        // get details of brand by id
+        getBrandDetailsbyID(ID: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands/'+ID, this.options)
+                        .map((response: Response) => response.json());
         }
 //*******************************OLD API ***************************************************/
 
@@ -346,22 +360,6 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
         }
 
-        // **^ brand Services ^** //
-        // get details of brand by id
-        getBrandDetailsbyID(ID: Number) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, ID: ID };
-                const data = JSON.stringify(body);
-                // console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/BrandByID', data, options)
-                        .map((response: Response) => response.json());
-        }
         // get brand list
         getBrandList2(offset, limit) {
                 // get login user credentials from localstorage
@@ -375,19 +373,6 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'Services/BrandList', data, options)
                         .map((response: Response) => response.json());
-        }
-        // Create category
-        createBrand(brand: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                brand['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(brand);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddBrand', data, options).map((response: Response) => response.json());
         }
         // Update brand
         updateBrand(brand: any) {
