@@ -17,23 +17,26 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>Brand Name</th>
+          <th>Address</th>
           <th>City</th>
           <th>State</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody *ngFor="let list of authorizedServiceCenter?.AuthorizedList; let i = index">
+      <tbody *ngFor="let list of authorizedServiceCenter?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+prev }}</th>
-          <td>{{ list.Name }}</td>
-          <td>{{ list.BrandName }}</td>
-          <td>{{ list.City}}</td>
-          <td>{{ list.State}}</td>
-          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>
-            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list)"
-              title="Delete"><i class="material-icons">delete</i></span></td> -->
-          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td>
+          <td>{{ list.center_name }}</td>
+          <td>{{ list.center_address }}</td>
+          <td>{{ list.center_city}}</td>
+          <td>{{ list.center_state}}</td>
+          <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>
+          <td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span></td>
+          <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>
+            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list?.center_id)"
+              title="Delete"><i class="material-icons">delete</i></span></td>
+          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
         </tr>
       </tbody>
     </table>

@@ -5,7 +5,7 @@
         </h2>
     </div>
     <div class="body">
-        <form class="form-horizontal" [formGroup]='addserviceCenterForm' (ngSubmit)="createOfflineSeller(addserviceCenterForm.value)">
+        <form class="form-horizontal" [formGroup]='addserviceCenterForm' (ngSubmit)="createASC(addserviceCenterForm.value)">
             <h4>
                 <u>Information </u>
             </h4>
@@ -26,8 +26,8 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
-                        <select class="form-control dropdown" formControlName="center_brands">
-                    <option *ngFor="let brandList of brands?.data" [ngValue]="brand_id">{{ brandList.brand_name }}</option>
+                        <select class="form-control dropdown" formControlName="center_brands" multiple>
+                    <option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
                   </select>
                     </div>
                 </div>
@@ -113,16 +113,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                <label for="name">NearBy</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy here" (keyup)="avoidSpace('NearBy')">
-                    </div>
-                </div>
-            </div>  -->
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -189,7 +179,7 @@ Detail Type
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                            <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="addserviceCenterForm.controls['value'].length > 1"
+                            <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="addserviceCenterForm.controls['center_details'].length > 1"
                                 (click)="removeDetails(i)">Remove</button>
                         </div>
                     </div>

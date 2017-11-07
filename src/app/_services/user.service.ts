@@ -257,12 +257,30 @@ export class UserService {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/brands/' + brandId, this.options).map((response: Response) => response);                
         }
-                // **^ brand Services ^** //
         // get details of brand by id
         getBrandDetailsbyID(ID: Number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/brands/'+ID, this.options)
                         .map((response: Response) => response.json());
+        }
+        // ASC
+        // get authorized service center list
+        getAuthorizedServiceCenterList() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/servicecenters', this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Create authorized service center
+        createAuthorizedServiceCenter(asc: any) {
+                this.getCSRF();
+                const data = JSON.stringify(asc);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/servicecenters', data, this.options).map((response: Response) => response.json());
+        }
+        // Delete authorized service center
+        DeleteAuthorizedServiceCenter(center_id: any) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/servicecenters/' + center_id, this.options).map((response: Response) => response); 
         }
 //*******************************OLD API ***************************************************/
 
@@ -534,34 +552,6 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/AuthorizedServiceCenterByID', data, options)
                         .map((response: Response) => response.json());
         }
-        // get authorized service center list
-        getAuthorizedServiceCenterList(offset, limit) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, OffSet: offset, Limit: limit };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/AuthorizedServiceCenterList', data, options)
-                        .map((response: Response) => response.json());
-        }
-        // Create authorized service center
-        createAuthorizedServiceCenter(serviceCenter: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                serviceCenter['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(serviceCenter);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddAuthorizedServiceCenter', data, options)
-                        .map((response: Response) => response.json());
-        }
         // Update authorized service center
         updateAuthorizedServiceCenter(OnlineSeller: any) {
                 // get login user credentials from localstorage
@@ -576,20 +566,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/EditAuthorizedServiceCenter', data, options)
                         .map((response: Response) => response.json());
         }
-        // Delete authorized service center
-        DeleteAuthorizedServiceCenter(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteAuthorizedServiceCenter', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         // **^ Bill  Services ^** //
         // get list of new,under-progress and completed list
         // get admin list

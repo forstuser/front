@@ -51,17 +51,16 @@ export class AddServiceCenterComponent implements OnInit {
       'center_brands' : ['', Validators.required],
       'center_city': ['', Validators.required],
       'center_state': ['', Validators.required],
-      'center_pin': '',
+      'center_pin': ['', Validators.required],
       'center_country': ['',Validators.required],
       'center_address': ['',Validators.required],      
       'center_latitude': '',
       'center_longitude': '',
-      'center_days': ['', Validators.required],
-      'center_timings': ['', Validators.required],
+      'center_days': '',
+      'center_timings':'',
       center_details: this.fb.array([ this.createItem(), ])
     });
   }
-
 
   createItem() {
     return this.fb.group({
@@ -81,14 +80,23 @@ export class AddServiceCenterComponent implements OnInit {
     control.removeAt(i);
   }
 
-  // createOfflineSeller(data: OfflineSeller) {
-  //   this.userService.createAuthorizedServiceCenter(data)
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       alert('New Service center added succesfully');
-  //       this.addserviceCenterForm.reset();
-  //     });
-  // }
+  createASC(data: any) {
+    console.log(data)
+    if(data.center_details.category_id==null){
+      data.center_details = [];
+    }
+    this.userService.createAuthorizedServiceCenter(data)
+      .subscribe(res => {
+        console.log(res);
+        alert('New Service center added succesfully');
+        this.addserviceCenterForm.reset();
+      },
+      error => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      });
+  }
 
   // function for avoid only space submit
   avoidSpace(e){

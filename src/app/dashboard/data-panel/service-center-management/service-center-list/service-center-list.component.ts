@@ -57,7 +57,7 @@ export class ServiceCenterListComponent implements OnInit {
       Details: this.fb.array([ this.createItem(), ])
     });
 
-    this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+    this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
@@ -146,21 +146,19 @@ export class ServiceCenterListComponent implements OnInit {
         // console.log(res);
         alert('service center updated successfully');
         this.showDialog = false ;
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
+        this.userService.getAuthorizedServiceCenterList() // list update after edit
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
     });
   }
   // delete
-  deleteAuthorizedServiceCenter( asc: any) {
-    console.log(asc);
-    const brandId = {'ID': asc.ID };
-    this.userService.DeleteAuthorizedServiceCenter(brandId)
+  deleteAuthorizedServiceCenter(center_id:Number) {
+    this.userService.DeleteAuthorizedServiceCenter(center_id)
       .subscribe( res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after delete
+        this.userService.getAuthorizedServiceCenterList() // list update after delete
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
@@ -173,7 +171,7 @@ export class ServiceCenterListComponent implements OnInit {
         console.log("response",res)
         this.showDialog=false;
         alert("edit successfully")
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
+        this.userService.getAuthorizedServiceCenterList() // list update after edit
         .subscribe(authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
       },err=>{
@@ -189,7 +187,7 @@ export class ServiceCenterListComponent implements OnInit {
       if(this.prev ==0){
         this.leftFlag = true;
       }
-      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         console.log(this.authorizedServiceCenter)
         if(authorizedServiceCenterList.statusCode==100){
@@ -205,7 +203,7 @@ export class ServiceCenterListComponent implements OnInit {
       this.prev = this.prev+10;
       console.log(this.prev);
       console.log(this.next);
-      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         console.log(this.authorizedServiceCenter)
         if(authorizedServiceCenterList.statusCode==105){
