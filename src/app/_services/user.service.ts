@@ -182,7 +182,7 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
         }
 
-           // Online Seller
+        // Online Seller
         // get online seller list
         getOnlineSellerList() {
                 this.getCSRF();
@@ -210,7 +210,35 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/onlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
         }
-
+        // offline seller
+        // get offline seller list
+        getOfflineSellerList() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/offlineSeller', this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Create offline seller
+        createOfflineSeller(OfflineSeller: any) {
+                this.getCSRF();
+                const data = JSON.stringify(OfflineSeller);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/offlineSeller', data, this.options).map((response: Response) => response.json());
+        }
+        // Update offline seller
+        updateOfflineSeller(OfflineSeller: any) {
+                const sid = OfflineSeller.sid;
+                this.getCSRF();
+                delete OfflineSeller['sid'];
+                const data = JSON.stringify(OfflineSeller);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/offlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
+        }
+        // Delete offline seller
+        deleteOfflineSeller(sellerId: number) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response.json());                
+        }
+        
 //*******************************OLD API ***************************************************/
 
         // get different type of user
@@ -425,59 +453,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/OfflineSellerByID', data, options)
                         .map((response: Response) => response.json());
         }
-        // get offline seller list
-        getOfflineSellerList() {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/OfflineSellerList', data, options)
-                        .map((response: Response) => response.json());
-        }
-        // Create offline seller
-        createOfflineSeller(OfflineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OfflineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OfflineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddOfflineSeller', data, options).map((response: Response) => response.json());
-        }
-        // Update offline seller
-        updateOfflineSeller(OfflineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OfflineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OfflineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditOfflineSeller', data, options).map((response: Response) => response.json());
-        }
-        // Delete offline seller
-        deleteOfflineSeller(OfflineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OfflineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OfflineSeller);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DeleteOfflineSeller', data, options).map((response: Response) => response.json());
-        }
+
 
 
 

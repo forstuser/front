@@ -17,50 +17,28 @@ export class AddOfflineSellerComponent implements OnInit {
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
-      // get list of category
-      this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ' + getCat);
-      });
     this.offlineSellerForm = this.fb.group({
-      'Name' : [null, Validators.required],
-      'OwnerName': '',
-      'GstinNo': '',
-      'PanNo':  '',
-      'RegNo': '',
-      'ServiceProvider': '',
-      'Onboarded': '',
-      'HouseNo': '',
-      'Block': '',
-      'Street': '',
-      'Sector': '',
-      'City': [null, Validators.required],
-      'State': [null, Validators.required],
-      'PinCode': '',
-      'NearBy': '',
-      'Lattitude': '',
-      'Longitude': '',
-      Details: this.fb.array([ this.createItem(), ])
+      'seller_name' : [null, Validators.required],
+      'owner_name': '',
+      'gstin': [null, Validators.required],
+      'pan_no':  '',
+      'reg_no': '',
+      'is_service':'',
+      'is_onboarded':'',
+      'address': '',
+      'city': [null, Validators.required],
+      'state': [null, Validators.required],
+      'pincode': [null, Validators.required],
+      'latitude': '',
+      'longitude': '',
+      'url':'',
+      'email':'',
+      'contact_no':''
     });
   }
-  createItem() {
-    return this.fb.group({
-      'CategoryID':'',
-      'DetailTypeID': '',
-      'DisplayName': '',
-      'Details': ''
-    });
-  }
-  addItem() {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
-    control.push(this.createItem());
-  }
-  removeDetails(i: number) {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
-    control.removeAt(i);
-  }
-  createOfflineSeller(data: OfflineSeller) {
+
+  createOfflineSeller(data) {
+    console.log(data);
     this.userService.createOfflineSeller(data)
       .subscribe(res => {
         console.log(res);

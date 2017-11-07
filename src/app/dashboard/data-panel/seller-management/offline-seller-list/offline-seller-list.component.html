@@ -1,52 +1,69 @@
 <div class="card" *ngIf="showOfflineSellerList">
-  <div class="header">
-      <h2>
-          Offline Seller List
-          <small> For change the Offline Seller details click on the edit button</small>
-      </h2>
-  </div>
-  <div class="body table-responsive">
-      <table class="table table-condensed table-bordered">
-          <thead>
-              <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Owner Name</th>
-                  <th>City</th>
-                  <th>State</th>
-                  <th>Action</th>
-              </tr>
-          </thead>
-           <tbody *ngFor="let list of offlineSeller?.OfflineSellerList; let i = index">
-              <tr>
-                  <th scope="row">{{ i+1 }}</th>
-                  <td>{{ list.Name }}</td>
-                  <td>{{ list.OwnerName }}</td>
-                  <td>{{ list.City }}</td>
-                  <td>{{ list.State }}</td>
-                  <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openOfflineSellerModel(list.ID)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteOfflineSeller(list)" title="Delete"><i class="material-icons">delete</i></span></td>                   -->
-                  <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openOfflineSellerModel(list.ID)" title="Edit"><i class="material-icons" >mode_edit</i></span></td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
+    <div class="header">
+        <h2>
+            Offline Seller List
+            <small> For change the Offline Seller details click on the edit button</small>
+        </h2>
+    </div>
+    <div class="body table-responsive">
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let list of offlineSeller?.data; let i = index">
+                <tr>
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>{{ list.seller_name }}</td>
+                    <td>{{ list.address }}</td>
+                    <td>{{ list.city }}</td>
+                    <td>{{ list.state }}</td>
+                    <td *ngIf="list?.status_type=='1'">
+                        <span class="label bg-green">Active</span>
+                    </td>
+                    <td *ngIf="list?.status_type=='2'">
+                        <span class="label bg-red">InActive</span>
+                    </td>
+                    <td>
+                        <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openOfflineSellerModel(list)"
+                            title="Edit">
+                            <i class="material-icons">mode_edit</i>
+                        </span>
+                        <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteOfflineSeller(list.sid)"
+                            title="Delete">
+                            <i class="material-icons">delete</i>
+                        </span>
+                    </td>
+                    <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openOfflineSellerModel(list.ID)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="card" *ngIf="!showOfflineSellerList">
     <div class="modal-header">
-            <button class="btn bg-blue" (click)="back()">Back</button>
-            <hr>
+        <button class="btn bg-blue" (click)="back()">Back</button>
+        <hr>
         <h4 class="modal-title" id="smallModalLabel">Edit Offline Seller</h4>
     </div>
     <div class="modal-body">
-        <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit) = "updateOfflineSeller(offlineSellerForm.value)">
+        <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="updateOfflineSeller(offlineSellerForm.value)">
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Name</label>
+                    <label for="name">
+                        <span style="color:red">*</span> Name</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="Name" class="form-control" placeholder="Enter Name  here">
+                            <input type="text" formControlName="seller_name" class="form-control" placeholder="EnterName here" (keyup)="avoidSpace('seller_name')">
                         </div>
                     </div>
                 </div>
@@ -56,19 +73,20 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="OwnerName" class="form-control" placeholder="Enter Owner Name here">
+                            <input type="text" formControlName="owner_name" class="form-control" placeholder="Enter Owner Name here" (keyup)="avoidSpace('owner_name')">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Gstin No</label>
+                    <label for="name">
+                        <span style="color:red">*</span> Gstin No</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="GstinNo" class="form-control" placeholder="Enter GstinNo here">
+                            <input type="text" formControlName="gstin" class="form-control" placeholder="Enter GstinNo here" (keyup)="avoidSpace('gstin')">
                         </div>
                     </div>
                 </div>
@@ -78,7 +96,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="PanNo" class="form-control" placeholder="Enter Pan No here">
+                            <input type="text" formControlName="pan_no" class="form-control" placeholder="Enter Pan No here" (keyup)="avoidSpace('pan_no')">
                         </div>
                     </div>
                 </div>
@@ -90,131 +108,98 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="RegNo" class="form-control" placeholder="Enter RegNo here">
+                            <input type="text" formControlName="reg_no" class="form-control" placeholder="Enter RegNo here" (keyup)="avoidSpace('reg_no')">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Service Provider</label>
+                    <label for="name">is Service?</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="ServiceProvider" class="form-control" placeholder="Enter Service Provider Name here">
+                            <select class="form-control dropdown" formControlName="is_service">
+                                <option [ngValue]="true"> Yes</option>
+                                <option [ngValue]="false"> No</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Onboarded</label>
+                    <label for="name">Is Onboarded?</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="Onboarded" class="form-control" placeholder="Enter Onboarded here">
+                            <select class="form-control dropdown" formControlName="is_onboarded">
+                                <option [ngValue]="true"> Yes</option>
+                                <option [ngValue]="false"> No</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-            <h4> <u>Address </u></h4>
+            <h4>
+                <u>Address </u>
+            </h4>
             <hr>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">House No</label>
+                    <label for="name">Address</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="HouseNo" class="form-control" placeholder="Enter House No here">
+                            <input type="text" formControlName="address" class="form-control" placeholder="Enter House No here" (keyup)="avoidSpace('address')">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Block</label>
+                    <label for="name">
+                        <span style="color:red">*</span> City</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="Block" class="form-control" placeholder="Enter Block Name here">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Street</label>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" formControlName="Street" class="form-control" placeholder="Enter Street Name here">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Sector</label>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" formControlName="Sector" class="form-control" placeholder="Enter Sector here">
+                            <input type="text" formControlName="city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('city')">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">City</label>
+                    <label for="name">
+                        <span style="color:red">*</span> State</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="City" class="form-control" placeholder="Enter City Name here">
+                            <input type="text" formControlName="state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('state')">
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">State</label>
+                    <label for="name">
+                        <span style="color:red">*</span> PinCode</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="State" class="form-control" placeholder="Enter State Name here">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row clearfix">
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">PinCode</label>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" formControlName="PinCode" class="form-control" placeholder="Enter PinCode here">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">NearBy</label>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-                    <div class="form-group">
-                        <div class="form-line">
-                            <input type="text" formControlName="NearBy" class="form-control" placeholder="Enter NearBy Name here">
+                            <input type="text" formControlName="pincode" class="form-control" placeholder="Enter PinCode here" (keyup)="avoidSpace('pincode')">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="name">Lattitude</label>
+                    <label for="name">Latitude</label>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="Lattitude" class="form-control" placeholder="Enter Lattitude Name here">
+                            <input type="text" formControlName="latitude" class="form-control" placeholder="Enter Lattitude Name here" (keyup)="avoidSpace('latitude')">
                         </div>
                     </div>
                 </div>
@@ -224,76 +209,63 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" formControlName="Longitude" class="form-control" placeholder="Enter Longitude here">
+                            <input type="text" formControlName="longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('longitude')">
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- template for add row  -->
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="Details">Details</label>
+                    <label for="name">URL</label>
                 </div>
-                <div class="pull-right margin-right">
-                    <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More</button>
-                </div>
-            </div>
-            <br>
-            <div class="panel panel-default">
-                <div formArrayName="Details" *ngFor="let item of offlineSellerForm.controls.Details['controls']; let i = index;">
-                <br>
-                    <div class="row clearfix" [formGroupName]="i">
-                    <div class="col-md-2 col-lg-2 col-md-offset-1">
-                        <label> Category </label>
-                        <select class="form-control dropdown" formControlName="CategoryID">
-                            <option>Select</option>
-                            <option *ngFor="let list of cat?.CategoryList" [ngValue]="list.ID">{{ list.category }}</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                    <label>
-                        Type
-                    </label>
-                        <select class="form-control dropdown" formControlName="DetailTypeID">
-                        <option>Select</option>
-                        <option value="1">URL</option>
-                        <option value="2">Email ID</option>
-                        <option value="3">Phone Number</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
-                    <label>
-                        Display Name
-                    </label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control" formControlName="DisplayName" placeholder="Enter display name">
-                            </div>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" formControlName="url" class="form-control" placeholder="Enter URL here" (keyup)="avoidSpace('url')">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                    <label>
-                        Details
-                    </label>
-                        <div class="form-group">
-                            <div class="form-line">
-                                <input type="text" class="form-control" formControlName="Details" placeholder="Enter display name">
-                            </div>
-                        </div>        
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="name">Email</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" formControlName="email" class="form-control" placeholder="Enter Email here" (keyup)="avoidSpace('email')">
+                        </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                     <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="offlineSellerForm.controls['Details'].length > 1" (click)="removeDetails(i)">Remove</button>
-                    </div>
-                    </div>
-                    <br>
                 </div>
             </div>
-            <!-- template for add row end  -->
+            <div class="row clearfix">
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="name">Contact No.</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" formControlName="contact_no" class="form-control" placeholder="Enter Phone No. here" (keyup)="avoidSpace('contact_no')">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+                    <label for="Status">Status</label>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <select class="form-control dropdown" formControlName="status_type">
+                                <option [ngValue]="1"> Active</option>
+                                <option [ngValue]="2"> InActive</option>
+                            </select>  
+                          </div> 
+                    </div>
+                </div>
+            </div>
             <div class="row clearfix">
                 <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
                     <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
                 </div>
             </div>
-          </form>
-          </div>
+        </form>
+    </div>
 </div>
