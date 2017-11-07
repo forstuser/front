@@ -19,9 +19,9 @@ export class AddBrandComponent implements OnInit {
    }
   ngOnInit() {
     this.brandForm = this.fb.group({
-      'Name' : ['', Validators.required],
-      'Description' : '',
-       Details: this.fb.array([ this.createItem(), ])
+      'brand_name' : ['', Validators.required],
+      'brand_description' : '',
+      details: this.fb.array([ this.createItem(), ])
     });
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
@@ -36,15 +36,15 @@ export class AddBrandComponent implements OnInit {
       'CategoryID':'',
       'DetailTypeID': '',
       'DisplayName': '',
-      'Details': ''
+      'value': ''
     });
   }
   addItem() {
-    const control = <FormArray>this.brandForm.controls['Details'];
+    const control = <FormArray>this.brandForm.controls['details'];
     control.push(this.createItem());
   }
   removeDetails(i: number) {
-    const control = <FormArray>this.brandForm.controls['Details'];
+    const control = <FormArray>this.brandForm.controls['details'];
     control.removeAt(i);
   }
   createBrand(data: Brand) {
