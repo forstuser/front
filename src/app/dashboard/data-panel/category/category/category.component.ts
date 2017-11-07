@@ -115,11 +115,14 @@ export class CategoryComponent implements OnInit {
         console.log(mainCat);
       });
   }
+  onSelectMainCat2(catId){
+    console.log(catId);
+    this.createCategoryForm.setValue({
+      category_id:catId
+    });
+  }
   // after select main category show list of category
   onSelectMainCat(catID:number){
-    this.createCategoryForm.setValue({
-      category_id:catID
-    });
     // console.log(this.createCategoryForm.value);
     // console.log(catID);
     this.userService.getSubCategoryList(catID)

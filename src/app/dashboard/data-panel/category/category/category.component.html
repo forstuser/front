@@ -13,8 +13,8 @@
              Select Main Category
              </label>
              <div class="form-group">
-                <select class="form-control dropdown" formControlName="ref_id" >
-                <option *ngFor="let mainCategoryList of mainCat?.data" [ngValue]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>
+                <select class="form-control dropdown" formControlName="ref_id" (change)="onSelectMainCat2($event.target.value)">
+                <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>
                 </select>
              </div>
           </div>
