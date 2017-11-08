@@ -22,6 +22,7 @@ export class ServiceCenterListComponent implements OnInit {
   rightFlag:boolean = false;
   noData:boolean = false;
   showASCList:boolean = true;
+  detailType:any;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -39,103 +40,101 @@ export class ServiceCenterListComponent implements OnInit {
       console.log(this.brands);
     });
     this.authorizedServiceCenterForm = this.fb.group({
-      'ID':'',
-      'Name' : ['', Validators.required],
-      'BrandID' : ['', Validators.required],
-      'HouseNo' : '',
-      'Block': '',
-      'Street': '',
-      'Sector': '',
-      'City': ['', Validators.required],
-      'State': ['', Validators.required],
-      'PinCode': '',
-      'NearBy': '',
-      'Lattitude': '',
-      'Longitude': '',
-      'OpenDays': ['', Validators.required],
-      'Timings': ['', Validators.required],
-      Details: this.fb.array([ this.createItem(), ])
+      'center_id':'',
+      'center_name' : ['', Validators.required],
+      'center_brands' : ['', Validators.required],
+      'center_address': ['',Validators.required],    
+      'center_city': ['', Validators.required],
+      'center_state': ['', Validators.required],
+      'center_pin': ['', Validators.required],
+      'center_country': ['',Validators.required],  
+      'center_latitude': '',
+      'center_longitude': '',
+      'center_days': '',
+      'center_timings':'',
+       details: this.fb.array([ this.createItem(), ])
     });
 
-    this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+    this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
       });
+  // get list of detail type
+    this.userService.getDetailList()
+    .subscribe(detail_type =>{
+      this.detailType = detail_type;
+      console.log(this.detailType);
+    })
   }
   // function for add row in detials field
   createItem() {
     return this.fb.group({
-      'CategoryID':[null],
-      'DetailID': [null],
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
+      'id':'',
+      'category_id':'',
+      'detail_type': '',
+      'value': '',
     });
   }
 
   addItem() {
-    const control = <FormArray>this.authorizedServiceCenterForm.controls['Details'];
+    const control = <FormArray>this.authorizedServiceCenterForm.controls['details'];
     control.push(this.createItem());
   }
   removeDetails(i: number) {
-    const control = <FormArray>this.authorizedServiceCenterForm.controls['Details'];
+    const control = <FormArray>this.authorizedServiceCenterForm.controls['details'];
     control.removeAt(i);
   }
   // passs current brand id as argument and open the popup
   openModel(item) {
+    console.log(item);
     // reset  editBrand form
     this.authorizedServiceCenterForm = new FormGroup({
-      Name: new FormControl(''),
-      ID:new FormControl(''),
-      BrandID: new FormControl(''),
-      HouseNo: new FormControl(''),
-      Block: new FormControl(''),
-      Street: new FormControl(''),
-      Sector: new FormControl(''),
-      City: new FormControl(''),
-      State: new FormControl(''),
-      PinCode: new FormControl(''),
-      NearBy: new FormControl(''),
-      Lattitude: new FormControl(''),
-      Longitude: new FormControl(''),
-      OpenDays: new FormControl(''),
-      Details: new FormArray([])
+      center_name: new FormControl(''),
+      center_id:new FormControl(''),
+      center_brands: new FormArray([]),
+      center_address: new FormControl(''),
+      center_city: new FormControl(''),
+      center_state: new FormControl(''),
+      center_country: new FormControl(''),
+      center_pin: new FormControl(''),
+      center_latitude: new FormControl(''),
+      center_longitude: new FormControl(''),
+      center_days: new FormControl(''),
+      center_timings:new FormControl(''),
+      details: new FormArray([])
     });
     // get information of current selected brand
-    this.userService.getAuthorizedServiceCenterByID(item.ID)
+    this.userService.getAuthorizedServiceCenterByID(item.center_id)
       .subscribe(res => {
-      this.showDialog = true ; // for show dialog
+      this.showASCList = false ; // for show dialog
       console.log(res);
       // prop autofill data to form
-      this.authorizedServiceCenterForm.controls['ID'].setValue(res.ID);
-      this.authorizedServiceCenterForm.controls['Name'].setValue(res.Name);
-      this.authorizedServiceCenterForm.controls['BrandID'].setValue(res.BrandID);
-      this.authorizedServiceCenterForm.controls['HouseNo'].setValue(res.HouseNo);
-      this.authorizedServiceCenterForm.controls['Block'].setValue(res.Block);
-      this.authorizedServiceCenterForm.controls['Street'].setValue(res.Street);
-      this.authorizedServiceCenterForm.controls['Sector'].setValue(res.Sector);
-      this.authorizedServiceCenterForm.controls['City'].setValue(res.City);
-      this.authorizedServiceCenterForm.controls['State'].setValue(res.State);
-      this.authorizedServiceCenterForm.controls['PinCode'].setValue(res.PinCode);
-      this.authorizedServiceCenterForm.controls['NearBy'].setValue(res.NearBy);
-      this.authorizedServiceCenterForm.controls['Lattitude'].setValue(res.Lattitude);
-      this.authorizedServiceCenterForm.controls['Longitude'].setValue(res.Longitude);
-      this.authorizedServiceCenterForm.controls['OpenDays'].setValue(res.OpenDays);
-      
-      res.Details.forEach(
+      this.authorizedServiceCenterForm.controls['center_id'].setValue(res.data.center_id);
+      this.authorizedServiceCenterForm.controls['center_name'].setValue(res.data.center_name);
+      // this.authorizedServiceCenterForm.controls['center_brands'].setValue(res.data.center_brands);
+      this.authorizedServiceCenterForm.controls['center_address'].setValue(res.data.center_address);
+      this.authorizedServiceCenterForm.controls['center_city'].setValue(res.data.center_city);
+      this.authorizedServiceCenterForm.controls['center_state'].setValue(res.data.center_state);
+      this.authorizedServiceCenterForm.controls['center_country'].setValue(res.data.center_country);
+      this.authorizedServiceCenterForm.controls['center_pin'].setValue(res.data.center_pin);
+      this.authorizedServiceCenterForm.controls['center_latitude'].setValue(res.data.center_latitude);
+      this.authorizedServiceCenterForm.controls['center_longitude'].setValue(res.data.center_longitude);
+      this.authorizedServiceCenterForm.controls['center_days'].setValue(res.data.center_days);
+      this.authorizedServiceCenterForm.controls['center_timings'].setValue(res.data.center_timings);
+      res.data.details.forEach(
       (po) => {
-        (<FormArray>this.authorizedServiceCenterForm.controls['Details']).push(this.createDetailsFormGroup(po));
+        (<FormArray>this.authorizedServiceCenterForm.controls['details']).push(this.createDetailsFormGroup(po));
       });
     });
   }
  createDetailsFormGroup(payOffObj) {
+   console.log(payOffObj)
     return new FormGroup({
-      CategoryID:new FormControl(payOffObj.CategoryID),
-      DetailID: new FormControl(payOffObj.DetailID),
-      DetailTypeID: new FormControl(payOffObj.DetailTypeID),
-      DisplayName: new FormControl(payOffObj.DisplayName),
-      Details: new FormControl(payOffObj.Details)
+      category_id:new FormControl(payOffObj.category_id),
+      detail_type: new FormControl(payOffObj.detail_type),
+      value: new FormControl(payOffObj.value),
+      id: new FormControl(payOffObj.id)
     });
   }
   // update
@@ -146,21 +145,19 @@ export class ServiceCenterListComponent implements OnInit {
         // console.log(res);
         alert('service center updated successfully');
         this.showDialog = false ;
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
+        this.userService.getAuthorizedServiceCenterList() // list update after edit
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
     });
   }
-  // delete
-  deleteAuthorizedServiceCenter( asc: any) {
-    console.log(asc);
-    const brandId = {'ID': asc.ID };
-    this.userService.DeleteAuthorizedServiceCenter(brandId)
+  // delete ASC
+  deleteAuthorizedServiceCenter(center_id:Number) {
+    this.userService.DeleteAuthorizedServiceCenter(center_id)
       .subscribe( res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after delete
+        this.userService.getAuthorizedServiceCenterList() // list update after delete
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
@@ -173,7 +170,7 @@ export class ServiceCenterListComponent implements OnInit {
         console.log("response",res)
         this.showDialog=false;
         alert("edit successfully")
-        this.userService.getAuthorizedServiceCenterList(this.prev,this.next) // list update after edit
+        this.userService.getAuthorizedServiceCenterList() // list update after edit
         .subscribe(authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
       },err=>{
@@ -189,7 +186,7 @@ export class ServiceCenterListComponent implements OnInit {
       if(this.prev ==0){
         this.leftFlag = true;
       }
-      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         console.log(this.authorizedServiceCenter)
         if(authorizedServiceCenterList.statusCode==100){
@@ -205,7 +202,7 @@ export class ServiceCenterListComponent implements OnInit {
       this.prev = this.prev+10;
       console.log(this.prev);
       console.log(this.next);
-      this.userService.getAuthorizedServiceCenterList(this.prev,this.next)
+      this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         console.log(this.authorizedServiceCenter)
         if(authorizedServiceCenterList.statusCode==105){
@@ -215,5 +212,8 @@ export class ServiceCenterListComponent implements OnInit {
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
       });
+    }
+    back(){
+      this.showASCList = true;
     }
 }
