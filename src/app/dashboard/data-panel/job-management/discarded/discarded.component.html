@@ -1,8 +1,8 @@
 <div class="card">
     <div class="header">
         <h2>
-            Discarded Bill List
-            <small> For assign  the bill click on the assign button</small>
+            Discarded JOB List
+            <small> For assign  the job click on the assign button</small>
         </h2>
     </div>
     <div class="body table-responsive">
@@ -16,7 +16,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Bill No.</th>
+                    <th>Job ID</th>
                     <th>Name</th>
                     <th>Phone No.</th>
                     <th>Email ID</th>
@@ -25,10 +25,10 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let bill of billList?.BillList; let i = index">
+            <tbody *ngFor="let bill of billList?.data; let i = index">
                 <tr>
                     <th scope="row">{{ i+1+prev }} </th>
-                    <td style="width:15%">{{ bill.BillNo}}</td>
+                    <td style="width:15%">{{ bill?.job_id}}</td>
                     <td>{{ bill.Name}}</td>
                     <td>{{ bill.PhoneNo}}</td>
                     <td>{{ bill.EmailID}}</td>

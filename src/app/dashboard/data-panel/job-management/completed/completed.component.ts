@@ -13,7 +13,7 @@ export class CompletedComponent implements OnInit {
   showImageDialog = false;
   billId: number;
   billList: Bill;
-  userType: String;
+  userType: Number;
   prev: number = 0;
   next: number = 10;
   leftFlag: boolean = true;
@@ -28,21 +28,21 @@ export class CompletedComponent implements OnInit {
   constructor(private userservice: UserService) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    this.userType = info.UserType;
-    console.log("userType", this.userType)
+    this.userType = info.role_type;
+    // console.log("userType", this.userType)
   }
 
   ngOnInit() {
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(5, this.prev, this.next) // completed = 5 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -50,7 +50,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -66,8 +66,8 @@ export class CompletedComponent implements OnInit {
       this.leftFlag = true;
     }
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(5, this.prev, this.next) // completed = 5 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -77,7 +77,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -88,7 +88,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -106,8 +106,8 @@ export class CompletedComponent implements OnInit {
     console.log(this.prev);
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(5, this.prev, this.next) // completed = 5 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -118,7 +118,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -130,7 +130,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -153,7 +153,7 @@ export class CompletedComponent implements OnInit {
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
-    this.userservice.getConsumerBillByID(req.BID)
+    this.userservice.getJobByID(req.BID)
       .subscribe(res => {
         console.log(res, "image");
         this.imageArray = res.ImageList;

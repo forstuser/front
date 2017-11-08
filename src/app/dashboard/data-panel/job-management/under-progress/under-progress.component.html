@@ -1,8 +1,8 @@
 <div class="card">
   <div class="header">
     <h2>
-      Under Progress Bill List
-      <small> For assign  the bill click on the assign button</small>
+      Under Progress JOB List
+      <small> For assign  the job click on the assign button</small>
     </h2>
   </div>
   <div class="body table-responsive">
@@ -16,7 +16,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Bill No.</th>
+          <th>Job ID</th>
           <th>Name</th>
           <th>Phone No.</th>
           <th>Bill Date</th>
@@ -26,26 +26,26 @@
           <th>Discard</th>
         </tr>
       </thead>
-      <tbody *ngFor="let bill of bills?.BillList; let i = index">
+      <tbody *ngFor="let bill of bills?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+prev }} </th>
-          <td>{{ bill.BillNo}}</td>
-          <td>{{ bill.Name}}</td>
-          <td>{{ bill.PhoneNo}}</td>
-          <td>{{ bill.BillDate | date}}</td>
-          <td><strong>Name : </strong>{{ bill.CE_Name}}<br>
-            <strong>Email ID : </strong>{{ bill.CE_EmailID}}<br>
-            <strong>Task Date: </strong>{{ bill.CE_TaskDate | date}}<br>
-            <strong>Status : </strong><span class="badge bg-orange">{{ bill.CE_Status}}</span><br><br>
-            <span class="pull-right" *ngIf="bill.CE_StatusID != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
+          <td>{{ bill.job_id}}</td>
+          <td>{{ bill.user.full_name}}</td>
+          <td>{{ bill.user.mobile_no}}</td>
+          <td>{{ bill.user.created_at | date}}</td>
+          <td><strong>Name : </strong>{{ bill.ce.full_name}}<br>
+            <strong>Email ID : </strong>{{ bill.ce.email}}<br>
+            <strong>Task Date: </strong>{{ bill.ce.created_at | date}}<br>
+            <strong>Status : </strong><span class="badge bg-orange">{{ bill.ce_status}}</span><br><br>
+            <span class="pull-right" *ngIf="bill.ce_status != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
                         <i class="material-icons">replay</i><span>Re-Assign</span></button>
             </span>
           </td>
-          <td><span *ngIf="bill.QE_StatusID != null"><strong>Name : </strong>{{ bill.QE_Name}}<br>
-                    <strong>Email ID : </strong>{{ bill.QE_EmailID}}<br>
-                    <strong>Task Date: </strong>{{ bill.QE_TaskDate | date}}<br>
-                    <strong>Status : </strong><span class="badge bg-orange">{{ bill.QE_Status}}</span></span><br><br>
-            <span *ngIf="bill.QE_StatusID ==  null && bill.CE_StatusID == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
+          <td><span *ngIf="bill.qe_status != null"><strong>Name : </strong>{{ bill.qe.full_name}}<br>
+                    <strong>Email ID : </strong>{{ bill.qe.email}}<br>
+                    <strong>Task Date: </strong>{{ bill.qe.created_at | date}}<br>
+                    <strong>Status : </strong><span class="badge bg-orange">{{ bill.qe_status}}</span></span><br><br>
+            <span *ngIf="bill.qe_status ==  null && bill.ce_status == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
                         <i class="material-icons">done</i><span>Assign</span></button>
             </span>
           </td>
