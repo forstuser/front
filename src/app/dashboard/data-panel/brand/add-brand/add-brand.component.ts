@@ -45,6 +45,8 @@ export class AddBrandComponent implements OnInit {
       'value': ''
     });
   }
+
+  
   addItem() {
     const control = <FormArray>this.brandForm.controls['details'];
     control.push(this.createItem());
