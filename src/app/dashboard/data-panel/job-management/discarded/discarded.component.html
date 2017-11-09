@@ -20,7 +20,7 @@
                     <th>Name</th>
                     <th>Phone No.</th>
                     <th>Email ID</th>
-                    <th>Bill Date</th>
+                    <th>JOB Date</th>
                     <th>Comments</th>
                     <th></th>
                 </tr>
@@ -28,12 +28,12 @@
             <tbody *ngFor="let bill of billList?.data; let i = index">
                 <tr>
                     <th scope="row">{{ i+1+prev }} </th>
-                    <td style="width:15%">{{ bill?.job_id}}</td>
-                    <td>{{ bill.Name}}</td>
-                    <td>{{ bill.PhoneNo}}</td>
-                    <td>{{ bill.EmailID}}</td>
-                    <td>{{ bill.BillDate | date}}</td>
-                    <td class="comment">{{bill.Comments}}</td>
+                    <td>{{ bill?.job_id}}</td>
+                    <td>{{ bill?.user.full_name}}</td>
+                    <td>{{ bill?.user.mobile_no}}</td>
+                    <td>{{ bill?.user.email}}</td>
+                    <td>{{ bill?.user.created_at | date}}</td>
+                    <td class="comment">{{ bill?.comments}}</td>
                 </tr>
             </tbody>
         </table>

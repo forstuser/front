@@ -317,9 +317,15 @@ export class UserService {
         }
                 // get list of new,under-progress and completed list
         // get admin list
-        getAdminJOBList(BillType: Number) {
+        getAdminJobList(BillType: Number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs?admin_status='+BillType, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // get CE JOB list
+        getCEJobList(BillType: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType, this.options)
                         .map((response: Response) => response.json());
         }
         // discard job
@@ -593,20 +599,7 @@ export class UserService {
 
         // **^ Bill  Services ^** //
 
-        // get CE list
-        getCEBillList(BillType: Number, offset, limit) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                console.log(data);
-                return this.http.post(this.apiLink + 'Services/CEConsumerBillsList', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         // get QE list
         getQEBillList(BillType: Number, offset, limit) {
                 // get login user credentials from localstorage

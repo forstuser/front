@@ -46,7 +46,7 @@ export class BillViewComponent implements OnInit {
 
   ngOnInit() {
     // get current bill details
-    this.userservice.getConsumerBillByID(this.billID)
+    this.userservice.getJobByID(this.billID)
       .subscribe(res => {
         console.log(res,"consumer bill");
         this.consumerBill = res;

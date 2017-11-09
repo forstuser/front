@@ -34,6 +34,7 @@ export class NewComponent implements OnInit {
   discardImage: object;
   loader: boolean = false;
   arrayLength: number;
+  imageUrl:string = appConfig.apiUrl;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -55,22 +56,22 @@ export class NewComponent implements OnInit {
 
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+      this.userservice.getAdminJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === 3) {
-      this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === 4) {
+    else if (this.userType === 3) {
       this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -93,7 +94,7 @@ export class NewComponent implements OnInit {
     }
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+      this.userservice.getAdminJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -104,7 +105,7 @@ export class NewComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
+      this.userservice.getCEJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -134,7 +135,7 @@ export class NewComponent implements OnInit {
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+      this.userservice.getAdminJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -146,7 +147,7 @@ export class NewComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
+      this.userservice.getCEJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -186,7 +187,7 @@ export class NewComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+        this.userservice.getAdminJobList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
@@ -198,19 +199,21 @@ export class NewComponent implements OnInit {
     this.imageIndex =0;
     this.loader = true;
     this.showImageDialog = true;
-    console.log(req, "image req");
+    // console.log(req, "image req");
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        console.log(res, "image");
-        this.imageArray = res.ImageList;
-        // console.log(this.imageArray.length,"lenght of array");
+        // console.log(res, "image");
+        this.imageArray = res.data.copies;
+        console.log(this.imageArray);
+        console.log(this.imageArray.length,"length of array");
         this.arrayLength = this.imageArray.length;
-        for (let i of res.ImageList) {
-          this.images.push()
+        for (let i of this.imageArray) {
+          this.images.push(this.imageUrl+'api/'+i.copyUrl)
         }
+        console.log(this.images);
         this.loader = false;
       })
     // this.discardBillImage(req.BID);
@@ -250,7 +253,7 @@ export class NewComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+        this.userservice.getAdminJobList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
@@ -277,7 +280,7 @@ export class NewComponent implements OnInit {
       // this.showImageDialog = false;
       // if userType is Admin/SuperAdmin get list of new bills
       if (this.userType === 1 || this.userType === 2) {
-        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
+        this.userservice.getAdminJobList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);

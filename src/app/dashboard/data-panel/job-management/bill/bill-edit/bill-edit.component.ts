@@ -164,7 +164,7 @@ export class BillEditComponent implements OnInit {
 
     // get current bill details
     console.log("this.bill id",this.billId)
-    this.userservice.getConsumerBillByID(this.billId)
+    this.userservice.getJobByID(this.billId)
       .subscribe(res => {
         console.log('bill details 2', res);
         this.consumerBill = res;
@@ -779,7 +779,7 @@ export class BillEditComponent implements OnInit {
         // get current bill details
         alert("Bill Updated Successfully");
         this._location.back();
-        this.userservice.getConsumerBillByID(this.billId)
+        this.userservice.getJobByID(this.billId)
           .subscribe(res => {
             console.log(res);
             this.consumerBill = res;

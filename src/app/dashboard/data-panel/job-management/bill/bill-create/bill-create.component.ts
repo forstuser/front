@@ -137,7 +137,7 @@ export class BillCreateComponent implements OnInit {
     this.myDatePickerOptions1.disableSince = { year: today.getFullYear(), month: (today.getMonth() + 1), day: (today.getDate() + 1) }
 
     // get current bill details
-    this.userservice.getConsumerBillByID(this.billId)
+    this.userservice.getJobByID(this.billId)
       .subscribe(res => {
         console.log('bill details', res);
         this.consumerBill = res;
@@ -740,7 +740,7 @@ export class BillCreateComponent implements OnInit {
         this.finalData = [];
         // get current bill details
         alert("Bill Created Successfully");
-        this.userservice.getConsumerBillByID(this.billId)
+        this.userservice.getJobByID(this.billId)
           .subscribe(res => {
             console.log(res);
             this.consumerBill = res;

@@ -41,7 +41,7 @@ export class BillComponent implements OnInit {
   }
   getImageList(){
     // get bill details
-    this.userservice.getConsumerBillByID(this.billId)
+    this.userservice.getJobByID(this.billId)
     .subscribe(res => {
       // console.log('bill details', res);
       this.imageArray = res.ImageList;

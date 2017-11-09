@@ -35,7 +35,7 @@ export class CompletedComponent implements OnInit {
   ngOnInit() {
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -43,7 +43,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -67,7 +67,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -78,7 +78,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -107,7 +107,7 @@ export class CompletedComponent implements OnInit {
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJOBList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -119,7 +119,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEBillList(5, this.prev, this.next) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;

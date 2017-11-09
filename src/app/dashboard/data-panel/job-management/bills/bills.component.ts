@@ -37,7 +37,7 @@ export class BillsComponent implements OnInit {
   }
   getImageList(){
     // get bill details
-    this.userservice.getConsumerBillByID(this.billId)
+    this.userservice.getJobByID(this.billId)
     .subscribe(res => {
       this.imageExist = true;
       console.log('bill details', res);
