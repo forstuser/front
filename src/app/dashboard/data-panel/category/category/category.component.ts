@@ -12,18 +12,19 @@ import { Component, OnInit } from '@angular/core';
 export class CategoryComponent implements OnInit {
   cat: Category;
   mainCat: Category;
-  catForm:any;
+  catForm: any;
   showDialog = false;
   viewCat = false;
   editCategoryForm: FormGroup;
   createCategoryForm: FormGroup;
   createCat: any = {};
   del: any = {};
-  productMainForm:any;
-  showCategoryEdit:boolean = false;
+  productMainForm: any;
+  showCategoryEdit: boolean = false;
   order: string = 'category';
-  showEdit:boolean = false;
-  constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
+  showEdit: boolean = false;
+  catId:number;
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
 
     // edit main category form
     this.editCategoryForm = this.fb.group({
@@ -37,8 +38,8 @@ export class CategoryComponent implements OnInit {
     this.createCategoryForm = this.fb.group({
       'category_name': [null, Validators.required],
       'ref_id': [null, Validators.required],
-      'category_id':[null],
-      'category_level':2,
+      'category_id': [null],
+      'category_level': 2,
       category_forms: this.fb.array([this.createItem(),])
     });
   }
@@ -58,7 +59,7 @@ export class CategoryComponent implements OnInit {
       'title': null
     });
   }
-  
+
   // add array
   addItem() {
     const control = <FormArray>this.createCategoryForm.controls['category_forms'];
@@ -66,7 +67,7 @@ export class CategoryComponent implements OnInit {
   }
   // add sub array
   addValues(id: number) {
-    console.log(id,"id after")
+    console.log(id, "id after")
     const control = <FormArray>this.createCategoryForm.get(['category_forms', id, 'drop_downs']);
     control.push(this.createValues());
   }
@@ -83,29 +84,29 @@ export class CategoryComponent implements OnInit {
     console.log(control);
     control.removeAt(j);
   }
-    // add array
-    addItem2() {
-      const control = <FormArray>this.editCategoryForm.controls['category_forms'];
-      control.push(this.createItem());
-    }
-    // add sub array
-    addValues2(id: number) {
-      const control = <FormArray>this.editCategoryForm.get(['category_forms', id, 'drop_downs']);
-      control.push(this.createValues());
-    }
-    // remove array
-    removeItem2(i: number) {
-      console.log(i);
-      const control = <FormArray>this.editCategoryForm.controls['category_forms'];
-      console.log(control);
-      control.removeAt(i);
-    }
-    // remove sub array
-    removeValues2(j: number) {
-      const control = <FormArray>this.editCategoryForm.get(['category_forms', j, 'drop_downs']);
-      console.log(control);
-      control.removeAt(j);
-    }
+  // add array
+  addItem2() {
+    const control = <FormArray>this.editCategoryForm.controls['category_forms'];
+    control.push(this.createItem());
+  }
+  // add sub array
+  addValues2(id: number) {
+    const control = <FormArray>this.editCategoryForm.get(['category_forms', id, 'drop_downs']);
+    control.push(this.createValues());
+  }
+  // remove array
+  removeItem2(i: number) {
+    console.log(i);
+    const control = <FormArray>this.editCategoryForm.controls['category_forms'];
+    console.log(control);
+    control.removeAt(i);
+  }
+  // remove sub array
+  removeValues2(j: number) {
+    const control = <FormArray>this.editCategoryForm.get(['category_forms', j, 'drop_downs']);
+    console.log(control);
+    control.removeAt(j);
+  }
 
   ngOnInit() {
     // get list of main category
@@ -115,38 +116,49 @@ export class CategoryComponent implements OnInit {
         console.log(mainCat);
       });
   }
-  onSelectMainCat2(catId){
-    console.log(catId);
-    this.createCategoryForm.setValue({
-      category_id:catId
-    });
+  
+  onSelectMainCat2(catId) {
+    console.log(catId,"id");
+    this.catId=catId;
+    // this.createCategoryForm.setValue({
+    //   category_id: catId
+    // });
   }
   // after select main category show list of category
-  onSelectMainCat(catID:number){
+  onSelectMainCat(catID: number) {
     // console.log(this.createCategoryForm.value);
     // console.log(catID);
     this.userService.getSubCategoryList(catID)
-    .subscribe(res => {
-      this.cat = res.data.subCategories;
-      console.log(res,"category");
-    });
+      .subscribe(res => {
+        this.cat = res.data.subCategories;
+        console.log(res, "category");
+      });
   }
   // after select category show  category form
-  onSelectCat(catID:number){
+  onSelectCat(catID: number) {
     this.showEdit = true;
     console.log(catID);
     this.userService.getSubCategoryList(catID)
-    .subscribe(res => {
-      this.catForm = res.data.categoryForms;
-      console.log(this.catForm,"category form");
-    });
+      .subscribe(res => {
+        this.catForm = res.data.categoryForms;
+        console.log(this.catForm, "category form");
+      });
   }
+
   // create category
   createCategory(category: any) {
-    // console.log(category);
-    this.createCat = { 'category_id':category.category_id, 'category_level': 2, 'ref_id': category.ref_id, 'category_name': category.category_name, 'category_forms': category.category_forms };
+    console.log(category,"data hai kya");
+    this.createCat =
+      {
+        'category_id': this.catId,
+        'category_level': 2,
+        'ref_id': category.ref_id,
+        'category_name': category.category_name,
+        'category_forms': category.category_forms
+      };
+
     console.log(this.createCat)
-    this.userService.createCategory(this.createCat)
+    this.userService.createCategoryForm(this.createCat)
       .subscribe(res => {
         // console.log(res);
         alert('New Category added succesfully');
@@ -193,17 +205,17 @@ export class CategoryComponent implements OnInit {
       })
   }
   createDetailsFormGroup(payOffObj) {
-    console.log(payOffObj,'pay')
+    console.log(payOffObj, 'pay')
     return new FormGroup({
       form_type: new FormControl(payOffObj.form_type),
-      FormID:new FormControl(payOffObj.FormID),
+      FormID: new FormControl(payOffObj.FormID),
       title: new FormControl(payOffObj.title),
       drop_downs: new FormControl(payOffObj.drop_downs[0])
     });
   }
   updateCategory(category: any) {
     // category = { Name:category.Name, ID:category.ID, RefID: category.RefID}
-    console.log("caregory",category);
+    console.log("category", category);
     this.userService.editCategoryForm(category)
       .subscribe(res => {
         console.log(res);
@@ -229,29 +241,29 @@ export class CategoryComponent implements OnInit {
           });
       });
   }
-  viewCategory(data:any){
+  viewCategory(data: any) {
     console.log(data)
     this.userService.getCategoryListbyID(data.ID)
-    .subscribe(res => {
-      this.productMainForm = res;
-      this.viewCat = true; // for show dialog
-      console.log(res);
-    })
+      .subscribe(res => {
+        this.productMainForm = res;
+        this.viewCat = true; // for show dialog
+        console.log(res);
+      })
   }
-    // function for avoid only space submit
-    avoidSpace(e){
-      // console.log(e);
-      this.functionService.NoWhitespaceValidator(this.createCategoryForm,e)
-    }
-    back(){
-      this.showCategoryEdit = false;
-    }
-    deleteForm(drop){
-      console.log(drop,"drop");
-      this.userService.deleteCategoryForm(drop)
-        .subscribe(res=>{
-          console.log(res);
-          
-        })
-    }
+  // function for avoid only space submit
+  avoidSpace(e) {
+    // console.log(e);
+    this.functionService.NoWhitespaceValidator(this.createCategoryForm, e)
+  }
+  back() {
+    this.showCategoryEdit = false;
+  }
+  deleteForm(drop) {
+    console.log(drop, "drop");
+    this.userService.deleteCategoryForm(drop)
+      .subscribe(res => {
+        console.log(res);
+
+      })
+  }
 }

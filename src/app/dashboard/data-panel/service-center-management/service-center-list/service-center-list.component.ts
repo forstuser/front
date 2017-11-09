@@ -1,5 +1,6 @@
 import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand';
+import { FunctionService } from './../../../../_services/function.service';
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
 import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
@@ -23,7 +24,9 @@ export class ServiceCenterListComponent implements OnInit {
   noData:boolean = false;
   showASCList:boolean = true;
   detailType:any;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  center=[];
+  ascDetail:any;
+  constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
   }
 
   ngOnInit() {
@@ -55,11 +58,14 @@ export class ServiceCenterListComponent implements OnInit {
        details: this.fb.array([ this.createItem(), ])
     });
 
+
     this.userService.getAuthorizedServiceCenterList()
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
-        console.log(this.authorizedServiceCenter);
+        console.log(this.authorizedServiceCenter,"asc");
       });
+
+
   // get list of detail type
     this.userService.getDetailList()
     .subscribe(detail_type =>{
@@ -78,13 +84,29 @@ export class ServiceCenterListComponent implements OnInit {
   }
 
   addItem() {
-    const control = <FormArray>this.authorizedServiceCenterForm.controls['details'];
+    const control = <FormArray>this.authorizedServiceCenterForm.controls['center_details'];
     control.push(this.createItem());
   }
+
+
   removeDetails(i: number) {
-    const control = <FormArray>this.authorizedServiceCenterForm.controls['details'];
+    const control = <FormArray>this.authorizedServiceCenterForm.controls['center_details'];
     control.removeAt(i);
   }
+
+
+  removeItem(item,data){
+    this.center=data.center_details;
+    console.log(item,item['_value'],"catId");
+    this.ascDetail=item['_value'];
+
+    this.userService.removeAscDetails(this.ascDetail,this.center)
+    .subscribe( res => {
+      console.log(res);
+      alert('Detail deleted successfully');
+    });
+  }
+
   // passs current brand id as argument and open the popup
   openModel(item) {
     console.log(item);
@@ -102,13 +124,12 @@ export class ServiceCenterListComponent implements OnInit {
       center_longitude: new FormControl(''),
       center_days: new FormControl(''),
       center_timings:new FormControl(''),
-      details: new FormArray([])
+      center_details: new FormArray([])
     });
     // get information of current selected brand
     this.userService.getAuthorizedServiceCenterByID(item.center_id)
       .subscribe(res => {
       this.showASCList = false ; // for show dialog
-      console.log(res);
       // prop autofill data to form
       this.authorizedServiceCenterForm.controls['center_id'].setValue(res.data.center_id);
       this.authorizedServiceCenterForm.controls['center_name'].setValue(res.data.center_name);
@@ -124,10 +145,12 @@ export class ServiceCenterListComponent implements OnInit {
       this.authorizedServiceCenterForm.controls['center_timings'].setValue(res.data.center_timings);
       res.data.details.forEach(
       (po) => {
-        (<FormArray>this.authorizedServiceCenterForm.controls['details']).push(this.createDetailsFormGroup(po));
+        (<FormArray>this.authorizedServiceCenterForm.controls['center_details']).push(this.createDetailsFormGroup(po));
       });
     });
   }
+
+
  createDetailsFormGroup(payOffObj) {
    console.log(payOffObj)
     return new FormGroup({
@@ -137,20 +160,22 @@ export class ServiceCenterListComponent implements OnInit {
       id: new FormControl(payOffObj.id)
     });
   }
+
   // update
-  updateOnlineSeller( asc: any) {
-    console.log(asc);
-    this.userService.updateAuthorizedServiceCenter(asc)
-      .subscribe( res => {
-        // console.log(res);
-        alert('service center updated successfully');
-        this.showDialog = false ;
-        this.userService.getAuthorizedServiceCenterList() // list update after edit
-          .subscribe(authorizedServiceCenterList => {
-          this.authorizedServiceCenter = authorizedServiceCenterList;
-        });
-    });
-  }
+  // updateOnlineSeller( asc: any) {
+  //   // console.log(asc,"ssss");
+  //   this.userService.updateAuthorizedServiceCenter(asc)
+  //     .subscribe( res => {
+  //       // console.log(res);
+  //       alert('service center updated successfully');
+  //       this.showDialog = false ;
+  //       this.userService.getAuthorizedServiceCenterList() // list update after edit
+  //         .subscribe(authorizedServiceCenterList => {
+  //         this.authorizedServiceCenter = authorizedServiceCenterList;
+  //       });
+  //   });
+  // }
+
   // delete ASC
   deleteAuthorizedServiceCenter(center_id:Number) {
     this.userService.DeleteAuthorizedServiceCenter(center_id)
@@ -164,8 +189,13 @@ export class ServiceCenterListComponent implements OnInit {
     });
   }
 
+
   updateAuthService(data){
-    this.userService.updateAuthorizedServiceCenter(data)
+    console.log(data,"bhia data")
+
+    this.center=data.center_details;
+    console.log(this.center,"ds")
+    this.userService.updateAuthorizedServiceCenter(data,this.center)
     .subscribe(res=>{
         console.log("response",res)
         this.showDialog=false;
@@ -179,6 +209,8 @@ export class ServiceCenterListComponent implements OnInit {
 
     })
   } 
+
+
     // function for pagination
     left(){
       this.noData = false;
@@ -196,6 +228,8 @@ export class ServiceCenterListComponent implements OnInit {
         console.log(this.authorizedServiceCenter);
       });
     }
+
+
     right(){
       this.noData = false;
       this.leftFlag = false;
@@ -213,7 +247,14 @@ export class ServiceCenterListComponent implements OnInit {
         console.log(this.authorizedServiceCenter);
       });
     }
+
+
     back(){
       this.showASCList = true;
+    }
+
+    avoidSpace(e){
+      console.log(e);
+      this.functionService.NoWhitespaceValidator(this.authorizedServiceCenterForm,e)
     }
 }
