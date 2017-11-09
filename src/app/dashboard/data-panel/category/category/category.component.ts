@@ -124,6 +124,8 @@ export class CategoryComponent implements OnInit {
     //   category_id: catId
     // });
   }
+
+
   // after select main category show list of category
   onSelectMainCat(catID: number) {
     // console.log(this.createCategoryForm.value);
@@ -134,6 +136,8 @@ export class CategoryComponent implements OnInit {
         console.log(res, "category");
       });
   }
+
+  
   // after select category show  category form
   onSelectCat(catID: number) {
     this.showEdit = true;
@@ -144,6 +148,7 @@ export class CategoryComponent implements OnInit {
         console.log(this.catForm, "category form");
       });
   }
+
 
   // create category
   createCategory(category: any) {

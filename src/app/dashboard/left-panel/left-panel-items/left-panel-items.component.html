@@ -1,14 +1,14 @@
 <div class="menu scroll">
     <ul class="list">
-          <li class="header">MAIN NAVIGATION</li> 
+        <li class="header">MAIN NAVIGATION</li>
         <li *ngFor="let item of LeftPanelItems" routerLinkActive="active">
-            <a routerLink = "{{ item.link }}" class="{{ item.class }}" (click)="this[item.handler](item)" [ngClass]="item.addClass">
+            <a routerLink="{{ item.link }}" class="{{ item.class }}" (click)="this[item.handler](item)" [ngClass]="item.addClass">
                 <i class="material-icons">{{ item.icon }}</i>
                 <span>{{ item.name }}</span>
             </a>
             <ul class="ml-menu" [ngClass]=" item.addSubClass ">
                 <li *ngFor="let d_item of item.dropdownList" routerLinkActive="active">
-                    <a routerLink = "{{ d_item.d_link }}"><span class="material-icons">{{ d_item.d_icon }}</span>&nbsp;{{ d_item.d_name }}</a>
+                    <a routerLink="{{ d_item.d_link }}"><span class="material-icons">{{ d_item.d_icon }}</span>&nbsp;{{ d_item.d_name }}</a>
                 </li>
             </ul>
         </li>
