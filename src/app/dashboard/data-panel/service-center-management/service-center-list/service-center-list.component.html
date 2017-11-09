@@ -175,12 +175,12 @@
           </h4>
 				<div class="row clearfix">
 					<div class="pull-right margin-right">
-						<button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
+						<button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Details</button>
 						<p>&nbsp;</p>
 					</div>
 				</div>
 				<div class="panel panel-default">
-					<div formArrayName="details" *ngFor="let item of authorizedServiceCenterForm.controls.details['controls']; let i = index;">
+					<div formArrayName="center_details" *ngFor="let item of authorizedServiceCenterForm.controls.center_details['controls']; let i = index;">
 						<br>
 						<div class="row clearfix" [formGroupName]="i">
 							<div class="col-md-2 col-lg-2 col-md-offset-1">
@@ -205,7 +205,7 @@
 								</div>
 							</div>
 							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-								<button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="authorizedServiceCenterForm.controls['details'].length > 1" (click)="removeDetails(i)">Remove</button>
+								<button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="authorizedServiceCenterForm.controls['center_details'].length > 1" (click)="removeDetails(i);removeItem(item,authorizedServiceCenterForm.value)">Remove</button>
 							</div>
 						</div>
 					</div>

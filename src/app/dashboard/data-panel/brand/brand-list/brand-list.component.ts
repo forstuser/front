@@ -20,6 +20,8 @@ export class BrandListComponent implements OnInit {
   noData:boolean = false;
   showBrandList:boolean = true;
   detailType:any;
+  center=[];
+  brand;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
@@ -65,6 +67,7 @@ export class BrandListComponent implements OnInit {
       console.log(this.brands);
     });
   }
+
   right(){
     this.noData = false;
     this.leftFlag = false;
@@ -95,9 +98,26 @@ export class BrandListComponent implements OnInit {
     const control = <FormArray>this.editBrandForm.controls['details'];
     control.push(this.createItem());
   }
+
+
   removeDetails(i: number) {
     const control = <FormArray>this.editBrandForm.controls['details'];
     control.removeAt(i);
+  }
+
+
+  removeItem(item,data){
+    console.log(data,"bhai data")
+    console.log(item,data,"brandsssss")
+    this.center=data.brand_id;
+    console.log(item,item['_value'],"catId");
+    this.brand=item['_value'];
+
+    this.userService.removeBrandDetails(this.brand,this.center)
+    .subscribe( res => {
+      console.log(res);
+      alert('Detail deleted successfully');
+    });
   }
   // passs current brand id as argument and open the popup
   openBrandModel(item) {
@@ -124,6 +144,8 @@ export class BrandListComponent implements OnInit {
       });
     });
   }
+
+
  createDetailsFormGroup(payOffObj) {
    console.log(payOffObj);
     return new FormGroup({
@@ -133,19 +155,26 @@ export class BrandListComponent implements OnInit {
       value: new FormControl(payOffObj.value)
     });
   }
-  updateBrand( brand: any) {
-    console.log(brand);
-    this.userService.updateBrand(brand)
+
+
+  updateBrand( data: any) {
+    console.log(data);
+    this.center=data.details;
+    console.log(this.center,"senter details")
+    this.userService.updateBrand(data,this.center)
       .subscribe( res => {
         // console.log(res);
         alert('brand updated successfully');
         this.showBrandList =true;
-        this.userService.getBrandList2(0,10) // list update after edit
-          .subscribe(brandList => {
+        this.userService.getBrandList()
+        .subscribe( brandList => {
           this.brands = brandList;
+          console.log(this.brands);
         });
     });
   }
+
+
   // delete brand
   deleteBrand( brandId: number) {
     this.userService.deleteBrand(brandId)
@@ -158,6 +187,8 @@ export class BrandListComponent implements OnInit {
         });
     });
   }
+
+
   back(){
     this.showBrandList = true;
   }

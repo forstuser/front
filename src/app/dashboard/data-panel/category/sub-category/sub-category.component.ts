@@ -93,7 +93,7 @@ export class SubCategoryComponent implements OnInit {
     console.log(category);
     this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'FormList': category.FormList };
     console.log(this.createCat)
-    this.userService.createCategory(this.createCat)
+    this.userService.createCategoryForm(this.createCat)
       .subscribe(res => {
         // console.log(res);
         alert('New Category added succesfully');

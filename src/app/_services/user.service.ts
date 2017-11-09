@@ -87,14 +87,16 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
-        // Create category
-        createCategory(category: any) {
+        
+        // Create category form
+        createCategoryForm(category: any) {
+                console.log(category,"bhia cat")
                 this.getCSRF();
                 const id = category.category_id;
                 delete category['category_id'];
                 const data = JSON.stringify(category);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/categories/'+id+'/forms', data, this.options).map((response: Response) => response.json());
+                return this.http.post(this.apiLink + 'api/categories/', data, this.options).map((response: Response) => response.json());
         }
         // Update Main category
         updateCategory(category: any) {
@@ -216,7 +218,8 @@ export class UserService {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/offlineSeller', this.options)
                         .map((response: Response) => response.json());
-        }
+        } 
+
         // Create offline seller
         createOfflineSeller(OfflineSeller: any) {
                 this.getCSRF();
@@ -263,20 +266,31 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands/'+ID, this.options)
                         .map((response: Response) => response.json());
         }
+        
         // Update brand
-        updateBrand(brand: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                brand['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(brand);
+        updateBrand(dataa: any,arr) {
+                // console.log
+                const id = dataa.brand_id;
+                for (let i=0;i<arr.length;i++){
+                        if(arr[i].id==""){
+                                arr[i].id=undefined;
+                        }       
+                }
+                this.getCSRF();
+                delete dataa['brand_id'];
+                const data = JSON.stringify(dataa);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditBrand', data, options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/brands/'+id, data, this.options).map((response: Response) => response.json());
         }
-        // ASC
+        //remove brand details
+        removeBrandDetails(asc,center){
+                console.log(asc.id)
+                // const center_id=center.id;
+                const id=asc.id
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/brands/'+center+'/details/'+id, this.options)
+                .map((response: Response) => response.json());
+        }
         // get authorized service center list
         getAuthorizedServiceCenterList() {
                 this.getCSRF();
@@ -302,19 +316,31 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // Update authorized service center
-        updateAuthorizedServiceCenter(OnlineSeller: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                OnlineSeller['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(OnlineSeller);
+        updateAuthorizedServiceCenter(asc: any,arr) {
+                console.log(asc,arr,"seller online")
+                const id=asc.center_id
+                for (let i=0;i<arr.length;i++){
+                        if(arr[i].id==""){
+                                arr[i].id=undefined;
+                        }       
+                }
+                this.getCSRF();
+                delete asc['center_id']
+                const data = JSON.stringify(asc);
                 console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/EditAuthorizedServiceCenter', data, options)
+                return this.http.put(this.apiLink + 'api/servicecenters/'+id, data, this.options)
                         .map((response: Response) => response.json());
         }
+        //remove asc details
+        removeAscDetails(asc,center){
+                console.log(asc.id)
+                const center_id=center.id;
+                const id=asc.id
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/servicecenters/'+center_id+'/details/'+id, this.options)
+                .map((response: Response) => response.json());
+        }
+
                 // get list of new,under-progress and completed list
         // get admin list
         getAdminJobList(BillType: Number) {

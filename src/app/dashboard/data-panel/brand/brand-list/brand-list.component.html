@@ -114,7 +114,7 @@
                 </div>
               </div>
               <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
-                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls['details'].length > 1" (click)="removeDetails(i)">Remove</button>
+                <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls['details'].length > 1" (click)="removeDetails(i);removeItem(item,editBrandForm.value)">Remove</button>
               </div>
             </div>
             <br>

@@ -54,6 +54,8 @@
                       <option value=1>Input</option>
                       <option value=2>Dropdown</option>
                       <option value=3>Calender</option>
+                      <option value=4>Numeric</option>
+                      
                    </select>
                 </div>
                 <div *ngIf="this['Dropdown'+i] >  0">
@@ -146,6 +148,7 @@
           </label>
           <div class="form-group">
              <select class="form-control dropdown" (change)="onSelectCat($event.target.value)">
+             <option>Select</option>
              <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
              </select>
           </div>
@@ -167,12 +170,12 @@
              </small>
           </div>
           <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 1">
-             <div class="form-group">
-                <div class="form-line">
-                   <input type="text" name="{{form.id}}" class="form-control input_fix">
-                </div>
-             </div>
-          </div>
+              <div class="form-group">
+                 <div class="form-line">
+                    <input type="text" name="{{form.id}}" class="form-control input_fix">
+                 </div>
+              </div>
+           </div>
           <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 2">
              <select class="form-control dropdown" name="{{form.id}}" ngModel>
                 <ng-container *ngFor="let droplist of form?.dropDowns">
@@ -181,6 +184,20 @@
              </select>
              <p></p>
           </div>
+          <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 3">
+              <div class="form-group">
+                 <div class="form-line">
+                    <input type="date" name="{{form.id}}" class="form-control input_fix">
+                 </div>
+              </div>
+           </div>
+           <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 4">
+              <div class="form-group">
+                 <div class="form-line">
+                    <input type="number" name="{{form.id}}" class="form-control input_fix">
+                 </div>
+              </div>
+           </div>
        </div>
     </div>
     <app-dialog [(visible)]="viewCat">
@@ -216,6 +233,13 @@
                       </div>
                    </div>
                 </div>
+                <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 4">
+                    <div class="form-group">
+                       <div class="form-line">
+                          <input type="number" name="{{form.FormID}}" class="form-control input_fix">
+                       </div>
+                    </div>
+                 </div>
                 <div class="col-lg-4 col-md-4" *ngIf="form?.form_type == 2">
                    <select class="form-control dropdown" name="{{form.FormID}}" ngModel>
                       <ng-container *ngFor="let droplist of form?.drop_downs">
@@ -285,6 +309,7 @@
                    <option value=1>Input</option>
                    <option value=2>Dropdown</option>
                    <option value=3>Calender</option>
+                   <option value=4>Numeric</option>
                    </select>
                 </div>
                 <div>
