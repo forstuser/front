@@ -341,6 +341,38 @@ export class UserService {
                 .map((response: Response) => response.json());
         }
 
+                // get list of new,under-progress and completed list
+        // get admin list
+        getAdminJOBList(BillType: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?admin_status='+BillType, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // discard job
+        discardConsumerJOB(req: any) {
+                this.getCSRF();
+                const jobID = req['id'];
+                delete req['id'];
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/discard',req, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // Assign job to CE
+        assignJobCE(task: any) {
+                this.getCSRF();
+                const jobID = task['BID'];
+                const ceID = task['UID'];
+                delete task['BID'];
+                delete task['UID'];
+                const data = JSON.stringify(task);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID, data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        getJobByID(billID: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
+                        .map((response: Response) => response.json());
+        }
 //*******************************OLD API ***************************************************/
 
         // get different type of user
@@ -586,21 +618,7 @@ export class UserService {
 
 
         // **^ Bill  Services ^** //
-        // get list of new,under-progress and completed list
-        // get admin list
-        getAdminBillList(BillType: Number, offset, limit) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                console.log(data);
-                return this.http.post(this.apiLink + 'Services/AdminConsumerBillsList', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         // get CE list
         getCEBillList(BillType: Number, offset, limit) {
                 // get login user credentials from localstorage
@@ -629,20 +647,6 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/QEConsumerBillsList', data, options)
                         .map((response: Response) => response.json());
         }
-        // Assign bills to CE
-        assignTaskCE(task: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                task['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(task);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/TaskAssignedCE', data, options)
-                        .map((response: Response) => response.json());
-        }
         // Assign bills to QE
         assignTaskQE(task: any) {
                 // get login user credentials from localstorage
@@ -659,19 +663,7 @@ export class UserService {
         }
         // **^ Bill Form  Services ^** //
 
-        getConsumerBillByID(billID: Number) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, ID: billID };
-                const data = JSON.stringify(body);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/ConsumerBillByID', data, options)
-                        .map((response: Response) => response.json());
-        }
+
 
         createBill(bill: any) {
                 // get login user credentials from localstorage
@@ -795,19 +787,7 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
 
-        discardConsumerBill(req: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                req['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(req);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DiscardConsumerBill', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         discardConsumerBillImage(req: any) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

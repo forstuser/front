@@ -1,8 +1,8 @@
 <div class="card">
   <div class="header">
     <h2>
-      New Bill List
-      <small> For assign  the bill click on the assign button</small>
+      New JOB List
+      <small> For assign  the job click on the assign button</small>
     </h2>
   </div>
   <div class="body table-responsive">
@@ -16,7 +16,7 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Bill No.</th>
+          <th>Job ID</th>
           <th>Name</th>
           <th>Phone No.</th>
           <th>Email ID</th>
@@ -25,15 +25,15 @@
           <th>Action</th>
         </tr>
       </thead>
-      <tbody *ngFor="let bill of billList?.BillList; let i = index">
+      <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+prev }} </th>
-          <td>{{ bill?.BillNo}}</td>
-          <td>{{ bill?.Name}}</td>
-          <td>{{ bill?.PhoneNo}}</td>
-          <td>{{ bill?.EmailID}}</td>
-          <td>{{ bill?.BillDate | date}}</td>
-          <td class="comment">{{ bill?.Comments}}</td>
+          <td>{{ bill?.job_id}}</td>
+          <td>{{ bill?.user.full_name}}</td>
+          <td>{{ bill?.user.mobile_no}}</td>
+          <td>{{ bill?.user.email}}</td>
+          <td>{{ bill?.user.created_at | date}}</td>
+          <td class="comment">{{ bill?.comments}}</td>
           <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="bill/{{ bill.BID }}" *ngIf="userType ==3 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="bill/{{ bill.BID }}/view" [queryParams]="{ uid : bill.CE_ID }"
               *ngIf="userType ==4">View Bill</button></td>
           <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
@@ -45,6 +45,7 @@
       <h4> No Data Available </h4>
     </ng-template>
   </div>
+  <!-- assign to ce model -->
   <app-dialog [(visible)]="showDialog">
     <div class="modal-header">
       <h4 class="modal-title" id="smallModalLabel">Assign Bill</h4>
@@ -58,7 +59,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                  <option *ngFor="let user of users?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
+                  <option *ngFor="let user of users?.data" [ngValue]="user.id" >{{ user?.email }}</option>
               </select>
             </div>
           </div>
@@ -71,7 +72,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="5" cols="52" formControlName="Comments"></textarea>
+                <textarea rows="5" cols="52" formControlName="comments"></textarea>
               </div>
             </div>
           </div>
@@ -98,7 +99,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <input formControlName="Comments" type="text" class="textareaDitto">
+                <input formControlName="comments" type="text" class="textareaDitto">
               </div>
             </div>
           </div>

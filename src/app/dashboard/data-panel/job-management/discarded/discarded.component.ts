@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./discarded.component.css']
 })
 export class DiscardedComponent implements OnInit {
-  userType: String;
+  userType: Number;
   users: User;
   billList: NewList;
   assignForm: FormGroup;
@@ -25,8 +25,8 @@ export class DiscardedComponent implements OnInit {
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    this.userType = info.UserType;
-    console.log("userType", this.userType)
+    this.userType = info.role_type;
+    // console.log("userType", this.userType)
 
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
@@ -38,15 +38,15 @@ export class DiscardedComponent implements OnInit {
   ngOnInit() {
 
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(10, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(9) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -54,7 +54,7 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -76,8 +76,8 @@ export class DiscardedComponent implements OnInit {
       this.leftFlag = true;
     }
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(10, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(10) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -87,7 +87,7 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -98,7 +98,7 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -117,8 +117,8 @@ export class DiscardedComponent implements OnInit {
     console.log(this.prev);
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(10, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(10) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -129,7 +129,7 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -141,7 +141,7 @@ export class DiscardedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(10, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -165,12 +165,12 @@ export class DiscardedComponent implements OnInit {
   }
   assignBill(item: any) {
     console.log(item);
-    this.userservice.assignTaskCE(item)
+    this.userservice.assignJobCE(item)
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminBillList(10, this.prev, this.next) // new = 4 refer api doc
+        this.userservice.getAdminJOBList(10) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);

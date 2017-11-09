@@ -11,8 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new.component.css']
 })
 export class NewComponent implements OnInit {
-  imageLink: String = appConfig.imageUrl;
-  userType: String;
+  userType: number;
   users: User;
   billList: NewList;
   billId: number;
@@ -38,32 +37,32 @@ export class NewComponent implements OnInit {
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    this.userType = info.UserType;
-    console.log("userType", this.userType)
+    this.userType = info.role_type;
+    // console.log("userType", this.userType)
 
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
-      'Comments': '',
+      'comments': '',
       'BID': ''
     });
     this.discardForm = this.fb.group({
-      'Comments': ['', Validators.required],
-      'BID': ''
+      'id':'',
+      'comments': ['', Validators.required]
     });
   }
 
   ngOnInit() {
 
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -71,7 +70,7 @@ export class NewComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -79,10 +78,10 @@ export class NewComponent implements OnInit {
         });
     }
     // get list of ce
-    this.userservice.getUserList(1) // 3 for ce refer to api doc
+    this.userservice.getUserList(4) // 4 for ce refer to api doc
       .subscribe(users => {
         this.users = users;
-        console.log(users);
+        // console.log(users,"users");
       });
   }
   // function for pagination
@@ -93,8 +92,8 @@ export class NewComponent implements OnInit {
       this.leftFlag = true;
     }
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -104,7 +103,7 @@ export class NewComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -115,7 +114,7 @@ export class NewComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
@@ -134,8 +133,8 @@ export class NewComponent implements OnInit {
     console.log(this.prev);
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
-    if (this.userType === '1' || this.userType === '2') {
-      this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJOBList(4) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
@@ -146,7 +145,7 @@ export class NewComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === '3') {
+    else if (this.userType === 3) {
       this.userservice.getCEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -158,7 +157,7 @@ export class NewComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === '4') {
+    else if (this.userType === 4) {
       this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
@@ -175,19 +174,19 @@ export class NewComponent implements OnInit {
     console.log(item);
     this.showDialog = true; // for show dialog
     this.assignForm.setValue({
-      BID: item.BID,
+      BID: item.id,
       UID: '',
-      Comments: ''
+      comments: ''
     });
   }
   assignBill(item: any) {
     console.log(item);
-    this.userservice.assignTaskCE(item)
+    this.userservice.assignJobCE(item)
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
@@ -203,14 +202,14 @@ export class NewComponent implements OnInit {
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
-    this.userservice.getConsumerBillByID(req.BID)
+    this.userservice.getJobByID(req.id)
       .subscribe(res => {
         console.log(res, "image");
         this.imageArray = res.ImageList;
         // console.log(this.imageArray.length,"lenght of array");
         this.arrayLength = this.imageArray.length;
         for (let i of res.ImageList) {
-          this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
+          this.images.push()
         }
         this.loader = false;
       })
@@ -240,24 +239,27 @@ export class NewComponent implements OnInit {
     console.log(item);
     this.discardDialog = true;
     this.discardForm.setValue({
-      BID: item.BID,
-      Comments: '',
+      id: item.id,
+      comments: '',
     });
   }
   discardBill(item: any) {
     console.log(item);
-    this.userservice.discardConsumerBill(item)
+    this.userservice.discardConsumerJOB(item)
       .subscribe(res => {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminBillList(4, this.prev, this.next) // incomplete = 6 refer api doc
+        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
           });
+      },(error)=>{
+        console.log(error);
       })
   }
+
    // discard bill image
   commentBoxData(comment: string){
     // console.log(form.value)
@@ -274,8 +276,8 @@ export class NewComponent implements OnInit {
       alert('Image discarded');
       // this.showImageDialog = false;
       // if userType is Admin/SuperAdmin get list of new bills
-      if (this.userType === '1' || this.userType === '2') {
-        this.userservice.getAdminBillList(4, this.prev, this.next) // new = 4 refer api doc
+      if (this.userType === 1 || this.userType === 2) {
+        this.userservice.getAdminJOBList(4) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);

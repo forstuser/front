@@ -28,7 +28,7 @@ export class UnderProgressComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
-  userType: String;
+  userType: Number;
   showImageDialog = false;
   billId: number;
   imageArray: any[] = [];
@@ -40,8 +40,8 @@ export class UnderProgressComponent implements OnInit {
   arrayLength:number;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    this.userType = info.UserType;
-    console.log("userType", this.userType)
+    this.userType = info.role_type;
+    // console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
       'Comments': '',
@@ -59,19 +59,19 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+    this.userservice.getAdminJOBList(8) // incomplete = 6 refer api doc
       .subscribe(bills => {
         this.bills = bills;
         console.log(this.bills);
       });
-    // get list of ce
-    this.userservice.getUserList(4) // 4 for ce refer to api doc
+    // get list of qe
+    this.userservice.getUserList(4) // 4 for qe refer to api doc
       .subscribe(users => {
         this.ceUsers = users;
         console.log(users);
       });
-    // get list of qe
-    this.userservice.getUserList(3) // 3 for qe refer to api doc
+    // get list of ce
+    this.userservice.getUserList(3) // 3 for ce refer to api doc
       .subscribe(users => {
         this.qeUsers = users;
         console.log(users);
@@ -84,7 +84,7 @@ export class UnderProgressComponent implements OnInit {
     if (this.prev == 0) {
       this.leftFlag = true;
     }
-    this.userservice.getAdminBillList(8, this.prev, this.next)
+    this.userservice.getAdminJOBList(8)
       .subscribe(bills => {
         console.log(bills.statusCode)
         if (bills.statusCode == 100) {
@@ -100,7 +100,7 @@ export class UnderProgressComponent implements OnInit {
     this.prev = this.prev + 10;
     console.log(this.prev);
     console.log(this.next);
-    this.userservice.getAdminBillList(8, this.prev, this.next)
+    this.userservice.getAdminJOBList(8)
       .subscribe(bills => {
         console.log(bills.statusCode)
         if (bills.statusCode == 105) {
@@ -123,13 +123,13 @@ export class UnderProgressComponent implements OnInit {
   }
   assignBillCE(item: any) {
     console.log(item);
-    this.userservice.assignTaskCE(item)
+    this.userservice.assignJobCE(item)
       .subscribe(res => {
         console.log(res);
         if (res.statusCode == 100) {
           alert('assign successfull');
           this.showDialog = false;
-          this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+          this.userservice.getAdminJOBList(8) // incomplete = 6 refer api doc
             .subscribe(bill => {
               this.bills = bill;
               console.log(this.bills);
@@ -155,7 +155,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showQeDialog = false;
-        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+        this.userservice.getAdminJOBList(8) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -179,7 +179,7 @@ export class UnderProgressComponent implements OnInit {
   //       console.log(res);
   //       alert("Bill Discarded");
   //       this.discardDialog = false;
-  //       this.userservice.getAdminBillList(8,this.prev,this.next) // incomplete = 6 refer api doc
+  //       this.userservice.getAdminJOBList(8,this.prev,this.next) // incomplete = 6 refer api doc
   //       .subscribe(bill => {
   //         this.bills = bill;
   //         console.log(this.bills);
@@ -195,7 +195,7 @@ export class UnderProgressComponent implements OnInit {
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
-    this.userservice.getConsumerBillByID(req.BID)
+    this.userservice.getJobByID(req.BID)
       .subscribe(res => {
         // console.log(res);
         this.imageArray = res.ImageList;
@@ -237,12 +237,12 @@ export class UnderProgressComponent implements OnInit {
   }
   discardBill(item: any) {
     console.log(item);
-    this.userservice.discardConsumerBill(item)
+    this.userservice.discardConsumerJOB(item)
       .subscribe(res => {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+        this.userservice.getAdminJOBList(8) // incomplete = 6 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
@@ -265,7 +265,7 @@ export class UnderProgressComponent implements OnInit {
       alert('Image discarded');
       // this.showImageDialog = false;
       // if userType is Admin/SuperAdmin get list of new bills
-      this.userservice.getAdminBillList(8, this.prev, this.next) // incomplete = 6 refer api doc
+      this.userservice.getAdminJOBList(8) // incomplete = 6 refer api doc
         .subscribe(bills => {
           this.bills = bills;
           console.log(this.bills);
