@@ -34,7 +34,7 @@
           <td>{{ bill?.user.email}}</td>
           <td>{{ bill?.user.created_at | date}}</td>
           <td class="comment">{{ bill?.comments}}</td>
-          <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="bill/{{ bill.BID }}" *ngIf="userType ==4 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="bill/{{ bill.BID }}/view" [queryParams]="{ uid : bill.CE_ID }"
+          <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="create/{{ bill.id }}" *ngIf="userType ==4 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="bill/{{ bill.BID }}/view" [queryParams]="{ uid : bill.CE_ID }"
               *ngIf="userType ==3">View Bill</button></td>
           <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
           <td><button class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</button></td>
