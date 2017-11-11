@@ -2,6 +2,7 @@ import { UserService } from './../../../../_services/user.service';
 import { appConfig } from './../../../../app.config';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
 // import $ from 'jquery';
 declare var $:any
 @Component({
@@ -29,8 +30,6 @@ export class BillsComponent implements OnInit {
     $("#image").imgViewer2();
   }
   ngOnDestroy() {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
     $("#image").remove();
     this.imageExist =false;
     console.log("destroy")

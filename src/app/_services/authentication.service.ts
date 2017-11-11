@@ -18,6 +18,7 @@ export class AuthenticationService {
     // reset login status
     // this.authenticationService.logout();
     // this.logout();
+    Cookie.deleteAll();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
     
   }
@@ -71,6 +72,7 @@ export class AuthenticationService {
     console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
       console.log(response);
+      Cookie.deleteAll();
       this.router.navigateByUrl('/login')
     }),
     error=>{

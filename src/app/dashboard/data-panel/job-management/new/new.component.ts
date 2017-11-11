@@ -1,7 +1,7 @@
 import { appConfig } from './../../../../app.config';
 import { NewList } from './../../../../_models/billList.interface';
 import { User } from './../../../../_models/user';
-import { FormBuilder, FormGroup, Validators ,NgForm} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -34,7 +34,7 @@ export class NewComponent implements OnInit {
   discardImage: object;
   loader: boolean = false;
   arrayLength: number;
-  imageUrl:string = appConfig.apiUrl;
+  imageUrl: string = appConfig.apiUrl;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -47,7 +47,7 @@ export class NewComponent implements OnInit {
       'BID': ''
     });
     this.discardForm = this.fb.group({
-      'id':'',
+      'id': '',
       'comments': ['', Validators.required]
     });
   }
@@ -56,6 +56,7 @@ export class NewComponent implements OnInit {
 
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
+      this.getCEList();
       this.userservice.getAdminJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -64,7 +65,7 @@ export class NewComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(4) // new = 4 refer api doc
+      this.userservice.getCEJobList(4) // new = 4 refer api doc // 8 for under progress
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -78,12 +79,7 @@ export class NewComponent implements OnInit {
           console.log(this.billList);
         });
     }
-    // get list of ce
-    this.userservice.getUserList(4) // 4 for ce refer to api doc
-      .subscribe(users => {
-        this.users = users;
-        // console.log(users,"users");
-      });
+
   }
   // function for pagination
   left() {
@@ -196,7 +192,7 @@ export class NewComponent implements OnInit {
   }
   // for view image
   openImageModel(req: any) {
-    this.imageIndex =0;
+    this.imageIndex = 0;
     this.loader = true;
     this.showImageDialog = true;
     // console.log(req, "image req");
@@ -208,10 +204,10 @@ export class NewComponent implements OnInit {
         // console.log(res, "image");
         this.imageArray = res.data.copies;
         console.log(this.imageArray);
-        console.log(this.imageArray.length,"length of array");
+        console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          this.images.push(this.imageUrl+'api/'+i.copyUrl)
+          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
         console.log(this.images);
         this.loader = false;
@@ -237,6 +233,15 @@ export class NewComponent implements OnInit {
   rotate() {
     this.imagerotation = this.imagerotation + 90;
   }
+
+  // get list of ce users 
+  getCEList() {
+    this.userservice.getUserList(4) // 4 for ce refer to api doc
+      .subscribe(users => {
+        this.users = users;
+        // console.log(users,"users");
+      });
+  }
   // opn model for discard bills
   discard(item: any) {
     console.log(item);
@@ -258,34 +263,34 @@ export class NewComponent implements OnInit {
             this.billList = bill;
             console.log(this.billList);
           });
-      },(error)=>{
+      }, (error) => {
         console.log(error);
       })
   }
 
-   // discard bill image
-  commentBoxData(comment: string){
+  // discard bill image
+  commentBoxData(comment: string) {
     // console.log(form.value)
     const imageID = this.imageArray[this.imageIndex].ImageID;
     this.discardImage = {
       'BID': this.billId,
       'ImageID': imageID,
-      'Comments':comment
+      'Comments': comment
     }
     console.log(this.discardImage)
-  this.userservice.discardConsumerBillImage(this.discardImage)
-    .subscribe(res => {
-      console.log(res)
-      alert('Image discarded');
-      // this.showImageDialog = false;
-      // if userType is Admin/SuperAdmin get list of new bills
-      if (this.userType === 1 || this.userType === 2) {
-        this.userservice.getAdminJobList(4) // new = 4 refer api doc
-          .subscribe(bill => {
-            this.billList = bill;
-            console.log(this.billList);
-          });
-      }
-    })
+    this.userservice.discardConsumerBillImage(this.discardImage)
+      .subscribe(res => {
+        console.log(res)
+        alert('Image discarded');
+        // this.showImageDialog = false;
+        // if userType is Admin/SuperAdmin get list of new bills
+        if (this.userType === 1 || this.userType === 2) {
+          this.userservice.getAdminJobList(4) // new = 4 refer api doc
+            .subscribe(bill => {
+              this.billList = bill;
+              console.log(this.billList);
+            });
+        }
+      })
   }
 }
