@@ -13,7 +13,7 @@
             <button class="btn btn-warning btn-xs btn-warning">Rotate</button>            
         </div>
         <div class="col-md-2">
-            <button class="btn btn-success btn-xs btn-block">Select</button>            
+            <button class="btn btn-success btn-xs btn-block" (click)="selectImage()">Select</button>            
         </div>
         <div class="col-md-2">
             <button class="btn btn-danger btn-xs btn-block">Download</button>            
@@ -347,6 +347,17 @@
       <!-- Product Form Start -->
       <div *ngIf="showProductForm">
         <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <p>{{selectedImageArray | json}}</p>
+              </div>
+            </div>
+          </div> 
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                 <label class="font-small">Product Name</label>
@@ -399,18 +410,32 @@
           </div> 
           <p></p>
           <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Colour</label>
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Colour</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="colour_id" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor = "let list of colours?.data" value="{{list?.colour_id}}">{{ list?.colour_name }}</option>
+                </select>
               </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <select class="form-control dropdown" name="colour_id" ngModel>
-                    <option value="">Select</option>
-                    <option *ngFor = "let list of colours?.data" value="{{list?.colour_id}}">{{ list?.colour_name }}</option>
-                  </select>
-                </div>
+            </div>
+          </div> 
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor = "let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
               </div>
-            </div>  
+            </div>
+          </div>  
           <br>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
@@ -420,9 +445,11 @@
         </form>
       </div>
       <!-- Product Form End -->
+
       <!-- Seller Form Start -->
       <div *ngIf="showSellerForm">
         <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
+          <h4 class="text-center"><u>Offline Seller</u></h4>
           <h4>
             <u><small>Information </small></u>
           </h4>
@@ -451,7 +478,7 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span><small> Gstin No</small></label>
+              <label class="font-small"><span style="color:red">*</span>Gstin No</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -461,7 +488,7 @@
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><small>Pan No</small></label>
+              <label class="font-small">Pan No</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -473,7 +500,7 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label><small>Reg No</small></label>
+              <label class="font-small">Reg No</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -483,143 +510,143 @@
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label><small>is Service?</small></label>
+              <label class="font-small">is Service?</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
                     <select class="form-control dropdown" formControlName="is_service">
-                        <option [ngValue]="true"> Yes</option>
-                        <option [ngValue]="false"> No</option>
+                        <option [ngValue]="true" class="font-small"> Yes</option>
+                        <option [ngValue]="false" class="font-small"> No</option>
                     </select>          
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Is Onboarded?</label>
+              <label class="font-small">Is Onboarded?</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
                   <select class="form-control dropdown" formControlName="is_onboarded">
-                    <option [ngValue]="true"> Yes</option>
-                    <option [ngValue]="false"> No</option>
+                    <option [ngValue]="true" class="font-small"> Yes</option>
+                    <option [ngValue]="false" class="font-small"> No</option>
                   </select>   
                 </div>
               </div>
             </div>
           </div>
           <h4>
-            <u>Address </u>
+            <u><small>Address </small></u>
           </h4>
-          <hr>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Address</label>
+              <label class="font-small">Address</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="address" class="form-control" placeholder="Enter House No here" (keyup)="avoidSpace('address')">
+                  <input type="text" formControlName="address" class="form-control"  (keyup)="avoidSpace('address')">
                 </div>
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span> City</label>
+              <label class="font-small"><span style="color:red">*</span> City</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('city')">
+                  <input type="text" formControlName="city" class="form-control"  (keyup)="avoidSpace('city')">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span> State</label>
+              <label class="font-small"><span style="color:red">*</span> State</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('state')">
+                  <input type="text" formControlName="state" class="form-control" (keyup)="avoidSpace('state')">
                 </div>
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name"><span style="color:red">*</span> PinCode</label>
+              <label class="font-small"><span style="color:red">*</span> PinCode</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="pincode" class="form-control" placeholder="Enter PinCode here" (keyup)="avoidSpace('pincode')">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Latitude</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="latitude" class="form-control" placeholder="Enter Lattitude Name here" (keyup)="avoidSpace('latitude')">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Longitude</label>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" formControlName="longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('longitude')">
+                  <input type="text" formControlName="pincode" class="form-control" (keyup)="avoidSpace('pincode')">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">URL</label>
+              <label class="font-small">Latitude</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="url" class="form-control" placeholder="Enter URL here" (keyup)="avoidSpace('url')">
+                  <input type="text" formControlName="latitude" class="form-control" (keyup)="avoidSpace('latitude')">
                 </div>
               </div>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Email</label>
+              <label class="font-small">Longitude</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="email" class="form-control" placeholder="Enter Email here" (keyup)="avoidSpace('email')">
+                  <input type="text" formControlName="longitude" class="form-control" (keyup)="avoidSpace('longitude')">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-              <label for="name">Contact No.</label>
+              <label class="font-small">URL</label>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="contact_no" class="form-control" placeholder="Enter Phone No. here" (keyup)="avoidSpace('contact_no')">
+                  <input type="text" formControlName="url" class="form-control" (keyup)="avoidSpace('url')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Email</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="email" class="form-control"  (keyup)="avoidSpace('email')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Contact No.</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="contact_no" class="form-control" (keyup)="avoidSpace('contact_no')">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
-              <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+              <button type="submit" class="btn btn-md btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
             </div>
           </div>
+          <br>
         </form>
       </div>
       <!-- Seller Form End -->

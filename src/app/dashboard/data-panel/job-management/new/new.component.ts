@@ -65,7 +65,7 @@ export class NewComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(4) // new = 4 refer api doc // 8 for under progress
+      this.userservice.getCEJobList(8) // new = 4 refer api doc // 8 for under progress
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
