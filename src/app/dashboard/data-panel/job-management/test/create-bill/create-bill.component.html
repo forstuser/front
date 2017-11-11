@@ -1,5 +1,628 @@
 <div class="card">
   <div class="row clearfix">
+<!--**********************************************IMAGE****************************************** -->
 
+    <!-- Image Panel Start -->
+    <div class="col-md-6">
+      <p></p>
+      <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <button class="btn btn-info btn-xs btn-block" (click)="prevImage()">Prev</button>            
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-warning btn-xs btn-warning">Rotate</button>            
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success btn-xs btn-block">Select</button>            
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-danger btn-xs btn-block">Download</button>            
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-info btn-xs btn-block" (click)="nextImage()">Next</button>            
+        </div>
+      </div>
+        <hr>
+        <p class="text-center">Image {{imageIndex+1}} of {{imageArrayLength}}</p>
+      <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;">
+        <tr>
+          <td style="padding: 10px">
+            <div align="center">
+              <img id="image" [src]="images[imageIndex]" width="100%" style="border: 3px solid #555; padding:2px;" />
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <!-- Image Panel End -->
+
+<!--**********************************************DATA ****************************************** -->
+    <div class="col-md-6">
+      <!-- JOB Details Start -->
+      <div *ngIf="jobDetailsShow">
+        <h5 class="">JOB Details</h5>
+        <div style="border :1px solid grey">
+          <div class="row clearfix" style="margin:10px 5px 5px 5px">
+            <div class="col-md-6">
+              <p><b>JOB ID : </b>{{jobDetails?.job_id}}</p>
+              <p><b>Name : </b>{{ jobDetails?.user?.full_name }}</p>
+              <p><b>Date of JOB : </b>{{jobDetails?.user?.created_at | date}}</p>
+            </div>
+            <div class="col-md-6">
+              <p><b>Email : </b>{{ jobDetails?.user?.email }}</p>
+              <p><b>Phone No : </b>{{ jobDetails?.user?.mobile_no  }}</p>
+              <p><b>Comments : </b>{{ jobDetails?.comments  }}</p>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="card" *ngIf="jobDetails?.bills?.length > 0">
+          <div class="header padding_fix">
+             <p><b>
+                Current JOB Bills
+                </b>
+             </p>
+          </div>
+          <div class="body table-responsive">
+             <table class="table table-condensed">
+                <thead>
+                   <tr>
+                      <th><small>Bill ID</small></th>
+                      <th><small>Doc Number</small></th>
+                      <th><small>Name</small></th>
+                      <th><small>Phone</small></th>
+                      <th><small>Document Date</small></th>
+                      <th><small>Action</small></th>
+                   </tr>
+                </thead>
+                <tbody>
+                   <tr *ngFor="let bill of jobDetails?.bills">
+                      <th><small>{{ bill?.id }}</small></th>
+                      <th><small>{{ bill?.document_number }}</small></th>
+                      <th><small>{{ bill?.consumer_name }}</small></th>
+                      <th><small>{{ bill?.consumer_phone_no }}</small></th>
+                      <th><small>{{ bill?.document_date | date }}</small></th>
+                      <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="makeProduct(bill)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                   </tr>
+                </tbody>
+             </table>
+          </div>
+       </div>
+        <br>
+        <div class="row clearfix">
+            <div class="col-md-5 col-md-offset-1">
+              <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">User Product List</button>
+            </div>
+            <div class="col-md-5">
+              <button class="btn bg-indigo btn-block btn-lg" (click)="openBillForm()">Add New Bill</button>
+            </div>
+        </div>
+      </div>
+      <!-- JOB Details End -->
+
+      <!-- BILL General Info Start-->
+      <div *ngIf="billGeneralInfo">
+        <form #billGeneralInfoForm="ngForm" (ngSubmit)="billGeneralInfoFormData(billGeneralInfoForm)">
+          <h4>
+              <u>Bill</u>
+              <u>General</u>
+              <u>Information </u>
+          </h4> 
+          <hr>
+          <br><br>
+          <div style="border: 1px solid grey;padding:30px">
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Name</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="consumer_name" class="form-control" ngModel="{{jobDetails?.user?.full_name}}">
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Phone</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{jobDetails?.user?.mobile_no}}">
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Email</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="consumer_email" class="form-control" ngModel="{{ jobDetails?.user?.email}}">
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Document Number</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="document_number" class="form-control" ngModel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small"><span style="color:red">*</span> Document Date</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="date" name="document_date" class="form-control" ngModel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Online Seller</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <select class="form-control dropdown" name="seller_id" ngModel>
+                    <option value="">Select</option>
+                    <option *ngFor = "let seller of onlineSeller?.data" value="{{seller.sid}}">{{ seller.seller_name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>  
+            <br>
+            <div class="row clearfix">
+              <div class="col-md-4 col-md-offset-3">
+                  <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backTojobDetailsShow()">Back</button>
+              </div>
+              <div class="col-md-4">
+                  <button class="btn bg-green btn-block btn-lg" type="submit">Create Bill</button>
+              </div>
+            </div> 
+          </div>   
+        </form>
+      </div>
+      <!-- BILL General Info End-->
+      <!-- Product Buttons Start -->
+      <div *ngIf="cockpit">
+          <p></p>
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Bill General Info</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+          </div>
+        </div>
+      </div>
+      <!-- Product Buttons End -->
+      <!-- BILL General Info Edit Start-->
+      <div *ngIf="billGeneralInfoEdit">
+        <form #billGeneralInfoEditForm="ngForm" (ngSubmit)="billGeneralInfoEditFormData(billGeneralInfoEditForm)">
+          <h4>
+              <u>Bill</u>
+              <u>General</u>
+              <u>Information </u>
+          </h4> 
+          <hr>
+          <br><br>
+          <div style="border: 1px solid grey;padding:30px">
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Name</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}">
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Phone</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}">
+                  </div>
+                </div>
+              </div>
+            </div> 
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Email</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}">
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Document Number</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}">
+                  </div>
+                </div>
+              </div>
+            </div>            
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small"><span style="color:red">*</span> Document Date</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                      <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Online Seller</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <select class="form-control dropdown" name="seller_id" ngModel="{{ billGeneralInfoFormObjectForBind?.seller_id}}">
+                    <option value="">Select</option>
+                    <option *ngFor = "let seller of onlineSeller?.data" value="{{seller.sid}}">{{ seller.seller_name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>  
+            <br>
+            <div class="row clearfix">
+              <div class="col-md-4 col-md-offset-4">
+                  <button class="btn bg-green btn-block btn-lg" type="submit">Update Bill</button>
+              </div>
+            </div> 
+          </div>   
+        </form>
+      </div>
+      <!-- BILL General Info Edit End-->
+
+      <!-- Ask category Start -->
+        <div *ngIf="askMainCategory">
+          <br><br>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Main Category</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
+                </select>
+              </div>
+            </div>
+          </div>  
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Category</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>  
+        </div>
+      <!-- Ask Category End -->
+
+      <!-- Product Form Start -->
+      <div *ngIf="showProductForm">
+        <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Product Name</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="text" name="product_name" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Purchase Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="purchase_cost" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="taxes" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>  
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Brand</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="brand_id" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor = "let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div> 
+          <p></p>
+          <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">Colour</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <select class="form-control dropdown" name="colour_id" ngModel>
+                    <option value="">Select</option>
+                    <option *ngFor = "let list of colours?.data" value="{{list?.colour_id}}">{{ list?.colour_name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>  
+          <br>
+          <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-7">
+                <button class="btn bg-green btn-block btn-lg" type="submit">Create Product</button>
+            </div>
+          </div>      
+        </form>
+      </div>
+      <!-- Product Form End -->
+      <!-- Seller Form Start -->
+      <div *ngIf="showSellerForm">
+        <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
+          <h4>
+            <u><small>Information </small></u>
+          </h4>
+          <hr>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small"><span style="color:red">*</span>Name</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="seller_name" class="form-control"  (keyup)="avoidSpace('seller_name')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Owner Name</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="owner_name" class="form-control" (keyup)="avoidSpace('owner_name')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name"><span style="color:red">*</span><small> Gstin No</small></label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="gstin" class="form-control" (keyup)="avoidSpace('gstin')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name"><small>Pan No</small></label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="pan_no" class="form-control" (keyup)="avoidSpace('pan_no')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label><small>Reg No</small></label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="reg_no" class="form-control" (keyup)="avoidSpace('reg_no')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label><small>is Service?</small></label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <select class="form-control dropdown" formControlName="is_service">
+                        <option [ngValue]="true"> Yes</option>
+                        <option [ngValue]="false"> No</option>
+                    </select>          
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Is Onboarded?</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <select class="form-control dropdown" formControlName="is_onboarded">
+                    <option [ngValue]="true"> Yes</option>
+                    <option [ngValue]="false"> No</option>
+                  </select>   
+                </div>
+              </div>
+            </div>
+          </div>
+          <h4>
+            <u>Address </u>
+          </h4>
+          <hr>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Address</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="address" class="form-control" placeholder="Enter House No here" (keyup)="avoidSpace('address')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name"><span style="color:red">*</span> City</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('city')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name"><span style="color:red">*</span> State</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('state')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name"><span style="color:red">*</span> PinCode</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="pincode" class="form-control" placeholder="Enter PinCode here" (keyup)="avoidSpace('pincode')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Latitude</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="latitude" class="form-control" placeholder="Enter Lattitude Name here" (keyup)="avoidSpace('latitude')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Longitude</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('longitude')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">URL</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="url" class="form-control" placeholder="Enter URL here" (keyup)="avoidSpace('url')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Email</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="email" class="form-control" placeholder="Enter Email here" (keyup)="avoidSpace('email')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Contact No.</label>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" formControlName="contact_no" class="form-control" placeholder="Enter Phone No. here" (keyup)="avoidSpace('contact_no')">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+              <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!offlineSellerForm.valid">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Seller Form End -->
+    </div>
   </div>
 </div>

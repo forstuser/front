@@ -58,6 +58,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
+import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { ListManagementComponent } from './dashboard/data-panel/list-management/
     BillsComponent,
     // JobManagementComponent,
     ListManagementComponent,
+    CreateBillComponent,
   ],
   imports: [
     BrowserModule,

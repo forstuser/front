@@ -18,7 +18,7 @@ export class AuthenticationService {
     // reset login status
     // this.authenticationService.logout();
     // this.logout();
-    Cookie.deleteAll();    
+    Cookie.deleteAll();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
     
   }

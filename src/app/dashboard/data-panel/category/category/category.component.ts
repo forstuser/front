@@ -128,8 +128,6 @@ export class CategoryComponent implements OnInit {
 
   // after select main category show list of category
   onSelectMainCat(catID: number) {
-    // console.log(this.createCategoryForm.value);
-    // console.log(catID);
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;

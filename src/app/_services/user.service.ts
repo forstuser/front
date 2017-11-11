@@ -351,7 +351,7 @@ export class UserService {
         // get CE JOB list
         getCEJobList(BillType: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&isCE=true', this.options)
                         .map((response: Response) => response.json());
         }
         // discard job
@@ -378,6 +378,22 @@ export class UserService {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
                         .map((response: Response) => response.json());
+        }
+        createBill(bill: any) {
+                this.getCSRF();
+                const data = JSON.stringify(bill);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/bills', data, this.options)
+
+        }
+        updateBill(bill: any) {
+                this.getCSRF();
+                const billId = bill.id;
+                delete bill['id'];
+                const data = JSON.stringify(bill);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/bills/'+billId, data, this.options)
+
         }
 //*******************************OLD API ***************************************************/
 
@@ -655,22 +671,6 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // **^ Bill Form  Services ^** //
-
-
-
-        createBill(bill: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                bill['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(bill);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/AddConsumerBill', data, options)
-
-        }
         editBill(bill: any) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
