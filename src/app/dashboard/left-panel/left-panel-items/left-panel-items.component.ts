@@ -86,7 +86,7 @@ export class LeftPanelItemsComponent implements OnInit {
     {
       'name': 'Category ',
       'icon': 'menu',
-      // 'link': '#',
+      'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
       'addActive': 'none',
