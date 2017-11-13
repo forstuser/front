@@ -20,10 +20,13 @@
           <th>Name</th>
           <th>Phone No.</th>
           <th>JOB Date</th>
-          <th>Customer Executive</th>
-          <th>Quality Executive</th>
-          <th>View</th>
-          <th>Discard</th>
+          <th *ngIf="userType=='4'">Comment</th>          
+          <th *ngIf="userType=='4'">Email</th>
+          <th *ngIf="userType!='4'">Customer Executive</th>
+          <th *ngIf="userType!='4'">Quality Executive</th>
+          <th *ngIf="userType!='4'">View</th>
+          <th *ngIf="userType!='4'">Discard</th>
+          <th *ngIf="userType=='4'">Action</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of bills?.data; let i = index">
@@ -33,7 +36,9 @@
           <td>{{ bill.user.full_name}}</td>
           <td>{{ bill.user.mobile_no}}</td>
           <td>{{ bill.user.created_at | date}}</td>
-          <td><strong>Name : </strong>{{ bill.ce.full_name}}<br>
+          <td *ngIf="userType=='4'">{{bill.ce.comment}}</td>          
+          <td *ngIf="userType=='4'">{{bill.ce.email}}</td>
+          <td *ngIf="userType!='4'"><strong>Name : </strong>{{ bill.ce.full_name}}<br>
             <strong>Email ID : </strong>{{ bill.ce.email}}<br>
             <strong>Task Date: </strong>{{ bill.ce.created_at | date}}<br>
             <strong>Status : </strong><span class="badge bg-orange">{{ bill.ce_status}}</span><br><br>
@@ -41,7 +46,7 @@
                         <i class="material-icons">replay</i><span>Re-Assign</span></button>
             </span>
           </td>
-          <td><span *ngIf="bill.qe_status != null"><strong>Name : </strong>{{ bill.qe.full_name}}<br>
+          <td *ngIf="userType!='4'"><span *ngIf="bill.qe_status != null"><strong>Name : </strong>{{ bill.qe.full_name}}<br>
                     <strong>Email ID : </strong>{{ bill.qe.email}}<br>
                     <strong>Task Date: </strong>{{ bill.qe.created_at | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange">{{ bill.qe_status}}</span></span><br><br>
@@ -49,8 +54,9 @@
                         <i class="material-icons">done</i><span>Assign</span></button>
             </span>
           </td>
-          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
-          <td><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
+          <td *ngIf="userType!='4'"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
+          <td *ngIf="userType!='4'"><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
+          <td *ngIf="userType=='4'"><span class="btn btn-danger" (click)="imageView.open();openImageModel(bill)" >Add Bill</span></td>          
         </tr>
       </tbody>
     </table>

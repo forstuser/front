@@ -63,6 +63,8 @@ export class NewComponent implements OnInit {
           console.log(this.billList);
         });
     }
+
+
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
       this.userservice.getCEJobList(4) // new = 4 refer api doc // 8 for under progress
@@ -71,6 +73,7 @@ export class NewComponent implements OnInit {
           console.log(this.billList);
         });
     }
+
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
       this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
@@ -79,7 +82,6 @@ export class NewComponent implements OnInit {
           console.log(this.billList);
         });
     }
-
   }
   // function for pagination
   left() {

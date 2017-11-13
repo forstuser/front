@@ -1,3 +1,4 @@
+import { UserType } from './../../../../_models/usertype';
 import { appConfig } from './../../../../app.config';
 import { Bill } from './../../../../_models/billList.interface';
 import { UserService } from './../../../../_services/user.service';
@@ -60,23 +61,31 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
       .subscribe(bills => {
         this.bills = bills;
         console.log(this.bills);
       });
+    }
+
+      
     // get list of qe
-    this.userservice.getUserList(4) // 4 for qe refer to api doc
-      .subscribe(users => {
-        this.ceUsers = users;
-        console.log(users);
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(8) // 4 for qe refer to api doc
+      .subscribe(bills => {
+        this.bills = bills;
+        console.log(bills);
       });
+    }
+
     // get list of ce
-    this.userservice.getUserList(3) // 3 for ce refer to api doc
-      .subscribe(users => {
-        this.qeUsers = users;
-        console.log(users);
-      });
+    
+    // this.userservice.getUserList(3) // 3 for ce refer to api doc
+    //   .subscribe(bills => {
+    //     this.bills = bills;
+    //     console.log(bills);
+    //   });
   }
   // function for pagination
   left() {
