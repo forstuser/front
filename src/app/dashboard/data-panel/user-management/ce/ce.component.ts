@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ce.component.css']
 })
 export class CeComponent implements OnInit {
-  users: User;
+  users: any;
   dropdownUser: UserType;
   item: Object = { }; // object for single user
   del: any = { };

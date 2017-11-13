@@ -21,9 +21,9 @@ export class LeftPanelComponent implements OnInit {
     } else if (info.role_type == '2') {
       this.userTypeName = 'Admin'
     } else if (info.role_type == '3') {
-      this.userTypeName = 'Customer Executive'
-    } else if (info.role_type == '4') {
       this.userTypeName = 'Qualitive Executive'
+    } else if (info.role_type == '4') {
+      this.userTypeName = 'Customer Executive'
     } else if (info.role_type == '5') {
       this.userTypeName = 'Consumer'
     } else if (info.role_type == '6') {

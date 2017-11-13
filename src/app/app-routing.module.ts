@@ -54,6 +54,7 @@ const appRoutes: Routes = [
             //     { path:'addons/:uid/:bid/:pid', component:ProductAddonsComponent},
             // ] },
             { path: 'underProgress', component: UnderProgressComponent },
+            { path: 'underProgress/create/:id', component:CreateBillComponent  },
             { path: 'completed', component: CompletedComponent },
             { path: 'discarded', component: DiscardedComponent },
             { path: 'AddUser', component: AddUserComponent },

@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qe.component.css']
 })
 export class QeComponent implements OnInit {
-  users: User;
+  users: any;
   dropdownUser: UserType;
   item: Object = { }; // object for single user
   del: any = { };
