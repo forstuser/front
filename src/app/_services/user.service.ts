@@ -384,7 +384,31 @@ export class UserService {
                 const data = JSON.stringify(bill);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/bills', data, this.options)
-
+                        .map((response: Response) => response.json());
+        }
+        createProduct(prod: any) {
+                this.getCSRF();
+                const billId = prod.billId;
+                delete prod['billId'];
+                const data = JSON.stringify(prod);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        createWarranty(war: any) {
+                this.getCSRF();
+                if(war['seller_id']==''){
+                        delete war['seller_id'];
+                }
+                if(war['online_seller_id']==''){
+                        delete war['online_seller_id'];
+                }
+                const product_id = war.product_id;
+                delete war['product_id'];
+                const data = JSON.stringify(war);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/product/'+product_id+'/warranty', data, this.options)
+                        .map((response: Response) => response.json());
         }
         updateBill(bill: any) {
                 this.getCSRF();

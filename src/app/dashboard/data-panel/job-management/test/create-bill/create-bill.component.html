@@ -108,8 +108,6 @@
               <u>General</u>
               <u>Information </u>
           </h4> 
-          <hr>
-          <br><br>
           <div style="border: 1px solid grey;padding:30px">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
@@ -214,6 +212,30 @@
               <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
           </div>
         </div>
+        <div  *ngIf="jobDetails?.products?.length > 0">
+          <div class="body table-responsive" style="padding-bottom:0px;">
+            <table class="table table-condensed">
+                <thead>
+                  <tr>
+                      <th><small>Product ID</small></th>
+                      <th><small>Name</small></th>
+                      <th><small>Purchase Cost</small></th>
+                      <th><small>Document Date</small></th>
+                      <th><small>Action</small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of jobDetails?.products">
+                      <th><small>{{ list?.id }}</small></th>
+                      <th><small>{{ list?.product_name }}</small></th>
+                      <th><small>{{ list?.purchase_cost }}</small></th>
+                      <th><small>{{ list?.document_date | date }}</small></th>
+                      <th><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       <!-- Product Buttons End -->
       <!-- BILL General Info Edit Start-->
@@ -224,8 +246,6 @@
               <u>General</u>
               <u>Information </u>
           </h4> 
-          <hr>
-          <br><br>
           <div style="border: 1px solid grey;padding:30px">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
@@ -313,7 +333,6 @@
 
       <!-- Ask category Start -->
         <div *ngIf="askMainCategory">
-          <br><br>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                 <label class="font-small">Main Category</label>
@@ -347,15 +366,18 @@
       <!-- Product Form Start -->
       <div *ngIf="showProductForm">
         <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
-          <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
                 <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <p>{{selectedImageArray | json}}</p>
+              <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
+                <button class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+                <p></p>
               </div>
+              <ng-template #elseBlock>
+                  <p> No Image Selected </p>
+                </ng-template>
             </div>
           </div> 
           <div class="row clearfix">
@@ -435,13 +457,47 @@
                 </select>
               </div>
             </div>
+          </div>
+          <p></p>
+          <p class="font-small text-center"><b><u>Product Meta Data</u></b></p>
+          <div *ngFor="let form of catForm">
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">{{ form?.title}}</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group" *ngIf="form?.form_type == 1">
+                  <div class="form-line">
+                      <input type="text" name="{{form?.id}}" class="form-control" ngModel>
+                  </div>
+                </div>
+                <p></p>
+                <div class="form-group" *ngIf="form?.form_type == 2">
+                  <select class="form-control dropdown" name="{{form?.id}}" ngModel>
+                    <option value="">Select</option>
+                    <option *ngFor = "let list of form?.dropDowns" value="{{form?.id}}">{{ list?.title }}</option>
+                  </select>
+                </div>
+                <div class="form-group" *ngIf="form?.form_type == 3">
+                  <div class="form-line">
+                    <input type="date" name="{{form?.id}}" class="form-control" ngModel>
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="form?.form_type == 4">
+                  <div class="form-line">
+                    <input type="number" name="{{form?.id}}" class="form-control" ngModel>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>  
           <br>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
                 <button class="btn bg-green btn-block btn-lg" type="submit">Create Product</button>
             </div>
-          </div>      
+          </div>   
+          <br>   
         </form>
       </div>
       <!-- Product Form End -->
@@ -650,6 +706,202 @@
         </form>
       </div>
       <!-- Seller Form End -->
+      <!-- Addons Buttons Start -->
+      <div *ngIf="addons">
+          <p></p>
+        <div class="row clearfix">
+          <div class="col-md-6">
+            <button class="btn btn-block btn-xs bg-orange waves-effect m-b-15" (click)="backToCockpit()">Back</button>
+          </div>
+          <div class="col-md-6">
+            <button class="btn bg-green btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Product Genereal Info</button>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-md-3">
+              <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddWarrantyForm()">Add Warranty</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddInsuranceForm()">Add Insurance</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddAmcForm()">Add AMC</button>
+          </div>
+          <div class="col-md-3">
+              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddRepairForm()">Add Repair</button>
+          </div>
+        </div>
+        <div  *ngIf="jobDetails?.warranties?.length > 0">
+          <div class="body table-responsive" style="padding-bottom:0px;">
+            <table class="table table-condensed">
+                <thead>
+                  <tr>
+                      <th><small>Warranty ID</small></th>
+                      <th><small>Product ID</small></th>
+                      <th><small>Renewal Cost</small></th>
+                      <th><small>Document Date</small></th>
+                      <th><small>Action</small></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let list of jobDetails?.warranties">
+                      <th><small>{{ list?.id }}</small></th>
+                      <th><small>{{ list?.product_id }}</small></th>
+                      <th><small>{{ list?.renewal_cost }}</small></th>
+                      <th><small>{{ list?.document_date | date }}</small></th>
+                      <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                  </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Addons Buttons End -->
+      <!-- Warranty Form Start -->
+      <div *ngIf="showWarrantyForm">
+        <form #warrantyForm="ngForm" (ngSubmit)="warrantyFormData(warrantyForm)">
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group" *ngIf="selectedWarrantyImageArray?.length > 0;else elseBlock">
+                <button class="btn btn-md bg-red" *ngFor="let image of selectedWarrantyImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+                <p></p>
+              </div>
+              <ng-template #elseBlock>
+                  <p> No Image Selected </p>
+                </ng-template>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Number</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="text" name="document_number" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="renewal_cost" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="document_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="renewal_type" ngModel>
+                  <option value="">Select</option>
+                  <option value=1>Yearly</option>
+                  <option value=2>Half Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=4>Monthly</option>
+                  <option value=5>5 Yearly</option>
+                  <option value=6>10 Yearly</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Effective Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="effective_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Expiry Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="expiry_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>   
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel>
+                  <option>Select</option>
+                  <option *ngFor = "let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Online Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="online_seller_id" ngModel>
+                  <option>Select</option>
+                  <option *ngFor = "let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-7">
+                <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+            </div>
+          </div>   
+          <br>   
+        </form>
+      </div>
+      <!-- Product Form End -->
     </div>
   </div>
 </div>

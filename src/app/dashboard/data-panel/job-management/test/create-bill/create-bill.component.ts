@@ -3,7 +3,7 @@ import { appConfig } from './../../../../../app.config';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { NgForm,Validators,FormBuilder,FormGroup} from '@angular/forms';
+import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 
 declare var $: any
@@ -17,32 +17,50 @@ export class CreateBillComponent implements OnInit {
   jobId: number;
   userId: number;
   billId: number;
+  productId:number;
+  mainCatId: number;
+  catId: number;
   imageArray: any[] = [];
-  selectedImageArray:any[] = [];
+  selectedImageArray: any[] = [];
+  selectedWarrantyImageArray: any[] = [];
+  selectedInsuranceImageArray: any[] = [];
+  selectedAmcImageArray: any[] = [];
+  selectedRepairImageArray: any[] = [];  
   imageArrayLength: number;
   images: string[] = [];
   imageUrl: String = appConfig.apiUrl;
   imageIndex: number = 0;
   jobDetails: any;
   onlineSeller: any;
-  offlineSeller:any;
+  offlineSeller: any;
   mainCat: any;
   cat: any;
-  catForm:any;
-  brands:any;
-  colours:any;
+  catForm: any;
+  brands: any;
+  colours: any;
   billGeneralInfoFormObject: any;
   billGeneralInfoEditFormObject: any;
   billGeneralInfoFormObjectForBind: any;
+  productFromMetaData: any[] = [];
+  productObject: any;
+  warrantyObject: any;
+  insuranceObject: any;
+  amcObject: any;
+  repairObject: any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
   billGeneralInfoEdit: boolean = false;
   cockpit: boolean = false;
+  addons: boolean = false;
   askMainCategory: boolean = false;
   showProductForm: boolean = false;
   showSellerForm: boolean = false;
-  constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
+  showWarrantyForm: boolean = false;
+  showInsuranceForm: boolean = false;
+  showAmcForm: boolean = false;
+  showRepairForm: boolean = false;
+  constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
   }
 
@@ -65,7 +83,7 @@ export class CreateBillComponent implements OnInit {
         console.log('job details', this.jobDetails);
         this.userId = res.data.user_id;
         this.imageArray = res.data.copies;
-        console.log(this.imageArray,"image ka array");
+        // console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
         if (this.imageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
@@ -147,6 +165,46 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = true;
     this.jobDetailsShow = false;
   }
+  // create product 
+  productFormData(form: NgForm) {
+    // console.log(form.value);
+    this.productObject = {
+      'category_id': this.catId,
+      'main_category_id': this.mainCatId,
+      'product_name': form.value.product_name,
+      'purchase_cost': form.value.purchase_cost,
+      'copies': this.selectedImageArray,
+      'taxes': form.value.taxes,
+      'brand_id': form.value.brand_id,
+      'colour_id': form.value.colour_id,
+      'seller_id': form.value.seller_id,
+      'user_id': this.userId,
+      'job_id': this.jobId,
+      'billId': this.billId
+    }
+    // console.log(this.productObject);
+    const filterData = form.value;
+    delete filterData['product_name'];
+    delete filterData['purchase_cost'];
+    delete filterData['taxes'];
+    delete filterData['brand_id'];
+    delete filterData['colour_id'];
+    delete filterData['seller_id'];
+    for (var val in filterData) {
+      this.productFromMetaData.push({ 'category_form_id': val, 'form_value': filterData[val] });
+    }
+    this.productObject['metaData'] = this.productFromMetaData;
+    // console.log(this.productFromMetaData);
+    console.log(this.productObject);
+    this.userService.createProduct(this.productObject)
+      .subscribe(res => {
+        console.log(res)
+        alert("Product Added");
+      },
+      (error) => {
+        console.log(error);
+      });
+  }
   // get list of main category
   mainCategoryList() {
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
@@ -157,6 +215,7 @@ export class CreateBillComponent implements OnInit {
   }
   // after select main category show list of category
   onSelectMainCat(catID: number) {
+    this.mainCatId = catID;
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;
@@ -165,6 +224,7 @@ export class CreateBillComponent implements OnInit {
   }
   // after select category show  category form
   onSelectCat(catID: number) {
+    this.catId = catID;
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
@@ -176,30 +236,71 @@ export class CreateBillComponent implements OnInit {
       });
   }
   // brand list
-  getBrandList(){
+  getBrandList() {
     this.userService.getBrandList()
-    .subscribe( brandList => {
-      this.brands = brandList;
-      // console.log(this.brands,"brands");
-    });
+      .subscribe(brandList => {
+        this.brands = brandList;
+        // console.log(this.brands,"brands");
+      });
   }
   // color list
-  getColorList(){
+  getColorList() {
     this.userService.getColorList()
-    .subscribe(color => {
-      this.colours = color;
-      // console.log(this.colours),"colors";
-    });
+      .subscribe(color => {
+        this.colours = color;
+        // console.log(this.colours),"colors";
+      });
   }
   // offline seller list
-  getOfflineSellerList(){
+  getOfflineSellerList() {
     this.userService.getOfflineSellerList()
-    .subscribe(offlineSellerList => {
-      this.offlineSeller = offlineSellerList;
-      console.log(this.offlineSeller,"offline seller");
-    });
+      .subscribe(offlineSellerList => {
+        this.offlineSeller = offlineSellerList;
+        // console.log(this.offlineSeller,"offline seller");
+      });
   }
-
+  //********************************* Warranty Functions***********************************//
+  warrantyFormData(form: NgForm){
+    console.log(form.value);
+    this.warrantyObject = {
+      'document_date':form.value.document_date,
+      'document_number':form.value.document_number,
+      'effective_date':form.value.effective_date,
+      'expiry_date':form.value.expiry_date,
+      'online_seller_id':form.value.online_seller_id,
+      'renewal_cost':form.value.renewal_cost,
+      'renewal_taxes':form.value.renewal_taxes,
+      'renewal_type':form.value.renewal_type,
+      'seller_id':form.value.seller_id,
+      'user_id': this.userId,
+      'job_id': this.jobId,
+      'product_id':this.productId,
+      'copies': this.selectedWarrantyImageArray
+    }
+    console.log(this.warrantyObject);
+    this.userService.createWarranty(this.warrantyObject)
+      .subscribe(res => {
+        console.log(res)
+        alert("Warranty Added");
+      },
+      (error) => {
+        console.log(error);
+      });
+  }
+  editWarrantyForm(war){
+    console.log(war);
+  }
+  //********************************* Addons Functions***********************************//
+  addAddons(prod) {
+    console.log(prod,"pro");
+    this.productId = prod.id;
+    this.addons = true;
+    this.cockpit = false;
+    this.showSellerForm = false;
+    this.showProductForm = false;
+    this.askMainCategory = false;
+    this.billGeneralInfoEdit = false;
+  }
   //********************************* Seller Functions***********************************//
 
   // get online seller list
@@ -211,24 +312,24 @@ export class CreateBillComponent implements OnInit {
       });
   }
   // create offline seller using form builder
-  offlineSellerFB(){
+  offlineSellerFB() {
     this.offlineSellerForm = this.fb.group({
-      'seller_name' : [null, Validators.required],
+      'seller_name': [null, Validators.required],
       'owner_name': '',
       'gstin': [null, Validators.required],
-      'pan_no':  '',
+      'pan_no': '',
       'reg_no': '',
-      'is_service':'',
-      'is_onboarded':'',
+      'is_service': '',
+      'is_onboarded': '',
       'address': '',
       'city': [null, Validators.required],
       'state': [null, Validators.required],
       'pincode': [null, Validators.required],
       'latitude': '',
       'longitude': '',
-      'url':'',
-      'email':'',
-      'contact_no':''
+      'url': '',
+      'email': '',
+      'contact_no': ''
     });
   }
   createOfflineSeller(data) {
@@ -242,9 +343,24 @@ export class CreateBillComponent implements OnInit {
   }
   // ******************************** Small Functions ***********************************//
   //select image 
-  selectImage(){
-    this.selectedImageArray.push(this.imageArray[this.imageIndex]);
-    console.log(this.selectedImageArray);
+  selectImage() {
+    if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added")
+    } else {
+      this.selectedImageArray.push(this.imageArray[this.imageIndex]);
+      this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
+      this.selectedInsuranceImageArray.push(this.imageArray[this.imageIndex]);
+      this.selectedAmcImageArray.push(this.imageArray[this.imageIndex]);
+      this.selectedRepairImageArray.push(this.imageArray[this.imageIndex]);
+    }
+  }
+  // remove image
+  removeImage(i) {
+    this.selectedImageArray.splice(i, 1);
+    this.selectedWarrantyImageArray.splice(i, 1);
+    this.selectedInsuranceImageArray.splice(i, 1);
+    this.selectedAmcImageArray.splice(i, 1);
+    this.selectedRepairImageArray.splice(i, 1);    
   }
   // open bill general form
   openBillForm() {
@@ -254,6 +370,9 @@ export class CreateBillComponent implements OnInit {
   }
   // back To jobDetails Show 
   backTojobDetailsShow() {
+    this.showSellerForm = false;
+    this.showProductForm = false;
+    this.askMainCategory = false;
     this.jobDetailsShow = true;
     this.billGeneralInfo = false;
     this.billGeneralInfoEdit = false;
@@ -267,15 +386,37 @@ export class CreateBillComponent implements OnInit {
     this.mainCategoryList(); // call function for get main category
   }
   // show add offline seller form
-  showAddSellerForm(){
+  showAddSellerForm() {
     this.billGeneralInfoEdit = false;
     this.showSellerForm = true;
-    this.askMainCategory =false;
+    this.askMainCategory = false;
     this.showProductForm = false;
     this.offlineSellerFB();
   }
-    // function for avoid only space submit
-    avoidSpace(e){
-      this.functionService.NoWhitespaceValidator(this.offlineSellerForm,e)
-    }
+  backToCockpit() {
+    this.addons = false;
+    this.cockpit = true;
+    this.showWarrantyForm = false;
+    this.showInsuranceForm = false;
+    this.showAmcForm  =false;
+    this.showRepairForm = false;
+  }
+  showAddWarrantyForm() {
+    this.getOfflineSellerList();
+    this.showWarrantyForm = true;
+    // this.addons = false;
+  }
+  showAddInsuranceForm() {
+
+  }
+  showAddAmcForm() {
+
+  }
+  showAddRepairForm() {
+
+  }
+  // function for avoid only space submit
+  avoidSpace(e) {
+    this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
+  }
 }
