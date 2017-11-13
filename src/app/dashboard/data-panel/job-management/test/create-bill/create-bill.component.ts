@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../../_services/function.service';
 import { appConfig } from './../../../../../app.config';
 import { UserService } from './../../../../../_services/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,12 +18,14 @@ export class CreateBillComponent implements OnInit {
   userId: number;
   billId: number;
   imageArray: any[] = [];
+  selectedImageArray:any[] = [];
   imageArrayLength: number;
   images: string[] = [];
   imageUrl: String = appConfig.apiUrl;
   imageIndex: number = 0;
   jobDetails: any;
   onlineSeller: any;
+  offlineSeller:any;
   mainCat: any;
   cat: any;
   catForm:any;
@@ -39,7 +42,7 @@ export class CreateBillComponent implements OnInit {
   askMainCategory: boolean = false;
   showProductForm: boolean = false;
   showSellerForm: boolean = false;
-  constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
     this.jobId = route.snapshot.params.id;
   }
 
@@ -62,6 +65,7 @@ export class CreateBillComponent implements OnInit {
         console.log('job details', this.jobDetails);
         this.userId = res.data.user_id;
         this.imageArray = res.data.copies;
+        console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
         if (this.imageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
@@ -131,6 +135,7 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfoEdit = true;
     this.askMainCategory = false;
     this.showProductForm = false;
+    this.showSellerForm = false;
   }
 
   //********************************* Product Functions***********************************//
@@ -167,6 +172,7 @@ export class CreateBillComponent implements OnInit {
         this.showProductForm = true;
         this.getBrandList();
         this.getColorList();
+        this.getOfflineSellerList();
       });
   }
   // brand list
@@ -182,7 +188,15 @@ export class CreateBillComponent implements OnInit {
     this.userService.getColorList()
     .subscribe(color => {
       this.colours = color;
-      console.log(this.colours),"colors";
+      // console.log(this.colours),"colors";
+    });
+  }
+  // offline seller list
+  getOfflineSellerList(){
+    this.userService.getOfflineSellerList()
+    .subscribe(offlineSellerList => {
+      this.offlineSeller = offlineSellerList;
+      console.log(this.offlineSeller,"offline seller");
     });
   }
 
@@ -227,6 +241,11 @@ export class CreateBillComponent implements OnInit {
       });
   }
   // ******************************** Small Functions ***********************************//
+  //select image 
+  selectImage(){
+    this.selectedImageArray.push(this.imageArray[this.imageIndex]);
+    console.log(this.selectedImageArray);
+  }
   // open bill general form
   openBillForm() {
     this.jobDetailsShow = false;
@@ -244,6 +263,7 @@ export class CreateBillComponent implements OnInit {
   showAddProductForm() {
     this.billGeneralInfoEdit = false;
     this.askMainCategory = true;
+    this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category
   }
   // show add offline seller form
@@ -254,4 +274,8 @@ export class CreateBillComponent implements OnInit {
     this.showProductForm = false;
     this.offlineSellerFB();
   }
+    // function for avoid only space submit
+    avoidSpace(e){
+      this.functionService.NoWhitespaceValidator(this.offlineSellerForm,e)
+    }
 }
