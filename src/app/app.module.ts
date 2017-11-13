@@ -59,6 +59,7 @@ import { BillsComponent } from './dashboard/data-panel/job-management/bills/bill
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
+import { ViewBillComponent } from './dashboard/data-panel/job-management/test/view-bill/view-bill.component';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { CreateBillComponent } from './dashboard/data-panel/job-management/test/
     // JobManagementComponent,
     ListManagementComponent,
     CreateBillComponent,
+    ViewBillComponent,
   ],
   imports: [
     BrowserModule,

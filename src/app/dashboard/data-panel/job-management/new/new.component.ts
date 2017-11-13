@@ -76,7 +76,7 @@ export class NewComponent implements OnInit {
 
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getQEBillList(4, this.prev, this.next) // new = 4 refer api doc
+      this.userservice.getQEJobList(4) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);

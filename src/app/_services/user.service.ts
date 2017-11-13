@@ -354,6 +354,12 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&isCE=true', this.options)
                         .map((response: Response) => response.json());
         }
+        // get CE JOB list
+        getQEJobList(BillType: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?qe_status='+BillType+'&isQE=true', this.options)
+                        .map((response: Response) => response.json());
+        }
         // discard job
         discardConsumerJOB(req: any) {
                 this.getCSRF();

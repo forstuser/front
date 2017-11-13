@@ -1,3 +1,4 @@
+import { ViewBillComponent } from './dashboard/data-panel/job-management/test/view-bill/view-bill.component';
 import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
             { path: 'new/create/:id', component:CreateBillComponent  },
+            { path: 'new/view/:id', component:ViewBillComponent  },
             // { path: 'new/bills/:id', component: BillsComponent },
             // { path: 'new/bill/:id', component: BillComponent, children:[
             //     { path:'', component:BillCreateComponent},
