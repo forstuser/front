@@ -17,9 +17,9 @@ export class DashboardComponent implements OnInit {
       this.theme = 'theme-teal'
     } else if (currentUser.role_type == '2') {
       this.theme = 'theme-teal'
-    } else if (currentUser.role_type == '3') {
-      this.theme = 'theme-deep-purple'
     } else if (currentUser.role_type == '4') {
+      this.theme = 'theme-deep-purple'
+    } else if (currentUser.role_type == '3') {
       this.theme = 'theme-green'
     } else if (currentUser.role_type == '5') {
       this.theme = 'theme-teal'

@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User;
+  users: any;
   dropdownUser: UserType;
   item: Object = {}; // object for single user
   del: any = {};

@@ -411,6 +411,51 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/product/'+product_id+'/warranty', data, this.options)
                         .map((response: Response) => response.json());
         }
+        createInsurance(ins: any) {
+                this.getCSRF();
+                if(ins['seller_id']==''){
+                        delete ins['seller_id'];
+                }
+                if(ins['online_seller_id']==''){
+                        delete ins['online_seller_id'];
+                }
+                const product_id = ins.product_id;
+                delete ins['product_id'];
+                const data = JSON.stringify(ins);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/products/'+product_id+'/insurances', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        createAmc(amc: any) {
+                this.getCSRF();
+                if(amc['seller_id']==''){
+                        delete amc['seller_id'];
+                }
+                if(amc['online_seller_id']==''){
+                        delete amc['online_seller_id'];
+                }
+                const product_id = amc.product_id;
+                delete amc['product_id'];
+                const data = JSON.stringify(amc);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/product/'+product_id+'/amc', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        createRepair(rep: any) {
+                this.getCSRF();
+                if(rep['seller_id']==''){
+                        delete rep['seller_id'];
+                }
+                if(rep['online_seller_id']==''){
+                        delete rep['online_seller_id'];
+                }
+                const product_id = rep.product_id;
+                delete rep['product_id'];
+                const data = JSON.stringify(rep);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/products/'+product_id+'/repairs', data, this.options)
+                        .map((response: Response) => response.json());
+        }
         updateBill(bill: any) {
                 this.getCSRF();
                 const billId = bill.id;
@@ -418,7 +463,14 @@ export class UserService {
                 const data = JSON.stringify(bill);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/bills/'+billId, data, this.options)
-
+                        .map((response: Response) => response.json());
+        }
+        // final JOB complete
+        completeJob(jobID,ceID) {
+                this.getCSRF();
+                const data = {};
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID+'/complete',data, this.options)
+                        .map((response: Response) => response.json());
         }
 
         
@@ -716,21 +768,6 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/EditConsumerBill', data, options)
 
         }
-        // final bill complete
-        completeJob(bill: number) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, BID: bill }
-                const data = JSON.stringify(body);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/TaskCompleteCE', data, options)
-
-        }
-
         getConsumerBillDetailsByID(billID: Number) {
                 // get login user credentials from localstorage
                 this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

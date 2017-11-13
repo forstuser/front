@@ -47,7 +47,7 @@ export class DiscardedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(10) // new = 4 refer api doc
+      this.userservice.getCEJobList(9) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -55,7 +55,7 @@ export class DiscardedComponent implements OnInit {
     }
     // if userType is QE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getQEBillList(10, this.prev, this.next) // new = 4 refer api doc
+      this.userservice.getQEBillList(9, this.prev, this.next) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);

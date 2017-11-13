@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddServiceCenterComponent implements OnInit {
   public addserviceCenterForm: FormGroup;
   items: OfflineSeller;
-  brands: Brand;
+  brands: any;
   cat:Category;
   detailType:any;
 
