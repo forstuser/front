@@ -115,7 +115,7 @@ export class ListManagementComponent implements OnInit {
       .subscribe( res => {
         console.log(res);
         this.showDialog=false;
-        alert('Exclusion List updated successfully');
+        alert('Detail Type List updated successfully');
         this.showDialog = false ;
         this.userService.getDetailList() // list update after edit
         .subscribe(detailList => {

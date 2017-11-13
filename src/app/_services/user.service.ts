@@ -364,8 +364,9 @@ export class UserService {
         }
         // Assign job to CE
         assignJobCE(task: any) {
+                console.log(task,"task")
                 this.getCSRF();
-                const jobID = task['BID'];
+                const jobID = task['id'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
@@ -419,7 +420,14 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/bills/'+billId, data, this.options)
 
         }
-//*******************************OLD API ***************************************************/
+
+        
+                ActiveCE() {
+                        this.getCSRF();
+                        return this.http.get(this.apiLink + 'api/users?status=1&user_role=4', this.options)
+                                .map((response: Response) => response.json());
+                }
+        //*******************************OLD API ***************************************************/
 
         // get different type of user
         getAllUser() {

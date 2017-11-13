@@ -16,6 +16,7 @@ export class UnderProgressComponent implements OnInit {
   ceUsers: User;
   qeUsers: User;
   bills: Bill;
+  role_type :number;
   assignForm: FormGroup;
   assignQeForm: FormGroup;
   discardForm: FormGroup;
@@ -40,23 +41,24 @@ export class UnderProgressComponent implements OnInit {
   loader: boolean = false;
   arrayLength:number;
   imageUrl:string = appConfig.apiUrl;
+  activeCE:any;
+  
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
     // console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
-      'Comments': '',
-      'BID': ''
+      'comments': '',
+      'id': ''
     });
     this.assignQeForm = this.fb.group({
       'UID': ['', Validators.required],
-      // 'Comments' : '',
       'BID': ''
     });
     this.discardForm = this.fb.group({
-      'Comments': ['', Validators.required],
-      'BID': '',
+      'comments': ['', Validators.required],
+      'id': '',
     });
   }
 
@@ -87,6 +89,8 @@ export class UnderProgressComponent implements OnInit {
     //     console.log(bills);
     //   });
   }
+
+
   // function for pagination
   left() {
     this.noData = false;
@@ -123,12 +127,18 @@ export class UnderProgressComponent implements OnInit {
   }
   // passs current user as argument and open the popup
   openModel(item: any) {
-    console.log(item);
+    console.log(item,"item ")
+    console.log(item,"re-assign item");
+    this.userservice.ActiveCE()
+    .subscribe(res=>{
+      this.activeCE=res;
+      console.log(res)
+    })
     this.showDialog = true; // for show dialog
     this.assignForm.setValue({
-      BID: item.BID,
+      id: item.id,
       UID: '',
-      Comments: ''
+      comments: ''
     });
   }
   assignBillCE(item: any) {
@@ -240,15 +250,15 @@ export class UnderProgressComponent implements OnInit {
     this.imagerotation = this.imagerotation + 90;
   }
   discard(item: any) {
-    console.log(item);
+    console.log(item,"discard item");
     this.discardDialog = true;
     this.discardForm.setValue({
-      BID: item.BID,
-      Comments: '',
+      id: item.id,
+      comments: '',
     });
   }
   discardBill(item: any) {
-    console.log(item);
+    console.log(item,"item id");
     this.userservice.discardConsumerJOB(item)
       .subscribe(res => {
         console.log(res);
@@ -268,7 +278,7 @@ export class UnderProgressComponent implements OnInit {
     this.discardImage = {
       'BID': this.billId,
       'ImageID': imageID,
-      'Comments':comment
+      'comments':comment
     }
     console.log(this.discardImage)
     this.userservice.discardConsumerBillImage(this.discardImage)
