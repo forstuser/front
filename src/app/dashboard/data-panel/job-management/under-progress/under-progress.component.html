@@ -77,7 +77,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                  <option *ngFor="let user of ceUsers?.UserList" [ngValue]="user.ID" >{{ user.Name }}</option>
+                  <option *ngFor="let user of activeCE?.data" [ngValue]="user.id" >{{ user.email }}</option>
               </select>
             </div>
           </div>
@@ -90,7 +90,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="5" cols="52" formControlName="Comments"></textarea>
+                <textarea rows="5" cols="52" formControlName="comments"></textarea>
               </div>
             </div>
           </div>
@@ -157,7 +157,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <input formControlName="Comments" type="text" class="textareaDitto">
+                <input formControlName="comments" type="text" class="textareaDitto">
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" class="form-control" name="Comments" placeholder="Enter Comment"  #commentInput>
+                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #commentInput>
                     </div>
                 </div>
             </div>

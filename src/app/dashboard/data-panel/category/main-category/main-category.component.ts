@@ -77,6 +77,9 @@ export class MainCategoryComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+
       }
       );
   }
