@@ -70,7 +70,7 @@ export class UnderProgressComponent implements OnInit {
     }
 
       
-    // get list of qe
+    // get list of ce
     else if (this.userType === 4) {
       this.userservice.getCEJobList(8) // 4 for qe refer to api doc
       .subscribe(bills => {

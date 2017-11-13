@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class MainCategoryComponent implements OnInit {
-  mainCategory: Category;
+  mainCategory: any;
   showDialog = false;
   editCategoryForm: FormGroup;
   createCategoryForm: FormGroup;

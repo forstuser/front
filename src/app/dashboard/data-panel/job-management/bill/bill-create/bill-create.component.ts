@@ -286,13 +286,13 @@ export class BillCreateComponent implements OnInit {
   }
   // function for complete job
   completeJob() {
-    this.userservice.completeJob(this.billId)
-      .subscribe(res => {
-        console.log(res);
-        alert("Job Completed");
-        this.router.navigateByUrl('/dashboard/new');
-        // redirect to previous page
-      })
+    // this.userservice.completeJob(this.billId)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert("Job Completed");
+    //     this.router.navigateByUrl('/dashboard/new');
+    //     // redirect to previous page
+    //   })
   }
   // remove image from array
   removeMainImage(data) {
