@@ -87,6 +87,7 @@ export class ListManagementComponent implements OnInit {
     this.userService.createDetail(category)
       .subscribe(res => {
         console.log(res);
+        this.createExclusionForm.reset();
         this.userService.getDetailList() // list update after delete
         .subscribe(detailList => {
           this.detail = detailList;
@@ -142,6 +143,8 @@ export class ListManagementComponent implements OnInit {
         .subscribe(detailList => {
           this.detail = detailList;
           console.log(detailList);
+        },error=>{
+          alert("somenthing went wrong");
         });
     });
   }

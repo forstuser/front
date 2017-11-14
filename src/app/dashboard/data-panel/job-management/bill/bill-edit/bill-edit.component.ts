@@ -690,7 +690,6 @@ export class BillEditComponent implements OnInit {
           alert("Data not Available")
         }
       })
-
   }
   addons(data) {
     console.log(data);
