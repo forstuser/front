@@ -42,6 +42,11 @@ export class ServiceCenterListComponent implements OnInit {
       this.brands = res;
       console.log(this.brands);
     });
+    // this.userService.getBrandList()
+    // .subscribe(brandList =>{
+    //   this.brands = brandList;
+    //   console.log(this.detailType);
+    // })
     this.authorizedServiceCenterForm = this.fb.group({
       'center_id':'',
       'center_name' : ['', Validators.required],
