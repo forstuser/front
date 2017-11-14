@@ -220,6 +220,7 @@
             <table class="table table-condensed">
                 <thead>
                   <tr>
+                      <th><small>Bill ID</small></th>
                       <th><small>Product ID</small></th>
                       <th><small>Name</small></th>
                       <th><small>Purchase Cost</small></th>
@@ -229,11 +230,12 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let list of jobDetails?.products">
-                      <th><small>{{ list?.id }}</small></th>
-                      <th><small>{{ list?.product_name }}</small></th>
-                      <th><small>{{ list?.purchase_cost }}</small></th>
-                      <th><small>{{ list?.document_date | date }}</small></th>
-                      <th><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.bill_id }}</small></th>
+                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.id }}</small></th>
+                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.product_name }}</small></th>
+                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.purchase_cost }}</small></th>
+                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.document_date | date }}</small></th>
+                      <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
                   </tr>
                 </tbody>
             </table>

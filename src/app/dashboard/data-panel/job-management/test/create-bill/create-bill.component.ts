@@ -132,6 +132,8 @@ export class CreateBillComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       })
 
   }
@@ -149,6 +151,8 @@ export class CreateBillComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       })
   }
   showbillGeneralInfoEditForm() {
@@ -167,6 +171,8 @@ export class CreateBillComponent implements OnInit {
     },
     (error) => {
       console.log(error);
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
     })
   }
 
@@ -214,9 +220,12 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         console.log(res)
         alert("Product Added");
+        this.getDetailsOfJob();
       },
       (error) => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
   // get list of main category
@@ -296,9 +305,13 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         console.log(res)
         alert("Warranty Added");
+        this.getDetailsOfJob();
+        this.showWarrantyForm = false;
       },
       (error) => {
         console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
   editWarrantyForm(war){
@@ -327,9 +340,12 @@ export class CreateBillComponent implements OnInit {
         .subscribe(res => {
           console.log(res)
           alert("Insurance Added");
+          this.getDetailsOfJob();
         },
         (error) => {
           console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
         });
     }
     editInsuranceForm(war){
@@ -358,9 +374,12 @@ export class CreateBillComponent implements OnInit {
         .subscribe(res => {
           console.log(res)
           alert("AMC Added");
+          this.getDetailsOfJob();
         },
         (error) => {
           console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
         });
     }
     editAmcForm(war){
@@ -386,9 +405,12 @@ export class CreateBillComponent implements OnInit {
         .subscribe(res => {
           console.log(res)
           alert("Repair Added");
+          this.getDetailsOfJob();
         },
         (error) => {
           console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
         });
     }
     editRepairForm(rep){

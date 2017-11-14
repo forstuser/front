@@ -13,10 +13,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnderProgressComponent implements OnInit {
   imageLink: String = appConfig.imageUrl;
-  ceUsers: User;
-  qeUsers: User;
+  ceUsers: any;
+  qeUsers: any;
   bills: Bill;
-  role_type :number;
+  role_type: number;
   assignForm: FormGroup;
   assignQeForm: FormGroup;
   discardForm: FormGroup;
@@ -32,17 +32,17 @@ export class UnderProgressComponent implements OnInit {
   noData: boolean = false;
   userType: Number;
   showImageDialog = false;
-  billId: number;
+  jobId: number;
   imageArray: any[] = [];
   images: string[] = [];
   imagerotation: number = 0;
   imageIndex: number = 0;
   discardImage: object;
   loader: boolean = false;
-  arrayLength:number;
-  imageUrl:string = appConfig.apiUrl;
-  activeCE:any;
-  
+  arrayLength: number;
+  imageUrl: string = appConfig.apiUrl;
+  activeCE: any;
+  activeQE: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
@@ -50,11 +50,12 @@ export class UnderProgressComponent implements OnInit {
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
       'comments': '',
-      'id': ''
+      'jobId': ''
     });
     this.assignQeForm = this.fb.group({
       'UID': ['', Validators.required],
-      'BID': ''
+      'comments': '',
+      'jobId': ''
     });
     this.discardForm = this.fb.group({
       'comments': ['', Validators.required],
@@ -65,24 +66,24 @@ export class UnderProgressComponent implements OnInit {
   ngOnInit() {
     if (this.userType === 1 || this.userType === 2) {
       this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
-      .subscribe(bills => {
-        this.bills = bills;
-        console.log(this.bills);
-      });
+        .subscribe(bills => {
+          this.bills = bills;
+          console.log(this.bills);
+        });
     }
 
-      
-    // get list of ce
+
+    // get list of ce jobs
     else if (this.userType === 4) {
       this.userservice.getCEJobList(8) // 4 for qe refer to api doc
-      .subscribe(bills => {
-        this.bills = bills;
-        console.log(bills);
-      });
+        .subscribe(bills => {
+          this.bills = bills;
+          console.log(bills);
+        });
     }
 
     // get list of ce
-    
+
     // this.userservice.getUserList(3) // 3 for ce refer to api doc
     //   .subscribe(bills => {
     //     this.bills = bills;
@@ -127,50 +128,51 @@ export class UnderProgressComponent implements OnInit {
   }
   // passs current user as argument and open the popup
   openModel(item: any) {
-    console.log(item,"item ")
-    console.log(item,"re-assign item");
-    this.userservice.ActiveCE()
-    .subscribe(res=>{
-      this.activeCE=res;
-      console.log(res)
-    })
-    this.showDialog = true; // for show dialog
+    console.log(item);
     this.assignForm.setValue({
-      id: item.id,
+      jobId: item.id,
       UID: '',
       comments: ''
     });
+    this.userservice.ActiveCE()
+      .subscribe(res => {
+        this.activeCE = res;
+        console.log(res)
+      })
+    this.showDialog = true; // for show dialog
   }
   assignBillCE(item: any) {
     console.log(item);
     this.userservice.assignJobCE(item)
       .subscribe(res => {
         console.log(res);
-        if (res.statusCode == 100) {
-          alert('assign successfull');
-          this.showDialog = false;
-          this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
-            .subscribe(bill => {
-              this.bills = bill;
-              console.log(this.bills);
-            });
-        }
+        alert('assign successfull');
+        this.showDialog = false;
+        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+          .subscribe(bill => {
+            this.bills = bill;
+            console.log(this.bills);
+          });
       });
   }
   // open model for qe assign
   assignQE(item) {
-    console.log(item);
-    this.showQeDialog = true; // for shoe qe popup
     this.assignQeForm.setValue({
-      BID: item.BID,
+      jobId: item.id,
       UID: '',
-      // Comments: ''
+      comments: ''
     });
+    this.userservice.ActiveQE()
+      .subscribe(res => {
+        this.activeQE = res;
+        console.log(res)
+      })
+    this.showQeDialog = true; // for shoe qe popup
   }
   // assign bill to QE
   assignBillQE(item: any) {
-    console.log(item);
-    this.userservice.assignTaskQE(item)
+    // console.log(item);
+    this.userservice.assignJobQE(item)
       .subscribe(res => {
         console.log(res);
         alert('assign successfull');
@@ -208,34 +210,31 @@ export class UnderProgressComponent implements OnInit {
   // }
   // for view image
   openImageModel(req: any) {
-    this.imageIndex =0;
+    this.imageIndex = 0;
     this.loader = true;
     this.showImageDialog = true;
     console.log(req);
-    this.billId = req.BID;
+    this.jobId = req.BID;
     this.images = [];
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
-    .subscribe(res => {
-      // console.log(res, "image");
-      this.imageArray = res.data.copies;
-      console.log(this.imageArray);
-      console.log(this.imageArray.length,"length of array");
-      this.arrayLength = this.imageArray.length;
-      for (let i of this.imageArray) {
-        this.images.push(this.imageUrl+'api/'+i.copyUrl)
-      }
-      console.log(this.images);
-      this.loader = false;
-    })
-    // this.discardBillImage(req.BID);
+      .subscribe(res => {
+        this.imageArray = res.data.copies;
+        console.log(this.imageArray);
+        console.log(this.imageArray.length, "length of array");
+        this.arrayLength = this.imageArray.length;
+        for (let i of this.imageArray) {
+          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+        }
+        console.log(this.images);
+        this.loader = false;
+      })
   }
   // prev image
   prevImage() {
     if (this.imageIndex > 0) {
       this.imageIndex = this.imageIndex - 1;
     }
-    // console.log(this.imageIndex ,'prev')
   }
   // next image
   nextImage() {
@@ -250,7 +249,7 @@ export class UnderProgressComponent implements OnInit {
     this.imagerotation = this.imagerotation + 90;
   }
   discard(item: any) {
-    console.log(item,"discard item");
+    console.log(item, "discard item");
     this.discardDialog = true;
     this.discardForm.setValue({
       id: item.id,
@@ -258,7 +257,7 @@ export class UnderProgressComponent implements OnInit {
     });
   }
   discardBill(item: any) {
-    console.log(item,"item id");
+    console.log(item, "item id");
     this.userservice.discardConsumerJOB(item)
       .subscribe(res => {
         console.log(res);
@@ -271,27 +270,26 @@ export class UnderProgressComponent implements OnInit {
           });
       })
   }
-   // discard bill image
-   commentBoxData(comment: string){
-    // console.log(form.value)
+  // discard bill image
+  commentBoxData(comment: string) {
     const imageID = this.imageArray[this.imageIndex].ImageID;
     this.discardImage = {
-      'BID': this.billId,
+      'BID': this.jobId,
       'ImageID': imageID,
-      'comments':comment
+      'comments': comment
     }
     console.log(this.discardImage)
     this.userservice.discardConsumerBillImage(this.discardImage)
-    .subscribe(res => {
-      console.log(res)
-      alert('Image discarded');
-      // this.showImageDialog = false;
-      // if userType is Admin/SuperAdmin get list of new bills
-      this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
-        .subscribe(bills => {
-          this.bills = bills;
-          console.log(this.bills);
-        });
-    })
+      .subscribe(res => {
+        console.log(res)
+        alert('Image discarded');
+        // this.showImageDialog = false;
+        // if userType is Admin/SuperAdmin get list of new bills
+        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+          .subscribe(bills => {
+            this.bills = bills;
+            console.log(this.bills);
+          });
+      })
   }
 }

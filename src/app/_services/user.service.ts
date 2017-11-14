@@ -372,7 +372,7 @@ export class UserService {
         assignJobCE(task: any) {
                 console.log(task,"task")
                 this.getCSRF();
-                const jobID = task['id'];
+                const jobID = task['jobId'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
@@ -381,12 +381,27 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID, data, this.options)
                         .map((response: Response) => response.json());
         }
+        // Assign job to QE
+        assignJobQE(task: any) {
+                console.log(task,"task")
+                this.getCSRF();
+                const jobID = task['jobId'];
+                const qeID = task['UID'];
+                delete task['BID'];
+                delete task['UID'];
+                const data = JSON.stringify(task);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+qeID, data, this.options)
+                        .map((response: Response) => response.json());
+        }
         getJobByID(billID: Number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
                         .map((response: Response) => response.json());
         }
         createBill(bill: any) {
+                console.log(bill);
+                Object.keys(bill).forEach((key) => (bill[key] == '') && delete bill[key]);
                 this.getCSRF();
                 const data = JSON.stringify(bill);
                 console.log(data);
@@ -414,7 +429,7 @@ export class UserService {
                 delete war['product_id'];
                 const data = JSON.stringify(war);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/product/'+product_id+'/warranty', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/'+product_id+'/warranties', data, this.options)
                         .map((response: Response) => response.json());
         }
         createInsurance(ins: any) {
@@ -444,7 +459,7 @@ export class UserService {
                 delete amc['product_id'];
                 const data = JSON.stringify(amc);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/product/'+product_id+'/amc', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/'+product_id+'/amcs', data, this.options)
                         .map((response: Response) => response.json());
         }
         createRepair(rep: any) {
@@ -464,6 +479,7 @@ export class UserService {
         }
         updateBill(bill: any) {
                 this.getCSRF();
+                Object.keys(bill).forEach((key) => (bill[key] == '') && delete bill[key]);      
                 const billId = bill.id;
                 delete bill['id'];
                 const data = JSON.stringify(bill);
@@ -478,13 +494,18 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID+'/complete',data, this.options)
                         .map((response: Response) => response.json());
         }
-
-        
-                ActiveCE() {
-                        this.getCSRF();
-                        return this.http.get(this.apiLink + 'api/users?status=1&user_role=4', this.options)
-                                .map((response: Response) => response.json());
-                }
+        // get list of active ce
+        ActiveCE() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/users?status=1&role_type=4', this.options)
+                        .map((response: Response) => response.json());
+        }
+        // get list of active qe
+        ActiveQE() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/users?status=1&role_type=3', this.options)
+                        .map((response: Response) => response.json());
+        }
         //*******************************OLD API ***************************************************/
 
         // get different type of user
@@ -746,20 +767,7 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/QEConsumerBillsList', data, options)
                         .map((response: Response) => response.json());
         }
-        // Assign bills to QE
-        assignTaskQE(task: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                task['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(task);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/TaskAssignedQE', data, options)
-                        .map((response: Response) => response.json());
-        }
+
         // **^ Bill Form  Services ^** //
         editBill(bill: any) {
                 // get login user credentials from localstorage

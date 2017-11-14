@@ -118,23 +118,24 @@ export class ViewBillComponent implements OnInit {
   //**********************************Bill General Info**********************************//
 
   // update bill
-  billGeneralInfoEditFormData(form: NgForm) {
-    this.billGeneralInfoEditFormObject = form.value;
-    this.billGeneralInfoEditFormObject['id'] = this.billId;
-    console.log(this.billGeneralInfoEditFormObject);
-    this.userService.updateBill(this.billGeneralInfoEditFormObject)
-      .subscribe(res => {
-        console.log(res);
-        alert("Bill Updated Successfully")
-        // this.backTojobDetailsShow();
-        this.getDetailsOfJob();
-      },
-      (error) => {
-        console.log(error);
-      })
+  verifyBillGeneral(form: NgForm) {
+    console.log(this.billId);
+    // this.billGeneralInfoEditFormObject = form.value;
+    // this.billGeneralInfoEditFormObject['id'] = this.billId;
+    // console.log(this.billGeneralInfoEditFormObject);
+    // this.userService.updateBill(this.billGeneralInfoEditFormObject)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     alert("Bill Updated Successfully")
+    //     // this.backTojobDetailsShow();
+    //     this.getDetailsOfJob();
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   })
   }
-  showbillGeneralInfoEditForm() {
-    this.billGeneralInfoEdit = false;
+  showbillGeneralInfoForm() {
+    this.billGeneralInfoEdit = true;
     this.askMainCategory = false;
     this.showProductForm = false;
     this.showSellerForm = false;

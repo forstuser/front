@@ -117,24 +117,24 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                            <option *ngFor="let qe of qeUsers?.UserList" [ngValue]="qe.ID" >{{ qe.Name }}</option>
-                        </select>
+                <option *ngFor="let user of activeQE?.data" [ngValue]="user.id" >{{ user.email }}</option>
+              </select>
             </div>
           </div>
         </div>
         <br>
-        <!-- <div class="row clearfix">
-                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                        <label for="name">Comments</label>
-                    </div>
-                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
-                        <div class="form-group">
-                            <div class="form-line">
-                                <textarea rows="5" cols="52" formControlName="Comments"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">Comments</label>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <textarea rows="5" cols="72" formControlName="comments"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row clearfix">
           <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-4 col-xs-offset-5">
             <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignQeForm.valid">
