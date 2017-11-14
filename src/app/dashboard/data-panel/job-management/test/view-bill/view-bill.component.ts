@@ -60,6 +60,7 @@ export class ViewBillComponent implements OnInit {
   showInsuranceForm: boolean = false;
   showAmcForm: boolean = false;
   showRepairForm: boolean = false;
+  reassignDialog:boolean = false;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -146,6 +147,23 @@ export class ViewBillComponent implements OnInit {
     .subscribe(res => {
       console.log(res);
       alert("JOB Completed Successfully");
+      this.router.navigateByUrl('/dashboard/new');
+    },
+    (error) => {
+      console.log(error);
+    })
+  }
+  // reassignjob
+  reassignJobPopUp(){
+    this.reassignDialog = true;
+  }
+  reassignJob(form: NgForm){
+    console.log(form.value)
+    const data = form.value;
+    this.userService.reassignJob(this.jobId,data)
+    .subscribe(res => {
+      console.log(res);
+      alert("JOB Reassigned Successfully");
       this.router.navigateByUrl('/dashboard/new');
     },
     (error) => {

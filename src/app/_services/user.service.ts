@@ -494,6 +494,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID+'/complete',data, this.options)
                         .map((response: Response) => response.json());
         }
+        //  JOB reassigned
+        reassignJob(jobID,data) {
+                this.getCSRF();
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/reassign',data, this.options)
+                        .map((response: Response) => response.json());
+        }
         // get list of active ce
         ActiveCE() {
                 this.getCSRF();
