@@ -128,7 +128,7 @@
         <p class="text-center">
           <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
           <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-          <a href="{{images[imageIndex]}}"><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
+          <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
           <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
           <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
           <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
