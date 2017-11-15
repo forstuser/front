@@ -41,6 +41,7 @@ export class CreateBillComponent implements OnInit {
   billGeneralInfoFormObject: any;
   billGeneralInfoEditFormObject: any;
   billGeneralInfoFormObjectForBind: any;
+  warrantyFormObjectForBind:any;
   productFromMetaData: any[] = [];
   productObject: any;
   warrantyObject: any;
@@ -57,6 +58,7 @@ export class CreateBillComponent implements OnInit {
   showProductForm: boolean = false;
   showSellerForm: boolean = false;
   showWarrantyForm: boolean = false;
+  showWarrantyEditForm:boolean = false;
   showInsuranceForm: boolean = false;
   showAmcForm: boolean = false;
   showRepairForm: boolean = false;
@@ -156,7 +158,7 @@ export class CreateBillComponent implements OnInit {
       })
   }
   showbillGeneralInfoEditForm() {
-    this.billGeneralInfoEdit = true;
+    this.billGeneralInfoEdit = false;
     this.askMainCategory = false;
     this.showProductForm = false;
     this.showSellerForm = false;
@@ -220,6 +222,8 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         console.log(res)
         alert("Product Added");
+        this.askMainCategory = false;
+        this.showProductForm = false;
         this.getDetailsOfJob();
       },
       (error) => {
@@ -315,7 +319,14 @@ export class CreateBillComponent implements OnInit {
       });
   }
   editWarrantyForm(war){
+    this.getOfflineSellerList();
+    this.warrantyFormObjectForBind = war;
     console.log(war);
+    this.addons = false;
+    this.showWarrantyEditForm = true;
+  }
+  warrantyEditFormData(form: NgForm){
+    console.log(form.value);
   }
     //********************************* Insurance Functions***********************************//
     insuranceFormData(form: NgForm){
@@ -555,6 +566,10 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = true;
+  }
+  backtoAddons(){
+    this.addons = true;
+    this.showWarrantyEditForm = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {

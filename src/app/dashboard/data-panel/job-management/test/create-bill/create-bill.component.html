@@ -719,7 +719,7 @@
             <button class="btn btn-block btn-xs bg-orange waves-effect m-b-15" (click)="backToCockpit()">Back</button>
           </div>
           <div class="col-md-6">
-            <button class="btn bg-green btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Product Genereal Info</button>
+            <button class="btn bg-green btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Product General Info</button>
           </div>
         </div>
         <div class="row clearfix">
@@ -978,7 +978,154 @@
         </form>
       </div>
       <!-- Warranty Form End -->
-      
+      <!-- Warranty Edit Form Start -->
+      <div *ngIf="showWarrantyEditForm">
+        <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
+        <form #warrantyEditForm="ngForm" (ngSubmit)="warrantyFormData(warrantyEditForm)">
+          <p></p>
+          <p class="badge bg-teal">Warranty</p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group" *ngIf="selectedWarrantyImageArray?.length > 0;else elseBlock">
+                <button class="btn btn-md bg-red" *ngFor="let image of selectedWarrantyImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+                <p></p>
+              </div>
+              <ng-template #elseBlock>
+                  <p> No Image Selected </p>
+                </ng-template>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Number</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="text" name="document_number" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_number}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="renewal_cost" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_cost}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="renewal_taxes" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_taxes}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Renewal Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="renewal_type" ngModel="{{warrantyFormObjectForBind?.renewal_type}}">
+                  <option value="">Select</option>
+                  <option value=1>Yearly</option>
+                  <option value=2>Half Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=4>Monthly</option>
+                  <option value=5>5 Yearly</option>
+                  <option value=6>10 Yearly</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Effective Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Expiry Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>   
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel="{{warrantyFormObjectForBind?.seller_id}}">
+                  <option>Select</option>
+                  <option *ngFor = "let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Online Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="online_seller_id" ngModel="{{warrantyFormObjectForBind?.online_seller_id}}">
+                  <option>Select</option>
+                  <option *ngFor = "let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-7">
+                <button class="btn bg-green btn-block btn-lg" type="submit">Update Warranty</button>
+            </div>
+          </div>   
+          <br>   
+        </form>
+      </div>
+      <!-- Warranty Edit Form End -->
       <!-- Insurance Form Start -->
       <div *ngIf="showInsuranceForm">
         <form #insuranceForm="ngForm" (ngSubmit)="insuranceFormData(insuranceForm)">
