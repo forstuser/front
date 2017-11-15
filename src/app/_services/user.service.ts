@@ -412,6 +412,7 @@ export class UserService {
                 this.getCSRF();
                 const billId = prod.billId;
                 delete prod['billId'];
+                Object.keys(prod).forEach((key) => (prod[key] == '') && delete prod[key]);
                 const data = JSON.stringify(prod);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
@@ -419,14 +420,9 @@ export class UserService {
         }
         createWarranty(war: any) {
                 this.getCSRF();
-                if(war['seller_id']==''){
-                        delete war['seller_id'];
-                }
-                if(war['online_seller_id']==''){
-                        delete war['online_seller_id'];
-                }
                 const product_id = war.product_id;
                 delete war['product_id'];
+                Object.keys(war).forEach((key) => (war[key] == '') && delete war[key]);
                 const data = JSON.stringify(war);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/products/'+product_id+'/warranties', data, this.options)
@@ -435,15 +431,10 @@ export class UserService {
         updateWarranty(war: any) {
                 this.getCSRF();
                 const warId = war['warrantyId'];
-                if(war['seller_id']==''){
-                        delete war['seller_id'];
-                }
-                if(war['online_seller_id']==''){
-                        delete war['online_seller_id'];
-                }
                 const product_id = war.product_id;
                 delete war['product_id'];
                 delete war['warrantyId'];
+                Object.keys(war).forEach((key) => (war[key] == '') && delete war[key]);                
                 const data = JSON.stringify(war);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
@@ -452,15 +443,10 @@ export class UserService {
         updateInsurance(ins: any) {
                 this.getCSRF();
                 const insId = ins['insuranceId'];
-                if(ins['seller_id']==''){
-                        delete ins['seller_id'];
-                }
-                if(ins['online_seller_id']==''){
-                        delete ins['online_seller_id'];
-                }
                 const product_id = ins.product_id;
                 delete ins['product_id'];
                 delete ins['insuranceId'];
+                Object.keys(ins).forEach((key) => (ins[key] == '') && delete ins[key]);                
                 const data = JSON.stringify(ins);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
@@ -468,14 +454,9 @@ export class UserService {
         }
         createInsurance(ins: any) {
                 this.getCSRF();
-                if(ins['seller_id']==''){
-                        delete ins['seller_id'];
-                }
-                if(ins['online_seller_id']==''){
-                        delete ins['online_seller_id'];
-                }
                 const product_id = ins.product_id;
                 delete ins['product_id'];
+                Object.keys(ins).forEach((key) => (ins[key] == '') && delete ins[key]);  
                 const data = JSON.stringify(ins);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/products/'+product_id+'/insurances', data, this.options)
@@ -483,14 +464,9 @@ export class UserService {
         }
         createAmc(amc: any) {
                 this.getCSRF();
-                if(amc['seller_id']==''){
-                        delete amc['seller_id'];
-                }
-                if(amc['online_seller_id']==''){
-                        delete amc['online_seller_id'];
-                }
                 const product_id = amc.product_id;
                 delete amc['product_id'];
+                Object.keys(amc).forEach((key) => (amc[key] == '') && delete amc[key]);  
                 const data = JSON.stringify(amc);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/products/'+product_id+'/amcs', data, this.options)
@@ -499,15 +475,10 @@ export class UserService {
         updateAmc(amc: any) {
                 this.getCSRF();
                 const amcId = amc['amcId'];
-                if(amc['seller_id']==''){
-                        delete amc['seller_id'];
-                }
-                if(amc['online_seller_id']==''){
-                        delete amc['online_seller_id'];
-                }
                 const product_id = amc.product_id;
                 delete amc['product_id'];
                 delete amc['amcId'];
+                Object.keys(amc).forEach((key) => (amc[key] == '') && delete amc[key]);                  
                 const data = JSON.stringify(amc);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
@@ -515,14 +486,9 @@ export class UserService {
         }
         createRepair(rep: any) {
                 this.getCSRF();
-                if(rep['seller_id']==''){
-                        delete rep['seller_id'];
-                }
-                if(rep['online_seller_id']==''){
-                        delete rep['online_seller_id'];
-                }
                 const product_id = rep.product_id;
                 delete rep['product_id'];
+                Object.keys(rep).forEach((key) => (rep[key] == '') && delete rep[key]);                                  
                 const data = JSON.stringify(rep);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/products/'+product_id+'/repairs', data, this.options)
@@ -531,15 +497,10 @@ export class UserService {
         updateRepair(rep: any) {
                 this.getCSRF();
                 const repairId = rep['repairId'];
-                if(rep['seller_id']==''){
-                        delete rep['seller_id'];
-                }
-                if(rep['online_seller_id']==''){
-                        delete rep['online_seller_id'];
-                }
                 const product_id = rep.product_id;
                 delete rep['product_id'];
                 delete rep['repairId'];
+                Object.keys(rep).forEach((key) => (rep[key] == '') && delete rep[key]);                                                  
                 const data = JSON.stringify(rep);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
