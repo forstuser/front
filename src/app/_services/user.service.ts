@@ -122,7 +122,7 @@ export class UserService {
         //Get colors
         getColorList() {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/colours', this.options)
+                return this.http.get(this.apiLink + 'api/colours?status=1', this.options)
                         .map((response: Response) => response.json());
         }
 
@@ -372,7 +372,7 @@ export class UserService {
         assignJobCE(task: any) {
                 console.log(task,"task")
                 this.getCSRF();
-                const jobID = task['jobId'];
+                const jobID = task['BID'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];

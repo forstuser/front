@@ -78,10 +78,11 @@ export class CeComponent implements OnInit {
             this.users = users;
             // console.log(users);
           });
-      }),
-      (error => {
+      },
+      (error) => {
         console.log(error);
-        alert("Some Error occured !!")
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
 
