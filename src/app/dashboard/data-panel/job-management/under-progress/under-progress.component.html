@@ -41,7 +41,9 @@
           <td *ngIf="userType!=4"><strong>Name : </strong>{{ bill.ce.full_name}}<br>
             <strong>Email ID : </strong>{{ bill.ce.email}}<br>
             <strong>Task Date: </strong>{{ bill.ce.created_at | date}}<br>
-            <strong>Status : </strong><span class="badge bg-orange">{{ bill.ce_status}}</span><br><br>
+            <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.ce_status== 4">New</span>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 5">Complete</span>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span><br><br>
             <span class="pull-right" *ngIf="bill.ce_status != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
                         <i class="material-icons">replay</i><span>Re-Assign</span></button>
             </span>
@@ -49,7 +51,10 @@
           <td *ngIf="userType!=4"><span *ngIf="bill.qe_status != null"><strong>Name : </strong>{{ bill.qe.full_name}}<br>
                     <strong>Email ID : </strong>{{ bill.qe.email}}<br>
                     <strong>Task Date: </strong>{{ bill.qe.created_at | date}}<br>
-                    <strong>Status : </strong><span class="badge bg-orange">{{ bill.qe_status}}</span></span><br><br>
+                    <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
+                                              <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
+                                              <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
+                                            </span><br><br>
             <span *ngIf="bill.qe_status ==  null && bill.ce_status == 5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
                         <i class="material-icons">done</i><span>Assign</span></button>
             </span>
@@ -90,7 +95,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="5" cols="52" formControlName="comments"></textarea>
+                <textarea rows="5" cols="60" formControlName="comments"></textarea>
               </div>
             </div>
           </div>
@@ -130,7 +135,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <div class="form-line">
-                <textarea rows="5" cols="72" formControlName="comments"></textarea>
+                <textarea rows="5" cols="60" formControlName="comments"></textarea>
               </div>
             </div>
           </div>
