@@ -222,6 +222,7 @@ export class UserService {
 
         // Create offline seller
         createOfflineSeller(OfflineSeller: any) {
+                Object.keys(OfflineSeller).forEach((key) => (OfflineSeller[key] == '') && delete OfflineSeller[key]);
                 this.getCSRF();
                 const data = JSON.stringify(OfflineSeller);
                 console.log(data);
