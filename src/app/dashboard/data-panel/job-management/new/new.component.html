@@ -32,7 +32,7 @@
           <td>{{ bill?.user.full_name}}</td>
           <td>{{ bill?.user.mobile_no}}</td>
           <td>{{ bill?.user.email}}</td>
-          <td>{{ bill?.user.created_at | date}}</td>
+          <td>{{ bill?.created_at | date}}</td>
           <td class="comment">{{ bill?.comments}}</td>
           <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="create/{{ bill.id }}" *ngIf="userType ==4 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
               *ngIf="userType ==3">View Bill</button></td>
