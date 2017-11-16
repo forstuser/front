@@ -20,12 +20,20 @@ export class ViewBillComponent implements OnInit {
   productId:number;
   mainCatId: number;
   catId: number;
+  warrantyId:number;
+  insuranceId:number;
+  amcId:number;
+  repairId:number;
   imageArray: any[] = [];
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
+  selectedEditWarrantyImageArray: any[] = [];
   selectedInsuranceImageArray: any[] = [];
+  selectedEditInsuranceImageArray: any[] = [];
   selectedAmcImageArray: any[] = [];
+  selectedEditAmcImageArray: any[] = [];
   selectedRepairImageArray: any[] = [];  
+  selectedEditRepairImageArray: any[] = [];   
   imageArrayLength: number;
   images: string[] = [];
   imageUrl: String = appConfig.apiUrl;
@@ -56,11 +64,18 @@ export class ViewBillComponent implements OnInit {
   askMainCategory: boolean = false;
   showProductForm: boolean = false;
   showSellerForm: boolean = false;
-  showWarrantyForm: boolean = false;
-  showInsuranceForm: boolean = false;
-  showAmcForm: boolean = false;
-  showRepairForm: boolean = false;
   reassignDialog:boolean = false;
+  showWarrantyEditForm:boolean = false;
+  showInsuranceEditForm:boolean = false;
+  showAmcEditForm = false;
+  showRepairEditForm:boolean = false;
+  productFormObjectForBind:any;
+  warrantyFormObjectForBind:any;
+  insuranceEditFormObject:any;
+  insuranceFormObjectForBind:any;
+  amcFormObjectForBind:any;
+  repairFormObjectForBind:any;
+  productMetaDataForBind:any;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -121,19 +136,16 @@ export class ViewBillComponent implements OnInit {
   // update bill
   verifyBillGeneral(form: NgForm) {
     console.log(this.billId);
-    // this.billGeneralInfoEditFormObject = form.value;
-    // this.billGeneralInfoEditFormObject['id'] = this.billId;
-    // console.log(this.billGeneralInfoEditFormObject);
-    // this.userService.updateBill(this.billGeneralInfoEditFormObject)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     alert("Bill Updated Successfully")
-    //     // this.backTojobDetailsShow();
-    //     this.getDetailsOfJob();
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   })
+    this.userService.verifyBill(this.billId)
+    .subscribe(res=>{
+      alert("verified")
+      console.log(res);
+      this.getDetailsOfJob();
+      this.billGeneralInfoEdit = false;
+    },err=>{
+      console.log(err);
+    })
+
   }
   showbillGeneralInfoForm() {
     this.billGeneralInfoEdit = true;
@@ -143,7 +155,7 @@ export class ViewBillComponent implements OnInit {
   }
   // complete job
   completeJob(){
-    this.userService.completeJob(this.jobId,this.ceId)
+    this.userService.completeJobQE(this.jobId,this.ceId)
     .subscribe(res => {
       console.log(res);
       alert("JOB Completed Successfully");
@@ -180,46 +192,22 @@ export class ViewBillComponent implements OnInit {
     this.cockpit = true;
     this.jobDetailsShow = false;
   }
-  // create product 
-  productFormData(form: NgForm) {
-    // console.log(form.value);
-    this.productObject = {
-      'category_id': this.catId,
-      'main_category_id': this.mainCatId,
-      'product_name': form.value.product_name,
-      'purchase_cost': form.value.purchase_cost,
-      'copies': this.selectedImageArray,
-      'taxes': form.value.taxes,
-      'brand_id': form.value.brand_id,
-      'colour_id': form.value.colour_id,
-      'seller_id': form.value.seller_id,
-      'user_id': this.userId,
-      'job_id': this.jobId,
-      'billId': this.billId
-    }
-    // console.log(this.productObject);
-    const filterData = form.value;
-    delete filterData['product_name'];
-    delete filterData['purchase_cost'];
-    delete filterData['taxes'];
-    delete filterData['brand_id'];
-    delete filterData['colour_id'];
-    delete filterData['seller_id'];
-    for (var val in filterData) {
-      this.productFromMetaData.push({ 'category_form_id': val, 'form_value': filterData[val] });
-    }
-    this.productObject['metaData'] = this.productFromMetaData;
-    // console.log(this.productFromMetaData);
-    console.log(this.productObject);
-    this.userService.createProduct(this.productObject)
-      .subscribe(res => {
-        console.log(res)
-        alert("Product Added");
-      },
-      (error) => {
-        console.log(error);
-      });
+  showProductInfo(){
+    this.askMainCategory = true;
+    this.showProductForm = true;
+    this.addons = false
   }
+// verify Product
+verifyProductFormData(){
+  this.userService.verifyProduct(this.billId,this.productId)
+  .subscribe(res=>{
+    alert("verified")
+    console.log(res);
+    this.getDetailsOfJob();
+  },err=>{
+    console.log(err);
+  })
+}
   // get list of main category
   mainCategoryList() {
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
@@ -243,8 +231,8 @@ export class ViewBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
-        console.log(this.catForm, "category form");
-        this.showProductForm = true;
+        // console.log(this.catForm, "category form");
+        // this.showProductForm = true;
         this.getBrandList();
         this.getColorList();
         this.getOfflineSellerList();
@@ -275,136 +263,121 @@ export class ViewBillComponent implements OnInit {
       });
   }
   //********************************* Warranty Functions***********************************//
-  warrantyFormData(form: NgForm){
-    console.log(form.value);
-    this.warrantyObject = {
-      'document_date':form.value.document_date,
-      'document_number':form.value.document_number,
-      'effective_date':form.value.effective_date,
-      'expiry_date':form.value.expiry_date,
-      'online_seller_id':form.value.online_seller_id,
-      'renewal_cost':form.value.renewal_cost,
-      'renewal_taxes':form.value.renewal_taxes,
-      'renewal_type':form.value.renewal_type,
-      'seller_id':form.value.seller_id,
-      'user_id': this.userId,
-      'job_id': this.jobId,
-      'product_id':this.productId,
-      'copies': this.selectedWarrantyImageArray
-    }
-    console.log(this.warrantyObject);
-    this.userService.createWarranty(this.warrantyObject)
-      .subscribe(res => {
-        console.log(res)
-        alert("Warranty Added");
-      },
-      (error) => {
-        console.log(error);
-      });
-  }
   editWarrantyForm(war){
     console.log(war);
+    this.warrantyId = war.id;
+    this.getOfflineSellerList();
+    this.showWarrantyEditForm = true;
+    this.addons = false;
+    this.selectedEditWarrantyImageArray = war.copies;
+    this.warrantyFormObjectForBind = war;
+  }
+  verifyWarranty(form: NgForm){
+    this.userService.verifyWarranty(this.productId,this.warrantyId)
+      .subscribe(res=>{
+        alert("verified")
+        console.log(res);
+        this.getDetailsOfJob();        
+        this.showWarrantyEditForm = false;
+        this.addons = true;
+      },err=>{
+        console.log(err);
+      })
   }
     //********************************* Insurance Functions***********************************//
-    insuranceFormData(form: NgForm){
-      // console.log(form.value);
-      this.insuranceObject = {
-        'document_date':form.value.document_date,
-        'document_number':form.value.document_number,
-        'effective_date':form.value.effective_date,
-        'expiry_date':form.value.expiry_date,
-        'online_seller_id':form.value.online_seller_id,
-        'renewal_cost':form.value.renewal_cost,
-        'renewal_taxes':form.value.renewal_taxes,
-        'renewal_type':form.value.renewal_type,
-        'seller_id':form.value.seller_id,
-        'user_id': this.userId,
-        'job_id': this.jobId,
-        'product_id':this.productId,
-        'copies': this.selectedInsuranceImageArray
-      }
-      console.log(this.insuranceObject);
-      this.userService.createInsurance(this.insuranceObject)
-        .subscribe(res => {
-          console.log(res)
-          alert("Insurance Added");
-        },
-        (error) => {
-          console.log(error);
-        });
+    editInsuranceForm(ins){
+      console.log(ins);
+      this.insuranceId = ins.id;
+      this.getOfflineSellerList();
+      this.showInsuranceEditForm = true;
+      this.addons = false;
+      this.selectedEditInsuranceImageArray = ins.copies;
+      this.insuranceFormObjectForBind = ins;
     }
-    editInsuranceForm(war){
-      console.log(war);
+    verifyInsurance(form: NgForm){
+      this.userService.verifyInsurance(this.productId,this.insuranceId)
+      .subscribe(res=>{
+        alert("verified")
+        console.log(res);
+        this.getDetailsOfJob();        
+        this.showInsuranceEditForm = false;
+        this.addons = true;
+      },err=>{
+        console.log(err);
+      })
     }
     //********************************* AMC Functions***********************************//
-    amcFormData(form: NgForm){
-      // console.log(form.value);
-      this.amcObject = {
-        'document_date':form.value.document_date,
-        'document_number':form.value.document_number,
-        'effective_date':form.value.effective_date,
-        'expiry_date':form.value.expiry_date,
-        'online_seller_id':form.value.online_seller_id,
-        'renewal_cost':form.value.renewal_cost,
-        'renewal_taxes':form.value.renewal_taxes,
-        'renewal_type':form.value.renewal_type,
-        'seller_id':form.value.seller_id,
-        'user_id': this.userId,
-        'job_id': this.jobId,
-        'product_id':this.productId,
-        'copies': this.selectedAmcImageArray
-      }
-      console.log(this.amcObject);
-      this.userService.createAmc(this.amcObject)
-        .subscribe(res => {
-          console.log(res)
-          alert("AMC Added");
-        },
-        (error) => {
-          console.log(error);
-        });
+    editAmcForm(amc){
+      console.log(amc);
+      this.amcId = amc.id;
+      this.getOfflineSellerList();
+      this.showAmcEditForm = true;
+      this.addons = false;
+      this.selectedEditAmcImageArray = amc.copies;
+      this.amcFormObjectForBind = amc;
     }
-    editAmcForm(war){
-      console.log(war);
+    verifyAmc(form: NgForm){
+      this.userService.verifyAmc(this.productId,this.amcId)
+      .subscribe(res=>{
+        alert("verified")
+        console.log(res);
+        this.getDetailsOfJob();        
+        this.showAmcEditForm = false;
+        this.addons = true;
+      },err=>{
+        console.log(err);
+      })
     }
     //********************************* Repair Functions***********************************//
-    repairFormData(form: NgForm){
-      // console.log(form.value);
-      this.repairObject = {
-        'document_date':form.value.document_date,
-        'document_number':form.value.document_number,
-        'online_seller_id':form.value.online_seller_id,
-        'repair_cost':form.value.repair_cost,
-        'repair_taxes':form.value.repair_taxes,
-        'seller_id':form.value.seller_id,
-        'user_id': this.userId,
-        'job_id': this.jobId,
-        'product_id':this.productId,
-        'copies': this.selectedRepairImageArray
-      }
-      console.log(this.repairObject);
-      this.userService.createRepair(this.repairObject)
-        .subscribe(res => {
-          console.log(res)
-          alert("Repair Added");
-        },
-        (error) => {
-          console.log(error);
-        });
-    }
     editRepairForm(rep){
       console.log(rep);
+      this.repairId = rep.id;
+      this.getOfflineSellerList();
+      this.showRepairEditForm = true;
+      this.addons = false;
+      this.selectedEditRepairImageArray = rep.copies;
+      this.repairFormObjectForBind = rep;
+    }
+    verifyRepair(form: NgForm){
+      this.userService.verifyRepair(this.productId,this.repairId)
+      .subscribe(res=>{
+        alert("verified")
+        console.log(res);
+        this.getDetailsOfJob();
+        this.showRepairEditForm = false;
+        this.addons = true;
+      },err=>{
+        console.log(err);
+      })
     }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
+    this.getBrandList();
+    this.getColorList();
+    this.getOfflineSellerList();
+    this.mainCategoryList();
+    this.onSelectMainCat(prod.main_category_id);
+    this.onSelectCat(prod.category_id);
+    this.selectedImageArray = prod.copies;
     console.log(prod,"pro");
+    this.productFormObjectForBind = prod;
     this.productId = prod.id;
+    this.fillProductForm(this.productId);
     this.addons = true;
     this.cockpit = false;
     this.showSellerForm = false;
     this.showProductForm = false;
     this.askMainCategory = false;
     this.billGeneralInfoEdit = false;
+  }
+  fillProductForm(prodID){
+    this.userService.productMetaData(this.billId,prodID)
+      .subscribe(res=>{
+        this.productMetaDataForBind = res.data.metaData;
+        console.log(this.productMetaDataForBind);
+      },err=>{
+        console.log(err);
+      })
   }
   //********************************* Seller Functions***********************************//
 
@@ -449,24 +422,9 @@ export class ViewBillComponent implements OnInit {
   // ******************************** Small Functions ***********************************//
   //select image 
   selectImage() {
-    if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added")
-    } else {
-      this.selectedImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedInsuranceImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedAmcImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedRepairImageArray.push(this.imageArray[this.imageIndex]);
-    }
+    console.log("can't add image by qe")
   }
-  // remove image
-  removeImage(i) {
-    this.selectedImageArray.splice(i, 1);
-    this.selectedWarrantyImageArray.splice(i, 1);
-    this.selectedInsuranceImageArray.splice(i, 1);
-    this.selectedAmcImageArray.splice(i, 1);
-    this.selectedRepairImageArray.splice(i, 1);    
-  }
+
   // open bill general form
   openBillForm() {
     this.jobDetailsShow = false;
@@ -492,48 +450,26 @@ export class ViewBillComponent implements OnInit {
   }
   // show add offline seller form
   showAddSellerForm() {
+    alert("Ruk Jao Bhai Bna rahe")
     this.billGeneralInfoEdit = false;
-    this.showSellerForm = true;
+    this.showSellerForm = false;
     this.askMainCategory = false;
     this.showProductForm = false;
     this.offlineSellerFB();
   }
+
   backToCockpit() {
     this.addons = false;
     this.cockpit = true;
-    this.showWarrantyForm = false;
-    this.showInsuranceForm = false;
-    this.showAmcForm  =false;
-    this.showRepairForm = false;
   }
-  showAddWarrantyForm() {
-    this.getOfflineSellerList();
-    this.showWarrantyForm = true;
-    this.showAmcForm = false;
-    this.showInsuranceForm = false
-    this.showRepairForm = false;
-    // this.addons = false;
-  }
-  showAddInsuranceForm() {
-    this.getOfflineSellerList();
-    this.showWarrantyForm = false;
-    this.showAmcForm = false;
-    this.showInsuranceForm = true;
-    this.showRepairForm = false;
-  }
-  showAddAmcForm() {
-    this.getOfflineSellerList();
-    this.showWarrantyForm = false;
-    this.showAmcForm = true;
-    this.showInsuranceForm = false
-    this.showInsuranceForm = false;
-  }
-  showAddRepairForm() {
-    this.getOfflineSellerList();
-    this.showWarrantyForm = false;
-    this.showAmcForm = false;
-    this.showInsuranceForm = false
-    this.showRepairForm = true;
+  backtoAddons(){
+    this.addons = true;
+    this.showWarrantyEditForm = false;
+    this.showInsuranceEditForm = false;
+    this.showAmcEditForm  =false;
+    this.showRepairEditForm = false;
+    this.askMainCategory = false;
+    this.showProductForm = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {

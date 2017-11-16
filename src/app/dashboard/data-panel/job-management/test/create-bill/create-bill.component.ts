@@ -642,7 +642,10 @@ export class CreateBillComponent implements OnInit {
   selectImage() {
     if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added")
-    } else {
+    } 
+    if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added")
+    }else {
       this.selectedImageArray.push(this.imageArray[this.imageIndex]);
       this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
       this.selectedEditWarrantyImageArray.push(this.imageArray[this.imageIndex]);
