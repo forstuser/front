@@ -53,7 +53,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
+      this.userservice.getQEJobList(5, this.userId) // completed = 5  refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -91,7 +91,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is QE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
+      this.userservice.getQEJobList(5, this.userId) // completed = 5  refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -133,7 +133,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is QE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
+      this.userservice.getQEJobList(5, this.userId) // completed = 5  refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;
