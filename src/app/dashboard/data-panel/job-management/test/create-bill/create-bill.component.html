@@ -509,6 +509,39 @@
       </div>
       <!-- Product Form End -->
 
+      <!-- Ask category  Edit Start -->
+      <div *ngIf="askMainCategoryEdit">
+        <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Main Category</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}" disabled>
+                <option value="">Select</option>
+                <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
+              </select>
+            </div>
+          </div>
+        </div>  
+        <p></p>
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Category</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}" disabled>
+                <option value="">Select</option>
+                <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>  
+      </div>
+      <!-- Ask Category Edit End -->
+
       <!-- Seller Form Start -->
       <div *ngIf="showSellerForm">
         <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
@@ -721,7 +754,7 @@
             <button class="btn btn-block btn-xs bg-orange waves-effect m-b-15" (click)="backToCockpit()">Back</button>
           </div>
           <div class="col-md-6">
-            <button class="btn bg-green btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Product General Info</button>
+            <button class="btn bg-green btn-block btn-xs waves-effect m-b-15" (click)="showbillProductInfoEditForm()">Product General Info</button>
           </div>
         </div>
         <div class="row clearfix">

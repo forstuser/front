@@ -57,6 +57,7 @@ export class CreateBillComponent implements OnInit {
   amcFormObjectForBind:any;
   repairEditFormObject:any;
   repairFormObjectForBind:any;
+  productFormObjectForBind:any;
   productFromMetaData: any[] = [];
   productObject: any;
   warrantyObject: any;
@@ -80,6 +81,7 @@ export class CreateBillComponent implements OnInit {
   showAmcEditForm = false;
   showRepairForm: boolean = false;
   showRepairEditForm:boolean = false;
+  askMainCategoryEdit:boolean = false;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -176,10 +178,14 @@ export class CreateBillComponent implements OnInit {
       })
   }
   showbillGeneralInfoEditForm() {
-    this.billGeneralInfoEdit = false;
+    this.billGeneralInfoEdit = true;
     this.askMainCategory = false;
     this.showProductForm = false;
     this.showSellerForm = false;
+  }
+  showbillProductInfoEditForm(){
+    this.addons = false;
+    this.askMainCategoryEdit = true;
   }
   // complete job
   completeJob(){
@@ -280,6 +286,19 @@ export class CreateBillComponent implements OnInit {
         this.getOfflineSellerList();
       });
   }
+    // after select category show  category form
+    onSelectCat2(catID: number) {
+      this.catId = catID;
+      this.userService.getSubCategoryList(catID)
+        .subscribe(res => {
+          this.catForm = res.data.categoryForms;
+          console.log(this.catForm, "category form");
+          // this.showProductForm = true;
+          this.getBrandList();
+          this.getColorList();
+          this.getOfflineSellerList();
+        });
+    }
   // brand list
   getBrandList() {
     this.userService.getBrandList()
@@ -588,8 +607,15 @@ export class CreateBillComponent implements OnInit {
     }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
+    this.getBrandList();
+    this.getColorList();
+    this.getOfflineSellerList();
+    this.mainCategoryList();
+    this.onSelectMainCat(prod.main_category_id);
+    this.onSelectCat2(prod.category_id);
     console.log(prod,"pro");
     this.productId = prod.id;
+    this.productFormObjectForBind = prod;
     this.addons = true;
     this.cockpit = false;
     this.showSellerForm = false;
@@ -612,15 +638,15 @@ export class CreateBillComponent implements OnInit {
     this.offlineSellerForm = this.fb.group({
       'seller_name': [null, Validators.required],
       'owner_name': '',
-      'gstin': [null, Validators.required],
+      'gstin': '',
       'pan_no': '',
       'reg_no': '',
       'is_service': '',
       'is_onboarded': '',
       'address': '',
-      'city': [null, Validators.required],
-      'state': [null, Validators.required],
-      'pincode': [null, Validators.required],
+      'city': '',
+      'state': '',
+      'pincode':'',
       'latitude': '',
       'longitude': '',
       'url': '',
@@ -743,6 +769,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceEditForm = false;
     this.showAmcEditForm = false;
     this.showRepairEditForm = false;
+    this.askMainCategoryEdit = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {
