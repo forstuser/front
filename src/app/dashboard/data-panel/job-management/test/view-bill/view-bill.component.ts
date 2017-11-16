@@ -201,8 +201,9 @@ export class ViewBillComponent implements OnInit {
 verifyProductFormData(){
   this.userService.verifyProduct(this.billId,this.productId)
   .subscribe(res=>{
-    alert("verified")
+    alert(" Product verified")
     console.log(res);
+    
     this.getDetailsOfJob();
   },err=>{
     console.log(err);
