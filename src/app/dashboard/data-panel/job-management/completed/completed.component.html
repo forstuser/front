@@ -22,27 +22,38 @@
           <th>Email ID</th>
           <th>JOB Date</th>
           <th>Comments</th>
-          <!-- <th>CE Name</th>
-                  <th>CE Task Date</th>
-                  <th>QE Name</th>
-                  <th>QE Task Date</th> -->
           <th>View</th>
         </tr>
       </thead>
-      <tbody *ngFor="let bill of billList?.BillList; let i = index">
+      <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+prev }} </th>
-          <td>{{ bill.BillNo}}</td>
-          <td>{{ bill.Name}}</td>
-          <td>{{ bill.PhoneNo}}</td>
-          <td>{{ bill.EmailID}}</td>
-          <td>{{ bill.BillDate | date}}</td>
-          <td class="comment">{{ bill.Comments}}</td>
-          <!-- <td>{{ bill.CE_Name}}</td>
-                  <td>{{ bill.CE_TaskDate | date}}</td>
-                  <td>{{ bill.QE_Name}}</td>
-                  <td>{{ bill.QE_TaskDate | date}}</td> -->
-          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.BillNo}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.BillNo}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.BillNo}}</td>
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.full_name}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.full_name}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.full_name}}</td>
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.mobile_no}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.mobile_no}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.mobile_no}}</td>       
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.email}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.email}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.email}}</td> 
+
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.updated_at | date}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.updated_at | date}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.updated_at | date}}</td>
+
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.comments}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.comments}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.comments}}</td>
+          
+          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)">View</button></td>
         </tr>
       </tbody>
     </table>
@@ -56,8 +67,8 @@
     <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix" style="overflow:scroll">
-          <div class="col-md-12">
-            <img [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+          <div class="col-md-12" style="text-align:center;">
+            <img [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'">
             <p></p>
           </div>
         </div>

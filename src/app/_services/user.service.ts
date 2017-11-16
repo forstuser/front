@@ -373,7 +373,8 @@ export class UserService {
         assignJobCE(task: any) {
                 console.log(task,"task")
                 this.getCSRF();
-                const jobID = task['BID'];
+                // const id=task['id']
+                const jobID = task['jobId'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];

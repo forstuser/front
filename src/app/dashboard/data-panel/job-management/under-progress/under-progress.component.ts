@@ -128,7 +128,7 @@ export class UnderProgressComponent implements OnInit {
   }
   // passs current user as argument and open the popup
   openModel(item: any) {
-    console.log(item);
+    console.log(item,"item data");
     this.assignForm.setValue({
       jobId: item.id,
       UID: '',
