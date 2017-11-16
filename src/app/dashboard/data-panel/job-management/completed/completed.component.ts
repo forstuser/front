@@ -25,10 +25,12 @@ export class CompletedComponent implements OnInit {
   imagerotation: number = 0;
   loader: boolean = false;
   arrayLength: number;
+  userId:any;
   constructor(private userservice: UserService) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
+    this.userId=info.id;
     // console.log("userType", this.userType)
   }
 
@@ -43,7 +45,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(5) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5,this.userId) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -78,7 +80,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(5) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5,this.userId) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -119,7 +121,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(5) // completed = 5 refer api doc
+      this.userservice.getCEJobList(5,this.userId) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;

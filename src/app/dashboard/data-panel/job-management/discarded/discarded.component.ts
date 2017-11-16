@@ -22,10 +22,12 @@ export class DiscardedComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
+  userId:any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
+    this.userId=info.id;
     // console.log("userType", this.userType)
 
     this.assignForm = this.fb.group({
@@ -47,7 +49,7 @@ export class DiscardedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(9) // new = 4 refer api doc
+      this.userservice.getCEJobList(9,this.userId) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -88,7 +90,7 @@ export class DiscardedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(10) // new = 4 refer api doc
+      this.userservice.getCEJobList(10,this.userId) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -130,7 +132,7 @@ export class DiscardedComponent implements OnInit {
     }
     // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(10) // new = 4 refer api doc
+      this.userservice.getCEJobList(10,this.userId) // new = 4 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;

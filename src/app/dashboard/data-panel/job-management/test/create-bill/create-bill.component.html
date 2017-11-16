@@ -780,7 +780,8 @@
                       <tr>
                           <th><small>Warranty ID</small></th>
                           <th><small>Product ID</small></th>
-                          <th><small>Action</small></th>
+                          <th><small>Add</small></th>
+                          <th><small>Delete</small></th>                          
                       </tr>
                     </thead>
                     <tbody>
@@ -788,6 +789,7 @@
                           <th><small>{{ list?.id }}</small></th>
                           <th><small>{{ list?.product_id }}</small></th>
                           <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="deleteWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>                          
                       </tr>
                     </tbody>
                 </table>

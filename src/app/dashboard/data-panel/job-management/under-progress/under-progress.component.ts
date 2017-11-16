@@ -43,9 +43,11 @@ export class UnderProgressComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   activeCE: any;
   activeQE: any;
+  userId:any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
+    this.userId=info.id;
     // console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
@@ -75,7 +77,7 @@ export class UnderProgressComponent implements OnInit {
 
     // get list of ce jobs
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(8) // 4 for qe refer to api doc
+      this.userservice.getCEJobList(8,this.userId) // 4 for qe refer to api doc
         .subscribe(bills => {
           this.bills = bills;
           console.log(bills);
