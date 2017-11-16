@@ -408,6 +408,12 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/bills', data, this.options)
                         .map((response: Response) => response.json());
         }
+        verifyBill(bill_id){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/bills/'+bill_id, data, this.options)
+                .map((response: Response) => response.json());
+        }
         createProduct(prod: any) {
                 this.getCSRF();
                 const billId = prod.billId;
@@ -417,6 +423,18 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
                         .map((response: Response) => response.json());
+        }
+        verifyProduct(bill_id,product_id){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/bills/'+bill_id+'/products/'+product_id, data, this.options)
+                .map((response: Response) => response.json());
+        }
+        productMetaData(billId,prodId){
+                this.getCSRF();
+                console.log(billId,prodId);
+                return this.http.get(this.apiLink + 'api/bills/'+billId+'/products/'+prodId, this.options)
+                .map((response: Response) => response.json());
         }
         createWarranty(war: any) {
                 this.getCSRF();
@@ -440,6 +458,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        verifyWarranty(product_id,warId){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
+                .map((response: Response) => response.json());
+        }
         updateInsurance(ins: any) {
                 this.getCSRF();
                 const insId = ins['insuranceId'];
@@ -451,6 +475,12 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
                         .map((response: Response) => response.json());
+        }
+        verifyInsurance(product_id,insId){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
+                .map((response: Response) => response.json());
         }
         createInsurance(ins: any) {
                 this.getCSRF();
@@ -484,6 +514,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        verifyAmc(product_id,amcId){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
+                .map((response: Response) => response.json());
+        }
         createRepair(rep: any) {
                 this.getCSRF();
                 const product_id = rep.product_id;
@@ -506,6 +542,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        verifyRepair(product_id,repairId){
+                this.getCSRF();
+                const data = {'status_type':5}
+                return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
+                .map((response: Response) => response.json());
+        }
         updateBill(bill: any) {
                 this.getCSRF();
                 Object.keys(bill).forEach((key) => (bill[key] == '') && delete bill[key]);      
@@ -521,6 +563,12 @@ export class UserService {
                 this.getCSRF();
                 const data = {};
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID+'/complete',data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        completeJobQE(jobID,ceID) {
+                this.getCSRF();
+                const data = {};
+                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+ceID+'/complete',data, this.options)
                         .map((response: Response) => response.json());
         }
         //  JOB reassigned
