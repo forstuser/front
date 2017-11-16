@@ -427,6 +427,11 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
                         .map((response: Response) => response.json());
         }
+        deleteProduct(billId,id) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/bills/'+billId+'/products/'+id, this.options)
+                        .map((response: Response) => response);
+        }
         verifyProduct(bill_id,product_id){
                 this.getCSRF();
                 const data = {'status_type':5}
@@ -461,6 +466,11 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        deleteWarranty(product_id,id) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/warranties/'+id, this.options)
+                        .map((response: Response) => response);
+        }
         verifyWarranty(product_id,warId){
                 this.getCSRF();
                 const data = {'status_type':5}
@@ -478,6 +488,11 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
                         .map((response: Response) => response.json());
+        }
+        deleteInsurance(product_id,id) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/insurances/'+id, this.options)
+                        .map((response: Response) => response);
         }
         verifyInsurance(product_id,insId){
                 this.getCSRF();
@@ -517,6 +532,11 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        deleteAmc(product_id,id) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/amcs/'+id, this.options)
+                        .map((response: Response) => response);
+        }
         verifyAmc(product_id,amcId){
                 this.getCSRF();
                 const data = {'status_type':5}
@@ -544,6 +564,11 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
                         .map((response: Response) => response.json());
+        }
+        deleteRepair(product_id,id) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/repairs/'+id, this.options)
+                        .map((response: Response) => response);
         }
         verifyRepair(product_id,repairId){
                 this.getCSRF();

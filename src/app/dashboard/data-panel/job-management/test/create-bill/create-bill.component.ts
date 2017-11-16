@@ -211,6 +211,16 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = true;
     this.jobDetailsShow = false;
   }
+  deleteProduct(req){
+    this.userService.deleteProduct(this.billId,req.id)
+    .subscribe(res=>{
+      console.log(res);
+      alert("Product Deleted");
+      this.getDetailsOfJob();
+    },err=>{
+      console.log(err);
+    })
+  }
   // create product 
   productFormData(form: NgForm) {
     // console.log(form.value);
@@ -364,6 +374,16 @@ export class CreateBillComponent implements OnInit {
     this.addons = false;
     this.showWarrantyEditForm = true;
   }
+  deleteWarranty(req){
+    this.userService.deleteWarranty(this.productId,req.id)
+      .subscribe(res=>{
+        console.log(res);
+        alert("Warranty Deleted");
+        this.getDetailsOfJob();
+      },err=>{
+        console.log(err);
+      })
+  }
   warrantyEditFormData(form: NgForm){
     console.log(form.value);
     this.warrantyEditFormObject = {
@@ -435,6 +455,16 @@ export class CreateBillComponent implements OnInit {
       this.insuranceFormObjectForBind = ins;
       this.addons = false;
       this.showInsuranceEditForm = true;
+    }
+    deleteInsurance(req){
+      this.userService.deleteInsurance(this.productId,req.id)
+        .subscribe(res=>{
+          console.log(res);
+          alert("Insurance Deleted");
+          this.getDetailsOfJob();
+        },err=>{
+          console.log(err);
+        })
     }
     insuranceEditFormData(form:NgForm){
       console.log(form.value);
@@ -508,6 +538,16 @@ export class CreateBillComponent implements OnInit {
       this.addons = false;
       this.showAmcEditForm = true;
     }
+    deleteAmc(req){
+      this.userService.deleteAmc(this.productId,req.id)
+        .subscribe(res=>{
+          console.log(res);
+          alert("AMC Deleted");
+          this.getDetailsOfJob();
+        },err=>{
+          console.log(err);
+        })
+    }
     amcEditFormData(form:NgForm){
       console.log(form.value);
       this.amcEditFormObject = {
@@ -576,6 +616,16 @@ export class CreateBillComponent implements OnInit {
       this.repairFormObjectForBind = rep;
       this.addons = false;
       this.showRepairEditForm = true;
+    }
+    deleteRepair(req){
+      this.userService.deleteRepair(this.productId,req.id)
+        .subscribe(res=>{
+          console.log(res);
+          alert("Repair Deleted");
+          this.getDetailsOfJob();
+        },err=>{
+          console.log(err);
+        })
     }
     repairEditFormData(form:NgForm){
       this.repairEditFormObject = {
