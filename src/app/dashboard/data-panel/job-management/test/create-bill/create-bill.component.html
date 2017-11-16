@@ -226,7 +226,8 @@
                       <th><small>Name</small></th>
                       <th><small>Purchase Cost</small></th>
                       <th><small>Document Date</small></th>
-                      <th><small>Action</small></th>
+                      <th><small>Create</small></th>
+                      <th><small>Delete</small></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -237,6 +238,8 @@
                       <th *ngIf="list?.bill_id==billId"><small>{{ list?.purchase_cost }}</small></th>
                       <th *ngIf="list?.bill_id==billId"><small>{{ list?.document_date | date }}</small></th>
                       <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteProduct(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
+                      
                   </tr>
                 </tbody>
             </table>
@@ -789,7 +792,7 @@
                           <th><small>{{ list?.id }}</small></th>
                           <th><small>{{ list?.product_id }}</small></th>
                           <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="deleteWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>                          
+                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteWarranty(list)"><i class="material-icons" >delete_forever</i></span></small></th>                          
                       </tr>
                     </tbody>
                 </table>
@@ -804,7 +807,8 @@
                       <tr>
                           <th><small>Insurance ID</small></th>
                           <th><small>Product ID</small></th>
-                          <th><small>Action</small></th>
+                          <th><small>Add</small></th>
+                          <th><small>Delete</small></th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -812,6 +816,7 @@
                           <th><small>{{ list?.id }}</small></th>
                           <th><small>{{ list?.product_id }}</small></th>
                           <th><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteInsurance(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                    
                       </tr>
                     </tbody>
                 </table>
@@ -828,7 +833,8 @@
                       <tr>
                           <th><small>AMC <br>ID</small></th>
                           <th><small>Product ID</small></th>
-                          <th><small>Action</small></th>
+                          <th><small>Add</small></th>
+                          <th><small>Delete</small></th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -836,7 +842,8 @@
                           <th><small>{{ list?.id }}</small></th>
                           <th><small>{{ list?.product_id }}</small></th>
                           <th><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                      </tr>
+                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteAmc(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
+                        </tr>
                     </tbody>
                 </table>
               </div>
@@ -850,7 +857,8 @@
                       <tr>
                           <th><small>Repair ID</small></th>
                           <th><small>Product ID</small></th>
-                          <th><small>Action</small></th>
+                          <th><small>Add</small></th>
+                          <th><small>Delete</small></th> 
                       </tr>
                     </thead>
                     <tbody>
@@ -858,7 +866,8 @@
                           <th><small>{{ list?.id }}</small></th>
                           <th><small>{{ list?.product_id }}</small></th>
                           <th><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                      </tr>
+                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteRepair(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
+                        </tr>
                     </tbody>
                 </table>
               </div>
