@@ -26,10 +26,11 @@ export class ServiceCenterListComponent implements OnInit {
   detailType:any;
   center=[];
   ascDetail:any;
-  constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
+    constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
   }
 
   ngOnInit() {
+    
       // get list of category
       this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
@@ -115,6 +116,12 @@ export class ServiceCenterListComponent implements OnInit {
   // passs current brand id as argument and open the popup
   openModel(item) {
     console.log(item);
+    this.userService.getBrandList()
+    .subscribe(brandList =>{
+      this.brands = brandList;
+      console.log(this.brands,"brand hai bhia ye");
+    })
+    
     // reset  editBrand form
     this.authorizedServiceCenterForm = new FormGroup({
       center_name: new FormControl(''),
@@ -134,6 +141,7 @@ export class ServiceCenterListComponent implements OnInit {
     // get information of current selected brand
     this.userService.getAuthorizedServiceCenterByID(item.center_id)
       .subscribe(res => {
+        console.log(res,"bhai response")
       this.showASCList = false ; // for show dialog
       // prop autofill data to form
       this.authorizedServiceCenterForm.controls['center_id'].setValue(res.data.center_id);
@@ -157,7 +165,7 @@ export class ServiceCenterListComponent implements OnInit {
 
 
  createDetailsFormGroup(payOffObj) {
-   console.log(payOffObj)
+   console.log(payOffObj,"payyoff obj")
     return new FormGroup({
       category_id:new FormControl(payOffObj.category_id),
       detail_type: new FormControl(payOffObj.detail_type),
@@ -217,41 +225,41 @@ export class ServiceCenterListComponent implements OnInit {
 
 
     // function for pagination
-    left(){
-      this.noData = false;
-      this.prev = this.prev-10;
-      if(this.prev ==0){
-        this.leftFlag = true;
-      }
-      this.userService.getAuthorizedServiceCenterList()
-      .subscribe( authorizedServiceCenterList => {
-        console.log(this.authorizedServiceCenter)
-        if(authorizedServiceCenterList.statusCode==100){
-          this.rightFlag = false;
-        }
-        this.authorizedServiceCenter = authorizedServiceCenterList;
-        console.log(this.authorizedServiceCenter);
-      });
-    }
+    // left(){
+    //   this.noData = false;
+    //   this.prev = this.prev-10;
+    //   if(this.prev ==0){
+    //     this.leftFlag = true;
+    //   }
+    //   this.userService.getAuthorizedServiceCenterList()
+    //   .subscribe( authorizedServiceCenterList => {
+    //     console.log(this.authorizedServiceCenter)
+    //     if(authorizedServiceCenterList.statusCode==100){
+    //       this.rightFlag = false;
+    //     }
+    //     this.authorizedServiceCenter = authorizedServiceCenterList;
+    //     console.log(this.authorizedServiceCenter);
+    //   });
+    // }
 
 
-    right(){
-      this.noData = false;
-      this.leftFlag = false;
-      this.prev = this.prev+10;
-      console.log(this.prev);
-      console.log(this.next);
-      this.userService.getAuthorizedServiceCenterList()
-      .subscribe( authorizedServiceCenterList => {
-        console.log(this.authorizedServiceCenter)
-        if(authorizedServiceCenterList.statusCode==105){
-          this.rightFlag = true;
-          this.noData = true;
-        }
-        this.authorizedServiceCenter = authorizedServiceCenterList;
-        console.log(this.authorizedServiceCenter);
-      });
-    }
+    // right(){
+    //   this.noData = false;
+    //   this.leftFlag = false;
+    //   this.prev = this.prev+10;
+    //   console.log(this.prev);
+    //   console.log(this.next);
+    //   this.userService.getAuthorizedServiceCenterList()
+    //   .subscribe( authorizedServiceCenterList => {
+    //     console.log(this.authorizedServiceCenter)
+    //     if(authorizedServiceCenterList.statusCode==105){
+    //       this.rightFlag = true;
+    //       this.noData = true;
+    //     }
+    //     this.authorizedServiceCenter = authorizedServiceCenterList;
+    //     console.log(this.authorizedServiceCenter);
+    //   });
+    // }
 
 
     back(){
