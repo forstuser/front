@@ -15,9 +15,6 @@ export class AuthenticationService {
 
   constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
-    // reset login status
-    // this.authenticationService.logout();
-    // this.logout();
     Cookie.deleteAll();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
     

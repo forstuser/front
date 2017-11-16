@@ -350,15 +350,16 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
-        getCEJobList(BillType: Number) {
+        getCEJobList(BillType: Number,id) {
+                console.log(BillType,"bill type")
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&isCE=true', this.options)
+                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&assigned_to_ce='+id, this.options)
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
-        getQEJobList(BillType: Number) {
+        getQEJobList(BillType: Number,id) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?qe_status='+BillType+'&isQE=true', this.options)
+                return this.http.get(this.apiLink + 'api/jobs?qe_status='+BillType+'&assigned_to_qe='+id, this.options)
                         .map((response: Response) => response.json());
         }
         // discard job

@@ -28,9 +28,9 @@
       <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+prev }} </th>
-          <td *ngIf="userType==1 || userType==2">{{ bill.user.BillNo}}</td>
-          <td *ngIf="userType==3">{{ bill.qe.BillNo}}</td>
-          <td *ngIf="userType==4">{{ bill.ce.BillNo}}</td>
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.job_id}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.job_id}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.job_id}}</td>
           
           <td *ngIf="userType==1 || userType==2">{{ bill.user.full_name}}</td>
           <td *ngIf="userType==3">{{ bill.qe.full_name}}</td>
