@@ -295,7 +295,7 @@ export class UserService {
         // get authorized service center list
         getAuthorizedServiceCenterList() {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/servicecenters', this.options)
+                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset=100', this.options)
                         .map((response: Response) => response.json());
         }
         // Create authorized service center
