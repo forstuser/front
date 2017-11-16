@@ -622,6 +622,11 @@ export class CreateBillComponent implements OnInit {
     this.showProductForm = false;
     this.askMainCategory = false;
     this.billGeneralInfoEdit = false;
+    this.showWarrantyForm = false;
+    this.showAmcForm = false;
+    this.showInsuranceForm = false;
+    this.showRepairForm = false;
+
   }
   //********************************* Seller Functions***********************************//
 
