@@ -20,15 +20,15 @@ export class AddOfflineSellerComponent implements OnInit {
     this.offlineSellerForm = this.fb.group({
       'seller_name' : [null, Validators.required],
       'owner_name': '',
-      'gstin': [null, Validators.required],
+      'gstin': '',
       'pan_no':  '',
       'reg_no': '',
       'is_service':'',
       'is_onboarded':'',
       'address': '',
-      'city': [null, Validators.required],
-      'state': [null, Validators.required],
-      'pincode': [null, Validators.required],
+      'city': '',
+      'state': '',
+      'pincode': '',
       'latitude': '',
       'longitude': '',
       'url':'',
@@ -44,6 +44,10 @@ export class AddOfflineSellerComponent implements OnInit {
         console.log(res);
         alert('Offline Seller added succesfully');
         this.offlineSellerForm.reset();
+      },error=>{
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
     // function for avoid only space submit
