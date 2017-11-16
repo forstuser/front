@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./completed.component.css']
 })
 export class CompletedComponent implements OnInit {
-  imageLink: String = appConfig.imageUrl;
+  imageUrl: string = appConfig.apiUrl;
   showImageDialog = false;
   billId: number;
   billList: Bill;
@@ -42,7 +42,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is CE get list of new bills
-    else if (this.userType === 3) {
+    else if (this.userType === 4) {
       this.userservice.getCEJobList(5) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -50,7 +50,7 @@ export class CompletedComponent implements OnInit {
         });
     }
     // if userType is QE get list of new bills
-    else if (this.userType === 4) {
+    else if (this.userType === 3) {
       this.userservice.getQEBillList(5, this.prev, this.next) // completed = 5  refer api doc
         .subscribe(bill => {
           this.billList = bill;
@@ -149,18 +149,19 @@ export class CompletedComponent implements OnInit {
     this.imageIndex = 0;
     this.showImageDialog = true;
     this.loader = true;
-    console.log(req);
+    console.log(req,"reqqq");
     this.billId = req.BID;
     this.images = [];
     this.imageArray = [];
-    this.userservice.getJobByID(req.BID)
+    this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        console.log(res, "image");
-        this.imageArray = res.ImageList;
+        console.log(res, "images");
+        this.imageArray = res.data.copies;
+        console.log(this.imageArray);
+        console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
-        // console.log(this.imageArray);
-        for (let i of res.ImageList) {
-          this.images.push(this.imageLink + 'bills/' + i.ImageID + '/files')
+        for (let i of this.imageArray) {
+          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
         this.loader = false;
       })

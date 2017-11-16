@@ -209,7 +209,7 @@ export class NewComponent implements OnInit {
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+          this.images.push(this.imageUrl + 'api' + i.copyUrl)
         }
         console.log(this.images);
         this.loader = false;
@@ -227,7 +227,6 @@ export class NewComponent implements OnInit {
   nextImage() {
     if (this.imageIndex < this.imageArray.length - 1) {
       this.imageIndex = this.imageIndex + 1;
-      // console.log(this.imageIndex)
     }
     // console.log(this.imageIndex ,'next')
   }
@@ -253,6 +252,7 @@ export class NewComponent implements OnInit {
       comments: '',
     });
   }
+  
   discardBill(item: any) {
     console.log(item);
     this.userservice.discardConsumerJOB(item)
