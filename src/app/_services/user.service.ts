@@ -351,7 +351,7 @@ export class UserService {
         }
         // get CE JOB list
         getCEJobList(BillType: Number,id) {
-                console.log(BillType,"bill type")
+                console.log(BillType,id,"bill type")
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&assigned_to_ce='+id, this.options)
                         .map((response: Response) => response.json());
@@ -375,7 +375,7 @@ export class UserService {
                 console.log(task,"task")
                 this.getCSRF();
                 // const id=task['id']
-                const jobID = task['jobId'];
+                const jobID = task['BID'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
@@ -388,7 +388,7 @@ export class UserService {
         assignJobQE(task: any) {
                 console.log(task,"task")
                 this.getCSRF();
-                const jobID = task['jobId'];
+                const jobID = task['BID'];
                 const qeID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
