@@ -48,7 +48,7 @@ export class UnderProgressComponent implements OnInit {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
     this.userId=info.id;
-    // console.log("userType", this.userType)
+    console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
       'comments': '',
