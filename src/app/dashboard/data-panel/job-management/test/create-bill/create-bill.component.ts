@@ -93,10 +93,10 @@ export class CreateBillComponent implements OnInit {
     this.getDetailsOfJob();
   }
   ngAfterViewInit() {
-    $("#image").imgViewer2();
+    // $("#image").imgViewer2();
   }
   ngOnDestroy() {
-    $("#image").remove();
+    // $("#image").remove();
     // this.imageExist = false;
     console.log("destroy")
   }
@@ -108,6 +108,7 @@ export class CreateBillComponent implements OnInit {
         console.log('job details', this.jobDetails);
         this.userId = res.data.user_id;
         this.imageArray = res.data.copies;
+        console.log(this.imageArray,"image array")
         // console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
         console.log(this.imageArrayLength,"image length")
@@ -125,20 +126,21 @@ export class CreateBillComponent implements OnInit {
   }
   // prev image
   prevImage() {
-    $("#image").remove();
-    if (this.imageIndex > 0) {
+    // $("#image").remove();
+    if (this.imageIndex > 0 ) {
       this.imageIndex = this.imageIndex - 1;
-      $("#image").imgViewer2();
+
+      // $("#image").imgViewer2();
     }
   }
   // next image
   nextImage() {
     
       console.log(this.imageIndex ,'next')
-      $("#image").remove();
+      // $("#image").remove();
       if (this.imageIndex < this.imageArrayLength - 1) {
         this.imageIndex = this.imageIndex + 1;
-        $("#image").imgViewer2();
+        // $("#image").imgViewer2();
       }
   }
 
