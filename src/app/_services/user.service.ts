@@ -246,7 +246,7 @@ export class UserService {
         // get brand list
         getBrandList() {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands', this.options)
+                return this.http.get(this.apiLink + 'api/brands?status=1', this.options)
                         .map((response: Response) => response.json());
         }
         // Create Brand
