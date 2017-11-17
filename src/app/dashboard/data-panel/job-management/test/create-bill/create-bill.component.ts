@@ -82,6 +82,7 @@ export class CreateBillComponent implements OnInit {
   showRepairForm: boolean = false;
   showRepairEditForm:boolean = false;
   askMainCategoryEdit:boolean = false;
+  imagerotation:any;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -109,6 +110,7 @@ export class CreateBillComponent implements OnInit {
         this.imageArray = res.data.copies;
         // console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
+        console.log(this.imageArrayLength,"image length")
         if (this.imageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
         }
@@ -131,11 +133,17 @@ export class CreateBillComponent implements OnInit {
   }
   // next image
   nextImage() {
-    $("#image").remove();
-    if (this.imageIndex < this.imageArray.length - 1) {
-      this.imageIndex = this.imageIndex + 1;
-      $("#image").imgViewer2();
-    }
+    
+      console.log(this.imageIndex ,'next')
+      $("#image").remove();
+      if (this.imageIndex < this.imageArrayLength - 1) {
+        this.imageIndex = this.imageIndex + 1;
+        $("#image").imgViewer2();
+      }
+  }
+
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
   //**********************************Bill General Info**********************************//
 
