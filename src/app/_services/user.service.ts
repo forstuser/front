@@ -375,7 +375,7 @@ export class UserService {
                 console.log(task,"task")
                 this.getCSRF();
                 // const id=task['id']
-                const jobID = task['jobId'];
+                const jobID = task['BID'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
