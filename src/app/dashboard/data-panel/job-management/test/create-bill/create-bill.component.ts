@@ -426,15 +426,9 @@ export class CreateBillComponent implements OnInit {
   deleteWarr(req) {
     this.deleWarr = req.id;
   }
-<<<<<<< HEAD
-  deleteWarranty(req) {
-    this.userService.deleteWarranty(this.productId, this.deleWarr)
-      .subscribe(res => {
-=======
   deleteWarranty(){
     this.userService.deleteWarranty(this.productId,this.deleWarr)
       .subscribe(res=>{
->>>>>>> b672614afcca8f9bc03182ec5d9bd8f5dd7a18db
         console.log(res);
         alert("Warranty Deleted");
         this.getDetailsOfJob();
@@ -521,15 +515,9 @@ export class CreateBillComponent implements OnInit {
   deleteInsure(req) {
     this.delInsuranc = req.id;
   }
-<<<<<<< HEAD
-  deleteInsurance(req) {
-    this.userService.deleteInsurance(this.productId, this.delInsuranc)
-      .subscribe(res => {
-=======
   deleteInsurance(){
     this.userService.deleteInsurance(this.productId,this.delInsuranc)
       .subscribe(res=>{
->>>>>>> b672614afcca8f9bc03182ec5d9bd8f5dd7a18db
         console.log(res);
         alert("Insurance Deleted");
         this.getDetailsOfJob();
@@ -617,15 +605,9 @@ export class CreateBillComponent implements OnInit {
     this.delAmc = req.id;
 
   }
-<<<<<<< HEAD
-  deleteAmc(req) {
-    this.userService.deleteAmc(this.productId, this.delAmc)
-      .subscribe(res => {
-=======
   deleteAmc(){
     this.userService.deleteAmc(this.productId,this.delAmc)
       .subscribe(res=>{
->>>>>>> b672614afcca8f9bc03182ec5d9bd8f5dd7a18db
         console.log(res);
         alert("AMC Deleted");
         this.getDetailsOfJob();
@@ -711,15 +693,9 @@ export class CreateBillComponent implements OnInit {
     this.delRep = req.id;
 
   }
-<<<<<<< HEAD
-  deleteRepair(req) {
-    this.userService.deleteRepair(this.productId, this.delRep)
-      .subscribe(res => {
-=======
   deleteRepair(){
     this.userService.deleteRepair(this.productId,this.delRep)
       .subscribe(res=>{
->>>>>>> b672614afcca8f9bc03182ec5d9bd8f5dd7a18db
         console.log(res);
         alert("Repair Deleted");
         this.getDetailsOfJob();
