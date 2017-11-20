@@ -423,6 +423,11 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/bills/'+bill_id, data, this.options)
                 .map((response: Response) => response.json());
         }
+        deleteBill(billId) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/bills/'+billId, this.options)
+                        .map((response: Response) => response);
+        }
         createProduct(prod: any) {
                 this.getCSRF();
                 const billId = prod.billId;
