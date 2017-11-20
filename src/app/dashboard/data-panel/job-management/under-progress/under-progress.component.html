@@ -43,6 +43,7 @@
             <strong>Task Date: </strong>{{ bill.ce.created_at | date}}<br>
             <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.ce_status== 4">New</span>
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 5">Complete</span>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>            
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span><br><br>
             <span class="pull-right" *ngIf="bill.ce_status != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
                         <i class="material-icons">replay</i><span>Re-Assign</span></button>

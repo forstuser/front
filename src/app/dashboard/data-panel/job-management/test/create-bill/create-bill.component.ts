@@ -93,10 +93,10 @@ export class CreateBillComponent implements OnInit {
     this.getDetailsOfJob();
   }
   ngAfterViewInit() {
-    $("#image").imgViewer2();
+    // $("#image").imgViewer2();
   }
   ngOnDestroy() {
-    $("#image").remove();
+    // $("#image").remove();
     // this.imageExist = false;
     console.log("destroy")
   }
