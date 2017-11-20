@@ -789,10 +789,10 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let list of jobDetails?.warranties">
-                          <th><small>{{ list?.id }}</small></th>
-                          <th><small>{{ list?.product_id }}</small></th>
-                          <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteWarranty(list)"><i class="material-icons" >delete_forever</i></span></small></th>                          
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteWarranty(list)"><i class="material-icons" >delete_forever</i></span></small></th>                          
                       </tr>
                     </tbody>
                 </table>
@@ -813,10 +813,10 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let list of jobDetails?.insurances">
-                          <th><small>{{ list?.id }}</small></th>
-                          <th><small>{{ list?.product_id }}</small></th>
-                          <th><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteInsurance(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                    
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteInsurance(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                    
                       </tr>
                     </tbody>
                 </table>
@@ -839,10 +839,10 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let list of jobDetails?.amcs">
-                          <th><small>{{ list?.id }}</small></th>
-                          <th><small>{{ list?.product_id }}</small></th>
-                          <th><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteAmc(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteAmc(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
                         </tr>
                     </tbody>
                 </table>
@@ -863,10 +863,10 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let list of jobDetails?.repairs">
-                          <th><small>{{ list?.id }}</small></th>
-                          <th><small>{{ list?.product_id }}</small></th>
-                          <th><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteRepair(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteRepair(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
                         </tr>
                     </tbody>
                 </table>
