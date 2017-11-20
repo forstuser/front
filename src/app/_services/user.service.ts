@@ -397,6 +397,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+qeID, data, this.options)
                         .map((response: Response) => response.json());
         }
+        completeJobByAdmin(jobId:number,comment:string){
+                this.getCSRF();
+                const data = {'comments':comment};
+                return this.http.put(this.apiLink + 'api/jobs/'+jobId+'/complete',data, this.options)
+                .map((response: Response) => response.json());   
+        }
         getJobByID(billID: Number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
