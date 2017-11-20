@@ -512,38 +512,172 @@
       </div>
       <!-- Product Form End -->
 
-      <!-- Ask category  Edit Start -->
-      <div *ngIf="askMainCategoryEdit">
+      <!-- Product Form  Edit Start -->
+      <div *ngIf="productFormEdit">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-        <div class="row clearfix">
-          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Main Category</label>
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}" disabled>
-                <option value="">Select</option>
-                <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
-              </select>
+        <form #productForm="ngForm" (ngSubmit)="productEditFormData(productForm)">          
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Main Category</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="main_category_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
+                </select>
+              </div>
+            </div>
+          </div>  
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Category</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>  
-        <p></p>
-        <div class="row clearfix">
-          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Category</label>
-          </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-            <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}" disabled>
-                <option value="">Select</option>
-                <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
-              </select>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
+                <button class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+                <p></p>
+              </div>
+              <ng-template #elseBlock>
+                  <p> No Image Selected </p>
+                </ng-template>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Product Name</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="text" name="product_name" class="form-control" ngModel="{{productFormObjectForBind?.product_name}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Purchase Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="purchase_cost" class="form-control" ngModel="{{productFormObjectForBind?.purchase_cost}}">
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                    <input type="number" name="taxes" class="form-control" ngModel="{{productFormObjectForBind?.taxes}}">
+                </div>
+              </div>
+            </div>
+          </div>  
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Brand</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor = "let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div> 
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Colour</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="colour_id" ngModel="{{productFormObjectForBind?.colour_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor = "let list of colours?.data" value="{{list?.colour_id}}">{{ list?.colour_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div> 
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel="{{productFormObjectForBind?.seller_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor = "let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>  
+          <p></p>
+          <p class="font-small text-center"><b><u>Product Meta Data</u></b></p>
+          <div *ngFor="let form of catForm; let i = index">
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                  <label class="font-small">{{ form?.title}}</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group" *ngIf="form?.form_type == 1">
+                  <div class="form-line">
+                      <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                  </div>
+                </div>
+                <p></p>
+                <div class="form-group" *ngIf="form?.form_type == 2">
+                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <option value="">Select</option>
+                    <option *ngFor = "let list of form?.dropDowns" value="{{form?.id}}">{{ list?.title }}</option>
+                  </select>
+                </div>
+                <div class="form-group" *ngIf="form?.form_type == 3">
+                  <div class="form-line">
+                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="form?.form_type == 4">
+                  <div class="form-line">
+                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>  
+          <br>
+          <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-7">
+                <button class="btn bg-green btn-block btn-lg" type="submit">Update Product</button>
+            </div>
+          </div>   
+          <br>   
+        </form>  
       </div>
-      <!-- Ask Category Edit End -->
+      <!-- Product Form  Edit End -->
 
       <!-- Seller Form Start -->
       <div *ngIf="showSellerForm">
