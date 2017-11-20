@@ -397,6 +397,12 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+qeID, data, this.options)
                         .map((response: Response) => response.json());
         }
+        completeJobByAdmin(jobId:number,comment:string){
+                this.getCSRF();
+                const data = {'comments':comment};
+                return this.http.put(this.apiLink + 'api/jobs/'+jobId+'/complete',data, this.options)
+                .map((response: Response) => response.json());   
+        }
         getJobByID(billID: Number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
@@ -416,6 +422,11 @@ export class UserService {
                 const data = {'status_type':5}
                 return this.http.put(this.apiLink + 'api/bills/'+bill_id, data, this.options)
                 .map((response: Response) => response.json());
+        }
+        deleteBill(billId) {
+                this.getCSRF();             
+                return this.http.delete(this.apiLink + 'api/bills/'+billId, this.options)
+                        .map((response: Response) => response);
         }
         createProduct(prod: any) {
                 this.getCSRF();

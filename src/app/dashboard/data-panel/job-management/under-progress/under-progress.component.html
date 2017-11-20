@@ -26,7 +26,7 @@
           <th *ngIf="userType!=4">Quality Executive</th>
           <th *ngIf="userType!=4">View</th>
           <th *ngIf="userType!=4">Discard</th>
-          <th *ngIf="userType==4">Action</th>
+          <th *ngIf="userType!=3">Action</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of bills?.data; let i = index">
@@ -62,7 +62,8 @@
           </td>
           <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
           <td *ngIf="userType!=4"><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
-          <td *ngIf="userType==4"><span class="btn btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>          
+          <td *ngIf="userType==4"><span class="btn btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
+          <td *ngIf="userType<=2"><span class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
         </tr>
       </tbody>
     </table>
@@ -220,6 +221,26 @@
         <div class="row">
           <div class="col-md-12 text-right">
               <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>    
+          </div>
+        </div>
+      </div>
+    </modal-content>
+  </modal>
+  <modal #commentBox [closeOnOutsideClick]="true" modalClass="modal-md">
+    <modal-content>
+      <div class="body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="form-line">
+                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #commentInput>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">
+              <button class="btn bg-indigo btn-md btn-lg" type="submit" (click)="commentBoxDataAdmin(commentInput.value);commentBox.close()">Complete JOB</button>    
           </div>
         </div>
       </div>
