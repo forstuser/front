@@ -16,7 +16,9 @@
               <button class="btn btn-success btn-xs btn-block" (click)="selectImage()">Select</button>            
           </div>
           <div class="col-md-2">
-              <button class="btn btn-danger btn-xs btn-block">Download</button>            
+            <a href="{{images[imageIndex]}}" download style="text-decoration: none;">
+              <button class="btn btn-danger btn-xs btn-block">Download</button> 
+            </a>           
           </div>
           <div class="col-md-2">
               <button class="btn btn-info btn-xs btn-block" (click)="nextImage()">Next</button>            
