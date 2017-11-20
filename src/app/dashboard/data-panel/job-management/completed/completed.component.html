@@ -49,7 +49,7 @@
           <td *ngIf="userType==4">{{ bill.ce.updated_at | date}}</td>
 
           
-          <td *ngIf="userType==1 || userType==2">{{ bill.user.comments}}</td>
+          <td *ngIf="userType==1 || userType==2">{{ bill?.comments}}</td>
           <td *ngIf="userType==3">{{ bill.qe.comments}}</td>
           <td *ngIf="userType==4">{{ bill.ce.comments}}</td>
           
