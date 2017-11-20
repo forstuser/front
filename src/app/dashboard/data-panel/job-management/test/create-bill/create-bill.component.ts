@@ -93,7 +93,8 @@ export class CreateBillComponent implements OnInit {
   deleteAmcs:boolean=false;
   deleteInsurances:boolean=false;
   deleteWarrantyy:boolean=false;
-
+  deleteJob:boolean = false;
+  completeJobDialog:boolean=false;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -425,7 +426,7 @@ export class CreateBillComponent implements OnInit {
   deleteWarr(req){
     this.deleWarr=req.id;
   }
-  deleteWarranty(req){
+  deleteWarranty(){
     this.userService.deleteWarranty(this.productId,this.deleWarr)
       .subscribe(res=>{
         console.log(res);
@@ -514,7 +515,7 @@ export class CreateBillComponent implements OnInit {
   deleteInsure(req){
     this.delInsuranc=req.id;
   }
-  deleteInsurance(req){
+  deleteInsurance(){
     this.userService.deleteInsurance(this.productId,this.delInsuranc)
       .subscribe(res=>{
         console.log(res);
@@ -604,7 +605,7 @@ export class CreateBillComponent implements OnInit {
     this.delAmc=req.id;
 
   }
-  deleteAmc(req){
+  deleteAmc(){
     this.userService.deleteAmc(this.productId,this.delAmc)
       .subscribe(res=>{
         console.log(res);
@@ -692,7 +693,7 @@ export class CreateBillComponent implements OnInit {
     this.delRep=req.id;
 
   }
-  deleteRepair(req){
+  deleteRepair(){
     this.userService.deleteRepair(this.productId,this.delRep)
       .subscribe(res=>{
         console.log(res);
