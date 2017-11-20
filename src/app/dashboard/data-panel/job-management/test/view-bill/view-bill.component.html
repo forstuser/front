@@ -96,11 +96,42 @@
                   <button class="btn bg-orange btn-block btn-lg" (click)="reassignJobPopUp()"> Reassign Job</button>
               </div>
               <div class="col-md-4 ">
-                  <button class="btn bg-green btn-block btn-lg" (click)="completeJob()"> Complete Job</button>
+                  <button class="btn bg-green btn-block btn-lg" (click)="completeJobDialog=true;"> Complete Job</button>
               </div>
           </div>
           <br>
         </div>
+
+
+
+        <!--complete job popup -->
+        <app-dialog [(visible)]="completeJobDialog">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>Are You sure you want to complete the job?</h3>
+                  </div>
+                  
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      
+                      <button class="btn bg-green btn-block btn-lg" type="submit" (click)="completeJob();completeJobDialog=false;">YES</button>
+                  </div>
+                  <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                      <button class="btn bg-red btn-block btn-lg" type="submit" (click)="completeJobDialog=false;">NO</button>                      
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+                    </div>
+                  </div>
+            </div>
+          </app-dialog>
+
+
         <!-- JOB Details End -->
         <!-- Reassign Start -->
         <app-dialog [(visible)]="reassignDialog">

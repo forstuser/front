@@ -84,6 +84,16 @@ export class CreateBillComponent implements OnInit {
   showRepairEditForm:boolean = false;
   productFormEdit:boolean = false;
   imagerotation:any;
+  requestId:any;
+  deleWarr:any;
+  delInsuranc:any;
+  delAmc:any;
+  delRep:any;
+  deleteRepairs:boolean=false;
+  deleteAmcs:boolean=false;
+  deleteInsurances:boolean=false;
+  deleteWarrantyy:boolean=false;
+
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -214,6 +224,11 @@ export class CreateBillComponent implements OnInit {
   }
 
   //********************************* Product Functions***********************************//
+  deleteCall(req){
+    this.requestId=req.id
+    console.log(this.billId,"bill id")
+  }
+
   makeProduct(bill) {
     this.billId = bill.id;
     this.onlineSellerList();
@@ -222,8 +237,8 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = true;
     this.jobDetailsShow = false;
   }
-  deleteProduct(req){
-    this.userService.deleteProduct(this.billId,req.id)
+  deleteProduct(){
+    this.userService.deleteProduct(this.billId,this.requestId)
     .subscribe(res=>{
       console.log(res);
       alert("Product Deleted");
@@ -390,8 +405,12 @@ export class CreateBillComponent implements OnInit {
     this.addons = false;
     this.showWarrantyEditForm = true;
   }
+
+  deleteWarr(req){
+    this.deleWarr=req.id;
+  }
   deleteWarranty(req){
-    this.userService.deleteWarranty(this.productId,req.id)
+    this.userService.deleteWarranty(this.productId,this.deleWarr)
       .subscribe(res=>{
         console.log(res);
         alert("Warranty Deleted");
@@ -472,8 +491,11 @@ export class CreateBillComponent implements OnInit {
       this.addons = false;
       this.showInsuranceEditForm = true;
     }
+    deleteInsure(req){
+      this.delInsuranc=req.id;
+    }
     deleteInsurance(req){
-      this.userService.deleteInsurance(this.productId,req.id)
+      this.userService.deleteInsurance(this.productId,this.delInsuranc)
         .subscribe(res=>{
           console.log(res);
           alert("Insurance Deleted");
@@ -554,8 +576,12 @@ export class CreateBillComponent implements OnInit {
       this.addons = false;
       this.showAmcEditForm = true;
     }
+    deleteAMC(req){
+      this.delAmc=req.id;
+
+    }
     deleteAmc(req){
-      this.userService.deleteAmc(this.productId,req.id)
+      this.userService.deleteAmc(this.productId,this.delAmc)
         .subscribe(res=>{
           console.log(res);
           alert("AMC Deleted");
@@ -633,8 +659,13 @@ export class CreateBillComponent implements OnInit {
       this.addons = false;
       this.showRepairEditForm = true;
     }
+
+    deleteRep(req){
+      this.delRep=req.id;
+
+    }
     deleteRepair(req){
-      this.userService.deleteRepair(this.productId,req.id)
+      this.userService.deleteRepair(this.productId,this.delRep)
         .subscribe(res=>{
           console.log(res);
           alert("Repair Deleted");
