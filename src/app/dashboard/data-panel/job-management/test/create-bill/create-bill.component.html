@@ -73,7 +73,8 @@
                   <th><small>Name</small></th>
                   <th><small>Phone</small></th>
                   <th><small>Document Date</small></th>
-                  <th><small>Action</small></th>
+				  <th><small>Action</small></th>
+				  <th><small>Delete</small></th>
                 </tr>
               </thead>
               <tbody>
@@ -84,7 +85,8 @@
                   <th><small>{{ bill?.consumer_phone_no }}</small></th>
                   <th><small>{{ bill?.document_date | date }}</small></th>
                   <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="makeProduct(bill)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                </tr>
+				  <th><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteBill(bill?.id)"><i class="material-icons" >delete_forever</i></span></small></th>
+				</tr>
               </tbody>
             </table>
           </div>
