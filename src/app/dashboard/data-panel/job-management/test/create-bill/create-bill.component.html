@@ -1,34 +1,34 @@
 <div class="card">
   <div class="row clearfix">
-<!--**********************************************IMAGE****************************************** -->
+    <!--**********************************************IMAGE****************************************** -->
 
     <!-- Image Panel Start -->
     <div class="col-md-6">
       <p></p>
       <div class="row">
         <div class="col-md-2 col-md-offset-1">
-            <button class="btn btn-info btn-xs btn-block" *ngIf="imageArrayLength>1" (click)="prevImage()">Prev</button>            
+          <button class="btn btn-info btn-xs btn-block" *ngIf="imageArrayLength>1" (click)="prevImage()">Prev</button>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-warning btn-xs btn-warning" (click)="rotate()">Rotate</button>            
+          <button class="btn btn-warning btn-xs btn-warning" (click)="rotate()">Rotate</button>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-success btn-xs btn-block" (click)="selectImage()">Select</button>            
+          <button class="btn btn-success btn-xs btn-block" (click)="selectImage()">Select</button>
         </div>
         <div class="col-md-2">
-            <a href="{{images[imageIndex]}}" download style="text-decoration: none;"><button class="btn btn-danger btn-xs btn-block">Download</button></a>            
+          <a href="{{images[imageIndex]}}" download style="text-decoration: none;"><button class="btn btn-danger btn-xs btn-block">Download</button></a>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-info btn-xs btn-block" *ngIf="imageArrayLength>1" (click)="nextImage()">Next</button>            
+          <button class="btn btn-info btn-xs btn-block" *ngIf="imageArrayLength>1" (click)="nextImage()">Next</button>
         </div>
       </div>
-        <hr>
-        <p class="text-center">Image {{imageIndex+1}} of {{imageArrayLength}}</p>
+      <hr>
+      <p class="text-center">Image {{imageIndex+1}} of {{imageArrayLength}}</p>
       <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;">
         <tr>
           <td style="padding: 10px">
             <div align="center">
-              <img id="image" [src]="images[imageIndex]"  width="100%" style="border: 3px solid #555; padding:2px;" />
+              <img id="image" [src]="images[imageIndex]" width="100%" style="border: 3px solid #555; padding:2px;" />
               <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
             </div>
           </td>
@@ -37,7 +37,7 @@
     </div>
     <!-- Image Panel End -->
 
-<!--**********************************************DATA ****************************************** -->
+    <!--**********************************************DATA ****************************************** -->
     <div class="col-md-6">
       <!-- JOB Details Start -->
       <div *ngIf="jobDetailsShow">
@@ -51,131 +51,158 @@
             </div>
             <div class="col-md-6">
               <p><b>Email : </b>{{ jobDetails?.user?.email }}</p>
-              <p><b>Phone No : </b>{{ jobDetails?.user?.mobile_no  }}</p>
-              <p><b>Comments : </b>{{ jobDetails?.comments  }}</p>
+              <p><b>Phone No : </b>{{ jobDetails?.user?.mobile_no }}</p>
+              <p><b>Comments : </b>{{ jobDetails?.comments }}</p>
             </div>
           </div>
         </div>
         <br>
         <div class="card" *ngIf="jobDetails?.bills?.length > 0">
           <div class="header padding_fix">
-             <p><b>
+            <p><b>
                 Current JOB Bills
                 </b>
-             </p>
+            </p>
           </div>
           <div class="body table-responsive">
-             <table class="table table-condensed">
-                <thead>
-                   <tr>
-                      <th><small>Bill ID</small></th>
-                      <th><small>Doc Number</small></th>
-                      <th><small>Name</small></th>
-                      <th><small>Phone</small></th>
-                      <th><small>Document Date</small></th>
-                      <th><small>Action</small></th>
-                   </tr>
-                </thead>
-                <tbody>
-                   <tr *ngFor="let bill of jobDetails?.bills">
-                      <th><small>{{ bill?.id }}</small></th>
-                      <th><small>{{ bill?.document_number }}</small></th>
-                      <th><small>{{ bill?.consumer_name }}</small></th>
-                      <th><small>{{ bill?.consumer_phone_no }}</small></th>
-                      <th><small>{{ bill?.document_date | date }}</small></th>
-                      <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="makeProduct(bill)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                   </tr>
-                </tbody>
-             </table>
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th><small>Bill ID</small></th>
+                  <th><small>Doc Number</small></th>
+                  <th><small>Name</small></th>
+                  <th><small>Phone</small></th>
+                  <th><small>Document Date</small></th>
+                  <th><small>Action</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let bill of jobDetails?.bills">
+                  <th><small>{{ bill?.id }}</small></th>
+                  <th><small>{{ bill?.document_number }}</small></th>
+                  <th><small>{{ bill?.consumer_name }}</small></th>
+                  <th><small>{{ bill?.consumer_phone_no }}</small></th>
+                  <th><small>{{ bill?.document_date | date }}</small></th>
+                  <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="makeProduct(bill)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                </tr>
+              </tbody>
+            </table>
           </div>
-       </div>
+        </div>
         <br>
         <div class="row clearfix">
-            <div class="col-md-4">
-              <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">User Product List</button>
-            </div>
-            <div class="col-md-4">
-              <button class="btn bg-indigo btn-block btn-lg" (click)="openBillForm()">Add New Bill</button>
-            </div>
-            <div class="col-md-4">
-                <button class="btn bg-green btn-block btn-lg" (click)="completeJob()"> Complete Job</button>
-            </div>
+          <div class="col-md-4">
+            <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">User Product List</button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn bg-indigo btn-block btn-lg" (click)="openBillForm()">Add New Bill</button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn bg-green btn-block btn-lg" (click)="completeJobDialog=true;"> Complete Job</button>
+          </div>
         </div>
       </div>
       <!-- JOB Details End -->
+
+      <!--complete job popup -->
+      <app-dialog [(visible)]="completeJobDialog">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h3>Are You sure you want to complete the job?</h3>
+            </div>
+
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+              <button class="btn bg-green btn-block btn-lg" type="submit" (click)="completeJob();completeJobDialog=false;">YES</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <button class="btn bg-red btn-block btn-lg" type="submit" (click)="completeJobDialog=false;">NO</button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+            </div>
+          </div>
+        </div>
+      </app-dialog>
 
       <!-- BILL General Info Start-->
       <div *ngIf="billGeneralInfo">
         <form #billGeneralInfoForm="ngForm" (ngSubmit)="billGeneralInfoFormData(billGeneralInfoForm)">
           <h4>
-              <u>Bill</u>
-              <u>General</u>
-              <u>Information </u>
-          </h4> 
+            <u>Bill</u>
+            <u>General</u>
+            <u>Information </u>
+          </h4>
           <div style="border: 1px solid grey;padding:30px">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Name</label>
+                <label class="font-small">Name</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                      <input type="text" name="consumer_name" class="form-control" ngModel="{{jobDetails?.user?.full_name}}">
-                  </div>
-                </div>
-              </div>
-            </div> 
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Phone</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{jobDetails?.user?.mobile_no}}">
-                  </div>
-                </div>
-              </div>
-            </div> 
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Email</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" name="consumer_email" class="form-control" ngModel="{{ jobDetails?.user?.email}}">
-                  </div>
-                </div>
-              </div>
-            </div>  
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Document Number</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" name="document_number" class="form-control" ngModel>
+                    <input type="text" name="consumer_name" class="form-control" ngModel="{{jobDetails?.user?.full_name}}">
                   </div>
                 </div>
               </div>
             </div>
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small"><span style="color:red">*</span> Document Date</label>
+                <label class="font-small">Phone</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                      <input type="date" name="document_date" class="form-control" ngModel>
+                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{jobDetails?.user?.mobile_no}}">
                   </div>
                 </div>
               </div>
             </div>
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Online Seller</label>
+                <label class="font-small">Email</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ jobDetails?.user?.email}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Number</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" name="document_number" class="form-control" ngModel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small"><span style="color:red">*</span> Document Date</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="date" name="document_date" class="form-control" ngModel>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Online Seller</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
@@ -185,24 +212,24 @@
                   </select>
                 </div>
               </div>
-            </div>  
+            </div>
             <br>
             <div class="row clearfix">
               <div class="col-md-4 col-md-offset-3">
-                  <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backTojobDetailsShow()">Back</button>
+                <button class="btn bg-orange btn-block btn-lg" type="button" (click)="backTojobDetailsShow()">Back</button>
               </div>
               <div class="col-md-4">
-                  <button class="btn bg-green btn-block btn-lg" type="submit">Create Bill</button>
+                <button class="btn bg-green btn-block btn-lg" type="submit">Create Bill</button>
               </div>
-            </div> 
-          </div>   
+            </div>
+          </div>
         </form>
       </div>
       <!-- BILL General Info End-->
 
       <!-- Product Buttons Start -->
       <div *ngIf="cockpit">
-          <p></p>
+        <p></p>
         <div class="row clearfix">
           <div class="col-md-3">
             <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
@@ -211,115 +238,140 @@
             <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Bill General Info</button>
           </div>
           <div class="col-md-3">
-              <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
+            <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
           </div>
           <div class="col-md-3">
-              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
           </div>
         </div>
-        <div  *ngIf="jobDetails?.products?.length > 0">
+        <div *ngIf="jobDetails?.products?.length > 0">
           <div class="body table-responsive" style="padding-bottom:0px;">
             <table class="table table-condensed">
-                <thead>
-                  <tr>
-                      <th><small>Bill ID</small></th>
-                      <th><small>Product ID</small></th>
-                      <th><small>Name</small></th>
-                      <th><small>Purchase Cost</small></th>
-                      <th><small>Document Date</small></th>
-                      <th><small>Create</small></th>
-                      <th><small>Delete</small></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let list of jobDetails?.products">
-                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.bill_id }}</small></th>
-                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.id }}</small></th>
-                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.product_name }}</small></th>
-                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.purchase_cost }}</small></th>
-                      <th *ngIf="list?.bill_id==billId"><small>{{ list?.document_date | date }}</small></th>
-                      <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                      <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteProduct(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
-                  </tr>
-                </tbody>
+              <thead>
+                <tr>
+                  <th><small>Bill ID</small></th>
+                  <th><small>Product ID</small></th>
+                  <th><small>Name</small></th>
+                  <th><small>Purchase Cost</small></th>
+                  <th><small>Document Date</small></th>
+                  <th><small>Create</small></th>
+                  <th><small>Delete</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of jobDetails?.products">
+                  <th *ngIf="list?.bill_id==billId"><small>{{ list?.bill_id }}</small></th>
+                  <th *ngIf="list?.bill_id==billId"><small>{{ list?.id }}</small></th>
+                  <th *ngIf="list?.bill_id==billId"><small>{{ list?.product_name }}</small></th>
+                  <th *ngIf="list?.bill_id==billId"><small>{{ list?.purchase_cost }}</small></th>
+                  <th *ngIf="list?.bill_id==billId"><small>{{ list?.document_date | date }}</small></th>
+                  <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                  <th *ngIf="list?.bill_id==billId"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
       </div>
       <!-- Product Buttons End -->
-      
+      <!--delete job popup -->
+      <app-dialog [(visible)]="deleteJob">
+        <div class="modal-header">
+        </div>
+        <div class="modal-body">
+          <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h3>Are You sure you want to delete the job?</h3>
+            </div>
+
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+              <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteProduct();deleteJob=false;">YES</button>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+              <button class="btn bg-red btn-block btn-lg" type="submit" (click)="deleteJob=false;">NO</button>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+            </div>
+          </div>
+        </div>
+      </app-dialog>
       <!-- BILL General Info Edit Start-->
       <div *ngIf="billGeneralInfoEdit">
         <form #billGeneralInfoEditForm="ngForm" (ngSubmit)="billGeneralInfoEditFormData(billGeneralInfoEditForm)">
           <h4>
-              <u>Bill</u>
-              <u>General</u>
-              <u>Information </u>
-          </h4> 
+            <u>Bill</u>
+            <u>General</u>
+            <u>Information </u>
+          </h4>
           <div style="border: 1px solid grey;padding:30px">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Name</label>
+                <label class="font-small">Name</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                      <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}">
-                  </div>
-                </div>
-              </div>
-            </div> 
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Phone</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}">
-                  </div>
-                </div>
-              </div>
-            </div> 
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Email</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}">
-                  </div>
-                </div>
-              </div>
-            </div>  
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Document Number</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}">
-                  </div>
-                </div>
-              </div>
-            </div>            
-            <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small"><span style="color:red">*</span> Document Date</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <div class="form-line">
-                      <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                    <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}">
                   </div>
                 </div>
               </div>
             </div>
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">Online Seller</label>
+                <label class="font-small">Phone</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Email</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Document Number</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small"><span style="color:red">*</span> Document Date</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <div class="form-line">
+                    <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Online Seller</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
@@ -329,48 +381,48 @@
                   </select>
                 </div>
               </div>
-            </div>  
+            </div>
             <br>
             <div class="row clearfix">
               <div class="col-md-4 col-md-offset-4">
-                  <button class="btn bg-green btn-block btn-lg" type="submit">Update Bill</button>
+                <button class="btn bg-green btn-block btn-lg" type="submit">Update Bill</button>
               </div>
-            </div> 
-          </div>   
+            </div>
+          </div>
         </form>
       </div>
       <!-- BILL General Info Edit End-->
 
       <!-- Ask category Start -->
-        <div *ngIf="askMainCategory">
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Main Category</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel>
+      <div *ngIf="askMainCategory">
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+            <label class="font-small">Main Category</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel>
                   <option value="">Select</option>
                   <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
                 </select>
-              </div>
             </div>
-          </div>  
-          <p></p>
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Category</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel>
+          </div>
+        </div>
+        <p></p>
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+            <label class="font-small">Category</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel>
                   <option value="">Select</option>
                   <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
                 </select>
-              </div>
             </div>
-          </div>  
+          </div>
         </div>
+      </div>
       <!-- Ask Category End -->
 
       <!-- Product Form Start -->
@@ -378,7 +430,7 @@
         <form #productForm="ngForm" (ngSubmit)="productFormData(productForm)">
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
@@ -386,50 +438,50 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Product Name</label>
+              <label class="font-small">Product Name</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="product_name" class="form-control" ngModel>
+                  <input type="text" name="product_name" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Purchase Cost</label>
+              <label class="font-small">Purchase Cost</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="purchase_cost" class="form-control" ngModel>
+                  <input type="number" name="purchase_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Taxes</label>
+              <label class="font-small">Taxes</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="taxes" class="form-control" ngModel>
+                  <input type="number" name="taxes" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Brand</label>
+              <label class="font-small">Brand</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -439,11 +491,11 @@
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Colour</label>
+              <label class="font-small">Colour</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -453,11 +505,11 @@
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -473,12 +525,12 @@
           <div *ngFor="let form of catForm">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">{{ form?.title}}</label>
+                <label class="font-small">{{ form?.title}}</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                      <input type="text" name="{{form?.id}}" class="form-control" ngModel>
+                    <input type="text" name="{{form?.id}}" class="form-control" ngModel>
                   </div>
                 </div>
                 <p></p>
@@ -500,14 +552,14 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
           <br>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Create Product</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Create Product</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Product Form End -->
@@ -515,10 +567,10 @@
       <!-- Product Form  Edit Start -->
       <div *ngIf="productFormEdit">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-        <form #productForm="ngForm" (ngSubmit)="productEditFormData(productForm)">          
+        <form #productForm="ngForm" (ngSubmit)="productEditFormData(productForm)">
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Main Category</label>
+              <label class="font-small">Main Category</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -528,11 +580,11 @@
                 </select>
               </div>
             </div>
-          </div>  
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Category</label>
+              <label class="font-small">Category</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -545,7 +597,7 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
@@ -553,50 +605,50 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Product Name</label>
+              <label class="font-small">Product Name</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="product_name" class="form-control" ngModel="{{productFormObjectForBind?.product_name}}">
+                  <input type="text" name="product_name" class="form-control" ngModel="{{productFormObjectForBind?.product_name}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Purchase Cost</label>
+              <label class="font-small">Purchase Cost</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="purchase_cost" class="form-control" ngModel="{{productFormObjectForBind?.purchase_cost}}">
+                  <input type="number" name="purchase_cost" class="form-control" ngModel="{{productFormObjectForBind?.purchase_cost}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Taxes</label>
+              <label class="font-small">Taxes</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="taxes" class="form-control" ngModel="{{productFormObjectForBind?.taxes}}">
+                  <input type="number" name="taxes" class="form-control" ngModel="{{productFormObjectForBind?.taxes}}">
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Brand</label>
+              <label class="font-small">Brand</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -606,11 +658,11 @@
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Colour</label>
+              <label class="font-small">Colour</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -620,11 +672,11 @@
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -640,12 +692,12 @@
           <div *ngFor="let form of catForm; let i = index">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                  <label class="font-small">{{ form?.title}}</label>
+                <label class="font-small">{{ form?.title}}</label>
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                      <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <p></p>
@@ -667,22 +719,24 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
           <br>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Update Product</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Update Product</button>
             </div>
-          </div>   
-          <br>   
-        </form>  
+          </div>
+          <br>
+        </form>
       </div>
       <!-- Product Form  Edit End -->
 
       <!-- Seller Form Start -->
       <div *ngIf="showSellerForm">
         <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
-          <h4 class="text-center"><u>Offline Seller</u></h4>
+          <h4 class="text-center">
+            <u>Offline Seller</u>
+          </h4>
           <h4>
             <u><small>Information </small></u>
           </h4>
@@ -694,7 +748,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="seller_name" class="form-control"  (keyup)="avoidSpace('seller_name')">
+                  <input type="text" formControlName="seller_name" class="form-control" (keyup)="avoidSpace('seller_name')">
                 </div>
               </div>
             </div>
@@ -748,14 +802,14 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <select class="form-control dropdown" formControlName="is_service">
+                  <select class="form-control dropdown" formControlName="is_service">
                         <option [ngValue]="true" class="font-small"> Yes</option>
                         <option [ngValue]="false" class="font-small"> No</option>
-                    </select>          
+                    </select>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Is Onboarded?</label>
@@ -766,7 +820,7 @@
                   <select class="form-control dropdown" formControlName="is_onboarded">
                     <option [ngValue]="true" class="font-small"> Yes</option>
                     <option [ngValue]="false" class="font-small"> No</option>
-                  </select>   
+                  </select>
                 </div>
               </div>
             </div>
@@ -781,7 +835,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="address" class="form-control"  (keyup)="avoidSpace('address')">
+                  <input type="text" formControlName="address" class="form-control" (keyup)="avoidSpace('address')">
                 </div>
               </div>
             </div>
@@ -791,7 +845,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="city" class="form-control"  (keyup)="avoidSpace('city')">
+                  <input type="text" formControlName="city" class="form-control" (keyup)="avoidSpace('city')">
                 </div>
               </div>
             </div>
@@ -857,7 +911,7 @@
             <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" formControlName="email" class="form-control"  (keyup)="avoidSpace('email')">
+                  <input type="text" formControlName="email" class="form-control" (keyup)="avoidSpace('email')">
                 </div>
               </div>
             </div>
@@ -885,7 +939,7 @@
       <!-- Seller Form End -->
       <!-- Addons Buttons Start -->
       <div *ngIf="addons">
-          <p></p>
+        <p></p>
         <div class="row clearfix">
           <div class="col-md-6">
             <button class="btn btn-block btn-xs bg-orange waves-effect m-b-15" (click)="backToCockpit()">Back</button>
@@ -896,117 +950,129 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-3">
-              <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddWarrantyForm()">Add Warranty</button>
+            <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddWarrantyForm()">Add Warranty</button>
           </div>
           <div class="col-md-3">
-              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddInsuranceForm()">Add Insurance</button>
+            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddInsuranceForm()">Add Insurance</button>
           </div>
           <div class="col-md-3">
-              <button class="btn bg-indigo btn-xs btn-block waves-effect m-b-15" (click)="showAddAmcForm()">Add AMC</button>
+            <button class="btn bg-indigo btn-xs btn-block waves-effect m-b-15" (click)="showAddAmcForm()">Add AMC</button>
           </div>
           <div class="col-md-3">
-              <button class="btn bg-red btn-xs btn-block waves-effect m-b-15" (click)="showAddRepairForm()">Add Repair</button>
+            <button class="btn bg-red btn-xs btn-block waves-effect m-b-15" (click)="showAddRepairForm()">Add Repair</button>
           </div>
         </div>
         <div class="row clearfix">
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div  *ngIf="jobDetails?.warranties?.length > 0">
+            <div *ngIf="jobDetails?.warranties?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
-                    <thead>
-                      <tr>
-                          <th><small>Warranty ID</small></th>
-                          <th><small>Product ID</small></th>
-                          <th><small>Add</small></th>
-                          <th><small>Delete</small></th>                          
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let list of jobDetails?.warranties">
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteWarranty(list)"><i class="material-icons" >delete_forever</i></span></small></th>                          
-                      </tr>
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th><small>Warranty ID</small></th>
+                      <th><small>Product ID</small></th>
+                      <th><small>Add</small></th>
+                      <th><small>Delete</small></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of jobDetails?.warranties">
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteWarr(list);deleteWarrantyy=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
+
+
+
+
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div  *ngIf="jobDetails?.insurances?.length > 0">
+            <div *ngIf="jobDetails?.insurances?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
-                    <thead>
-                      <tr>
-                          <th><small>Insurance ID</small></th>
-                          <th><small>Product ID</small></th>
-                          <th><small>Add</small></th>
-                          <th><small>Delete</small></th> 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let list of jobDetails?.insurances">
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteInsurance(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                    
-                      </tr>
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th><small>Insurance ID</small></th>
+                      <th><small>Product ID</small></th>
+                      <th><small>Add</small></th>
+                      <th><small>Delete</small></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of jobDetails?.insurances">
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteInsure(list);deleteInsurancestrue;"><i class="material-icons" >delete_forever</i></span></small></th>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
+
+
         </div>
         <div class="row clearfix">
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div  *ngIf="jobDetails?.amcs?.length > 0">
+            <div *ngIf="jobDetails?.amcs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
-                    <thead>
-                      <tr>
-                          <th><small>AMC <br>ID</small></th>
-                          <th><small>Product ID</small></th>
-                          <th><small>Add</small></th>
-                          <th><small>Delete</small></th> 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let list of jobDetails?.amcs">
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteAmc(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
-                        </tr>
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th><small>AMC <br>ID</small></th>
+                      <th><small>Product ID</small></th>
+                      <th><small>Add</small></th>
+                      <th><small>Delete</small></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of jobDetails?.amcs">
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteAMC(list);deleteAmcs=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
+
+
+
+
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div  *ngIf="jobDetails?.repairs?.length > 0">
+            <div *ngIf="jobDetails?.repairs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
-                    <thead>
-                      <tr>
-                          <th><small>Repair ID</small></th>
-                          <th><small>Product ID</small></th>
-                          <th><small>Add</small></th>
-                          <th><small>Delete</small></th> 
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let list of jobDetails?.repairs">
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-                          <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteRepair(list)"><i class="material-icons" >delete_forever</i></span></small></th>                                                                              
-                        </tr>
-                    </tbody>
+                  <thead>
+                    <tr>
+                      <th><small>Repair ID</small></th>
+                      <th><small>Product ID</small></th>
+                      <th><small>Add</small></th>
+                      <th><small>Delete</small></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of jobDetails?.repairs">
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                      <th *ngIf="list?.product_id==productId"><small><span class="btn btn-danger btn-xs"  title="Warranty Info" (click)="deleteRep(list);deleteRepairs=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
+
+
         </div>
       </div>
       <!-- Addons Buttons End -->
@@ -1018,7 +1084,7 @@
           <p class="badge bg-teal">Warranty</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedWarrantyImageArray?.length > 0;else elseBlock">
@@ -1026,61 +1092,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel>
+                  <input type="text" name="document_number" class="form-control" ngModel>
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1098,32 +1164,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel>
+                  <input type="date" name="effective_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel>
+                  <input type="date" name="expiry_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1137,7 +1203,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1151,10 +1217,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Warranty Form End -->
@@ -1167,7 +1233,7 @@
           <p class="badge bg-teal">Warranty</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditWarrantyImageArray?.length > 0;else elseBlock">
@@ -1175,61 +1241,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_number}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_cost}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_taxes}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_number}}">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_cost}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_taxes}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1247,32 +1313,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1286,7 +1352,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1300,10 +1366,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Update Warranty</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Update Warranty</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Warranty Edit Form End -->
@@ -1315,7 +1381,7 @@
           <p class="badge bg-pink">Insurance</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedInsuranceImageArray?.length > 0;else elseBlock">
@@ -1323,61 +1389,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel>
+                  <input type="text" name="document_number" class="form-control" ngModel>
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1395,32 +1461,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel>
+                  <input type="date" name="effective_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel>
+                  <input type="date" name="expiry_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1434,7 +1500,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1448,10 +1514,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Add Insurance</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Insurance Form End -->
@@ -1464,7 +1530,7 @@
           <p class="badge bg-pink">Insurance</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditInsuranceImageArray?.length > 0;else elseBlock">
@@ -1472,61 +1538,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_cost}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_taxes}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_cost}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_taxes}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1544,32 +1610,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1583,7 +1649,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1597,10 +1663,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Update Insurance</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Update Insurance</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Insurance Edit Form End -->
@@ -1612,7 +1678,7 @@
           <p class="badge bg-indigo">AMC</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedAmcImageArray?.length > 0;else elseBlock">
@@ -1620,61 +1686,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel>
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel>
+                  <input type="text" name="document_number" class="form-control" ngModel>
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1692,32 +1758,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel>
+                  <input type="date" name="effective_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel>
+                  <input type="date" name="expiry_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1731,7 +1797,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1745,10 +1811,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Add AMC</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- AMC Form End -->
@@ -1761,7 +1827,7 @@
           <p class="badge bg-indigo">AMC</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditAmcImageArray?.length > 0;else elseBlock">
@@ -1769,61 +1835,61 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{amcFormObjectForBind?.document_number}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Cost</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_cost" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_cost}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Taxes</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="number" name="renewal_taxes" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_taxes}}">
-                </div>
-              </div>
-            </div>
-          </div> 
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{amcFormObjectForBind?.document_number}}">
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Renewal Type</label>
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_cost}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_taxes}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1841,32 +1907,32 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Effective Date</label>
+              <label class="font-small">Effective Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Expiry Date</label>
+              <label class="font-small">Expiry Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
-          </div>   
+          </div>
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1880,7 +1946,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1894,10 +1960,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Update AMC</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Update AMC</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- AMC Edit Form End -->
@@ -1909,7 +1975,7 @@
           <p class="badge bg-red">Repair</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedRepairImageArray?.length > 0;else elseBlock">
@@ -1917,54 +1983,54 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel>
+                  <input type="text" name="document_number" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Repair Cost</label>
+              <label class="font-small">Repair Cost</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="repair_cost" class="form-control" ngModel>
+                  <input type="number" name="repair_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Repair Taxes</label>
+              <label class="font-small">Repair Taxes</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="repair_taxes" class="form-control" ngModel>
+                  <input type="number" name="repair_taxes" class="form-control" ngModel>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
+              <label class="font-small">Document Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel>
+                  <input type="date" name="document_date" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -1972,7 +2038,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1986,7 +2052,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -2000,10 +2066,10 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Add Repair</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Repair Form End -->
@@ -2016,7 +2082,7 @@
           <p class="badge bg-red">Repair</p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Image</label>
+              <label class="font-small">Image</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditRepairImageArray?.length > 0;else elseBlock">
@@ -2024,54 +2090,54 @@
                 <p></p>
               </div>
               <ng-template #elseBlock>
-                  <p> No Image Selected </p>
-                </ng-template>
+                <p> No Image Selected </p>
+              </ng-template>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Number</label>
+              <label class="font-small">Document Number</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{repairFormObjectForBind?.document_number}}">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{repairFormObjectForBind?.document_number}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Repair Cost</label>
+              <label class="font-small">Repair Cost</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="repair_cost" class="form-control" ngModel="{{repairFormObjectForBind?.repair_cost}}">
+                  <input type="number" name="repair_cost" class="form-control" ngModel="{{repairFormObjectForBind?.repair_cost}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Repair Taxes</label>
+              <label class="font-small">Repair Taxes</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="number" name="repair_taxes" class="form-control" ngModel="{{repairFormObjectForBind?.repair_taxes}}">
+                  <input type="number" name="repair_taxes" class="form-control" ngModel="{{repairFormObjectForBind?.repair_taxes}}">
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Document Date</label>
+              <label class="font-small">Document Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
                 </div>
               </div>
             </div>
@@ -2079,7 +2145,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Offline Seller</label>
+              <label class="font-small">Offline Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -2093,7 +2159,7 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Online Seller</label>
+              <label class="font-small">Online Seller</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -2107,13 +2173,120 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
-                <button class="btn bg-green btn-block btn-lg" type="submit">Update Repair</button>
+              <button class="btn bg-green btn-block btn-lg" type="submit">Update Repair</button>
             </div>
-          </div>   
-          <br>   
+          </div>
+          <br>
         </form>
       </div>
       <!-- Repair Edit Form End -->
     </div>
   </div>
 </div>
+
+
+<app-dialog [(visible)]="deleteWarrantyy">
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Are You sure you want to delete the Warranty?</h3>
+      </div>
+
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+        <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteWarranty();deleteWarrantyy=false;">YES</button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <button class="btn bg-red btn-block btn-lg" type="submit" (click)="deleteWarrantyy=false;">NO</button>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+      </div>
+    </div>
+  </div>
+</app-dialog>
+
+
+<app-dialog [(visible)]="deleteInsurances">
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Are You sure you want to delete the Insurance?</h3>
+      </div>
+
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+        <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteInsurance();deleteInsurances=false;">YES</button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <button class="btn bg-red btn-block btn-lg" type="submit" (click)="deleteInsurances=false;">NO</button>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+      </div>
+    </div>
+  </div>
+</app-dialog>
+
+
+<app-dialog [(visible)]="deleteAmcs">
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Are You sure you want to delete the AMC?</h3>
+      </div>
+
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+        <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteAmc();deleteAmcs=false;">YES</button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <button class="btn bg-red btn-block btn-lg" type="submit" (click)="deleteAmcs=false;">NO</button>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+      </div>
+    </div>
+  </div>
+</app-dialog>
+
+<app-dialog [(visible)]="deleteRepairs">
+  <div class="modal-header">
+  </div>
+  <div class="modal-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h3>Are You sure you want to delete the Repair?</h3>
+      </div>
+
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+        <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteRepair();deleteRepairs=false;">YES</button>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+        <button class="btn bg-red btn-block btn-lg" type="submit" (click)="deleteRepairs=false;">NO</button>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-offset-4 col-xs-4">
+      </div>
+    </div>
+  </div>
+</app-dialog>
