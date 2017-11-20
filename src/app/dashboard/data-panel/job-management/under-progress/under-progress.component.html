@@ -48,15 +48,15 @@
                         <i class="material-icons">replay</i><span>Re-Assign</span></button>
             </span>
           </td>
-          <td *ngIf="userType!=4"><span *ngIf="bill.qe_status != null"><strong>Name : </strong>{{ bill.qe.full_name}}<br>
-                    <strong>Email ID : </strong>{{ bill.qe.email}}<br>
-                    <strong>Task Date: </strong>{{ bill.qe.created_at | date}}<br>
+          <td *ngIf="userType!=4"><span *ngIf="bill.qe_status == 4 || bill.qe_status==5"><strong>Name : </strong>{{ bill.qe?.full_name}}<br>
+                    <strong>Email ID : </strong>{{ bill.qe?.email}}<br>
+                    <strong>Task Date: </strong>{{ bill.qe?.created_at | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
                                               <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
                                               <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
                                             </span><br><br>
-            <span *ngIf="bill.qe_status == 4"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
-                        <i class="material-icons">done</i><span>Re Assign</span></button>
+            <span *ngIf="bill.ce_status == 5 && bill.qe_status !=5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
+                        <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
             </span>
           </td>
           <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>

@@ -246,7 +246,7 @@ export class UserService {
         // get brand list
         getBrandList() {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands', this.options)
+                return this.http.get(this.apiLink + 'api/brands?status=1', this.options)
                         .map((response: Response) => response.json());
         }
         // Create Brand
@@ -375,7 +375,7 @@ export class UserService {
                 console.log(task,"task")
                 this.getCSRF();
                 // const id=task['id']
-                const jobID = task['jobId'];
+                const jobID = task['BID'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];

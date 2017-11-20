@@ -243,7 +243,7 @@ export class NewComponent implements OnInit {
     this.userservice.getUserList(4) // 4 for ce refer to api doc
       .subscribe(users => {
         this.users = users;
-        // console.log(users,"users");
+        console.log(users,"users");
       });
   }
   // opn model for discard bills
