@@ -294,4 +294,25 @@ export class UnderProgressComponent implements OnInit {
           });
       })
   }
+  getJobId(jid:number){
+    this.jobId = jid;
+  }
+  // complete job by admin 
+  commentBoxDataAdmin(comment:string){
+    console.log(comment);
+      this.userservice.completeJobByAdmin(this.jobId,comment)
+        .subscribe(res=>{
+          console.log(res)
+          alert("JOB Complete !! Enjoy !!");
+          this.userservice.getAdminJobList(8) // under progress = 8 refer api doc
+          .subscribe(bills => {
+            this.bills = bills;
+            console.log(this.bills);
+          });
+        },(err)=>{
+          console.log(err);
+          const errMsg = JSON.parse(err['_body']);
+          alert(errMsg.reason);
+        })
+  }
 }
