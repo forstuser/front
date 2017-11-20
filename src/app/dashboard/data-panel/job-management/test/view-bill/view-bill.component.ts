@@ -86,10 +86,10 @@ export class ViewBillComponent implements OnInit {
     this.getDetailsOfJob();
   }
   ngAfterViewInit() {
-    $("#image").imgViewer2();
+    // $("#image").imgViewer2();
   }
   ngOnDestroy() {
-    $("#image").remove();
+    // $("#image").remove();
     // this.imageExist = false;
     console.log("destroy")
   }
@@ -117,18 +117,18 @@ export class ViewBillComponent implements OnInit {
   }
   // prev image
   prevImage() {
-    $("#image").remove();
+    // $("#image").remove();
     if (this.imageIndex > 0) {
       this.imageIndex = this.imageIndex - 1;
-      $("#image").imgViewer2();
+      // $("#image").imgViewer2();
     }
   }
   // next image
   nextImage() {
-    $("#image").remove();
+    // $("#image").remove();
     if (this.imageIndex < this.imageArray.length - 1) {
       this.imageIndex = this.imageIndex + 1;
-      $("#image").imgViewer2();
+      // $("#image").imgViewer2();
     }
   }
   //**********************************Bill General Info**********************************//
@@ -163,6 +163,8 @@ export class ViewBillComponent implements OnInit {
     },
     (error) => {
       console.log(error);
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
     })
   }
   // reassignjob
