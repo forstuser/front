@@ -526,9 +526,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let list of jobDetails?.warranties">
-                            <th><small>{{ list?.id }}</small></th>
-                            <th><small>{{ list?.product_id }}</small></th>
-                            <th><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
                         </tr>
                       </tbody>
                   </table>
@@ -548,9 +548,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let list of jobDetails?.insurances">
-                            <th><small>{{ list?.id }}</small></th>
-                            <th><small>{{ list?.product_id }}</small></th>
-                            <th><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
                         </tr>
                       </tbody>
                   </table>
@@ -572,9 +572,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let list of jobDetails?.amcs">
-                            <th><small>{{ list?.id }}</small></th>
-                            <th><small>{{ list?.product_id }}</small></th>
-                            <th><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
                         </tr>
                       </tbody>
                   </table>
@@ -594,9 +594,9 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let list of jobDetails?.repairs">
-                            <th><small>{{ list?.id }}</small></th>
-                            <th><small>{{ list?.product_id }}</small></th>
-                            <th><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
+                            <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
                         </tr>
                       </tbody>
                   </table>
@@ -744,24 +744,24 @@
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                   <div class="form-group" *ngIf="form?.form_type == 1">
                     <div class="form-line">
-                        <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}">
+                        <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}" disabled>
                     </div>
                   </div>
                   <p></p>
                   <div class="form-group" *ngIf="form?.form_type == 2">
-                    <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind[i].form_value}}">
+                    <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind[i].form_value}}" disabled>
                       <option value="">Select</option>
                       <option *ngFor = "let list of form?.dropDowns" value="{{form?.id}}">{{ list?.title }}</option>
                     </select>
                   </div>
                   <div class="form-group" *ngIf="form?.form_type == 3">
                     <div class="form-line">
-                      <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}">
+                      <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}" disabled>
                     </div>
                   </div>
                   <div class="form-group" *ngIf="form?.form_type == 4">
                     <div class="form-line">
-                      <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}">
+                      <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i].form_value}}" disabled>
                     </div>
                   </div>
                 </div>
