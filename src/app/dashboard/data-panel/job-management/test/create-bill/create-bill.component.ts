@@ -81,20 +81,20 @@ export class CreateBillComponent implements OnInit {
   showAmcForm: boolean = false;
   showAmcEditForm = false;
   showRepairForm: boolean = false;
-  showRepairEditForm:boolean = false;
-  productFormEdit:boolean = false;
-  imagerotation:any;
-  requestId:any;
-  deleWarr:any;
-  delInsuranc:any;
-  delAmc:any;
-  delRep:any;
-  deleteRepairs:boolean=false;
-  deleteAmcs:boolean=false;
-  deleteInsurances:boolean=false;
-  deleteWarrantyy:boolean=false;
+  showRepairEditForm: boolean = false;
+  productFormEdit: boolean = false;
+  imagerotation: any;
+  requestId: any;
+  deleWarr: any;
+  delInsuranc: any;
+  delAmc: any;
+  delRep: any;
+  deleteRepairs: boolean = false;
+  deleteAmcs: boolean = false;
+  deleteInsurances: boolean = false;
+  deleteWarrantyy: boolean = false;
 
-  constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.ceId = info.id;
@@ -199,16 +199,16 @@ export class CreateBillComponent implements OnInit {
       })
   }
   // delete bill
-  deleteBill(req){
+  deleteBill(req) {
     console.log(req);
     this.userService.deleteBill(req)
-    .subscribe(res => {
-      console.log(res);
-      alert("Bill Deleted");
-      this.getDetailsOfJob();
-    }, err => {
-      console.log(err);
-    })
+      .subscribe(res => {
+        console.log(res);
+        alert("Bill Deleted");
+        this.getDetailsOfJob();
+      }, err => {
+        console.log(err);
+      })
   }
   showbillGeneralInfoEditForm() {
     this.billGeneralInfoEdit = true;
@@ -236,9 +236,9 @@ export class CreateBillComponent implements OnInit {
   }
 
   //********************************* Product Functions***********************************//
-  deleteCall(req){
-    this.requestId=req.id
-    console.log(this.billId,"bill id")
+  deleteCall(req) {
+    this.requestId = req.id
+    console.log(this.billId, "bill id")
   }
 
   makeProduct(bill) {
@@ -249,15 +249,15 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = true;
     this.jobDetailsShow = false;
   }
-  deleteProduct(){
-    this.userService.deleteProduct(this.billId,this.requestId)
-    .subscribe(res=>{
-      console.log(res);
-      alert("Product Deleted");
-      this.getDetailsOfJob();
-    },err=>{
-      console.log(err);
-    })
+  deleteProduct() {
+    this.userService.deleteProduct(this.billId, this.requestId)
+      .subscribe(res => {
+        console.log(res);
+        alert("Product Deleted");
+        this.getDetailsOfJob();
+      }, err => {
+        console.log(err);
+      })
   }
   // create product 
   productFormData(form: NgForm) {
@@ -422,12 +422,12 @@ export class CreateBillComponent implements OnInit {
     this.showRepairForm = false;
   }
 
-  deleteWarr(req){
-    this.deleWarr=req.id;
+  deleteWarr(req) {
+    this.deleWarr = req.id;
   }
-  deleteWarranty(req){
-    this.userService.deleteWarranty(this.productId,this.deleWarr)
-      .subscribe(res=>{
+  deleteWarranty(req) {
+    this.userService.deleteWarranty(this.productId, this.deleWarr)
+      .subscribe(res => {
         console.log(res);
         alert("Warranty Deleted");
         this.getDetailsOfJob();
@@ -511,16 +511,16 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showRepairForm = false;
   }
-  deleteInsure(req){
-    this.delInsuranc=req.id;
+  deleteInsure(req) {
+    this.delInsuranc = req.id;
   }
-  deleteInsurance(req){
-    this.userService.deleteInsurance(this.productId,this.delInsuranc)
-      .subscribe(res=>{
+  deleteInsurance(req) {
+    this.userService.deleteInsurance(this.productId, this.delInsuranc)
+      .subscribe(res => {
         console.log(res);
         alert("Insurance Deleted");
         this.getDetailsOfJob();
-      },err=>{
+      }, err => {
         console.log(err);
       })
   }
@@ -600,17 +600,17 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showRepairForm = false;
   }
-  deleteAMC(req){
-    this.delAmc=req.id;
+  deleteAMC(req) {
+    this.delAmc = req.id;
 
   }
-  deleteAmc(req){
-    this.userService.deleteAmc(this.productId,this.delAmc)
-      .subscribe(res=>{
+  deleteAmc(req) {
+    this.userService.deleteAmc(this.productId, this.delAmc)
+      .subscribe(res => {
         console.log(res);
         alert("AMC Deleted");
         this.getDetailsOfJob();
-      },err=>{
+      }, err => {
         console.log(err);
       })
   }
@@ -688,17 +688,17 @@ export class CreateBillComponent implements OnInit {
     this.showRepairForm = false;
   }
 
-  deleteRep(req){
-    this.delRep=req.id;
+  deleteRep(req) {
+    this.delRep = req.id;
 
   }
-  deleteRepair(req){
-    this.userService.deleteRepair(this.productId,this.delRep)
-      .subscribe(res=>{
+  deleteRepair(req) {
+    this.userService.deleteRepair(this.productId, this.delRep)
+      .subscribe(res => {
         console.log(res);
         alert("Repair Deleted");
         this.getDetailsOfJob();
-      },err=>{
+      }, err => {
         console.log(err);
       })
   }
@@ -811,28 +811,28 @@ export class CreateBillComponent implements OnInit {
     }
     else if (this.selectedWarrantyImageArray.includes(this.selectedWarrantyImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedEditWarrantyImageArray.includes(this.selectedEditWarrantyImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedInsuranceImageArray.includes(this.selectedInsuranceImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedEditInsuranceImageArray.includes(this.selectedEditInsuranceImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedAmcImageArray.includes(this.selectedAmcImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedEditAmcImageArray.includes(this.selectedEditAmcImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedRepairImageArray.includes(this.selectedRepairImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else if (this.selectedEditRepairImageArray.includes(this.selectedEditRepairImageArray[this.imageIndex])) {
       console.log("Image Already Added ")
-    } 
+    }
     else {
       this.selectedImageArray.push(this.imageArray[this.imageIndex]);
       this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
