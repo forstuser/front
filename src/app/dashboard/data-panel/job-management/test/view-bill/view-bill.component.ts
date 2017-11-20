@@ -76,6 +76,7 @@ export class ViewBillComponent implements OnInit {
   amcFormObjectForBind: any;
   repairFormObjectForBind: any;
   productMetaDataForBind: any;
+  completeJobDialog:boolean=false;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
