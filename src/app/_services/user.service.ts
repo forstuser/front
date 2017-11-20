@@ -440,7 +440,7 @@ export class UserService {
         }
         productMetaData(billId,prodId){
                 this.getCSRF();
-                console.log(billId,prodId);
+                // console.log(billId,prodId);
                 return this.http.get(this.apiLink + 'api/bills/'+billId+'/products/'+prodId, this.options)
                 .map((response: Response) => response.json());
         }

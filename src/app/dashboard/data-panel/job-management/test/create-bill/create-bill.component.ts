@@ -64,6 +64,7 @@ export class CreateBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
+  productMetaDataForBind:any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -81,7 +82,7 @@ export class CreateBillComponent implements OnInit {
   showAmcEditForm = false;
   showRepairForm: boolean = false;
   showRepairEditForm:boolean = false;
-  askMainCategoryEdit:boolean = false;
+  productFormEdit:boolean = false;
   imagerotation:any;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
@@ -195,7 +196,7 @@ export class CreateBillComponent implements OnInit {
   }
   showbillProductInfoEditForm(){
     this.addons = false;
-    this.askMainCategoryEdit = true;
+    this.productFormEdit = true;
   }
   // complete job
   completeJob(){
@@ -276,6 +277,10 @@ export class CreateBillComponent implements OnInit {
         alert(err.reason);
       });
   }
+  // edit product form
+  productEditFormData(form:NgForm){
+    console.log(form.value);
+  }
   // get list of main category
   mainCategoryList() {
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
@@ -290,7 +295,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;
-        // console.log(res, "category");
+        console.log(res, "category");
       });
   }
   // after select category show  category form
@@ -308,6 +313,7 @@ export class CreateBillComponent implements OnInit {
   }
     // after select category show  category form
     onSelectCat2(catID: number) {
+      console.log("cat id",catID);
       this.catId = catID;
       this.userService.getSubCategoryList(catID)
         .subscribe(res => {
@@ -675,6 +681,8 @@ export class CreateBillComponent implements OnInit {
     this.onSelectCat2(prod.category_id);
     console.log(prod,"pro");
     this.productId = prod.id;
+    this.selectedImageArray = prod.copies;
+    this.fillProductForm(this.productId);
     this.productFormObjectForBind = prod;
     this.addons = true;
     this.cockpit = false;
@@ -686,7 +694,15 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false;
     this.showRepairForm = false;
-
+  }
+  fillProductForm(prodID){
+    this.userService.productMetaData(this.billId,prodID)
+      .subscribe(res=>{
+        this.productMetaDataForBind = res.data.metaData;
+        console.log(this.productMetaDataForBind);
+      },err=>{
+        console.log(err);
+      })
   }
   //********************************* Seller Functions***********************************//
 
@@ -834,7 +850,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceEditForm = false;
     this.showAmcEditForm = false;
     this.showRepairEditForm = false;
-    this.askMainCategoryEdit = false;
+    this.productFormEdit = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {
