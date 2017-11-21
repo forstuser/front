@@ -73,8 +73,8 @@
                   <th><small>Name</small></th>
                   <th><small>Phone</small></th>
                   <th><small>Document Date</small></th>
-				  <th><small>Action</small></th>
-				  <th><small>Delete</small></th>
+				          <th><small>Action</small></th>
+				          <th><small>Delete</small></th>
                 </tr>
               </thead>
               <tbody>
@@ -85,8 +85,8 @@
                   <th><small>{{ bill?.consumer_phone_no }}</small></th>
                   <th><small>{{ bill?.document_date | date }}</small></th>
                   <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="makeProduct(bill)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-				  <th><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteBill(bill?.id)"><i class="material-icons" >delete_forever</i></span></small></th>
-				</tr>
+				          <th><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteBill(bill?.id)"><i class="material-icons" >delete_forever</i></span></small></th>
+				        </tr>
               </tbody>
             </table>
           </div>
@@ -112,7 +112,7 @@
         </div>
         <div class="modal-body">
           <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
               <h3>Are You sure you want to complete the job?</h3>
             </div>
 
@@ -276,13 +276,60 @@
         </div>
       </div>
       <!-- Product Buttons End -->
+      <!-- Product List Buttons Start -->
+      <div *ngIf="cockpit2">
+        <p></p>
+        <div class="row clearfix">
+          <div class="col-md-3">
+            <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Bill General Info</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+          </div>
+        </div>
+        <div>
+          <div class="body table-responsive" style="padding-bottom:0px;">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th><small>Bill ID</small></th>
+                  <th><small>Product ID</small></th>
+                  <th><small>Name</small></th>
+                  <th><small>Purchase Cost</small></th>
+                  <th><small>Document Date</small></th>
+                  <th><small>Create</small></th>
+                  <th><small>Delete</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of productList?.data">
+                  <th><small>{{ list?.bill_id }}</small></th>
+                  <th><small>{{ list?.id }}</small></th>
+                  <th><small>{{ list?.product_name }}</small></th>
+                  <th><small>{{ list?.purchase_cost }}</small></th>
+                  <th><small>{{ list?.document_date | date }}</small></th>
+                  <th><small><span class="btn btn-info btn-xs"  title="Add Additional Info" (click)="addAddons(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+                  <th><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Product List Buttons End -->
       <!--delete job popup -->
       <app-dialog [(visible)]="deleteJob">
         <div class="modal-header">
         </div>
         <div class="modal-body">
           <div class="row clearfix">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
               <h3>Are You sure you want to delete the job?</h3>
             </div>
 
@@ -2192,7 +2239,7 @@
   </div>
   <div class="modal-body">
     <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Warranty?</h3>
       </div>
 
@@ -2219,7 +2266,7 @@
   </div>
   <div class="modal-body">
     <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Insurance?</h3>
       </div>
 
@@ -2246,7 +2293,7 @@
   </div>
   <div class="modal-body">
     <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the AMC?</h3>
       </div>
 
@@ -2272,7 +2319,7 @@
   </div>
   <div class="modal-body">
     <div class="row clearfix">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Repair?</h3>
       </div>
 
