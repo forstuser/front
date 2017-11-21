@@ -243,7 +243,13 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);                
         }
         // Brand
-        // get brand list
+        // get All brand list
+        getAllBrandList(off) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands?limit=10&offset='+off, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // get active brand list
         getBrandList() {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/brands?status=1', this.options)
