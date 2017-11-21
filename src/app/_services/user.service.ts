@@ -375,7 +375,7 @@ export class UserService {
                 console.log(task,"task")
                 this.getCSRF();
                 // const id=task['id']
-                const jobID = task['BID'];
+                const jobID = task['jobId'];
                 const ceID = task['UID'];
                 delete task['BID'];
                 delete task['UID'];
@@ -627,6 +627,20 @@ export class UserService {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/users?status=1&role_type=3', this.options)
                         .map((response: Response) => response.json());
+        }
+        //discard bill image
+        discardConsumerBillImage(req: any) {
+                console.log(req)
+                this.getCSRF();               
+                const jobId=req.BID
+                const fileId=req.ImageID
+                delete req['BID']
+                delete req['ImageID']
+                const data = JSON.stringify(req);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/jobs/'+jobId+'/files/'+fileId, data, this.options)
+                        .map((response: Response) => response.json());
+
         }
         //*******************************OLD API ***************************************************/
 
@@ -986,20 +1000,20 @@ export class UserService {
         }
 
 
-        discardConsumerBillImage(req: any) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                req['TokenNo'] = this.TokenNo;
-                const data = JSON.stringify(req);
-                console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                return this.http.post(this.apiLink + 'Services/DiscardConsumerBillImage', data, options)
-                        .map((response: Response) => response.json());
+        // discardConsumerBillImage(req: any) {
+        //         // get login user credentials from localstorage
+        //         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        //         this.TokenNo = this.currentUser.token;
+        //         this.UserType = this.currentUser.UserType;
+        //         req['TokenNo'] = this.TokenNo;
+        //         const data = JSON.stringify(req);
+        //         console.log(data);
+        //         const headers = new Headers({ 'Content-Type': 'application/json' });
+        //         const options = new RequestOptions({ headers: headers });
+        //         return this.http.post(this.apiLink + 'Services/DiscardConsumerBillImage', data, options)
+        //                 .map((response: Response) => response.json());
 
-        }
+        // }
         // get image of consumer
         getConsumerImage(imageID: number) {
                 // get login user credentials from localstorage

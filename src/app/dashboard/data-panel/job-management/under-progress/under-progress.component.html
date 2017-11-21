@@ -213,14 +213,14 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="form-line">
-                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #commentInput>
+                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #comment>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-              <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>    
+              <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(comment.value);alertBox.close()">Discard Image</button>    
           </div>
         </div>
       </div>

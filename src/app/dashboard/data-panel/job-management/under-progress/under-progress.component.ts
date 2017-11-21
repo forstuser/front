@@ -111,6 +111,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(this.bills);
       });
   }
+  
   right() {
     this.noData = false;
     this.leftFlag = false;
@@ -186,6 +187,7 @@ export class UnderProgressComponent implements OnInit {
           });
       });
   }
+
   // // opn model for discard bills
   // discard(item:any){
   //   console.log(item);
@@ -210,25 +212,28 @@ export class UnderProgressComponent implements OnInit {
   //       });
   //     })
   // }
+
+
   // for view image
   openImageModel(req: any) {
     this.imageIndex = 0;
     this.loader = true;
     this.showImageDialog = true;
-    console.log(req);
-    this.jobId = req.BID;
+    console.log(req,"array data");
+    this.jobId = req.id;
+    console.log(this.jobId,"jobId")
     this.images = [];
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
         this.imageArray = res.data.copies;
-        console.log(this.imageArray);
+        console.log(this.imageArray,"need this array");
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
           this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
-        console.log(this.images);
+        console.log(this.images,"images url links");
         this.loader = false;
       })
   }
@@ -274,7 +279,9 @@ export class UnderProgressComponent implements OnInit {
   }
   // discard bill image
   commentBoxData(comment: string) {
-    const imageID = this.imageArray[this.imageIndex].ImageID;
+    console.log(comment,"commeents")
+    const imageID = this.imageArray[this.imageIndex].copyId;
+    console.log(imageID,"image id ")
     this.discardImage = {
       'BID': this.jobId,
       'ImageID': imageID,
