@@ -569,7 +569,7 @@
       <!-- Product Form  Edit Start -->
       <div *ngIf="productFormEdit">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-        <form #productForm="ngForm" (ngSubmit)="productEditFormData(productForm)">
+        <form #productEditForm="ngForm" (ngSubmit)="productEditFormData(productEditForm)">
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Main Category</label>
@@ -706,7 +706,7 @@
                 <div class="form-group" *ngIf="form?.form_type == 2">
                   <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                     <option value="">Select</option>
-                    <option *ngFor = "let list of form?.dropDowns" value="{{form?.id}}">{{ list?.title }}</option>
+                    <option *ngFor = "let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">

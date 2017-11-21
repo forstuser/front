@@ -59,7 +59,9 @@ export class CreateBillComponent implements OnInit {
   repairFormObjectForBind: any;
   productFormObjectForBind: any;
   productFromMetaData: any[] = [];
+  productEditFromMetaData:any[] = [];
   productObject: any;
+  productEditObject:any;
   warrantyObject: any;
   insuranceObject: any;
   amcObject: any;
@@ -123,7 +125,7 @@ export class CreateBillComponent implements OnInit {
         console.log(this.imageArray, "image array")
         // console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
-        console.log(this.imageArrayLength, "image length")
+        // console.log(this.imageArrayLength, "image length")
         if (this.imageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
         }
@@ -307,8 +309,53 @@ export class CreateBillComponent implements OnInit {
   }
   // edit product form
   productEditFormData(form: NgForm) {
-    console.log(form.value);
+    // console.log(form.value);
+    this.productEditObject = {
+      'category_id': form.value.category_id,
+      'main_category_id': form.value.main_category_id,
+      'product_name': form.value.product_name,
+      'purchase_cost': form.value.purchase_cost,
+      'copies': this.selectedImageArray,
+      'taxes': form.value.taxes,
+      'brand_id': form.value.brand_id,
+      'colour_id': form.value.colour_id,
+      'seller_id': form.value.seller_id,
+      'user_id': this.userId,
+      'job_id': this.jobId,
+      'billId': this.billId,
+      'productId':this.productId
+    }
+    console.log(this.productEditObject);
+    const editFilterData = form.value;
+    delete editFilterData['product_name'];
+    delete editFilterData['purchase_cost'];
+    delete editFilterData['taxes'];
+    delete editFilterData['brand_id'];
+    delete editFilterData['colour_id'];
+    delete editFilterData['seller_id'];
+    delete editFilterData['main_category_id'];
+    delete editFilterData['category_id'];
+    this.productEditFromMetaData = [];
+    for (var val in editFilterData) {
+      this.productEditFromMetaData.push({ 'category_form_id': val, 'form_value': editFilterData[val] });
+    }
+    this.productEditObject['metaData'] = this.productEditFromMetaData;
+    console.log(this.productEditObject);
+    this.userService.updateProduct(this.productEditObject)
+    .subscribe(res => {
+      console.log(res)
+      alert("Product Updated");
+      this.getDetailsOfJob();
+      this.cockpit = true;
+      this.productFormEdit = false;
+    },
+    (error) => {
+      console.log(error);
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    });
   }
+
   // get list of main category
   mainCategoryList() {
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
@@ -323,7 +370,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;
-        console.log(res, "category");
+        // console.log(res, "category");
       });
   }
   // after select category show  category form
@@ -341,12 +388,12 @@ export class CreateBillComponent implements OnInit {
   }
   // after select category show  category form
   onSelectCat2(catID: number) {
-    console.log("cat id", catID);
+    // console.log("cat id", catID);
     this.catId = catID;
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
-        console.log(this.catForm, "category form");
+        // console.log(this.catForm, "category form");
         // this.showProductForm = true;
         this.getBrandList();
         this.getColorList();
@@ -759,7 +806,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
         this.productMetaDataForBind = res.data.metaData;
-        console.log(this.productMetaDataForBind);
+        // console.log(this.productMetaDataForBind);
       }, err => {
         console.log(err);
       })

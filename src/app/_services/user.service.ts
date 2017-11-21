@@ -438,6 +438,19 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
                         .map((response: Response) => response.json());
         }
+        updateProduct(prod: any) {
+                console.log("prod",prod);
+                this.getCSRF();
+                const billId = prod.billId;
+                const prodId = prod.productId;
+                delete prod['billId'];
+                delete prod['productId'];
+                Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
+                const data = JSON.stringify(prod);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/bills/'+billId+'/products/'+prodId, data, this.options)
+                        .map((response: Response) => response.json());
+        }
         deleteProduct(billId,id) {
                 this.getCSRF();             
                 return this.http.delete(this.apiLink + 'api/bills/'+billId+'/products/'+id, this.options)
