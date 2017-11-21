@@ -85,7 +85,7 @@ export class CreateBillComponent implements OnInit {
   showRepairForm: boolean = false;
   showRepairEditForm:boolean = false;
   productFormEdit:boolean = false;
-  imagerotation:any;
+  imagerotation:number=0;
   requestId:any;
   deleWarr:any;
   delInsuranc:any;
@@ -104,8 +104,10 @@ export class CreateBillComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.getDetailsOfJob();
   }
+
   ngAfterViewInit() {
     // $("#image").imgViewer2();
   }
@@ -113,6 +115,26 @@ export class CreateBillComponent implements OnInit {
     // $("#image").remove();
     // this.imageExist = false;
     console.log("destroy")
+  }
+  resizeImg (img)
+  {
+    var resize = 150; // resize amount in percentage
+    var origH  = 61;  // original image height
+    var origW  = 250; // original image width
+    // var mouseX = event.x;
+    // var mouseY = event.y;
+    var newH   = origH * (resize / 100);
+    var newW   = origW * (resize / 100);
+
+    // Set the new width and height
+    img.style.height = newH;
+    img.style.width  = newW;
+
+    var c = img.parentNode;
+
+    // Work out the new center
+    // c.scrollLeft = (mouseX * (resize / 100)) - (newW / 2) / 2;
+    // c.scrollTop  = (mouseY * (resize / 100)) - (newH / 2) / 2;
   }
   // get details of current job
   getDetailsOfJob() {

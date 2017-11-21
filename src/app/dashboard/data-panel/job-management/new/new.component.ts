@@ -201,7 +201,7 @@ export class NewComponent implements OnInit {
     this.loader = true;
     this.showImageDialog = true;
     // console.log(req, "image req");
-    this.billId = req.BID;
+    this.billId = req.id;
     this.images = [];
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
@@ -275,12 +275,12 @@ export class NewComponent implements OnInit {
 
   // discard bill image
   commentBoxData(comment: string) {
-    // console.log(form.value)
-    const imageID = this.imageArray[this.imageIndex].ImageID;
+    console.log(comment,"comment")
+    const imageID = this.imageArray[this.imageIndex].copyId;
     this.discardImage = {
       'BID': this.billId,
       'ImageID': imageID,
-      'Comments': comment
+      'comments': comment
     }
     console.log(this.discardImage)
     this.userservice.discardConsumerBillImage(this.discardImage)
