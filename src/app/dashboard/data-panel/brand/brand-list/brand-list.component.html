@@ -24,7 +24,7 @@
         </thead>
         <tbody *ngFor="let list of brands?.data; let i = index">
           <tr>
-            <th scope="row">{{ i+1+prev}}</th>
+            <th scope="row">{{ i+offset}}</th>
             <td>{{ list?.brand_name }}</td>
             <td>{{ list?.brand_description }}</td>
             <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>

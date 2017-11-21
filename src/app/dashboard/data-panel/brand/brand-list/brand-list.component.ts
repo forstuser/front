@@ -13,8 +13,7 @@ export class BrandListComponent implements OnInit {
   brands: Brand;
   editBrandForm: FormGroup;
   cat:Category;
-  prev:number=0;
-  next:number=10;
+  offset = 1;
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;
@@ -38,7 +37,7 @@ export class BrandListComponent implements OnInit {
       brand_id: new FormControl(''),
       details: new FormArray([])
     });
-    this.userService.getBrandList()
+    this.userService.getAllBrandList(this.offset)
       .subscribe( brandList => {
         this.brands = brandList;
         console.log(this.brands);
@@ -50,19 +49,20 @@ export class BrandListComponent implements OnInit {
       console.log(this.detailType);
     })
   }
+
   // function for pagination
   left(){
     this.noData = false;
-    this.prev = this.prev-10;
-    if(this.prev ==0){
-      this.leftFlag = true;
+    if(this.offset>1){
+      this.offset = this.offset-10;          
     }
-    this.userService.getBrandList2(this.prev,this.next)
+    this.userService.getAllBrandList(this.offset)
     .subscribe( brandList => {
       console.log(brandList.statusCode)
-      if(brandList.statusCode==100){
+      if(brandList.data.length==100){
         this.rightFlag = false;
       }
+      this.rightFlag = true;
       this.brands = brandList;
       console.log(this.brands);
     });
@@ -71,13 +71,11 @@ export class BrandListComponent implements OnInit {
   right(){
     this.noData = false;
     this.leftFlag = false;
-    this.prev = this.prev+10;
-    console.log(this.prev);
-    console.log(this.next);
-    this.userService.getBrandList2(this.prev,this.next)
+    this.offset = this.offset+10;
+    this.userService.getAllBrandList(this.offset)
     .subscribe( brandList => {
-      console.log(brandList.statusCode)
-      if(brandList.statusCode==105){
+      console.log(brandList,"brandlist")
+      if(brandList.data.length==0){
         this.rightFlag = true;
         this.noData = true;
       }

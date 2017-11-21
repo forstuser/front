@@ -242,6 +242,7 @@ export class CreateBillComponent implements OnInit {
   //********************************* Product Functions***********************************//
   deleteCall(req) {
     this.requestId = req.id
+    this.billId = req.bill_id;
     console.log(this.billId, "bill id")
   }
 
