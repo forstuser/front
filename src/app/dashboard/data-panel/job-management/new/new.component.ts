@@ -47,7 +47,7 @@ export class NewComponent implements OnInit {
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
       'comments': '',
-      'BID': ''
+      'jobId': ''
     });
     this.discardForm = this.fb.group({
       'id': '',
@@ -176,7 +176,7 @@ export class NewComponent implements OnInit {
     console.log(item);
     this.showDialog = true; // for show dialog
     this.assignForm.setValue({
-      BID: item.id,
+      jobId: item.id,
       UID: '',
       comments: ''
     });
