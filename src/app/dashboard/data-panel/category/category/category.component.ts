@@ -179,6 +179,10 @@ export class CategoryComponent implements OnInit {
             this.cat = res.CategoryList;
             // console.log(res,"category")
           });
+      },err=>{
+        console.log(err);
+        const errMsg = JSON.parse(err['_body']);
+        alert(errMsg.reason);
       });
   }
 
