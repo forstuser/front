@@ -936,6 +936,7 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfo = false;
     this.billGeneralInfoEdit = false;
     this.cockpit = false;
+    this.cockpit2 = false;
   }
   // show add product form
   showAddProductForm() {
