@@ -39,6 +39,7 @@ export class CreateBillComponent implements OnInit {
   imageUrl: String = appConfig.apiUrl;
   imageIndex: number = 0;
   jobDetails: any;
+  productList:any;
   onlineSeller: any;
   offlineSeller: any;
   mainCat: any;
@@ -72,6 +73,7 @@ export class CreateBillComponent implements OnInit {
   billGeneralInfo: boolean = false;
   billGeneralInfoEdit: boolean = false;
   cockpit: boolean = false;
+  cockpit2: boolean = false;
   addons: boolean = false;
   askMainCategory: boolean = false;
   showProductForm: boolean = false;
@@ -171,7 +173,6 @@ export class CreateBillComponent implements OnInit {
   }
   // next image
   nextImage() {
-
     console.log(this.imageIndex, 'next')
     // $("#image").remove();
     if (this.imageIndex < this.imageArrayLength - 1) {
@@ -272,6 +273,7 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfoFormObjectForBind = bill;
     console.log(bill, "bill wala ");
     this.cockpit = true;
+    this.cockpit2 = false;
     this.jobDetailsShow = false;
   }
   deleteProduct() {
@@ -280,6 +282,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("Product Deleted");
         this.getDetailsOfJob();
+        this.openProductList();
       }, err => {
         console.log(err);
       })
@@ -445,6 +448,18 @@ export class CreateBillComponent implements OnInit {
         this.offlineSeller = offlineSellerList;
         // console.log(this.offlineSeller,"offline seller");
       });
+  }
+  // open product list
+  openProductList(){
+    this.userService.getProductList(this.userId)
+      .subscribe((res)=>{
+        console.log(res);
+        this.jobDetailsShow = false;
+        this.cockpit2 = true;
+        this.productList = res;
+      },(err)=>{
+        console.log(err);
+      })
   }
   //********************************* Warranty Functions***********************************//
   warrantyFormData(form: NgForm) {
@@ -815,6 +830,7 @@ export class CreateBillComponent implements OnInit {
     this.productFormObjectForBind = prod;
     this.addons = true;
     this.cockpit = false;
+    this.cockpit2 = false;
     this.showSellerForm = false;
     this.showProductForm = false;
     this.askMainCategory = false;
@@ -942,6 +958,7 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfo = false;
     this.billGeneralInfoEdit = false;
     this.cockpit = false;
+    this.cockpit2 = false;
   }
   // show add product form
   showAddProductForm() {
@@ -961,6 +978,7 @@ export class CreateBillComponent implements OnInit {
   backToCockpit() {
     this.addons = false;
     this.cockpit = true;
+    // this.cockpit2 = true;
     this.showWarrantyForm = false;
     this.showInsuranceForm = false;
     this.showAmcForm = false;

@@ -428,6 +428,11 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/bills/'+billId, this.options)
                         .map((response: Response) => response);
         }
+        getProductList(userId:number){
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/products?user_id='+userId, this.options)
+                        .map((response: Response) => response.json());
+        }
         createProduct(prod: any) {
                 this.getCSRF();
                 const billId = prod.billId;
