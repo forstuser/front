@@ -27,8 +27,8 @@
       <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;">
         <tr>
           <td style="padding: 10px">
-            <div align="center">
-              <img id="image" [src]="images[imageIndex]" width="100%" style="border: 3px solid #555; padding:2px;" />
+            <div class="imagelist" align="center">
+              <img id="image" class="img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
               <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
             </div>
           </td>
