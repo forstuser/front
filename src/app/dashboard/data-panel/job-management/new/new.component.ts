@@ -71,7 +71,7 @@ export class NewComponent implements OnInit {
 
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(4,this.userId) // new = 4 refer api doc // 8 for under progress
+      this.userservice.getCEJobList(4,this.userId,this.offset) // new = 4 refer api doc // 8 for under progress
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -89,87 +89,57 @@ export class NewComponent implements OnInit {
   }
   // function for pagination
   left() {
+    this.leftFlag = true;
+    this.rightFlag = false;
     this.noData = false;
-    this.prev = this.prev - 10;
-    if (this.prev == 0) {
-      this.leftFlag = true;
+    if (this.offset > 1) {
+      this.offset = this.offset - 20;
+      this.leftFlag = false;
     }
-    // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 100) {
-            this.rightFlag = false;
-          }
-          this.billList = bill;
+      this.userservice.getAdminJobList(4, this.offset)
+        .subscribe(bills => {
+          console.log(bills)
+          this.billList = bills;
           console.log(this.billList);
         });
     }
-    // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(4,this.userId) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 100) {
-            this.rightFlag = false;
-          }
-          this.billList = bill;
-          console.log(this.billList);
+      this.userservice.getCEJobList(4, this.userId, this.offset) // 4 for qe refer to api doc
+        .subscribe(bills => {
+          this.billList = bills;
+          console.log(bills);
         });
     }
-    // if userType is QE get list of new bills
-    else if (this.userType === 4) {
-      this.userservice.getQEJobList(4, this.userId) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 100) {
-            this.rightFlag = false;
-          }
-          this.billList = bill;
-          console.log(this.billList);
-        });
-    }
-
   }
+
   right() {
     this.noData = false;
     this.leftFlag = false;
-    this.prev = this.prev + 10;
-    console.log(this.prev);
-    console.log(this.next);
-    // if userType is Admin/SuperAdmin get list of new bills
+    this.offset = this.offset + 20;
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 105) {
+      this.userservice.getAdminJobList(4, this.offset)
+        .subscribe(bills => {
+          console.log(bills)
+          if (bills.data.length == 0) {
             this.rightFlag = true;
             this.noData = true;
           }
-          this.billList = bill;
+          this.billList = bills;
           console.log(this.billList);
         });
     }
-    // if userType is CE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(4,this.userId) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 105) {
-            this.rightFlag = true;
-            this.noData = true;
-          }
-          this.billList = bill;
-          console.log(this.billList);
-        });
-    }
-    // if userType is QE get list of new bills
-    else if (this.userType === 4) {
-      this.userservice.getQEJobList(4, this.userId) // new = 4 refer api doc
-        .subscribe(bill => {
-          if (bill.statusCode == 105) {
-            this.rightFlag = true;
-            this.noData = true;
-          }
-          this.billList = bill;
-          console.log(this.billList);
-        });
+      this.userservice.getCEJobList(4, this.userId, this.offset) // 4 for qe refer to api doc
+      .subscribe(bills => {
+        console.log(bills)
+        if (bills.data.length == 0) {
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.billList = bills;
+        console.log(this.billList);
+      });
     }
   }
   // passs current user as argument and open the popup
