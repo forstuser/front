@@ -52,17 +52,16 @@ export class BrandListComponent implements OnInit {
 
   // function for pagination
   left(){
+    this.leftFlag = true;
     this.noData = false;
     if(this.offset>1){
-      this.offset = this.offset-10;          
+      this.offset = this.offset-10; 
+      this.leftFlag = false;         
     }
     this.userService.getAllBrandList(this.offset)
     .subscribe( brandList => {
       console.log(brandList.statusCode)
-      if(brandList.data.length==100){
-        this.rightFlag = false;
-      }
-      this.rightFlag = true;
+      this.rightFlag = false;
       this.brands = brandList;
       console.log(this.brands);
     });

@@ -16,6 +16,7 @@ export class CompletedComponent implements OnInit {
   userType: Number;
   prev: number = 0;
   next: number = 10;
+  offset:number =1;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
@@ -37,7 +38,7 @@ export class CompletedComponent implements OnInit {
   ngOnInit() {
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5,this.offset) // completed = 5 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
@@ -69,7 +70,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5,this.offset) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 100) {
             this.rightFlag = false;
@@ -109,7 +110,7 @@ export class CompletedComponent implements OnInit {
     console.log(this.next);
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(5) // completed = 5 refer api doc
+      this.userservice.getAdminJobList(5,this.offset) // completed = 5 refer api doc
         .subscribe(bill => {
           if (bill.statusCode == 105) {
             this.rightFlag = true;

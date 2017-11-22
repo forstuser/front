@@ -31,7 +31,7 @@
       </thead>
       <tbody *ngFor="let bill of bills?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+1+prev }} </th>
+          <th scope="row">{{ i+offset }} </th>
           <td>{{ bill.job_id}}</td>
           <td>{{ bill.user.full_name}}</td>
           <td>{{ bill.user.mobile_no}}</td>

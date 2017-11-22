@@ -26,7 +26,7 @@
 			</thead>
 			<tbody *ngFor="let list of authorizedServiceCenter?.data; let i = index">
 				<tr>
-					<th scope="row">{{ i+1+prev }}</th>
+					<th scope="row">{{ i+offset }}</th>
 					<td>{{ list.center_name }}</td>
 					<td>{{ list.center_address }}</td>
 					<td>{{ list.center_city}}</td>
