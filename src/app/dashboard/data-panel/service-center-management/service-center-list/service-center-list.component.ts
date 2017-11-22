@@ -17,8 +17,7 @@ export class ServiceCenterListComponent implements OnInit {
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
   cat:Category
-  prev:number=0;
-  next:number=10;
+  offset = 1;
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;
@@ -65,7 +64,7 @@ export class ServiceCenterListComponent implements OnInit {
     });
 
 
-    this.userService.getAuthorizedServiceCenterList()
+    this.userService.getAuthorizedServiceCenterList(this.offset)
       .subscribe( authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter,"asc");
@@ -195,7 +194,7 @@ export class ServiceCenterListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
-        this.userService.getAuthorizedServiceCenterList() // list update after delete
+        this.userService.getAuthorizedServiceCenterList(this.offset) // list update after delete
           .subscribe(authorizedServiceCenterList => {
           this.authorizedServiceCenter = authorizedServiceCenterList;
         });
@@ -213,7 +212,7 @@ export class ServiceCenterListComponent implements OnInit {
         console.log("response",res)
         this.showDialog=false;
         alert("edit successfully")
-        this.userService.getAuthorizedServiceCenterList() // list update after edit
+        this.userService.getAuthorizedServiceCenterList(this.offset) // list update after edit
         .subscribe(authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
       },err=>{
@@ -223,43 +222,39 @@ export class ServiceCenterListComponent implements OnInit {
     })
   } 
 
+  // function for pagination
+  left(){
+    this.leftFlag = true;
+    this.noData = false;
+    if(this.offset>1){
+      this.offset = this.offset-100; 
+      this.leftFlag = false;         
+    }
+      this.userService.getAuthorizedServiceCenterList(this.offset)
+      .subscribe( authorizedServiceCenterList => {
+        console.log(this.authorizedServiceCenter)
+      this.rightFlag = false;
+      this.authorizedServiceCenter = authorizedServiceCenterList;
+      console.log(this.authorizedServiceCenter);
+    });
+  }
 
-    // function for pagination
-    // left(){
-    //   this.noData = false;
-    //   this.prev = this.prev-10;
-    //   if(this.prev ==0){
-    //     this.leftFlag = true;
-    //   }
-    //   this.userService.getAuthorizedServiceCenterList()
-    //   .subscribe( authorizedServiceCenterList => {
-    //     console.log(this.authorizedServiceCenter)
-    //     if(authorizedServiceCenterList.statusCode==100){
-    //       this.rightFlag = false;
-    //     }
-    //     this.authorizedServiceCenter = authorizedServiceCenterList;
-    //     console.log(this.authorizedServiceCenter);
-    //   });
-    // }
+  right(){
+    this.noData = false;
+    this.leftFlag = false;
+    this.offset = this.offset+100;
+    this.userService.getAuthorizedServiceCenterList(this.offset)
+    .subscribe( authorizedServiceCenterList => {
+      console.log(this.authorizedServiceCenter)
+      if(authorizedServiceCenterList.data.length==0){
+        this.rightFlag = true;
+        this.noData = true;
+      }
+      this.authorizedServiceCenter = authorizedServiceCenterList;
+      console.log(this.authorizedServiceCenter);
+    });
+  }
 
-
-    // right(){
-    //   this.noData = false;
-    //   this.leftFlag = false;
-    //   this.prev = this.prev+10;
-    //   console.log(this.prev);
-    //   console.log(this.next);
-    //   this.userService.getAuthorizedServiceCenterList()
-    //   .subscribe( authorizedServiceCenterList => {
-    //     console.log(this.authorizedServiceCenter)
-    //     if(authorizedServiceCenterList.statusCode==105){
-    //       this.rightFlag = true;
-    //       this.noData = true;
-    //     }
-    //     this.authorizedServiceCenter = authorizedServiceCenterList;
-    //     console.log(this.authorizedServiceCenter);
-    //   });
-    // }
 
 
     back(){

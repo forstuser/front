@@ -1,11 +1,6 @@
 import { ViewBillComponent } from './dashboard/data-panel/job-management/test/view-bill/view-bill.component';
-import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
-import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
-import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
-import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
-import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';

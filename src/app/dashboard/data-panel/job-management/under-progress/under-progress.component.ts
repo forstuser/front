@@ -25,8 +25,7 @@ export class UnderProgressComponent implements OnInit {
   discardDialog: boolean = false;
   item: Object = {}; // object for single user
   statusCode: Number;
-  prev: number = 0;
-  next: number = 10;
+  offset = 1;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
@@ -67,7 +66,7 @@ export class UnderProgressComponent implements OnInit {
 
   ngOnInit() {
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+      this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
         .subscribe(bills => {
           this.bills = bills;
           console.log(this.bills);
@@ -93,42 +92,72 @@ export class UnderProgressComponent implements OnInit {
     //   });
   }
 
-
   // function for pagination
-  left() {
+  left(){
+    this.leftFlag = true;
     this.noData = false;
-    this.prev = this.prev - 10;
-    if (this.prev == 0) {
-      this.leftFlag = true;
+    if(this.offset>1){
+      this.offset = this.offset-20; 
+      this.leftFlag = false;         
     }
-    this.userservice.getAdminJobList(8)
-      .subscribe(bills => {
-        console.log(bills.statusCode)
-        if (bills.statusCode == 100) {
-          this.rightFlag = false;
-        }
-        this.bills = bills;
-        console.log(this.bills);
-      });
+    this.userservice.getAdminJobList(8,this.offset)
+    .subscribe(bills => {
+      console.log(bills)
+      this.bills = bills;
+      console.log(this.bills);
+    });
   }
-  
-  right() {
+
+  right(){
     this.noData = false;
     this.leftFlag = false;
-    this.prev = this.prev + 10;
-    console.log(this.prev);
-    console.log(this.next);
-    this.userservice.getAdminJobList(8)
+    this.offset = this.offset+20;
+    this.userservice.getAdminJobList(8,this.offset)
       .subscribe(bills => {
-        console.log(bills.statusCode)
-        if (bills.statusCode == 105) {
-          this.rightFlag = true;
-          this.noData = true;
-        }
-        this.bills = bills;
-        console.log(this.bills);
-      });
+        console.log(bills)
+      if(bills.data.length==0){
+        this.rightFlag = true;
+        this.noData = true;
+      }
+      this.bills = bills;
+      console.log(this.bills);
+    });
   }
+  // function for pagination
+  // left() {
+  //   this.noData = false;
+  //   this.prev = this.prev - 10;
+  //   if (this.prev == 0) {
+  //     this.leftFlag = true;
+  //   }
+  //   this.userservice.getAdminJobList(8)
+  //     .subscribe(bills => {
+  //       console.log(bills.statusCode)
+  //       if (bills.statusCode == 100) {
+  //         this.rightFlag = false;
+  //       }
+  //       this.bills = bills;
+  //       console.log(this.bills);
+  //     });
+  // }
+  
+  // right() {
+  //   this.noData = false;
+  //   this.leftFlag = false;
+  //   this.prev = this.prev + 10;
+  //   console.log(this.prev);
+  //   console.log(this.next);
+  //   this.userservice.getAdminJobList(8)
+  //     .subscribe(bills => {
+  //       console.log(bills.statusCode)
+  //       if (bills.statusCode == 105) {
+  //         this.rightFlag = true;
+  //         this.noData = true;
+  //       }
+  //       this.bills = bills;
+  //       console.log(this.bills);
+  //     });
+  // }
   // passs current user as argument and open the popup
   openModel(item: any) {
     console.log(item,"item data");
@@ -151,7 +180,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -180,7 +209,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showQeDialog = false;
-        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -270,7 +299,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
@@ -294,7 +323,7 @@ export class UnderProgressComponent implements OnInit {
         alert('Image discarded');
         // this.showImageDialog = false;
         // if userType is Admin/SuperAdmin get list of new bills
-        this.userservice.getAdminJobList(8) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
@@ -311,7 +340,7 @@ export class UnderProgressComponent implements OnInit {
         .subscribe(res=>{
           console.log(res)
           alert("JOB Complete !! Enjoy !!");
-          this.userservice.getAdminJobList(8) // under progress = 8 refer api doc
+          this.userservice.getAdminJobList(8,this.offset) // under progress = 8 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);

@@ -299,9 +299,9 @@ export class UserService {
                 .map((response: Response) => response.json());
         }
         // get authorized service center list
-        getAuthorizedServiceCenterList() {
+        getAuthorizedServiceCenterList(off) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset=100', this.options)
+                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset='+off, this.options)
                         .map((response: Response) => response.json());
         }
         // Create authorized service center
@@ -350,9 +350,9 @@ export class UserService {
 
                 // get list of new,under-progress and completed list
         // get admin list
-        getAdminJobList(BillType: Number) {
+        getAdminJobList(BillType: Number,off:Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?admin_status='+BillType, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?admin_status='+BillType+'&limit=20&offset='+off, this.options)
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
@@ -913,20 +913,6 @@ export class UserService {
         // **^ Bill  Services ^** //
 
 
-        // get QE list
-        getQEBillList(BillType: Number, offset, limit) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, Status: BillType, OffSet: offset, Limit: limit };
-                const data = JSON.stringify(body);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                // console.log(data);
-                return this.http.post(this.apiLink + 'Services/QEConsumerBillsList', data, options)
-                        .map((response: Response) => response.json());
-        }
 
         // **^ Bill Form  Services ^** //
         editBill(bill: any) {

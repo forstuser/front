@@ -1,6 +1,5 @@
 import { FunctionService } from './_services/function.service';
 import { DataService } from './_services/data.service';
-import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
 import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { UserService } from './_services/user.service';
@@ -44,18 +43,13 @@ import { NewComponent } from './dashboard/data-panel/job-management/new/new.comp
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { SwiperModule } from 'angular2-useful-swiper';
-import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
-import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
-import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
-import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule} from "ng2-modal";
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { BillsComponent } from './dashboard/data-panel/job-management/bills/bills.component';
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
@@ -94,13 +88,7 @@ import { ViewBillComponent } from './dashboard/data-panel/job-management/test/vi
     NewComponent,
     CompletedComponent,
     UnderProgressComponent,
-    BillComponent,
-    BillViewComponent,
-    BillCreateComponent,
-    BillEditComponent,
-    ProductAddonsComponent,
     DiscardedComponent,
-    BillsComponent,
     // JobManagementComponent,
     ListManagementComponent,
     CreateBillComponent,
