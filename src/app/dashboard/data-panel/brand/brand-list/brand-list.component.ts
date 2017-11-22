@@ -53,9 +53,10 @@ export class BrandListComponent implements OnInit {
   // function for pagination
   left(){
     this.leftFlag = true;
+    this.rightFlag = false;
     this.noData = false;
     if(this.offset>1){
-      this.offset = this.offset-10; 
+      this.offset = this.offset-50; 
       this.leftFlag = false;         
     }
     this.userService.getAllBrandList(this.offset)
@@ -70,7 +71,7 @@ export class BrandListComponent implements OnInit {
   right(){
     this.noData = false;
     this.leftFlag = false;
-    this.offset = this.offset+10;
+    this.offset = this.offset+50;
     this.userService.getAllBrandList(this.offset)
     .subscribe( brandList => {
       console.log(brandList,"brandlist")

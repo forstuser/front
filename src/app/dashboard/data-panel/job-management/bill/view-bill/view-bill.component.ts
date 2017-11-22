@@ -4,6 +4,7 @@ import { UserService } from './../../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import {Location} from '@angular/common';
 
 declare var $: any
 @Component({
@@ -13,6 +14,7 @@ declare var $: any
 })
 export class ViewBillComponent implements OnInit {
   public offlineSellerForm: FormGroup;
+  userType: number;
   ceId: number;
   jobId: number;
   userId: number;
@@ -77,9 +79,10 @@ export class ViewBillComponent implements OnInit {
   repairFormObjectForBind: any;
   productMetaDataForBind: any;
   completeJobDialog:boolean=false;
-  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
+  constructor(private _location: Location,private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
-    const info = JSON.parse(localStorage.getItem('currentUser'))
+    const info = JSON.parse(localStorage.getItem('currentUser'));
+    this.userType = info.role_type;
     this.ceId = info.id;
   }
 
@@ -478,5 +481,8 @@ export class ViewBillComponent implements OnInit {
   // function for avoid only space submit
   avoidSpace(e) {
     this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
+  }
+  backClicked() {
+    this._location.back();
   }
 }
