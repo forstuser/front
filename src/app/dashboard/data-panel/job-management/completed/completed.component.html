@@ -22,7 +22,8 @@
           <th>Email ID</th>
           <th>JOB Date</th>
           <th>Comments</th>
-          <th>View</th>
+          <th>View JOB</th>
+          <th *ngIf="userType <=2">View Bill</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of billList?.data; let i = index">
@@ -54,6 +55,8 @@
           <td *ngIf="userType==4">{{ bill.ce.comments}}</td>
           
           <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)">View</button></td>
+          <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
+            >View Bill</button></td>
         </tr>
       </tbody>
     </table>

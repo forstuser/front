@@ -27,6 +27,7 @@
           <th *ngIf="userType!=4">View</th>
           <th *ngIf="userType!=4">Discard</th>
           <th *ngIf="userType!=3">Action</th>
+          <th *ngIf="userType==1 || userType==2">Complete Job</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of bills?.data; let i = index">
@@ -60,9 +61,11 @@
                         <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
             </span>
           </td>
-          <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
+          <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button></td>
           <td *ngIf="userType!=4"><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
           <td *ngIf="userType==4"><span class="btn btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
+          <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
+            >View Bill</button></td>
           <td *ngIf="userType<=2"><span class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
         </tr>
       </tbody>

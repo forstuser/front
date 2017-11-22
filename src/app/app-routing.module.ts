@@ -1,6 +1,6 @@
-import { ViewBillComponent } from './dashboard/data-panel/job-management/test/view-bill/view-bill.component';
+import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
-import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
+import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
@@ -43,16 +43,11 @@ const appRoutes: Routes = [
             { path: 'new', component: NewComponent },
             { path: 'new/create/:id', component:CreateBillComponent  },
             { path: 'new/view/:id', component:ViewBillComponent  },
-            // { path: 'new/bills/:id', component: BillsComponent },
-            // { path: 'new/bill/:id', component: BillComponent, children:[
-            //     { path:'', component:BillCreateComponent},
-            //     { path:'view', component:BillViewComponent},
-            //     { path:'edit/:id', component:BillEditComponent},
-            //     { path:'addons/:uid/:bid/:pid', component:ProductAddonsComponent},
-            // ] },
             { path: 'underProgress', component: UnderProgressComponent },
             { path: 'underProgress/create/:id', component:CreateBillComponent  },
+            { path: 'underProgress/view/:id', component:ViewBillComponent  },            
             { path: 'completed', component: CompletedComponent },
+            { path: 'completed/view/:id', component:ViewBillComponent  }, 
             { path: 'discarded', component: DiscardedComponent },
             { path: 'AddUser', component: AddUserComponent },
             { path: 'admin', component: AdminComponent },

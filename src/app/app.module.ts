@@ -52,8 +52,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
-import { CreateBillComponent } from './dashboard/data-panel/job-management/test/create-bill/create-bill.component';
-import { ViewBillComponent } from './dashboard/data-panel/job-management/test/view-bill/view-bill.component';
+import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
+import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
 
 @NgModule({
   declarations: [
