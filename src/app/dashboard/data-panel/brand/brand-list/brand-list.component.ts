@@ -53,6 +53,7 @@ export class BrandListComponent implements OnInit {
   // function for pagination
   left(){
     this.leftFlag = true;
+    this.rightFlag = false;
     this.noData = false;
     if(this.offset>1){
       this.offset = this.offset-10; 

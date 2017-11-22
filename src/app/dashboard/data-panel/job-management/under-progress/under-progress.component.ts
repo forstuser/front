@@ -42,11 +42,11 @@ export class UnderProgressComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   activeCE: any;
   activeQE: any;
-  userId:any;
+  userId: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
-    this.userId=info.id;
+    this.userId = info.id;
     console.log("userType", this.userType)
     this.assignForm = this.fb.group({
       'UID': ['', Validators.required],
@@ -66,17 +66,15 @@ export class UnderProgressComponent implements OnInit {
 
   ngOnInit() {
     if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
+      this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
         .subscribe(bills => {
           this.bills = bills;
           console.log(this.bills);
         });
     }
-
-
     // get list of ce jobs
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(8,this.userId) // 4 for qe refer to api doc
+      this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
         .subscribe(bills => {
           this.bills = bills;
           console.log(bills);
@@ -93,74 +91,63 @@ export class UnderProgressComponent implements OnInit {
   }
 
   // function for pagination
-  left(){
+  left() {
     this.leftFlag = true;
+    this.rightFlag = false;
     this.noData = false;
-    if(this.offset>1){
-      this.offset = this.offset-20; 
-      this.leftFlag = false;         
+    if (this.offset > 1) {
+      this.offset = this.offset - 20;
+      this.leftFlag = false;
     }
-    this.userservice.getAdminJobList(8,this.offset)
-    .subscribe(bills => {
-      console.log(bills)
-      this.bills = bills;
-      console.log(this.bills);
-    });
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJobList(8, this.offset)
+        .subscribe(bills => {
+          console.log(bills)
+          this.bills = bills;
+          console.log(this.bills);
+        });
+    }
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
+        .subscribe(bills => {
+          this.bills = bills;
+          console.log(bills);
+        });
+    }
   }
 
-  right(){
+  right() {
     this.noData = false;
     this.leftFlag = false;
-    this.offset = this.offset+20;
-    this.userservice.getAdminJobList(8,this.offset)
+    this.offset = this.offset + 20;
+    if (this.userType === 1 || this.userType === 2) {
+      this.userservice.getAdminJobList(8, this.offset)
+        .subscribe(bills => {
+          console.log(bills)
+          if (bills.data.length == 0) {
+            this.rightFlag = true;
+            this.noData = true;
+          }
+          this.bills = bills;
+          console.log(this.bills);
+        });
+    }
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
       .subscribe(bills => {
         console.log(bills)
-      if(bills.data.length==0){
-        this.rightFlag = true;
-        this.noData = true;
-      }
-      this.bills = bills;
-      console.log(this.bills);
-    });
+        if (bills.data.length == 0) {
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.bills = bills;
+        console.log(this.bills);
+      });
+    }
   }
-  // function for pagination
-  // left() {
-  //   this.noData = false;
-  //   this.prev = this.prev - 10;
-  //   if (this.prev == 0) {
-  //     this.leftFlag = true;
-  //   }
-  //   this.userservice.getAdminJobList(8)
-  //     .subscribe(bills => {
-  //       console.log(bills.statusCode)
-  //       if (bills.statusCode == 100) {
-  //         this.rightFlag = false;
-  //       }
-  //       this.bills = bills;
-  //       console.log(this.bills);
-  //     });
-  // }
-  
-  // right() {
-  //   this.noData = false;
-  //   this.leftFlag = false;
-  //   this.prev = this.prev + 10;
-  //   console.log(this.prev);
-  //   console.log(this.next);
-  //   this.userservice.getAdminJobList(8)
-  //     .subscribe(bills => {
-  //       console.log(bills.statusCode)
-  //       if (bills.statusCode == 105) {
-  //         this.rightFlag = true;
-  //         this.noData = true;
-  //       }
-  //       this.bills = bills;
-  //       console.log(this.bills);
-  //     });
-  // }
   // passs current user as argument and open the popup
   openModel(item: any) {
-    console.log(item,"item data");
+    console.log(item, "item data");
     this.assignForm.setValue({
       jobId: item.id,
       UID: '',
@@ -180,7 +167,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -209,7 +196,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showQeDialog = false;
-        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
           .subscribe(bill => {
             this.bills = bill;
             console.log(this.bills);
@@ -248,21 +235,21 @@ export class UnderProgressComponent implements OnInit {
     this.imageIndex = 0;
     this.loader = true;
     this.showImageDialog = true;
-    console.log(req,"array data");
+    console.log(req, "array data");
     this.jobId = req.id;
-    console.log(this.jobId,"jobId")
+    console.log(this.jobId, "jobId")
     this.images = [];
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
         this.imageArray = res.data.copies;
-        console.log(this.imageArray,"need this array");
+        console.log(this.imageArray, "need this array");
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
           this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
-        console.log(this.images,"images url links");
+        console.log(this.images, "images url links");
         this.loader = false;
       })
   }
@@ -299,7 +286,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
@@ -308,9 +295,9 @@ export class UnderProgressComponent implements OnInit {
   }
   // discard bill image
   commentBoxData(comment: string) {
-    console.log(comment,"commeents")
+    console.log(comment, "commeents")
     const imageID = this.imageArray[this.imageIndex].copyId;
-    console.log(imageID,"image id ")
+    console.log(imageID, "image id ")
     this.discardImage = {
       'BID': this.jobId,
       'ImageID': imageID,
@@ -323,32 +310,32 @@ export class UnderProgressComponent implements OnInit {
         alert('Image discarded');
         // this.showImageDialog = false;
         // if userType is Admin/SuperAdmin get list of new bills
-        this.userservice.getAdminJobList(8,this.offset) // incomplete = 6 refer api doc
+        this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
           });
       })
   }
-  getJobId(jid:number){
+  getJobId(jid: number) {
     this.jobId = jid;
   }
   // complete job by admin 
-  commentBoxDataAdmin(comment:string){
+  commentBoxDataAdmin(comment: string) {
     console.log(comment);
-      this.userservice.completeJobByAdmin(this.jobId,comment)
-        .subscribe(res=>{
-          console.log(res)
-          alert("JOB Complete !! Enjoy !!");
-          this.userservice.getAdminJobList(8,this.offset) // under progress = 8 refer api doc
+    this.userservice.completeJobByAdmin(this.jobId, comment)
+      .subscribe(res => {
+        console.log(res)
+        alert("JOB Complete !! Enjoy !!");
+        this.userservice.getAdminJobList(8, this.offset) // under progress = 8 refer api doc
           .subscribe(bills => {
             this.bills = bills;
             console.log(this.bills);
           });
-        },(err)=>{
-          console.log(err);
-          const errMsg = JSON.parse(err['_body']);
-          alert(errMsg.reason);
-        })
+      }, (err) => {
+        console.log(err);
+        const errMsg = JSON.parse(err['_body']);
+        alert(errMsg.reason);
+      })
   }
 }

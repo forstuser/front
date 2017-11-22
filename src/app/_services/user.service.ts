@@ -356,10 +356,10 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
-        getCEJobList(BillType: Number,id) {
+        getCEJobList(BillType: Number,id,off) {
                 console.log(BillType,id,"bill type")
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&assigned_to_ce='+id, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&assigned_to_ce='+id+'&limit=20&offset='+off, this.options)
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
