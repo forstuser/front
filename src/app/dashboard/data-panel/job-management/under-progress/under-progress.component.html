@@ -5,6 +5,35 @@
       <small> For assign  the job click on the assign button</small>
     </h2>
   </div>
+  <div class="row clearfix">
+    <div class="col-md-2 form-control-label">
+      <label for="email_address_2">Select User Type</label>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <select class="form-control dropdown" (change)=onSelectType($event.target.value)>
+            <option>Select</option>
+            <option value="ce">CE</option>
+            <option value="qe">QE</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1 form-control-label">
+      <label for="email_address_2">Select User</label>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control dropdown" (change)=onSelectUser($event.target.value)>
+            <option value="">Select</option>
+            <option *ngFor="let user of activeUser?.data" value="{{user.id}}" >{{ user.email }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" *ngIf="loader">
+    <h1>Please Wait ...</h1>
+    <img src="../../../assets/images/loader.gif" alt="">
+  </div>
   <div class="body table-responsive">
     <nav>
       <ul class="pager">
@@ -33,7 +62,9 @@
       <tbody *ngFor="let bill of bills?.data; let i = index">
         <tr>
           <th scope="row">{{ i+offset }} </th>
-          <td>{{ bill.job_id}}</td>
+          <td><button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+              <i class="material-icons">verified_user</i>
+          </button> {{ bill?.job_id}}</td>
           <td>{{ bill.user.full_name}}</td>
           <td>{{ bill.user.mobile_no}}</td>
           <td>{{ bill?.created_at | date}}</td>
@@ -47,18 +78,18 @@
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>            
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span><br><br>
             <span class="pull-right" *ngIf="bill.ce_status != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
-                        <i class="material-icons">replay</i><span>Re-Assign</span></button>
+              <i class="material-icons">replay</i><span>Re-Assign</span></button>
             </span>
           </td>
           <td *ngIf="userType!=4"><span *ngIf="bill.qe_status == 4 || bill.qe_status==5"><strong>Name : </strong>{{ bill.qe?.full_name}}<br>
                     <strong>Email ID : </strong>{{ bill.qe?.email}}<br>
                     <strong>Task Date: </strong>{{ bill.qe?.created_at | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
-                                              <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
-                                              <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
-                                            </span><br><br>
+                      <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
+                      <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
+                    </span><br><br>
             <span *ngIf="bill.ce_status == 5 && bill.qe_status !=5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
-                        <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
+              <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
             </span>
           </td>
           <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button></td>
@@ -66,7 +97,7 @@
           <td *ngIf="userType==4"><span class="btn btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
           <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
             >View Bill</button></td>
-          <td *ngIf="userType<=2"><span class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
+          <td><span *ngIf="userType<=2 && bill.qe_status==5" class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
         </tr>
       </tbody>
     </table>

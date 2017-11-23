@@ -87,10 +87,10 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
-        
+
         // Create category form
         createCategoryForm(category: any) {
-                console.log(category,"bhia cat")
+                console.log(category, "bhia cat")
                 this.getCSRF();
                 const id = category.category_id;
                 delete category['category_id'];
@@ -135,9 +135,9 @@ export class UserService {
                 delete category['colour_id'];
                 const data = JSON.stringify(category);
                 console.log(data);
-                        return this.http.put(this.apiLink + 'api/colours/' + id, data, this.options)
+                return this.http.put(this.apiLink + 'api/colours/' + id, data, this.options)
                         .map((response: Response) => response.json());
-            }
+        }
 
 
         // Delete Color
@@ -148,10 +148,10 @@ export class UserService {
         }
 
 
-         // Create detail
-         createDetail(category: any) {
+        // Create detail
+        createDetail(category: any) {
                 // get login user credentials from localstorage
-                this.getCSRF();                      
+                this.getCSRF();
                 const data = JSON.stringify(category);
                 console.log('final', data);
                 return this.http.post(this.apiLink + 'api/detailtypes', data, this.options).map((response: Response) => response.json());
@@ -161,27 +161,27 @@ export class UserService {
         getDetailList() {
                 // get login user credentials from localstorage
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/detailtypes',this.options)
+                return this.http.get(this.apiLink + 'api/detailtypes', this.options)
                         .map((response: Response) => response.json());
         }
 
         // Update details
         updateDetail(category: any) {
-                const id=category.id;
-                console.log(category,"updetail")
+                const id = category.id;
+                console.log(category, "updetail")
                 this.getCSRF();
                 delete category['type']
                 delete category['id']
                 const data = JSON.stringify(category);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/detailtypes/'+id, data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/detailtypes/' + id, data, this.options).map((response: Response) => response.json());
         }
 
         // Delete detail
-        deleteDetail(category:any) {
-                const id=category.id;
-                this.getCSRF();                      
-                return this.http.delete(this.apiLink + 'api/detailtypes/'+id,this.options).map((response: Response) => response.json());
+        deleteDetail(category: any) {
+                const id = category.id;
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/detailtypes/' + id, this.options).map((response: Response) => response.json());
         }
 
         // Online Seller
@@ -210,7 +210,7 @@ export class UserService {
                 delete OnlineSeller['sid'];
                 const data = JSON.stringify(OnlineSeller);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/onlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/onlineSeller/' + sid, data, this.options).map((response: Response) => response.json());
         }
         // offline seller
         // get offline seller list
@@ -218,7 +218,7 @@ export class UserService {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/offlineSeller', this.options)
                         .map((response: Response) => response.json());
-        } 
+        }
 
         // Create offline seller
         createOfflineSeller(OfflineSeller: any) {
@@ -235,18 +235,18 @@ export class UserService {
                 delete OfflineSeller['sid'];
                 const data = JSON.stringify(OfflineSeller);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/offlineSeller/'+sid, data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/offlineSeller/' + sid, data, this.options).map((response: Response) => response.json());
         }
         // Delete offline seller
         deleteOfflineSeller(sellerId: number) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);                
+                return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);
         }
         // Brand
         // get All brand list
         getAllBrandList(off) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands?limit=50&offset='+off, this.options)
+                return this.http.get(this.apiLink + 'api/brands?limit=50&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
         // get active brand list
@@ -265,43 +265,43 @@ export class UserService {
         // Delete brand
         deleteBrand(brandId: any) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/brands/' + brandId, this.options).map((response: Response) => response);                
+                return this.http.delete(this.apiLink + 'api/brands/' + brandId, this.options).map((response: Response) => response);
         }
         // get details of brand by id
         getBrandDetailsbyID(ID: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands/'+ID, this.options)
+                return this.http.get(this.apiLink + 'api/brands/' + ID, this.options)
                         .map((response: Response) => response.json());
         }
-        
+
         // Update brand
-        updateBrand(dataa: any,arr) {
+        updateBrand(dataa: any, arr) {
                 // console.log
                 const id = dataa.brand_id;
-                for (let i=0;i<arr.length;i++){
-                        if(arr[i].id==""){
-                                arr[i].id=undefined;
-                        }       
+                for (let i = 0; i < arr.length; i++) {
+                        if (arr[i].id == "") {
+                                arr[i].id = undefined;
+                        }
                 }
                 this.getCSRF();
                 delete dataa['brand_id'];
                 const data = JSON.stringify(dataa);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/brands/'+id, data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/brands/' + id, data, this.options).map((response: Response) => response.json());
         }
         //remove brand details
-        removeBrandDetails(asc,center){
+        removeBrandDetails(asc, center) {
                 console.log(asc.id)
                 // const center_id=center.id;
-                const id=asc.id
+                const id = asc.id
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/brands/'+center+'/details/'+id, this.options)
-                .map((response: Response) => response.json());
+                return this.http.delete(this.apiLink + 'api/brands/' + center + '/details/' + id, this.options)
+                        .map((response: Response) => response.json());
         }
         // get authorized service center list
         getAuthorizedServiceCenterList(off) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset='+off, this.options)
+                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
         // Create authorized service center
@@ -314,58 +314,68 @@ export class UserService {
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(center_id: any) {
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/servicecenters/' + center_id, this.options).map((response: Response) => response); 
+                return this.http.delete(this.apiLink + 'api/servicecenters/' + center_id, this.options).map((response: Response) => response);
         }
         // get details of authorized service center by id
         getAuthorizedServiceCenterByID(ID: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/servicecenters/'+ID, this.options)
+                return this.http.get(this.apiLink + 'api/servicecenters/' + ID, this.options)
                         .map((response: Response) => response.json());
         }
         // Update authorized service center
-        updateAuthorizedServiceCenter(asc: any,arr) {
-                console.log(asc,arr,"seller online")
-                const id=asc.center_id
-                for (let i=0;i<arr.length;i++){
-                        if(arr[i].id==""){
-                                arr[i].id=undefined;
-                        }       
+        updateAuthorizedServiceCenter(asc: any, arr) {
+                console.log(asc, arr, "seller online")
+                const id = asc.center_id
+                for (let i = 0; i < arr.length; i++) {
+                        if (arr[i].id == "") {
+                                arr[i].id = undefined;
+                        }
                 }
                 this.getCSRF();
                 delete asc['center_id']
                 const data = JSON.stringify(asc);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/servicecenters/'+id, data, this.options)
+                return this.http.put(this.apiLink + 'api/servicecenters/' + id, data, this.options)
                         .map((response: Response) => response.json());
         }
         //remove asc details
-        removeAscDetails(asc,center){
+        removeAscDetails(asc, center) {
                 console.log(asc.id)
-                const center_id=center.id;
-                const id=asc.id
+                const center_id = center.id;
+                const id = asc.id
                 this.getCSRF();
-                return this.http.delete(this.apiLink + 'api/servicecenters/'+center_id+'/details/'+id, this.options)
-                .map((response: Response) => response.json());
+                return this.http.delete(this.apiLink + 'api/servicecenters/' + center_id + '/details/' + id, this.options)
+                        .map((response: Response) => response.json());
         }
 
-                // get list of new,under-progress and completed list
+        // get list of new,under-progress and completed list
         // get admin list
-        getAdminJobList(BillType: Number,off:Number) {
+        getAdminJobList(BillType: Number, off: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?admin_status='+BillType+'&limit=20&offset='+off, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&limit=20&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
+        getFilteredJobList(BillType: Number, filter) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + filter, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // getFilteredQEJobList(BillType: Number, id) {
+        //         this.getCSRF();
+        //         return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&assigned_to_qe=' + id, this.options)
+        //                 .map((response: Response) => response.json());
+        // }
+        // get CE JOB list
+        getCEJobList(BillType: Number, id, off) {
+                console.log(BillType, id, "bill type")
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?ce_status=' + BillType + '&assigned_to_ce=' + id + '&limit=20&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
         // get CE JOB list
-        getCEJobList(BillType: Number,id,off) {
-                console.log(BillType,id,"bill type")
+        getQEJobList(BillType: Number, id, off) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?ce_status='+BillType+'&assigned_to_ce='+id+'&limit=20&offset='+off, this.options)
-                        .map((response: Response) => response.json());
-        }
-        // get CE JOB list
-        getQEJobList(BillType: Number,id) {
-                this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?qe_status='+BillType+'&assigned_to_qe='+id, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?qe_status=' + BillType + '&assigned_to_qe=' + id + '&limit=20&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
         // discard job
@@ -373,12 +383,12 @@ export class UserService {
                 this.getCSRF();
                 const jobID = req['id'];
                 delete req['id'];
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/discard',req, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/discard', req, this.options)
                         .map((response: Response) => response.json());
         }
         // Assign job to CE
         assignJobCE(task: any) {
-                console.log(task,"task")
+                console.log(task, "task")
                 this.getCSRF();
                 // const id=task['id']
                 const jobID = task['jobId'];
@@ -387,12 +397,12 @@ export class UserService {
                 delete task['UID'];
                 const data = JSON.stringify(task);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID, data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/ce/' + ceID, data, this.options)
                         .map((response: Response) => response.json());
         }
         // Assign job to QE
         assignJobQE(task: any) {
-                console.log(task,"task")
+                console.log(task, "task")
                 this.getCSRF();
                 const jobID = task['jobId'];
                 const qeID = task['UID'];
@@ -400,18 +410,18 @@ export class UserService {
                 delete task['UID'];
                 const data = JSON.stringify(task);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+qeID, data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/qe/' + qeID, data, this.options)
                         .map((response: Response) => response.json());
         }
-        completeJobByAdmin(jobId:number,comment:string){
+        completeJobByAdmin(jobId: number, comment: string) {
                 this.getCSRF();
-                const data = {'comments':comment};
-                return this.http.put(this.apiLink + 'api/jobs/'+jobId+'/complete',data, this.options)
-                .map((response: Response) => response.json());   
+                const data = { 'comments': comment };
+                return this.http.put(this.apiLink + 'api/jobs/' + jobId + '/complete', data, this.options)
+                        .map((response: Response) => response.json());
         }
         getJobByID(billID: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs/'+billID, this.options)
+                return this.http.get(this.apiLink + 'api/jobs/' + billID, this.options)
                         .map((response: Response) => response.json());
         }
         createBill(bill: any) {
@@ -423,20 +433,20 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/bills', data, this.options)
                         .map((response: Response) => response.json());
         }
-        verifyBill(bill_id){
+        verifyBill(bill_id) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/bills/'+bill_id, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/bills/' + bill_id, data, this.options)
+                        .map((response: Response) => response.json());
         }
         deleteBill(billId) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/bills/'+billId, this.options)
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/bills/' + billId, this.options)
                         .map((response: Response) => response);
         }
-        getProductList(userId:number){
+        getProductList(userId: number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/products?user_id='+userId, this.options)
+                return this.http.get(this.apiLink + 'api/products?user_id=' + userId, this.options)
                         .map((response: Response) => response.json());
         }
         createProduct(prod: any) {
@@ -446,11 +456,11 @@ export class UserService {
                 Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
                 const data = JSON.stringify(prod);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/bills/'+billId+'/products', data, this.options)
+                return this.http.post(this.apiLink + 'api/bills/' + billId + '/products', data, this.options)
                         .map((response: Response) => response.json());
         }
         updateProduct(prod: any) {
-                console.log("prod",prod);
+                console.log("prod", prod);
                 this.getCSRF();
                 const billId = prod.billId;
                 const prodId = prod.productId;
@@ -459,25 +469,25 @@ export class UserService {
                 Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
                 const data = JSON.stringify(prod);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/bills/'+billId+'/products/'+prodId, data, this.options)
+                return this.http.put(this.apiLink + 'api/bills/' + billId + '/products/' + prodId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        deleteProduct(billId,id) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/bills/'+billId+'/products/'+id, this.options)
+        deleteProduct(billId, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/bills/' + billId + '/products/' + id, this.options)
                         .map((response: Response) => response);
         }
-        verifyProduct(bill_id,product_id){
+        verifyProduct(bill_id, product_id) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/bills/'+bill_id+'/products/'+product_id, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/bills/' + bill_id + '/products/' + product_id, data, this.options)
+                        .map((response: Response) => response.json());
         }
-        productMetaData(billId,prodId){
+        productMetaData(billId, prodId) {
                 this.getCSRF();
                 // console.log(billId,prodId);
-                return this.http.get(this.apiLink + 'api/bills/'+billId+'/products/'+prodId, this.options)
-                .map((response: Response) => response.json());
+                return this.http.get(this.apiLink + 'api/bills/' + billId + '/products/' + prodId, this.options)
+                        .map((response: Response) => response.json());
         }
         createWarranty(war: any) {
                 this.getCSRF();
@@ -486,7 +496,7 @@ export class UserService {
                 Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
                 const data = JSON.stringify(war);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/products/'+product_id+'/warranties', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/' + product_id + '/warranties', data, this.options)
                         .map((response: Response) => response.json());
         }
         updateWarranty(war: any) {
@@ -495,22 +505,22 @@ export class UserService {
                 const product_id = war.product_id;
                 delete war['product_id'];
                 delete war['warrantyId'];
-                Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);                
+                Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
                 const data = JSON.stringify(war);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/warranties/' + warId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        deleteWarranty(product_id,id) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/warranties/'+id, this.options)
+        deleteWarranty(product_id, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/products/' + product_id + '/warranties/' + id, this.options)
                         .map((response: Response) => response);
         }
-        verifyWarranty(product_id,warId){
+        verifyWarranty(product_id, warId) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/warranties/'+warId, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/warranties/' + warId, data, this.options)
+                        .map((response: Response) => response.json());
         }
         updateInsurance(ins: any) {
                 this.getCSRF();
@@ -518,41 +528,41 @@ export class UserService {
                 const product_id = ins.product_id;
                 delete ins['product_id'];
                 delete ins['insuranceId'];
-                Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);                
+                Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);
                 const data = JSON.stringify(ins);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/insurances/' + insId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        deleteInsurance(product_id,id) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/insurances/'+id, this.options)
+        deleteInsurance(product_id, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/products/' + product_id + '/insurances/' + id, this.options)
                         .map((response: Response) => response);
         }
-        verifyInsurance(product_id,insId){
+        verifyInsurance(product_id, insId) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/insurances/'+insId, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/insurances/' + insId, data, this.options)
+                        .map((response: Response) => response.json());
         }
         createInsurance(ins: any) {
                 this.getCSRF();
                 const product_id = ins.product_id;
                 delete ins['product_id'];
-                Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);  
+                Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);
                 const data = JSON.stringify(ins);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/products/'+product_id+'/insurances', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/' + product_id + '/insurances', data, this.options)
                         .map((response: Response) => response.json());
         }
         createAmc(amc: any) {
                 this.getCSRF();
                 const product_id = amc.product_id;
                 delete amc['product_id'];
-                Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);  
+                Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);
                 const data = JSON.stringify(amc);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/products/'+product_id+'/amcs', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/' + product_id + '/amcs', data, this.options)
                         .map((response: Response) => response.json());
         }
         updateAmc(amc: any) {
@@ -561,31 +571,31 @@ export class UserService {
                 const product_id = amc.product_id;
                 delete amc['product_id'];
                 delete amc['amcId'];
-                Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);                  
+                Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);
                 const data = JSON.stringify(amc);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/amcs/' + amcId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        deleteAmc(product_id,id) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/amcs/'+id, this.options)
+        deleteAmc(product_id, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/products/' + product_id + '/amcs/' + id, this.options)
                         .map((response: Response) => response);
         }
-        verifyAmc(product_id,amcId){
+        verifyAmc(product_id, amcId) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/amcs/'+amcId, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/amcs/' + amcId, data, this.options)
+                        .map((response: Response) => response.json());
         }
         createRepair(rep: any) {
                 this.getCSRF();
                 const product_id = rep.product_id;
                 delete rep['product_id'];
-                Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);                                  
+                Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
                 const data = JSON.stringify(rep);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/products/'+product_id+'/repairs', data, this.options)
+                return this.http.post(this.apiLink + 'api/products/' + product_id + '/repairs', data, this.options)
                         .map((response: Response) => response.json());
         }
         updateRepair(rep: any) {
@@ -594,50 +604,50 @@ export class UserService {
                 const product_id = rep.product_id;
                 delete rep['product_id'];
                 delete rep['repairId'];
-                Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);                                                  
+                Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
                 const data = JSON.stringify(rep);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/repairs/' + repairId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        deleteRepair(product_id,id) {
-                this.getCSRF();             
-                return this.http.delete(this.apiLink + 'api/products/'+product_id+'/repairs/'+id, this.options)
+        deleteRepair(product_id, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/products/' + product_id + '/repairs/' + id, this.options)
                         .map((response: Response) => response);
         }
-        verifyRepair(product_id,repairId){
+        verifyRepair(product_id, repairId) {
                 this.getCSRF();
-                const data = {'status_type':5}
-                return this.http.put(this.apiLink + 'api/products/'+product_id+'/repairs/'+repairId, data, this.options)
-                .map((response: Response) => response.json());
+                const data = { 'status_type': 5 }
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/repairs/' + repairId, data, this.options)
+                        .map((response: Response) => response.json());
         }
         updateBill(bill: any) {
                 this.getCSRF();
-                Object.keys(bill).forEach((key) => (bill[key] == '' || bill[key] == null) && delete bill[key]);      
+                Object.keys(bill).forEach((key) => (bill[key] == '' || bill[key] == null) && delete bill[key]);
                 const billId = bill.id;
                 delete bill['id'];
                 const data = JSON.stringify(bill);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/bills/'+billId, data, this.options)
+                return this.http.put(this.apiLink + 'api/bills/' + billId, data, this.options)
                         .map((response: Response) => response.json());
         }
         // final JOB complete
-        completeJob(jobID,ceID) {
+        completeJob(jobID, ceID) {
                 this.getCSRF();
                 const data = {};
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/ce/'+ceID+'/complete',data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/ce/' + ceID + '/complete', data, this.options)
                         .map((response: Response) => response.json());
         }
-        completeJobQE(jobID,ceID) {
+        completeJobQE(jobID, ceID) {
                 this.getCSRF();
                 const data = {};
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/qe/'+ceID+'/complete',data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/qe/' + ceID + '/complete', data, this.options)
                         .map((response: Response) => response.json());
         }
         //  JOB reassigned
-        reassignJob(jobID,data) {
+        reassignJob(jobID, data) {
                 this.getCSRF();
-                return this.http.put(this.apiLink + 'api/jobs/'+jobID+'/reassign',data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobID + '/reassign', data, this.options)
                         .map((response: Response) => response.json());
         }
         // get list of active ce
@@ -655,14 +665,14 @@ export class UserService {
         //discard bill image
         discardConsumerBillImage(req: any) {
                 console.log(req)
-                this.getCSRF();               
-                const jobId=req.BID
-                const fileId=req.ImageID
+                this.getCSRF();
+                const jobId = req.BID
+                const fileId = req.ImageID
                 delete req['BID']
                 delete req['ImageID']
                 const data = JSON.stringify(req);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/jobs/'+jobId+'/files/'+fileId, data, this.options)
+                return this.http.put(this.apiLink + 'api/jobs/' + jobId + '/files/' + fileId, data, this.options)
                         .map((response: Response) => response.json());
 
         }
@@ -888,7 +898,7 @@ export class UserService {
         // **^ Exclusion Services ^** //
 
         // get list of main category ,category and sub category
-        
+
         // get list of exclusions by category id
         getExclusionsListbyCategoryID(RefID: number) {
                 // get login user credentials from localstorage
@@ -904,9 +914,9 @@ export class UserService {
                 return this.http.post(this.apiLink + 'Services/ExclusionsListByCategoryID', data, options)
                         .map((response: Response) => response.json());
         }
-       
-        
-        
+
+
+
         // **^ authorized service center Services ^** //
 
 

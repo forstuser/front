@@ -80,7 +80,7 @@ export class NewComponent implements OnInit {
 
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getQEJobList(4,this.userId) // new = 4 refer api doc
+      this.userservice.getQEJobList(4,this.userId,this.offset) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);

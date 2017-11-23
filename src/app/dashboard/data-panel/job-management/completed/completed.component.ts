@@ -54,7 +54,7 @@ export class CompletedComponent implements OnInit {
     }
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getQEJobList(5, this.userId) // completed = 5  refer api doc
+      this.userservice.getQEJobList(5, this.userId,this.offset) // completed = 5  refer api doc
         .subscribe(bill => {
           this.billList = bill;
           console.log(this.billList);
