@@ -42,6 +42,9 @@ export class UnderProgressComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   activeCE: any;
   activeQE: any;
+  activeUser:any;
+  type:any;
+  filter:any;
   userId: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -71,6 +74,16 @@ export class UnderProgressComponent implements OnInit {
           this.bills = bills;
           console.log(this.bills);
         });
+        this.userservice.ActiveCE()
+        .subscribe(res => {
+          this.activeCE = res;
+          console.log(res)
+        })
+        this.userservice.ActiveQE()
+        .subscribe(res => {
+          this.activeQE = res;
+          console.log(res)
+        })
     }
     // get list of ce jobs
     else if (this.userType === 4) {
@@ -80,14 +93,14 @@ export class UnderProgressComponent implements OnInit {
           console.log(bills);
         });
     }
-
-    // get list of ce
-
-    // this.userservice.getUserList(3) // 3 for ce refer to api doc
-    //   .subscribe(bills => {
-    //     this.bills = bills;
-    //     console.log(bills);
-    //   });
+    // get list of qe jobs
+    else if (this.userType === 3) {
+      this.userservice.getQEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
+        .subscribe(bills => {
+          this.bills = bills;
+          console.log(bills);
+        });
+    }
   }
 
   // function for pagination
@@ -337,5 +350,39 @@ export class UnderProgressComponent implements OnInit {
         const errMsg = JSON.parse(err['_body']);
         alert(errMsg.reason);
       })
+  }
+  // Filter   '&assigned_to_ce='
+  onSelectType(type){
+    console.log(type);
+    this.type = type;
+    if(type=='ce'){
+      this.userservice.ActiveCE()
+      .subscribe(res => {
+        this.activeUser = res;
+        console.log(res)
+      })
+    }
+    else{
+      this.userservice.ActiveQE()
+      .subscribe(res => {
+        this.activeUser = res;
+        console.log(res)
+      })
+    }
+  }
+  onSelectUser(id){
+    console.log(id);
+    if(this.type=='ce'){
+      this.filter='&assigned_to_ce='+id;
+    }else{
+      this.filter='&assigned_to_qe='+id;
+    }
+    this.loader = true;
+    this.userservice.getFilteredJobList(8,this.filter) // incomplete = 6 refer api doc
+    .subscribe(bills => {
+      this.bills = bills;
+      this.loader = false;
+      console.log(this.bills);
+    });
   }
 }
