@@ -219,6 +219,18 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/offlineSeller', this.options)
                         .map((response: Response) => response.json());
         }
+        // get offline seller list by query
+        getOfflineSellerListByQuery(query:string) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/offlineSeller?seller_name='+query, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // get details of offline seller by id
+        getOfflineSellerDetailsbyID(ID: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/offlineSeller/'+ID, this.options)
+                        .map((response: Response) => response.json());
+        }
 
         // Create offline seller
         createOfflineSeller(OfflineSeller: any) {
@@ -805,22 +817,7 @@ export class UserService {
 
         // **^ offline seller Services ^** //
 
-        // get details of offline seller by id
-        getOfflineSellerDetailsbyID(ID: Number) {
-                // get login user credentials from localstorage
-                this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-                this.TokenNo = this.currentUser.token;
-                this.UserType = this.currentUser.UserType;
-                const body = { TokenNo: this.TokenNo, ID: ID };
-                // const data = JSON.stringify(body);
-                const data = JSON.stringify(body);
-                // console.log(data);
-                const headers = new Headers({ 'Content-Type': 'application/json' });
-                const options = new RequestOptions({ headers: headers });
-                console.log(data);
-                return this.http.post(this.apiLink + 'Services/OfflineSellerByID', data, options)
-                        .map((response: Response) => response.json());
-        }
+
 
 
 

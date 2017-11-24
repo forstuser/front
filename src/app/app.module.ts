@@ -37,8 +37,6 @@ import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-manageme
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
 import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
-// import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
-// import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
@@ -50,6 +48,7 @@ import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule} from "ng2-modal";
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {SelectModule} from 'ng2-select';
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
@@ -109,7 +108,8 @@ import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/vi
     AngularDraggableModule,
     ModalModule,
     Ng2OrderModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    SelectModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]
