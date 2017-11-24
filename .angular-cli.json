@@ -24,7 +24,8 @@
             "../node_modules/adminbsb-materialdesign/plugins/animate-css/animate.min.css",
             "../node_modules/adminbsb-materialdesign/css/style.min.css",
             "../node_modules/adminbsb-materialdesign/css/materialize.css",
-            "../node_modules/adminbsb-materialdesign/css/themes/all-themes.css"
+            "../node_modules/adminbsb-materialdesign/css/themes/all-themes.css",
+            "../node_modules/"
         ],
         "scripts": [
             

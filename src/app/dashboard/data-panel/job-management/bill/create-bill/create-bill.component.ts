@@ -1,3 +1,4 @@
+import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
 import { FunctionService } from './../../../../../_services/function.service';
 import { appConfig } from './../../../../../app.config';
 import { UserService } from './../../../../../_services/user.service';
@@ -18,6 +19,7 @@ export class CreateBillComponent implements OnInit {
   userId: number;
   billId: number;
   productId: number;
+  sellerId:number;
   mainCatId: number;
   catId: number;
   warrantyId: number;
@@ -42,11 +44,13 @@ export class CreateBillComponent implements OnInit {
   productList:any;
   onlineSeller: any;
   offlineSeller: any;
+  offlineSellerArray:any[] = [];
   mainCat: any;
   cat: any;
   catForm: any;
   brands: any;
   colours: any;
+  sellerObject:any;
   billGeneralInfoFormObject: any;
   billGeneralInfoEditFormObject: any;
   billGeneralInfoFormObjectForBind: any;
@@ -99,6 +103,7 @@ export class CreateBillComponent implements OnInit {
   deleteWarrantyy:boolean=false;
   deleteJob:boolean = false;
   completeJobDialog:boolean=false;
+  showSellerInfo:boolean = false;
   constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -252,7 +257,6 @@ export class CreateBillComponent implements OnInit {
     this.billId = req.bill_id;
     console.log(this.billId, "bill id")
   }
-
   makeProduct(bill) {
     this.billId = bill.id;
     this.onlineSellerList();
@@ -285,7 +289,7 @@ export class CreateBillComponent implements OnInit {
       'taxes': form.value.taxes,
       'brand_id': form.value.brand_id,
       'colour_id': form.value.colour_id,
-      'seller_id': form.value.seller_id,
+      'seller_id': this.sellerId,
       'user_id': this.userId,
       'job_id': this.jobId,
       'billId': this.billId
@@ -394,7 +398,6 @@ export class CreateBillComponent implements OnInit {
         this.showProductForm = true;
         this.getBrandList();
         this.getColorList();
-        this.getOfflineSellerList();
       });
   }
   // after select category show  category form
@@ -432,9 +435,44 @@ export class CreateBillComponent implements OnInit {
     this.userService.getOfflineSellerList()
       .subscribe(offlineSellerList => {
         this.offlineSeller = offlineSellerList;
-        // console.log(this.offlineSeller,"offline seller");
       });
   }
+  // get offline seller by search
+  public typed(value:any):void {
+    // console.log('New search input: ', value);
+    this.userService.getOfflineSellerListByQuery(value)
+    .subscribe(res => {
+      // console.log(res);
+      this.offlineSellerArray = [];
+      for(var i=0;i<res.data.length;i++){
+        var pushValue = res.data[i].seller_name;
+        var pushId  = res.data[i].sid;
+        // console.log(pushId);
+        var push = '['+pushId + '] ' + pushValue; 
+        this.offlineSellerArray.push(push);
+      }
+      console.log(this.offlineSellerArray);
+    });
+  }
+  public selected(value:any):void {
+    console.log('Selected value is: ', value);
+    const val = value.text.split('[').pop().split(']').shift();
+    console.log(val);
+    this.sellerId = val;
+    // this.sellerId = 
+  }
+  sellerInfo(){
+    this.showSellerInfo = !this.showSellerInfo;
+    this.userService.getOfflineSellerDetailsbyID(this.sellerId)
+      .subscribe((res)=>{
+        console.log(res);
+        this.sellerObject = res;
+      })
+  }
+  public removed(value:any):void {
+    console.log('Removed value is: ', value);
+  }
+
   // open product list
   openProductList(){
     this.userService.getProductList(this.userId)
@@ -952,6 +990,7 @@ export class CreateBillComponent implements OnInit {
     this.askMainCategory = true;
     this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category
+    this.getOfflineSellerList();
   }
   // show add offline seller form
   showAddSellerForm() {
