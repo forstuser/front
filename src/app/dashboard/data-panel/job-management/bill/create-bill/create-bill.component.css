@@ -32,11 +32,6 @@
   .font-small{
       font-size: smaller;
   }
-  .imagelist:hover {
-    -webkit-transform:scale(1.3);
-    transform:scale(1.3);
-    }
-    .imagelist {
-    -webkit-transition: all 0.7s ease;
-    transition: all 0.7s ease;
-    }
+.dropDown .ui-select-choices .dropdown-menu{
+  margin-top:0px !important;
+}
