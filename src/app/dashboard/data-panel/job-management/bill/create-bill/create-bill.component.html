@@ -445,12 +445,23 @@
 
       <!-- Ask category Start -->
       <div *ngIf="askMainCategory">
+          <div class="card">
+              <small><u><b>Seller Info</b></u></small>
+              <div class="row">
+                <div class="col-md-2 col-md-offset-1"><small><b>Name</b></small></div>
+                <div class="col-md-9"><small>{{sellerObject?.data?.seller_name}}</small></div>
+              </div>  
+              <div class="row">
+                  <div class="col-md-2 col-md-offset-1"><small><b>Address</b></small></div>
+                  <div class="col-md-9"><small>{{sellerObject?.data?.address}}</small></div>
+              </div>
+            </div> 
         <div class="row clearfix">
           <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
             <label class="font-small">Offline Seller</label>
           </div>
-          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-            <div class="form-group">
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7 dropDown">
+            <div class="form-group" (mouseover)="focused($event.target.innerText)">
                 <ng-select [allowClear]="true"
                 [items]="offlineSellerArray"
                 [disabled]="disabled"
@@ -460,17 +471,8 @@
                 placeholder="No Seller selected">
                 </ng-select>
             </div>
-            <button class="btn btn-block btn-info" (click)="sellerInfo()">Seller Info</button>
-            <div class="card" *ngIf="showSellerInfo">
-              <div class="row">
-                <div class="col-md-2 col-md-offset-1"><small><b>Name</b></small></div>
-                <div class="col-md-9"><small>{{sellerObject?.data?.seller_name}}</small></div>
-              </div>  
-              <div class="row">
-                  <div class="col-md-2 col-md-offset-1"><small><b>Address</b></small></div>
-                  <div class="col-md-9"><small>{{sellerObject?.data?.address}}</small></div>
-              </div>
-            </div>            
+            <!-- <button class="btn btn-block btn-info" (click)="sellerInfo()">Seller Info</button> -->
+           
           </div>
         </div>
         <p></p>

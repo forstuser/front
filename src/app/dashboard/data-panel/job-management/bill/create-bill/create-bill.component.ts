@@ -159,8 +159,7 @@ export class CreateBillComponent implements OnInit {
   // next image
   nextImage() {
     $("#image").remove();
-    console.log(this.imageIndex, 'next')
-    // $("#image").remove();
+    // console.log(this.imageIndex, 'next')
     if (this.imageIndex < this.imageArrayLength - 1) {
       this.imageIndex = this.imageIndex + 1;
       $("#image").imgViewer2();
@@ -456,10 +455,21 @@ export class CreateBillComponent implements OnInit {
   }
   public selected(value:any):void {
     console.log('Selected value is: ', value);
-    const val = value.text.split('[').pop().split(']').shift();
-    console.log(val);
-    this.sellerId = val;
+    // if(value.includes('[')){
+    //   const val = value.text.split('[').pop().split(']').shift();
+    //   console.log(val);
+    //   this.sellerId = val;
+    // }
     // this.sellerId = 
+  }
+  public focused(value:any):void {
+    console.log('focus value is:',value);
+    if(value.includes('[')){
+      const val = value.split('[').pop().split(']').shift();
+      console.log(val);
+      this.sellerId = val;
+      this.sellerInfo();
+    }
   }
   sellerInfo(){
     this.showSellerInfo = !this.showSellerInfo;
