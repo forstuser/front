@@ -16,7 +16,7 @@ export class CompletedComponent implements OnInit {
   userType: Number;
   prev: number = 0;
   next: number = 10;
-  offset:number =1;
+  offset:number = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;

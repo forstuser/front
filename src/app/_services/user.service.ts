@@ -372,6 +372,11 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + filter, this.options)
                         .map((response: Response) => response.json());
         }
+        getDayLeftJobList(BillType: Number, day) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&job_day=' +day, this.options)
+                        .map((response: Response) => response.json());
+        }
         // getFilteredQEJobList(BillType: Number, id) {
         //         this.getCSRF();
         //         return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&assigned_to_qe=' + id, this.options)

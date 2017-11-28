@@ -276,8 +276,10 @@ export class ViewBillComponent implements OnInit {
     this.getOfflineSellerList();
     this.showWarrantyEditForm = true;
     this.addons = false;
+    this.jobDetailsShow = false;
     this.selectedEditWarrantyImageArray = war.copies;
     this.warrantyFormObjectForBind = war;
+    this.productId = war.product_id;
   }
   verifyWarranty(form: NgForm) {
     this.userService.verifyWarranty(this.productId, this.warrantyId)
@@ -287,6 +289,10 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showWarrantyEditForm = false;
         this.addons = true;
+        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  == 0){
+          this.addons = false;
+          this.jobDetailsShow = true;
+        }
       }, err => {
         console.log(err);
       })
@@ -298,8 +304,10 @@ export class ViewBillComponent implements OnInit {
     this.getOfflineSellerList();
     this.showInsuranceEditForm = true;
     this.addons = false;
+    this.jobDetailsShow = false;
     this.selectedEditInsuranceImageArray = ins.copies;
     this.insuranceFormObjectForBind = ins;
+    this.productId = ins.product_id;
   }
   verifyInsurance(form: NgForm) {
     this.userService.verifyInsurance(this.productId, this.insuranceId)
@@ -309,6 +317,10 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showInsuranceEditForm = false;
         this.addons = true;
+        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+          this.addons = false;
+          this.jobDetailsShow = true;
+        }
       }, err => {
         console.log(err);
       })
@@ -320,8 +332,10 @@ export class ViewBillComponent implements OnInit {
     this.getOfflineSellerList();
     this.showAmcEditForm = true;
     this.addons = false;
+    this.jobDetailsShow = false;
     this.selectedEditAmcImageArray = amc.copies;
     this.amcFormObjectForBind = amc;
+    this.productId = amc.product_id;
   }
   verifyAmc(form: NgForm) {
     this.userService.verifyAmc(this.productId, this.amcId)
@@ -331,6 +345,10 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showAmcEditForm = false;
         this.addons = true;
+        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+          this.addons = false;
+          this.jobDetailsShow = true;
+        }
       }, err => {
         console.log(err);
       })
@@ -342,8 +360,10 @@ export class ViewBillComponent implements OnInit {
     this.getOfflineSellerList();
     this.showRepairEditForm = true;
     this.addons = false;
+    this.jobDetailsShow = false;
     this.selectedEditRepairImageArray = rep.copies;
     this.repairFormObjectForBind = rep;
+    this.productId = rep.product_id;
   }
   verifyRepair(form: NgForm) {
     this.userService.verifyRepair(this.productId, this.repairId)
@@ -353,6 +373,10 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showRepairEditForm = false;
         this.addons = true;
+        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+          this.addons = false;
+          this.jobDetailsShow = true;
+        }
       }, err => {
         console.log(err);
       })
@@ -471,6 +495,10 @@ export class ViewBillComponent implements OnInit {
   }
   backtoAddons() {
     this.addons = true;
+    if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+      this.addons = false;
+      this.jobDetailsShow = true;
+    }
     this.showWarrantyEditForm = false;
     this.showInsuranceEditForm = false;
     this.showAmcEditForm = false;
