@@ -29,6 +29,15 @@
         </select>
       </div>
     </div>
+    <div class="col-md-2">
+      <label for="">Jobs of last </label>
+    </div>
+    <div class="col-md-1">
+      <input type="number" name="job_day" style="margin-top:2px;" #dayInput>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-info btn-block" (click)="jobDay(dayInput.value)">Days</button>
+    </div>
   </div>
   <div class="text-center" *ngIf="loader">
     <h1>Please Wait ...</h1>
@@ -61,7 +70,7 @@
       </thead>
       <tbody *ngFor="let bill of bills?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+offset }} </th>
+          <th scope="row">{{ i+1+offset }} </th>
           <td><button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
               <i class="material-icons">verified_user</i>
           </button> {{ bill?.job_id}}</td>

@@ -385,4 +385,14 @@ export class UnderProgressComponent implements OnInit {
       console.log(this.bills);
     });
   }
+  jobDay(day){
+    console.log(day);
+    this.loader =true;
+    this.userservice.getDayLeftJobList(8,day) // incomplete = 6 refer api doc
+    .subscribe(bills => {
+      this.bills = bills;
+      this.loader = false;
+      console.log(this.bills);
+    });
+  }
 }
