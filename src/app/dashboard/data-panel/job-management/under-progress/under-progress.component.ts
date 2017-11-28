@@ -25,7 +25,7 @@ export class UnderProgressComponent implements OnInit {
   discardDialog: boolean = false;
   item: Object = {}; // object for single user
   statusCode: Number;
-  offset = 1;
+  offset = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;

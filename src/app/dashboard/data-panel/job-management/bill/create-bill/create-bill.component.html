@@ -453,7 +453,7 @@
               </div>  
               <div class="row">
                   <div class="col-md-2 col-md-offset-1"><small><b>Address</b></small></div>
-                  <div class="col-md-9"><small>{{sellerObject?.data?.address}}</small></div>
+                  <div class="col-md-9" style="min-height:40px"><small>{{sellerObject?.data?.address}}</small></div>
               </div>
             </div> 
         <div class="row clearfix">
@@ -641,7 +641,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="main_category_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}">
+                <select class="form-control dropdown" name="main_category_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}" disabled>
                   <option value="">Select</option>
                   <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>                  
                 </select>
@@ -655,7 +655,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}">
+                <select class="form-control dropdown" name="category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}" disabled>
                   <option value="">Select</option>
                   <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
                 </select>
@@ -764,24 +764,24 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="text" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <p></p>
                 <div class="form-group" *ngIf="form?.form_type == 2">
-                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                  <select class="form-control dropdown" name="{{productMetaDataForBind[i]?.id}}" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                     <option value="">Select</option>
                     <option *ngFor = "let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">
                   <div class="form-line">
-                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="date" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 4">
                   <div class="form-line">
-                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="number" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
               </div>

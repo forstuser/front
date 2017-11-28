@@ -17,7 +17,7 @@ export class DiscardedComponent implements OnInit {
   showDialog = false;
   item: Object = {}; // object for single user
   statusCode: Number;
-  offset:number = 1;
+  offset:number = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;

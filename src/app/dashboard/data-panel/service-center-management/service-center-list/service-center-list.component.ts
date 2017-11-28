@@ -17,7 +17,7 @@ export class ServiceCenterListComponent implements OnInit {
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
   cat:Category
-  offset = 1;
+  offset = 0;
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;

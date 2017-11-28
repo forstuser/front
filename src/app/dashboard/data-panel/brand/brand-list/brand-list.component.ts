@@ -13,7 +13,7 @@ export class BrandListComponent implements OnInit {
   brands: Brand;
   editBrandForm: FormGroup;
   cat:Category;
-  offset = 1;
+  offset = 0;
   leftFlag:boolean= true;
   rightFlag:boolean = false;
   noData:boolean = false;
