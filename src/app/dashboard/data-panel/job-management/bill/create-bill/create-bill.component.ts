@@ -301,6 +301,7 @@ export class CreateBillComponent implements OnInit {
     delete filterData['brand_id'];
     delete filterData['colour_id'];
     delete filterData['seller_id'];
+    this.productFromMetaData = [];
     for (var val in filterData) {
       this.productFromMetaData.push({ 'category_form_id': val, 'form_value': filterData[val] });
     }
@@ -341,6 +342,7 @@ export class CreateBillComponent implements OnInit {
     }
     console.log(this.productEditObject);
     const editFilterData = form.value;
+    console.log("Edit Filter Data", editFilterData);
     delete editFilterData['product_name'];
     delete editFilterData['purchase_cost'];
     delete editFilterData['taxes'];
@@ -351,7 +353,7 @@ export class CreateBillComponent implements OnInit {
     delete editFilterData['category_id'];
     this.productEditFromMetaData = [];
     for (var val in editFilterData) {
-      this.productEditFromMetaData.push({ 'category_form_id': val, 'form_value': editFilterData[val] });
+      this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
     }
     this.productEditObject['metaData'] = this.productEditFromMetaData;
     console.log(this.productEditObject);
@@ -406,7 +408,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
-        // console.log(this.catForm, "category form");
+        console.log(this.catForm, "category form");
         // this.showProductForm = true;
         this.getBrandList();
         this.getColorList();
@@ -878,7 +880,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
         this.productMetaDataForBind = res.data.metaData;
-        // console.log(this.productMetaDataForBind);
+        console.log("meta data",this.productMetaDataForBind);
       }, err => {
         console.log(err);
       })
