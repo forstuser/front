@@ -101,11 +101,11 @@
               <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
             </span>
           </td>
-          <td *ngIf="userType!=4"><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button></td>
-          <td *ngIf="userType!=4"><span class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
-          <td *ngIf="userType==4"><span class="btn btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
-          <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
-            >View Bill</button></td>
+          <td *ngIf="userType!=4"><button type="button" class="btn btn-xs bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button></td>
+          <td *ngIf="userType!=4"><span class="btn btn-xs  btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
+          <td *ngIf="userType==4"><span class="btn btn-xs btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
+          <td *ngIf="userType <=2"><button type="button" class="btn btn-xs bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
+            >View Bill</button><div style="margin-top:10px;"><span class="btn btn-warning btn-xs" (click)="assignQE(bill)" *ngIf="bill?.qe_status==5">Assign TO QE</span></div></td>
           <td><span *ngIf="userType<=2 && bill.qe_status==5" class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
         </tr>
       </tbody>
@@ -234,11 +234,11 @@
     </div>
     <div class="caption">
       <p class="text-center">
-        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
-        <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-        <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
-        <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
-        <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+        <button type="button" class="btn btn-info btn-xs waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+        <button type="button" class="btn btn-warning btn-xs waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+        <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-xs waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
+        <button type="button" class="btn btn-danger btn-xs waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
+        <button type="button" class="btn btn-info btn-xs waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
         <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
       </p>
     </div>
@@ -263,7 +263,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-              <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(comment.value);alertBox.close()">Discard Image</button>    
+              <button class="btn bg-red btn-xs btn-lg" type="submit" (click)="commentBoxData(comment.value);alertBox.close()">Discard Image</button>    
           </div>
         </div>
       </div>
@@ -283,7 +283,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 text-right">
-              <button class="btn bg-indigo btn-md btn-lg" type="submit" (click)="commentBoxDataAdmin(commentInput.value);commentBox.close()">Complete JOB</button>    
+              <button class="btn bg-indigo btn-xs btn-lg" type="submit" (click)="commentBoxDataAdmin(commentInput.value);commentBox.close()">Complete JOB</button>    
           </div>
         </div>
       </div>
