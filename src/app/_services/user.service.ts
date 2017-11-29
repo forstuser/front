@@ -267,6 +267,11 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands?status=1', this.options)
                         .map((response: Response) => response.json());
         }
+        getBrandListByCategory(catID) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands?category_id='+catID +'&status=1', this.options)
+                        .map((response: Response) => response.json());
+        }
         // Create Brand
         createBrand(brand: any) {
                 this.getCSRF();
@@ -464,6 +469,11 @@ export class UserService {
         getProductList(userId: number) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/products?user_id=' + userId, this.options)
+                        .map((response: Response) => response.json());
+        }
+        getProductDetailById(pid:number){
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/products/'+pid, this.options)
                         .map((response: Response) => response.json());
         }
         createProduct(prod: any) {

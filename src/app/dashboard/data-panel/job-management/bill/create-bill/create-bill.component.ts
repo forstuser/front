@@ -397,7 +397,7 @@ export class CreateBillComponent implements OnInit {
         this.catForm = res.data.categoryForms;
         console.log(this.catForm, "category form");
         this.showProductForm = true;
-        this.getBrandList();
+        this.getBrandListByCategory(catID);
         this.getColorList();
       });
   }
@@ -410,7 +410,6 @@ export class CreateBillComponent implements OnInit {
         this.catForm = res.data.categoryForms;
         console.log(this.catForm, "category form");
         // this.showProductForm = true;
-        this.getBrandList();
         this.getColorList();
         this.getOfflineSellerList();
       });
@@ -423,6 +422,14 @@ export class CreateBillComponent implements OnInit {
         // console.log(this.brands,"brands");
       });
   }
+    // brand list by category
+    getBrandListByCategory(catID) {
+      this.userService.getBrandListByCategory(catID)
+        .subscribe(brandList => {
+          this.brands = brandList;
+          console.log(this.brands,"brands");
+        });
+    }
   // color list
   getColorList() {
     this.userService.getColorList()

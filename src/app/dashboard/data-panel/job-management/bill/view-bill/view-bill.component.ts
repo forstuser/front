@@ -4,7 +4,7 @@ import { UserService } from './../../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 declare var $: any
 @Component({
@@ -78,8 +78,8 @@ export class ViewBillComponent implements OnInit {
   amcFormObjectForBind: any;
   repairFormObjectForBind: any;
   productMetaDataForBind: any;
-  completeJobDialog:boolean=false;
-  constructor(private _location: Location,private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
+  completeJobDialog: boolean = false;
+  constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
     this.userType = info.role_type;
@@ -203,13 +203,40 @@ export class ViewBillComponent implements OnInit {
     this.showProductForm = true;
     this.addons = false
   }
+  addonProductInfo(pid) {
+    // console.log(pid);
+    this.userService.getProductDetailById(pid)
+      .subscribe(res => {
+        console.log(res);
+        this.askMainCategory = true;
+        this.showProductForm = true;
+        this.showWarrantyEditForm = false;
+        this.showInsuranceEditForm = false;
+        this.showAmcEditForm = false;
+        this.showRepairEditForm = false;
+        this.getBrandList();
+        this.getColorList();
+        this.getOfflineSellerList();
+        this.mainCategoryList();
+        this.onSelectMainCat(res.data.main_category_id);
+        this.onSelectCat(res.data.category_id);
+        this.fillProductForm(pid);
+        this.selectedImageArray = res.data.copies;
+        this.productFormObjectForBind = res.data;
+      },
+      (err) => {
+        console.log(err);
+      })
+  }
   // verify Product
   verifyProductFormData() {
     this.userService.verifyProduct(this.billId, this.productId)
       .subscribe(res => {
         alert(" Product verified")
+        this.showProductForm = false;
+        this.askMainCategory = false;
+        this.cockpit = true;
         console.log(res);
-
         this.getDetailsOfJob();
       }, err => {
         console.log(err);
@@ -289,7 +316,7 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showWarrantyEditForm = false;
         this.addons = true;
-        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  == 0){
+        if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
           this.addons = false;
           this.jobDetailsShow = true;
         }
@@ -317,7 +344,7 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showInsuranceEditForm = false;
         this.addons = true;
-        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+        if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
           this.addons = false;
           this.jobDetailsShow = true;
         }
@@ -345,7 +372,7 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showAmcEditForm = false;
         this.addons = true;
-        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+        if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
           this.addons = false;
           this.jobDetailsShow = true;
         }
@@ -373,7 +400,7 @@ export class ViewBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.showRepairEditForm = false;
         this.addons = true;
-        if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+        if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
           this.addons = false;
           this.jobDetailsShow = true;
         }
@@ -495,7 +522,7 @@ export class ViewBillComponent implements OnInit {
   }
   backtoAddons() {
     this.addons = true;
-    if(this.jobDetails.bills.length == 0  && this.jobDetails.products.length  ==0){
+    if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
       this.addons = false;
       this.jobDetailsShow = true;
     }
