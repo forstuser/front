@@ -49,11 +49,11 @@ export class AuthenticationService {
   logout() {
     // localstorage
     this.user=JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.user)
+    // console.log(this.user)
     this.email=this.user.email;
-    console.log(this.email,"email")
+    // console.log(this.email,"email")
     this.role_type=this.user.role_type;
-    console.log(this.role_type);
+    // console.log(this.role_type);
 
 
     // Cookie.deleteAll();
@@ -63,12 +63,12 @@ export class AuthenticationService {
     };
     const csrf = Cookie.getAll();
     const cook = csrf['x-csrf-token'];
-    console.log(cook);
+    // console.log(cook);
     const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': cook });
     const options = new RequestOptions({ headers: headers});
-    console.log(options);
+    // console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       Cookie.deleteAll();
       this.router.navigateByUrl('/login')
     }),

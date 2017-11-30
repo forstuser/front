@@ -127,6 +127,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
+                  <option>Select</option>
                   <option *ngFor="let user of activeCE?.data" [ngValue]="user.id" >{{ user.email }}</option>
               </select>
             </div>
@@ -167,6 +168,7 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
+                <option>Select</option>                  
                 <option *ngFor="let user of activeQE?.data" [ngValue]="user.id" >{{ user.email }}</option>
               </select>
             </div>

@@ -29,8 +29,9 @@
 			<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;">
 				<tr>
 					<td style="padding: 10px">
-						<div align="center">
-							<img id="image" [src]="images[imageIndex]" width="100%" style="border: 3px solid #555; padding:2px;" />
+						<div class="imagelist" align="center">
+							<img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
+							<!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
 						</div>
 					</td>
 				</tr>
@@ -126,7 +127,7 @@
 					</div>
 				</div>
 				<!-- If bill and product is not present in job -->
-				<div *ngIf="jobDetails?.bills?.length == 0 && jobDetails?.products?.length == 0">
+				<div *ngIf="jobDetails?.bills?.length == 0">
 					<h5>Addons</h5>
 					<div>
 						<p></p>
@@ -525,7 +526,7 @@
 							</div>
 						</div>
 						<br>
-						<div class="row clearfix" *ngIf="userType==3">
+						<div class="row clearfix" *ngIf="userType!=4">
 							<div class="col-md-4 col-md-offset-4">
 								<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="billGeneralInfoFormObjectForBind?.status_type!=5">Verify Bill</button>
 								<p class="badge bg-green" style="padding:10px;" *ngIf="billGeneralInfoFormObjectForBind?.status_type==5">Verified by QE</p>
@@ -965,7 +966,7 @@
 						</div>
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
-								<button class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>
@@ -1089,7 +1090,7 @@
 						</div>
 					</div>
 					<br>
-					<div class="row clearfix" *ngIf="userType==3">
+					<div class="row clearfix" *ngIf="userType!=4">
 						<div class="col-md-4 col-md-offset-7">
 							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="productFormObjectForBind?.status_type!=5">Verify Product</button>
 							<p class="badge bg-green" style="padding:10px;" *ngIf="productFormObjectForBind?.status_type==5">Verified by QE </p>
@@ -1103,7 +1104,7 @@
 			<!-- Warranty Edit Form Start -->
 			<div *ngIf="showWarrantyEditForm">
 				<button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-				<button *ngIf="jobDetails?.bills?.length == 0 && jobDetails?.products?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(warrantyFormObjectForBind.product_id)">Product Info</button>
+				<button *ngIf="jobDetails?.bills?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(warrantyFormObjectForBind.product_id)">Product Info</button>
 				<form #warrantyEditForm="ngForm" (ngSubmit)="verifyWarranty(warrantyEditForm)">
 					<p></p>
 					<p class="badge bg-primary">Warranty</p>
@@ -1243,7 +1244,7 @@
 						</div>
 					</div>
 					<p></p>
-					<div class="row clearfix" *ngIf="userType==3">
+					<div class="row clearfix" *ngIf="userType!=4">
 						<div class="col-md-4 col-md-offset-7">
 							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="warrantyFormObjectForBind?.status_type!=5">Verify Warranty</button>
 							<p class="badge bg-green" style="padding:10px;" *ngIf="warrantyFormObjectForBind?.status_type==5">Verified by QE</p>
@@ -1399,7 +1400,7 @@
 						</div>
 					</div>
 					<p></p>
-					<div class="row clearfix" *ngIf="userType==3">
+					<div class="row clearfix" *ngIf="userType!=4">
 						<div class="col-md-4 col-md-offset-7">
 							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="insuranceFormObjectForBind?.status_type!=5">Verify Insurance</button>
 							<p class="badge bg-green" style="padding:10px;" *ngIf="insuranceFormObjectForBind?.status_type==5">Verified by QE</p>
@@ -1413,7 +1414,7 @@
 			<!-- AMC Edit Form Start -->
 			<div *ngIf="showAmcEditForm">
 				<button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-				<button *ngIf="jobDetails?.bills?.length == 0 && jobDetails?.products?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(amcFormObjectForBind.product_id)">Product Info</button>
+				<button *ngIf="jobDetails?.bills?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(amcFormObjectForBind.product_id)">Product Info</button>
 				<form #amcEditForm="ngForm" (ngSubmit)="verifyAmc(amcEditForm)">
 					<p></p>
 					<p class="badge bg-indigo">AMC</p>
@@ -1553,7 +1554,7 @@
 						</div>
 					</div>
 					<p></p>
-					<div class="row clearfix" *ngIf="userType==3">
+					<div class="row clearfix" *ngIf="userType!=4">
 						<div class="col-md-4 col-md-offset-7">
 							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="amcFormObjectForBind?.status_type!=5">Verify AMC</button>
 							<p class="badge bg-green" style="padding:10px;" *ngIf="amcFormObjectForBind?.status_type==5">Verified by QE</p>
@@ -1566,7 +1567,7 @@
 			<!-- Repair Edit Form Start -->
 			<div *ngIf="showRepairEditForm">
 				<button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
-				<button *ngIf="jobDetails?.bills?.length == 0 && jobDetails?.products?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(repairFormObjectForBind.product_id)">Product Info</button>
+				<button *ngIf="jobDetails?.bills?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(repairFormObjectForBind.product_id)">Product Info</button>
 				<form #repairEditForm="ngForm" (ngSubmit)="verifyRepair(repairEditForm)">
 					<p></p>
 					<p class="badge bg-red">Repair</p>
@@ -1662,7 +1663,7 @@
 						</div>
 					</div>
 					<p></p>
-					<div class="row clearfix" *ngIf="userType==3">
+					<div class="row clearfix" *ngIf="userType!=4">
 						<div class="col-md-4 col-md-offset-7">
 							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="repairFormObjectForBind?.status_type!=5">Verify Repair</button>
 							<p class="badge bg-green" style="padding:10px;" *ngIf="repairFormObjectForBind?.status_type==5">Verified by QE</p>

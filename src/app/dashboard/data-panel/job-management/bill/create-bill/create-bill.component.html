@@ -28,7 +28,7 @@
         <tr>
           <td style="padding: 10px">
             <div class="imagelist" align="center">
-              <img id="image" class="img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
+              <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
               <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
             </div>
           </td>
@@ -97,7 +97,7 @@
             <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">User Product List</button>
           </div>
           <div class="col-md-4">
-            <button class="btn bg-indigo btn-block btn-lg" (click)="openBillForm()">Add New Bill</button>
+            <button class="btn bg-indigo btn-block btn-lg" (click)="openBillForm()">Add Bill</button>
           </div>
           <div class="col-md-4">
             <button class="btn bg-green btn-block btn-lg" (click)="completeJobDialog=true;"> Complete Job</button>

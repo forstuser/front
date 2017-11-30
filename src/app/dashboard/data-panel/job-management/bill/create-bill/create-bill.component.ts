@@ -19,7 +19,7 @@ export class CreateBillComponent implements OnInit {
   userId: number;
   billId: number;
   productId: number;
-  sellerId:number;
+  sellerId: number;
   mainCatId: number;
   catId: number;
   warrantyId: number;
@@ -41,16 +41,16 @@ export class CreateBillComponent implements OnInit {
   imageUrl: String = appConfig.apiUrl;
   imageIndex: number = 0;
   jobDetails: any;
-  productList:any;
+  productList: any;
   onlineSeller: any;
   offlineSeller: any;
-  offlineSellerArray:any[] = [];
+  offlineSellerArray: any[] = [];
   mainCat: any;
   cat: any;
   catForm: any;
   brands: any;
   colours: any;
-  sellerObject:any;
+  sellerObject: any;
   billGeneralInfoFormObject: any;
   billGeneralInfoEditFormObject: any;
   billGeneralInfoFormObjectForBind: any;
@@ -64,9 +64,9 @@ export class CreateBillComponent implements OnInit {
   repairFormObjectForBind: any;
   productFormObjectForBind: any;
   productFromMetaData: any[] = [];
-  productEditFromMetaData:any[] = [];
+  productEditFromMetaData: any[] = [];
   productObject: any;
-  productEditObject:any;
+  productEditObject: any;
   warrantyObject: any;
   insuranceObject: any;
   amcObject: any;
@@ -89,39 +89,29 @@ export class CreateBillComponent implements OnInit {
   showAmcForm: boolean = false;
   showAmcEditForm = false;
   showRepairForm: boolean = false;
-  showRepairEditForm:boolean = false;
-  productFormEdit:boolean = false;
-  imagerotation:number=0;
-  requestId:any;
-  deleWarr:any;
-  delInsuranc:any;
-  delAmc:any;
-  delRep:any;
-  deleteRepairs:boolean=false;
-  deleteAmcs:boolean=false;
-  deleteInsurances:boolean=false;
-  deleteWarrantyy:boolean=false;
-  deleteJob:boolean = false;
-  completeJobDialog:boolean=false;
-  showSellerInfo:boolean = false;
-  constructor(private route: ActivatedRoute,private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
+  showRepairEditForm: boolean = false;
+  productFormEdit: boolean = false;
+  imagerotation: number = 0;
+  requestId: any;
+  deleWarr: any;
+  delInsuranc: any;
+  delAmc: any;
+  delRep: any;
+  deleteRepairs: boolean = false;
+  deleteAmcs: boolean = false;
+  deleteInsurances: boolean = false;
+  deleteWarrantyy: boolean = false;
+  deleteJob: boolean = false;
+  completeJobDialog: boolean = false;
+  showSellerInfo: boolean = false;
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.ceId = info.id;
   }
 
   ngOnInit() {
-
     this.getDetailsOfJob();
-  }
-
-  ngAfterViewInit() {
-    $("#image").imgViewer2();
-  }
-  ngOnDestroy() {
-    $("#image").remove();
-    // this.imageExist = false;
-    console.log("destroy")
   }
   // get details of current job
   getDetailsOfJob() {
@@ -149,20 +139,15 @@ export class CreateBillComponent implements OnInit {
   }
   // prev image
   prevImage() {
-    // $("#image").remove();
     if (this.imageIndex > 0) {
       this.imageIndex = this.imageIndex - 1;
-
-      // $("#image").imgViewer2();
     }
   }
   // next image
   nextImage() {
-    $("#image").remove();
-    // console.log(this.imageIndex, 'next')
+
     if (this.imageIndex < this.imageArrayLength - 1) {
       this.imageIndex = this.imageIndex + 1;
-      $("#image").imgViewer2();
     }
   }
 
@@ -338,7 +323,7 @@ export class CreateBillComponent implements OnInit {
       'user_id': this.userId,
       'job_id': this.jobId,
       'billId': this.billId,
-      'productId':this.productId
+      'productId': this.productId
     }
     console.log(this.productEditObject);
     const editFilterData = form.value;
@@ -358,18 +343,18 @@ export class CreateBillComponent implements OnInit {
     this.productEditObject['metaData'] = this.productEditFromMetaData;
     console.log(this.productEditObject);
     this.userService.updateProduct(this.productEditObject)
-    .subscribe(res => {
-      console.log(res)
-      alert("Product Updated");
-      this.getDetailsOfJob();
-      this.cockpit = true;
-      this.productFormEdit = false;
-    },
-    (error) => {
-      console.log(error);
-      const err = JSON.parse(error['_body']);
-      alert(err.reason);
-    });
+      .subscribe(res => {
+        console.log(res)
+        alert("Product Updated");
+        this.getDetailsOfJob();
+        this.cockpit = true;
+        this.productFormEdit = false;
+      },
+      (error) => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      });
   }
 
   // get list of main category
@@ -422,14 +407,14 @@ export class CreateBillComponent implements OnInit {
         // console.log(this.brands,"brands");
       });
   }
-    // brand list by category
-    getBrandListByCategory(catID) {
-      this.userService.getBrandListByCategory(catID)
-        .subscribe(brandList => {
-          this.brands = brandList;
-          console.log(this.brands,"brands");
-        });
-    }
+  // brand list by category
+  getBrandListByCategory(catID) {
+    this.userService.getBrandListByCategory(catID)
+      .subscribe(brandList => {
+        this.brands = brandList;
+        console.log(this.brands, "brands");
+      });
+  }
   // color list
   getColorList() {
     this.userService.getColorList()
@@ -446,23 +431,23 @@ export class CreateBillComponent implements OnInit {
       });
   }
   // get offline seller by search
-  public typed(value:any):void {
+  public typed(value: any): void {
     // console.log('New search input: ', value);
     this.userService.getOfflineSellerListByQuery(value)
-    .subscribe(res => {
-      // console.log(res);
-      this.offlineSellerArray = [];
-      for(var i=0;i<res.data.length;i++){
-        var pushValue = res.data[i].seller_name;
-        var pushId  = res.data[i].sid;
-        // console.log(pushId);
-        var push = '['+pushId + '] ' + pushValue; 
-        this.offlineSellerArray.push(push);
-      }
-      console.log(this.offlineSellerArray);
-    });
+      .subscribe(res => {
+        // console.log(res);
+        this.offlineSellerArray = [];
+        for (var i = 0; i < res.data.length; i++) {
+          var pushValue = res.data[i].seller_name;
+          var pushId = res.data[i].sid;
+          // console.log(pushId);
+          var push = '[' + pushId + '] ' + pushValue;
+          this.offlineSellerArray.push(push);
+        }
+        console.log(this.offlineSellerArray);
+      });
   }
-  public selected(value:any):void {
+  public selected(value: any): void {
     console.log('Selected value is: ', value);
     // if(value.includes('[')){
     //   const val = value.text.split('[').pop().split(']').shift();
@@ -471,36 +456,36 @@ export class CreateBillComponent implements OnInit {
     // }
     // this.sellerId = 
   }
-  public focused(value:any):void {
-    console.log('focus value is:',value);
-    if(value.includes('[')){
+  public focused(value: any): void {
+    console.log('focus value is:', value);
+    if (value.includes('[')) {
       const val = value.split('[').pop().split(']').shift();
       console.log(val);
       this.sellerId = val;
       this.sellerInfo();
     }
   }
-  sellerInfo(){
+  sellerInfo() {
     this.showSellerInfo = !this.showSellerInfo;
     this.userService.getOfflineSellerDetailsbyID(this.sellerId)
-      .subscribe((res)=>{
+      .subscribe((res) => {
         console.log(res);
         this.sellerObject = res;
       })
   }
-  public removed(value:any):void {
+  public removed(value: any): void {
     console.log('Removed value is: ', value);
   }
 
   // open product list
-  openProductList(){
+  openProductList() {
     this.userService.getProductList(this.userId)
-      .subscribe((res)=>{
+      .subscribe((res) => {
         console.log(res);
         this.jobDetailsShow = false;
         this.cockpit2 = true;
         this.productList = res;
-      },(err)=>{
+      }, (err) => {
         console.log(err);
       })
   }
@@ -553,9 +538,9 @@ export class CreateBillComponent implements OnInit {
   deleteWarr(req) {
     this.deleWarr = req.id;
   }
-  deleteWarranty(){
-    this.userService.deleteWarranty(this.productId,this.deleWarr)
-      .subscribe(res=>{
+  deleteWarranty() {
+    this.userService.deleteWarranty(this.productId, this.deleWarr)
+      .subscribe(res => {
         console.log(res);
         alert("Warranty Deleted");
         this.getDetailsOfJob();
@@ -642,9 +627,9 @@ export class CreateBillComponent implements OnInit {
   deleteInsure(req) {
     this.delInsuranc = req.id;
   }
-  deleteInsurance(){
-    this.userService.deleteInsurance(this.productId,this.delInsuranc)
-      .subscribe(res=>{
+  deleteInsurance() {
+    this.userService.deleteInsurance(this.productId, this.delInsuranc)
+      .subscribe(res => {
         console.log(res);
         alert("Insurance Deleted");
         this.getDetailsOfJob();
@@ -732,9 +717,9 @@ export class CreateBillComponent implements OnInit {
     this.delAmc = req.id;
 
   }
-  deleteAmc(){
-    this.userService.deleteAmc(this.productId,this.delAmc)
-      .subscribe(res=>{
+  deleteAmc() {
+    this.userService.deleteAmc(this.productId, this.delAmc)
+      .subscribe(res => {
         console.log(res);
         alert("AMC Deleted");
         this.getDetailsOfJob();
@@ -820,9 +805,9 @@ export class CreateBillComponent implements OnInit {
     this.delRep = req.id;
 
   }
-  deleteRepair(){
-    this.userService.deleteRepair(this.productId,this.delRep)
-      .subscribe(res=>{
+  deleteRepair() {
+    this.userService.deleteRepair(this.productId, this.delRep)
+      .subscribe(res => {
         console.log(res);
         alert("Repair Deleted");
         this.getDetailsOfJob();
@@ -887,7 +872,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
         this.productMetaDataForBind = res.data.metaData;
-        console.log("meta data",this.productMetaDataForBind);
+        console.log("meta data", this.productMetaDataForBind);
       }, err => {
         console.log(err);
       })

@@ -89,14 +89,6 @@ export class ViewBillComponent implements OnInit {
   ngOnInit() {
     this.getDetailsOfJob();
   }
-  ngAfterViewInit() {
-    // $("#image").imgViewer2();
-  }
-  ngOnDestroy() {
-    // $("#image").remove();
-    // this.imageExist = false;
-    console.log("destroy")
-  }
   // get details of current job
   getDetailsOfJob() {
     this.userService.getJobByID(this.jobId)
@@ -419,6 +411,8 @@ export class ViewBillComponent implements OnInit {
     this.selectedImageArray = prod.copies;
     console.log(prod, "pro");
     this.productFormObjectForBind = prod;
+    console.log("here");
+    console.log(this.productFormObjectForBind,"final")
     this.productId = prod.id;
     this.fillProductForm(this.productId);
     this.addons = true;
@@ -522,7 +516,7 @@ export class ViewBillComponent implements OnInit {
   }
   backtoAddons() {
     this.addons = true;
-    if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
+    if (this.jobDetails.bills.length  == 0) {
       this.addons = false;
       this.jobDetailsShow = true;
     }
