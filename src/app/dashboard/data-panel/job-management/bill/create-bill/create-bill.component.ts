@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-declare var $: any
+declare var webGlObject: any;
 @Component({
   selector: 'app-create-bill',
   templateUrl: './create-bill.component.html',
@@ -104,6 +104,7 @@ export class CreateBillComponent implements OnInit {
   deleteJob: boolean = false;
   completeJobDialog: boolean = false;
   showSellerInfo: boolean = false;
+  myExtObject:any;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -112,6 +113,7 @@ export class CreateBillComponent implements OnInit {
 
   ngOnInit() {
     this.getDetailsOfJob();
+    webGlObject.init();
   }
   // get details of current job
   getDetailsOfJob() {
