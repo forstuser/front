@@ -66,6 +66,7 @@ export class CreateBillComponent implements OnInit {
   productFromMetaData: any[] = [];
   productEditFromMetaData: any[] = [];
   productObject: any;
+  productData:any;
   productEditObject: any;
   warrantyObject: any;
   insuranceObject: any;
@@ -857,7 +858,7 @@ export class CreateBillComponent implements OnInit {
     this.mainCategoryList();
     this.onSelectMainCat(prod.main_category_id);
     this.onSelectCat2(prod.category_id);
-    console.log(prod, "pro");
+    // console.log(prod, "pro");
     this.productId = prod.id;
     this.selectedImageArray = prod.copies;
     this.fillProductForm(this.productId);
@@ -873,10 +874,13 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false;
     this.showRepairForm = false;
+    this.jobDetailsShow = false;    
   }
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
+        console.log(res,"actual product")
+        this.productData = res.data;
         this.productMetaDataForBind = res.data.metaData;
         console.log("meta data", this.productMetaDataForBind);
       }, err => {

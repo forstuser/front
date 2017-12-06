@@ -92,6 +92,40 @@
           </div>
         </div>
         <br>
+        <div class="card" *ngIf="jobDetails?.products?.length > 0">
+          <div class="header padding_fix">
+            <p><b>
+                Product Lists
+                </b>
+            </p>
+          </div>
+          <div class="body table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th><small>Job ID</small></th>
+                  <th><small>Bill ID</small></th>
+                  <th><small>Product ID</small></th>
+                  <th><small>Product Name</small></th>
+                  <th><small>Document Date</small></th>
+				          <th><small>Action</small></th>
+				          <th *ngIf="ceId < 2"><small>Delete</small></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let prod of jobDetails?.products">
+                  <th><small>{{ prod?.job_id }}</small></th>
+                  <th><small>{{ prod?.bill_id }}</small></th>
+                  <th><small>{{ prod?.id }}</small></th>
+                  <th><small>{{ prod?.product_name }}</small></th>
+                  <th><small>{{ prod?.document_date | date }}</small></th>
+                  <th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="addAddons(prod)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+				          <th *ngIf="ceId < 2"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+				        </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <div class="row clearfix">
           <div class="col-md-4">
             <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">User Product List</button>
@@ -756,6 +790,7 @@
           </div>
           <p></p>
           <p class="font-small text-center"><b><u>Product Meta Data</u></b></p>
+          <!-- <pre>{{ productMetaDataForBind | json }}</pre> -->
           <div *ngFor="let form of catForm; let i = index">
             <div class="row clearfix">
               <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
@@ -764,24 +799,24 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                    <input type="text" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="text" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && [i]?.form_value}}">
                   </div>
                 </div>
                 <p></p>
                 <div class="form-group" *ngIf="form?.form_type == 2">
-                  <select class="form-control dropdown" name="{{productMetaDataForBind[i]?.id}}" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                  <select class="form-control dropdown" name="{{productMetaDataForBind[i]?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                     <option value="">Select</option>
                     <option *ngFor = "let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">
                   <div class="form-line">
-                    <input type="date" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="date" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 4">
                   <div class="form-line">
-                    <input type="number" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind[i]?.form_value}}">
+                    <input type="number" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
               </div>
@@ -1031,7 +1066,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div *ngIf="jobDetails?.warranties?.length > 0">
+            <div *ngIf="productData?.warranties?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
                   <thead>
@@ -1043,7 +1078,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let list of jobDetails?.warranties">
+                    <tr *ngFor="let list of productData?.warranties">
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Warranty Info" (click)="editWarrantyForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
@@ -1059,7 +1094,7 @@
 
 
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div *ngIf="jobDetails?.insurances?.length > 0">
+            <div *ngIf="productData?.insurances?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
                   <thead>
@@ -1071,7 +1106,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let list of jobDetails?.insurances">
+                    <tr *ngFor="let list of productData?.insurances">
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Insurance Info" (click)="editInsuranceForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
@@ -1087,7 +1122,7 @@
         </div>
         <div class="row clearfix">
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div *ngIf="jobDetails?.amcs?.length > 0">
+            <div *ngIf="productData?.amcs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
                   <thead>
@@ -1099,7 +1134,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let list of jobDetails?.amcs">
+                    <tr *ngFor="let list of productData?.amcs">
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="AMC Info" (click)="editAmcForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
@@ -1115,7 +1150,7 @@
 
 
           <div class="col-md-6" style="border: 1px solid black;width:48%">
-            <div *ngIf="jobDetails?.repairs?.length > 0">
+            <div *ngIf="productData?.repairs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
                   <thead>
@@ -1127,7 +1162,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let list of jobDetails?.repairs">
+                    <tr *ngFor="let list of productData?.repairs">
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small>{{ list?.product_id }}</small></th>
                       <th *ngIf="list?.product_id==productId"><small><span class="btn btn-info btn-xs"  title="Repair Info" (click)="editRepairForm(list)"><i class="material-icons" >insert_drive_file</i></span></small></th>
