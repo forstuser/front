@@ -8,7 +8,7 @@ export class FunctionService {
       // console.log(formName,inputName);
       const isWhitespace = (formName.controls[inputName].value || '').trim().length === 0;
       const isValid = !isWhitespace;
-      console.log(isValid);
+      // console.log(isValid);
       if(!isValid){
         formName.controls[inputName].setValue('');
       }

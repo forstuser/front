@@ -2,7 +2,7 @@ import { Category } from './../../../../_models/category';
 import { Brand } from './../../../../_models/brand';
 import { FunctionService } from './../../../../_services/function.service';
 import { AuthorizedCenter } from './../../../../_models/authorizedCenter.interface';
-import { FormBuilder, FormGroup,Validators, FormControl, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,77 +12,77 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./service-center-list.component.css']
 })
 export class ServiceCenterListComponent implements OnInit {
-  brands:Brand;
+  brands: Brand;
   authorizedServiceCenter: AuthorizedCenter;
   showDialog = false;
   authorizedServiceCenterForm: FormGroup;
-  cat:Category
+  cat: Category
   offset = 0;
-  leftFlag:boolean= true;
-  rightFlag:boolean = false;
-  noData:boolean = false;
-  showASCList:boolean = true;
-  detailType:any;
-  center=[];
-  ascDetail:any;
-    constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
+  leftFlag: boolean = true;
+  rightFlag: boolean = false;
+  noData: boolean = false;
+  showASCList: boolean = true;
+  detailType: any;
+  center = [];
+  ascDetail: any;
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
   }
 
   ngOnInit() {
-    
-      // get list of category
-      this.userService.getCategoryList(2) // 2 for category refer to api doc
+
+    // get list of category
+    this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
         this.cat = getCat;
-        console.log('category is ' + getCat);
+        // console.log(getCat);
       });
     // get brand list
     this.userService.getBrandList()
-    .subscribe( res => {
-      this.brands = res;
-      console.log(this.brands);
-    });
+      .subscribe(res => {
+        this.brands = res;
+        console.log(this.brands);
+      });
     // this.userService.getBrandList()
     // .subscribe(brandList =>{
     //   this.brands = brandList;
     //   console.log(this.detailType);
     // })
     this.authorizedServiceCenterForm = this.fb.group({
-      'center_id':'',
-      'center_name' : ['', Validators.required],
-      'center_brands' : ['', Validators.required],
-      'center_address': ['',Validators.required],    
+      'center_id': '',
+      'center_name': ['', Validators.required],
+      'center_brands': ['', Validators.required],
+      'center_address': ['', Validators.required],
       'center_city': ['', Validators.required],
       'center_state': ['', Validators.required],
       'center_pin': ['', Validators.required],
-      'center_country': ['',Validators.required],  
+      'center_country': ['', Validators.required],
       'center_latitude': '',
       'center_longitude': '',
       'center_days': '',
-      'center_timings':'',
-       details: this.fb.array([ this.createItem(), ])
+      'center_timings': '',
+      details: this.fb.array([this.createItem(),])
     });
 
 
     this.userService.getAuthorizedServiceCenterList(this.offset)
-      .subscribe( authorizedServiceCenterList => {
+      .subscribe(authorizedServiceCenterList => {
         this.authorizedServiceCenter = authorizedServiceCenterList;
-        console.log(this.authorizedServiceCenter,"asc");
+        console.log(this.authorizedServiceCenter, "asc");
       });
 
 
-  // get list of detail type
+    // get list of detail type
     this.userService.getDetailList()
-    .subscribe(detail_type =>{
-      this.detailType = detail_type;
-      console.log(this.detailType);
-    })
+      .subscribe(detail_type => {
+        this.detailType = detail_type;
+        console.log(this.detailType);
+      })
   }
   // function for add row in detials field
   createItem() {
     return this.fb.group({
-      'id':'',
-      'category_id':'',
+      'id': '',
+      'category_id': '',
       'detail_type': '',
       'value': '',
     });
@@ -100,31 +100,31 @@ export class ServiceCenterListComponent implements OnInit {
   }
 
 
-  removeItem(item,data){
-    this.center=data.center_details;
-    console.log(item,item['_value'],"catId");
-    this.ascDetail=item['_value'];
+  removeItem(item, data) {
+    this.center = data.center_details;
+    console.log(item, item['_value'], "catId");
+    this.ascDetail = item['_value'];
 
-    this.userService.removeAscDetails(this.ascDetail,this.center)
-    .subscribe( res => {
-      console.log(res);
-      alert('Detail deleted successfully');
-    });
+    this.userService.removeAscDetails(this.ascDetail, this.center)
+      .subscribe(res => {
+        // console.log(res);
+        alert('Detail deleted successfully');
+      });
   }
 
   // passs current brand id as argument and open the popup
   openModel(item) {
     console.log(item);
     this.userService.getBrandList()
-    .subscribe(brandList =>{
-      this.brands = brandList;
-      console.log(this.brands,"brand hai bhia ye");
-    })
-    
+      .subscribe(brandList => {
+        this.brands = brandList;
+        // console.log(this.brands, "brand hai bhia ye");
+      })
+
     // reset  editBrand form
     this.authorizedServiceCenterForm = new FormGroup({
       center_name: new FormControl(''),
-      center_id:new FormControl(''),
+      center_id: new FormControl(''),
       center_brands: new FormArray([]),
       center_address: new FormControl(''),
       center_city: new FormControl(''),
@@ -134,39 +134,39 @@ export class ServiceCenterListComponent implements OnInit {
       center_latitude: new FormControl(''),
       center_longitude: new FormControl(''),
       center_days: new FormControl(''),
-      center_timings:new FormControl(''),
+      center_timings: new FormControl(''),
       center_details: new FormArray([])
     });
     // get information of current selected brand
     this.userService.getAuthorizedServiceCenterByID(item.center_id)
       .subscribe(res => {
-        console.log(res,"bhai response")
-      this.showASCList = false ; // for show dialog
-      // prop autofill data to form
-      this.authorizedServiceCenterForm.controls['center_id'].setValue(res.data.center_id);
-      this.authorizedServiceCenterForm.controls['center_name'].setValue(res.data.center_name);
-      // this.authorizedServiceCenterForm.controls['center_brands'].setValue(res.data.center_brands);
-      this.authorizedServiceCenterForm.controls['center_address'].setValue(res.data.center_address);
-      this.authorizedServiceCenterForm.controls['center_city'].setValue(res.data.center_city);
-      this.authorizedServiceCenterForm.controls['center_state'].setValue(res.data.center_state);
-      this.authorizedServiceCenterForm.controls['center_country'].setValue(res.data.center_country);
-      this.authorizedServiceCenterForm.controls['center_pin'].setValue(res.data.center_pin);
-      this.authorizedServiceCenterForm.controls['center_latitude'].setValue(res.data.center_latitude);
-      this.authorizedServiceCenterForm.controls['center_longitude'].setValue(res.data.center_longitude);
-      this.authorizedServiceCenterForm.controls['center_days'].setValue(res.data.center_days);
-      this.authorizedServiceCenterForm.controls['center_timings'].setValue(res.data.center_timings);
-      res.data.details.forEach(
-      (po) => {
-        (<FormArray>this.authorizedServiceCenterForm.controls['center_details']).push(this.createDetailsFormGroup(po));
+        // console.log(res, "bhai response")
+        this.showASCList = false; // for show dialog
+        // prop autofill data to form
+        this.authorizedServiceCenterForm.controls['center_id'].setValue(res.data.center_id);
+        this.authorizedServiceCenterForm.controls['center_name'].setValue(res.data.center_name);
+        // this.authorizedServiceCenterForm.controls['center_brands'].setValue(res.data.center_brands);
+        this.authorizedServiceCenterForm.controls['center_address'].setValue(res.data.center_address);
+        this.authorizedServiceCenterForm.controls['center_city'].setValue(res.data.center_city);
+        this.authorizedServiceCenterForm.controls['center_state'].setValue(res.data.center_state);
+        this.authorizedServiceCenterForm.controls['center_country'].setValue(res.data.center_country);
+        this.authorizedServiceCenterForm.controls['center_pin'].setValue(res.data.center_pin);
+        this.authorizedServiceCenterForm.controls['center_latitude'].setValue(res.data.center_latitude);
+        this.authorizedServiceCenterForm.controls['center_longitude'].setValue(res.data.center_longitude);
+        this.authorizedServiceCenterForm.controls['center_days'].setValue(res.data.center_days);
+        this.authorizedServiceCenterForm.controls['center_timings'].setValue(res.data.center_timings);
+        res.data.details.forEach(
+          (po) => {
+            (<FormArray>this.authorizedServiceCenterForm.controls['center_details']).push(this.createDetailsFormGroup(po));
+          });
       });
-    });
   }
 
 
- createDetailsFormGroup(payOffObj) {
-   console.log(payOffObj,"payyoff obj")
+  createDetailsFormGroup(payOffObj) {
+    // console.log(payOffObj, "payyoff obj")
     return new FormGroup({
-      category_id:new FormControl(payOffObj.category_id),
+      category_id: new FormControl(payOffObj.category_id),
       detail_type: new FormControl(payOffObj.detail_type),
       value: new FormControl(payOffObj.value),
       id: new FormControl(payOffObj.id)
@@ -189,81 +189,84 @@ export class ServiceCenterListComponent implements OnInit {
   // }
 
   // delete ASC
-  deleteAuthorizedServiceCenter(center_id:Number) {
+  deleteAuthorizedServiceCenter(center_id: Number) {
     this.userService.DeleteAuthorizedServiceCenter(center_id)
-      .subscribe( res => {
+      .subscribe(res => {
         // console.log(res);
         alert('Authorization Service Center deleted successfully');
         this.userService.getAuthorizedServiceCenterList(this.offset) // list update after delete
           .subscribe(authorizedServiceCenterList => {
-          this.authorizedServiceCenter = authorizedServiceCenterList;
-        });
-    });
+            this.authorizedServiceCenter = authorizedServiceCenterList;
+          });
+      });
   }
 
 
-  updateAuthService(data){
-    console.log(data,"bhia data")
+  updateAuthService(data) {
+    console.log(data, "bhia data")
 
-    this.center=data.center_details;
-    console.log(this.center,"ds")
-    this.userService.updateAuthorizedServiceCenter(data,this.center)
-    .subscribe(res=>{
-        console.log("response",res)
-        this.showDialog=false;
-        alert("edit successfully")
+    this.center = data.center_details;
+    console.log(this.center, "ds")
+    this.userService.updateAuthorizedServiceCenter(data, this.center)
+      .subscribe(res => {
+        console.log("response", res)
+        this.showDialog = false;
+        alert("Updated successfully")
         this.userService.getAuthorizedServiceCenterList(this.offset) // list update after edit
-        .subscribe(authorizedServiceCenterList => {
-        this.authorizedServiceCenter = authorizedServiceCenterList;
-      },err=>{
-        console.log("Bad request")
-      });
+          .subscribe(authorizedServiceCenterList => {
+            this.authorizedServiceCenter = authorizedServiceCenterList;
+          }, err => {
+            console.log(err)
+          });
 
-    })
-  } 
+      },
+      error => {
+        console.log(error, "error");
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      })
+  }
 
   // function for pagination
-  left(){
+  left() {
     this.leftFlag = true;
     this.rightFlag = false;
     this.noData = false;
-    if(this.offset>1){
-      this.offset = this.offset-100; 
-      this.leftFlag = false;         
+    if (this.offset > 1) {
+      this.offset = this.offset - 100;
+      this.leftFlag = false;
     }
-      this.userService.getAuthorizedServiceCenterList(this.offset)
-      .subscribe( authorizedServiceCenterList => {
+    this.userService.getAuthorizedServiceCenterList(this.offset)
+      .subscribe(authorizedServiceCenterList => {
         console.log(this.authorizedServiceCenter)
-      this.rightFlag = false;
-      this.authorizedServiceCenter = authorizedServiceCenterList;
-      console.log(this.authorizedServiceCenter);
-    });
+        this.rightFlag = false;
+        this.authorizedServiceCenter = authorizedServiceCenterList;
+        console.log(this.authorizedServiceCenter);
+      });
   }
 
-  right(){
+  right() {
     this.noData = false;
     this.leftFlag = false;
-    this.offset = this.offset+100;
+    this.offset = this.offset + 100;
     this.userService.getAuthorizedServiceCenterList(this.offset)
-    .subscribe( authorizedServiceCenterList => {
-      console.log(this.authorizedServiceCenter)
-      if(authorizedServiceCenterList.data.length==0){
-        this.rightFlag = true;
-        this.noData = true;
-      }
-      this.authorizedServiceCenter = authorizedServiceCenterList;
-      console.log(this.authorizedServiceCenter);
-    });
+      .subscribe(authorizedServiceCenterList => {
+        console.log(this.authorizedServiceCenter)
+        if (authorizedServiceCenterList.data.length == 0) {
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.authorizedServiceCenter = authorizedServiceCenterList;
+        console.log(this.authorizedServiceCenter);
+      });
   }
-
-
-
-    back(){
-      this.showASCList = true;
+  back() {
+    this.showASCList = true;
+  }
+  avoidSpace(e) {
+    console.log(e);
+    if(e!=undefined){
+      this.functionService.NoWhitespaceValidator(this.authorizedServiceCenterForm, e)      
     }
-
-    avoidSpace(e){
-      console.log(e);
-      this.functionService.NoWhitespaceValidator(this.authorizedServiceCenterForm,e)
-    }
+  }
 }
