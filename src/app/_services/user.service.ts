@@ -242,6 +242,7 @@ export class UserService {
         }
         // Update offline seller
         updateOfflineSeller(OfflineSeller: any) {
+                Object.keys(OfflineSeller).forEach((key) => (OfflineSeller[key] == '' || OfflineSeller[key] == null) && delete OfflineSeller[key]);
                 const sid = OfflineSeller.sid;
                 this.getCSRF();
                 delete OfflineSeller['sid'];

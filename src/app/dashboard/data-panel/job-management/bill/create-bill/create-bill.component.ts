@@ -104,6 +104,7 @@ export class CreateBillComponent implements OnInit {
   deleteJob: boolean = false;
   completeJobDialog: boolean = false;
   showSellerInfo: boolean = false;
+  caseButton:boolean = false;
   myExtObject:any;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
@@ -361,6 +362,7 @@ export class CreateBillComponent implements OnInit {
 
   // get list of main category
   mainCategoryList() {
+    this.cat = [];
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(mainCat => {
         this.mainCat = mainCat;
@@ -370,6 +372,7 @@ export class CreateBillComponent implements OnInit {
   // after select main category show list of category
   onSelectMainCat(catID: number) {
     this.mainCatId = catID;
+    this.cat = [];
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;
@@ -481,6 +484,7 @@ export class CreateBillComponent implements OnInit {
 
   // open product list
   openProductList() {
+    this.caseButton = false;
     this.userService.getProductList(this.userId)
       .subscribe((res) => {
         console.log(res);
@@ -993,6 +997,7 @@ export class CreateBillComponent implements OnInit {
   // show add product form
   showAddProductForm() {
     this.billGeneralInfoEdit = false;
+
     this.askMainCategory = true;
     this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category

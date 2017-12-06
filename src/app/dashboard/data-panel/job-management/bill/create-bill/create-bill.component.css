@@ -35,3 +35,6 @@
 .dropDown .ui-select-choices .dropdown-menu{
   margin-top:0px !important;
 }
+.text-red{
+  color: red;
+}

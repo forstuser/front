@@ -164,7 +164,7 @@ export class BrandListComponent implements OnInit {
         // console.log(res);
         alert('brand updated successfully');
         this.showBrandList =true;
-        this.userService.getBrandList()
+        this.userService.getAllBrandList(this.offset)
         .subscribe( brandList => {
           this.brands = brandList;
           console.log(this.brands);
@@ -179,9 +179,10 @@ export class BrandListComponent implements OnInit {
       .subscribe( res => {
         // console.log(res);
         alert('brand deleted successfully');
-        this.userService.getBrandList() // list update after edit
-          .subscribe(brandList => {
+        this.userService.getAllBrandList(this.offset)
+        .subscribe( brandList => {
           this.brands = brandList;
+          console.log(this.brands);
         });
     });
   }
