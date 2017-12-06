@@ -34,16 +34,16 @@
           <td *ngIf="userType==4">{{ bill.job_id}}</td>
           
           <td *ngIf="userType==1 || userType==2">{{ bill.user.full_name}}</td>
-          <td *ngIf="userType==3">{{ bill.qe.full_name}}</td>
-          <td *ngIf="userType==4">{{ bill.ce.full_name}}</td>
+          <td *ngIf="userType==3">{{ bill.user.full_name}}</td>
+          <td *ngIf="userType==4">{{ bill.user.full_name}}</td>
           
           <td *ngIf="userType==1 || userType==2">{{ bill.user.mobile_no}}</td>
-          <td *ngIf="userType==3">{{ bill.qe.mobile_no}}</td>
-          <td *ngIf="userType==4">{{ bill.ce.mobile_no}}</td>       
+          <td *ngIf="userType==3">{{ bill.user.mobile_no}}</td>
+          <td *ngIf="userType==4">{{ bill.user.mobile_no}}</td>       
           
           <td *ngIf="userType==1 || userType==2">{{ bill.user.email}}</td>
-          <td *ngIf="userType==3">{{ bill.qe.email}}</td>
-          <td *ngIf="userType==4">{{ bill.ce.email}}</td> 
+          <td *ngIf="userType==3">{{ bill.user.email}}</td>
+          <td *ngIf="userType==4">{{ bill.user.email}}</td> 
 
           <td *ngIf="userType==1 || userType==2">{{ bill.user.updated_at | date}}</td>
           <td *ngIf="userType==3">{{ bill.qe.updated_at | date}}</td>

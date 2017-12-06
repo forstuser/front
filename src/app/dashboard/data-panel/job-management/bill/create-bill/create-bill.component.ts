@@ -1017,6 +1017,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddWarrantyForm() {
     this.getOfflineSellerList();
+    this.onlineSellerList();
     this.showWarrantyForm = true;
     this.showAmcForm = false;
     this.showInsuranceForm = false

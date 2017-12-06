@@ -69,7 +69,7 @@ export class ListManagementComponent implements OnInit {
 
   // get list after select main category
   onSelect(id) {
-    console.log(id);
+    // console.log(id);
     // const res = id.split(' ');
     // console.log(res[1]);
     // this.userService.getCategoryListbyRefID(res[1])
@@ -83,17 +83,22 @@ export class ListManagementComponent implements OnInit {
   createCategory( category: any) {
     console.log(category);
     // this.createCat = { 'CatID': category.CatID, 'Name': category.Name};
-    alert('Added');
     this.userService.createDetail(category)
-      .subscribe(res => {
-        console.log(res);
-        this.createExclusionForm.reset();
-        this.userService.getDetailList() // list update after delete
-        .subscribe(detailList => {
-          this.detail = detailList;
-          console.log(detailList);
-        });
-    });
+      .subscribe(
+        res => {
+          console.log(res);
+          alert('Added');
+          this.createExclusionForm.reset();
+          this.userService.getDetailList() // list update after delete
+          .subscribe(detailList => {
+            this.detail = detailList;
+            console.log(detailList);
+          });
+        },
+        err =>{
+          console.log(err);
+        }
+      );
   }
 
     // passs current user as argument and open the popup
@@ -150,7 +155,7 @@ export class ListManagementComponent implements OnInit {
   }
       // function for avoid only space submit
       avoidSpace(e){
-        console.log(e);
+        // console.log(e);
         this.functionService.NoWhitespaceValidator(this.createExclusionForm,e)
       }
 }

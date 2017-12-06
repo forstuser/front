@@ -25,8 +25,8 @@ export class UserService {
 
         // get all token
         getCSRF() {
-                const csrf = Cookie.getAll();
-                this.xcsrf = csrf['x-csrf-token'];
+                // const csrf = Cookie.getAll();
+                this.xcsrf = JSON.parse(sessionStorage.getItem('x-csrf-token'));
                 const headers = new Headers({ 'X-CSRF-TOKEN': this.xcsrf, 'Content-Type': 'application/json' });
                 this.options = new RequestOptions({ headers: headers });
 

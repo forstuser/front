@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   constructor(private http: Http, private router: Router,private route: ActivatedRoute) { }
   ngOnInit() {
-    Cookie.deleteAll();
+    // Cookie.deleteAll();
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboard';
     
   }
@@ -28,8 +28,10 @@ export class AuthenticationService {
     const options = new RequestOptions({ headers: headers});
     return this.http.post(this.apiLink + 'api/login', body, options).map(response => {
       const cookie = response.headers.get('x-csrf-token');
-      Cookie.set('x-csrf-token',cookie);
-      Cookie.set('jwt',cookie);
+      // Cookie.set('x-csrf-token',cookie);
+      // Cookie.set('jwt',cookie);
+      sessionStorage.setItem('x-csrf-token',JSON.stringify(cookie));
+      sessionStorage.setItem('jwt',JSON.stringify(cookie));
       return response.json();
     }).subscribe((res: any) => {
       console.log(res);
@@ -49,27 +51,24 @@ export class AuthenticationService {
   logout() {
     // localstorage
     this.user=JSON.parse(localStorage.getItem('currentUser'));
-    // console.log(this.user)
     this.email=this.user.email;
-    // console.log(this.email,"email")
     this.role_type=this.user.role_type;
-    // console.log(this.role_type);
-
-
-    // Cookie.deleteAll();
     const body = {
       "email":this.email,
       "role_type":this.role_type
     };
-    const csrf = Cookie.getAll();
-    const cook = csrf['x-csrf-token'];
+    // const csrf = Cookie.getAll();
+    // const cook = csrf['x-csrf-token'];
     // console.log(cook);
+    const cook = JSON.parse(sessionStorage.getItem('x-csrf-token'));
     const headers = new Headers({ 'Content-Type': 'application/json','X-CSRF-TOKEN': cook });
     const options = new RequestOptions({ headers: headers});
     // console.log(options);
     return this.http.post(this.apiLink + 'api/logout',body,options).subscribe(response => {
       // console.log(response);
-      Cookie.deleteAll();
+      // Cookie.deleteAll();
+      sessionStorage.removeItem('x-csrf-token');
+      sessionStorage.removeItem('jwt');
       this.router.navigateByUrl('/login')
     }),
     error=>{

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
-
+declare var webGlObject: any;
 declare var $: any
 @Component({
   selector: 'app-view-bill',
@@ -79,6 +79,7 @@ export class ViewBillComponent implements OnInit {
   repairFormObjectForBind: any;
   productMetaDataForBind: any;
   completeJobDialog: boolean = false;
+  imagerotation: number = 0;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -88,6 +89,7 @@ export class ViewBillComponent implements OnInit {
 
   ngOnInit() {
     this.getDetailsOfJob();
+    webGlObject.init();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -126,6 +128,10 @@ export class ViewBillComponent implements OnInit {
       this.imageIndex = this.imageIndex + 1;
       // $("#image").imgViewer2();
     }
+  }
+
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
   //**********************************Bill General Info**********************************//
 
