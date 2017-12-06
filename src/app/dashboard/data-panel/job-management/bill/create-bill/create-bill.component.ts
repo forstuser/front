@@ -342,7 +342,12 @@ export class CreateBillComponent implements OnInit {
     delete editFilterData['category_id'];
     this.productEditFromMetaData = [];
     for (var val in editFilterData) {
-      this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
+      if(val.includes('flag')){
+        this.productEditFromMetaData.push({ 'category_form_id': val.split('-')[1], 'form_value': editFilterData[val] });        
+      }
+      else{
+        this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });        
+      }
     }
     this.productEditObject['metaData'] = this.productEditFromMetaData;
     console.log(this.productEditObject);
