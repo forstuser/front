@@ -53,6 +53,7 @@ export class ViewBillComponent implements OnInit {
   billGeneralInfoFormObjectForBind: any;
   productFromMetaData: any[] = [];
   productObject: any;
+  productData:any;
   warrantyObject: any;
   insuranceObject: any;
   amcObject: any;
@@ -427,10 +428,12 @@ export class ViewBillComponent implements OnInit {
     this.showProductForm = false;
     this.askMainCategory = false;
     this.billGeneralInfoEdit = false;
+    this.jobDetailsShow = false;  
   }
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
+        this.productData = res.data;
         this.productMetaDataForBind = res.data.metaData;
         console.log(this.productMetaDataForBind, "productMetaDataForBind");
       }, err => {

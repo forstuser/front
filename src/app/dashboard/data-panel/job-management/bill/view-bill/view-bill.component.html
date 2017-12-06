@@ -126,6 +126,40 @@
 						</table>
 					</div>
 				</div>
+				<div class="card" *ngIf="jobDetails?.products?.length > 0">
+					<div class="header padding_fix">
+						<p><b>
+							Product Lists
+							</b>
+						</p>
+					</div>
+					<div class="body table-responsive">
+						<table class="table table-condensed">
+						<thead>
+							<tr>
+							<th><small>Job ID</small></th>
+							<th><small>Bill ID</small></th>
+							<th><small>Product ID</small></th>
+							<th><small>Product Name</small></th>
+							<th><small>Document Date</small></th>
+									<th><small>Action</small></th>
+									<th *ngIf="ceId < 2"><small>Delete</small></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let prod of jobDetails?.products">
+							<th><small>{{ prod?.job_id }}</small></th>
+							<th><small>{{ prod?.bill_id }}</small></th>
+							<th><small>{{ prod?.id }}</small></th>
+							<th><small>{{ prod?.product_name }}</small></th>
+							<th><small>{{ prod?.document_date | date }}</small></th>
+							<th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="addAddons(prod)"><i class="material-icons" >insert_drive_file</i></span></small></th>
+									<th *ngIf="ceId < 2"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th>
+									</tr>
+						</tbody>
+						</table>
+					</div>
+				</div>
 				<!-- If bill and product is not present in job -->
 				<div *ngIf="jobDetails?.bills?.length == 0">
 					<h5>Addons</h5>
@@ -133,7 +167,7 @@
 						<p></p>
 						<div class="row clearfix">
 							<div class="col-md-5" style="border: 1px solid black;width:48%">
-								<div *ngIf="jobDetails?.warranties?.length > 0">
+								<div *ngIf="productData?.warranties?.length > 0">
 									<div class="body table-responsive" style="padding-bottom:0px;">
 										<table class="table table-condensed">
 											<thead>
@@ -765,7 +799,7 @@
 				</div>
 				<div class="row clearfix">
 					<div class="col-md-6" style="border: 1px solid black;width:48%">
-						<div *ngIf="jobDetails?.warranties?.length > 0">
+						<div *ngIf="productData?.warranties?.length > 0">
 							<div class="body table-responsive" style="padding-bottom:0px;">
 								<table class="table table-condensed">
 									<thead>
@@ -782,7 +816,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let list of jobDetails?.warranties">
+										<tr *ngFor="let list of productData?.warranties">
 											<th *ngIf="list?.product_id==productId">
 												<small>{{ list?.id }}</small>
 											</th>
@@ -803,7 +837,7 @@
 						</div>
 					</div>
 					<div class="col-md-6" style="border: 1px solid black;width:48%">
-						<div *ngIf="jobDetails?.insurances?.length > 0">
+						<div *ngIf="productData?.insurances?.length > 0">
 							<div class="body table-responsive" style="padding-bottom:0px;">
 								<table class="table table-condensed">
 									<thead>
@@ -820,7 +854,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let list of jobDetails?.insurances">
+										<tr *ngFor="let list of productData?.insurances">
 											<th *ngIf="list?.product_id==productId">
 												<small>{{ list?.id }}</small>
 											</th>
@@ -843,7 +877,7 @@
 				</div>
 				<div class="row clearfix">
 					<div class="col-md-6" style="border: 1px solid black;width:48%">
-						<div *ngIf="jobDetails?.amcs?.length > 0">
+						<div *ngIf="productData?.amcs?.length > 0">
 							<div class="body table-responsive" style="padding-bottom:0px;">
 								<table class="table table-condensed">
 									<thead>
@@ -861,7 +895,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let list of jobDetails?.amcs">
+										<tr *ngFor="let list of productData?.amcs">
 											<th *ngIf="list?.product_id==productId">
 												<small>{{ list?.id }}</small>
 											</th>
@@ -882,7 +916,7 @@
 						</div>
 					</div>
 					<div class="col-md-6" style="border: 1px solid black;width:48%">
-						<div *ngIf="jobDetails?.repairs?.length > 0">
+						<div *ngIf="productData?.repairs?.length > 0">
 							<div class="body table-responsive" style="padding-bottom:0px;">
 								<table class="table table-condensed">
 									<thead>
@@ -899,7 +933,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr *ngFor="let list of jobDetails?.repairs">
+										<tr *ngFor="let list of productData?.repairs">
 											<th *ngIf="list?.product_id==productId">
 												<small>{{ list?.id }}</small>
 											</th>
