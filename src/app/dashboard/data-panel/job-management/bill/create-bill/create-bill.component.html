@@ -799,24 +799,24 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                    <input type="text" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && [i]?.form_value}}">
+                    <input type="text" name="{{productMetaDataForBind[i]?.id || 'flag-'+form?.id }}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <p></p>
                 <div class="form-group" *ngIf="form?.form_type == 2">
-                  <select class="form-control dropdown" name="{{productMetaDataForBind[i]?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
+                  <select class="form-control dropdown" name="{{productMetaDataForBind[i]?.id || 'flag-'+form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                     <option value="">Select</option>
                     <option *ngFor = "let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">
                   <div class="form-line">
-                    <input type="date" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
+                    <input type="date" name="{{productMetaDataForBind[i]?.id || 'flag-'+form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 4">
                   <div class="form-line">
-                    <input type="number" name="{{productMetaDataForBind[i]?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
+                    <input type="number" name="{{productMetaDataForBind[i]?.id || 'flag-'+form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}">
                   </div>
                 </div>
               </div>
