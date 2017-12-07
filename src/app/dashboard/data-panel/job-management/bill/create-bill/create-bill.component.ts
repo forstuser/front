@@ -244,9 +244,25 @@ export class CreateBillComponent implements OnInit {
 
   //********************************* Product Functions***********************************//
   deleteCall(req) {
-    this.requestId = req.id
-    this.billId = req.bill_id;
-    console.log(this.billId, "bill id")
+    console.log(req);
+    if(req.status_type==11){
+      this.deleteJob = false;
+      this.userService.unLinkProduct(req.id)
+      .subscribe(res => {
+        console.log(res);
+        alert("Product Un-linked");
+        this.getDetailsOfJob();
+        // this.openProductList();
+      }, err => {
+        console.log(err);
+      })
+    }
+    else{
+      this.deleteJob = true;
+      this.requestId = req.id
+      this.billId = req.bill_id;
+      console.log(this.billId, "bill id")
+    }
   }
   makeProduct(bill) {
     this.billId = bill.id;
@@ -263,7 +279,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("Product Deleted");
         this.getDetailsOfJob();
-        this.openProductList();
+        // this.openProductList();
       }, err => {
         console.log(err);
       })
@@ -411,6 +427,7 @@ export class CreateBillComponent implements OnInit {
         // this.showProductForm = true;
         this.getColorList();
         this.getOfflineSellerList();
+        this.getBrandListByCategory(catID);
       });
   }
   // brand list
