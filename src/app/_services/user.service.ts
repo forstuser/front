@@ -472,6 +472,11 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/products?user_id=' + userId, this.options)
                         .map((response: Response) => response.json());
         }
+        getCustomProductList(userId: number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/products?user_id=' + userId+'&status_type=11', this.options)
+                        .map((response: Response) => response.json());
+        }
         getProductDetailById(pid:number){
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/products/'+pid, this.options)
@@ -499,6 +504,11 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/bills/' + billId + '/products/' + prodId, data, this.options)
                         .map((response: Response) => response.json());
+        }
+        linkProduct(jobId,billId,prodId){
+                this.getCSRF();
+                return this.http.put(this.apiLink + 'api/bills/' + null + '/products/' + prodId, { 'bill_id':billId,'job_id':jobId}, this.options)
+                .map((response: Response) => response.json());
         }
         deleteProduct(billId, id) {
                 this.getCSRF();
