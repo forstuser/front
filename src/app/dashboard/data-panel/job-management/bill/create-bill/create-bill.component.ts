@@ -42,6 +42,7 @@ export class CreateBillComponent implements OnInit {
   imageIndex: number = 0;
   jobDetails: any;
   productList: any;
+  customProductList:any;
   onlineSeller: any;
   offlineSeller: any;
   offlineSellerArray: any[] = [];
@@ -106,6 +107,7 @@ export class CreateBillComponent implements OnInit {
   completeJobDialog: boolean = false;
   showSellerInfo: boolean = false;
   caseButton: boolean = false;
+  showProductList: boolean = false;
   myExtObject: any;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
@@ -215,6 +217,7 @@ export class CreateBillComponent implements OnInit {
     this.askMainCategory = false;
     this.showProductForm = false;
     this.showSellerForm = false;
+    this.showProductList = false;
   }
   showbillProductInfoEditForm() {
     this.addons = false;
@@ -501,6 +504,33 @@ export class CreateBillComponent implements OnInit {
         console.log(err);
       })
   }
+  // get product list of status 11 
+   getCustomProductList(){
+    this.userService.getCustomProductList(this.userId)
+    .subscribe((res) => {
+      this.customProductList = res;
+      console.log("custom",res);
+    }, (err) => {
+      console.log(err);
+    })
+   }
+   onSelectProductList(id){
+     console.log(this.jobId);
+     console.log(this.billId);
+     console.log(id);
+    this.productId = id;
+   }
+   bindProductWithBill(){
+    this.userService.linkProduct(this.jobId,this.billId,this.productId)
+    .subscribe((res) => {
+      console.log(res);
+      alert("Product Linked with bill")
+      this.getDetailsOfJob();
+      this.showProductList = false;
+    }, (err) => {
+      console.log(err);
+    })
+   }
   //********************************* Warranty Functions***********************************//
   warrantyFormData(form: NgForm) {
     console.log(form.value);
@@ -880,6 +910,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceForm = false;
     this.showRepairForm = false;
     this.jobDetailsShow = false;
+    this.showProductList = false;
   }
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
@@ -1010,15 +1041,24 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfoEdit = false;
     this.cockpit = false;
     this.cockpit2 = false;
+    this.showProductList = false;
   }
   // show add product form
   showAddProductForm() {
     this.billGeneralInfoEdit = false;
-
+    this.showProductList = false;
     this.askMainCategory = true;
     this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category
     this.getOfflineSellerList();
+  }
+  // show select product
+  showSelectProductForm(){
+    this.billGeneralInfoEdit = false;
+    this.askMainCategory = false;
+    this.showSellerForm = false
+    this.showProductList = true;
+    this.getCustomProductList();
   }
   // show add offline seller form
   showAddSellerForm() {
@@ -1026,6 +1066,7 @@ export class CreateBillComponent implements OnInit {
     this.showSellerForm = true;
     this.askMainCategory = false;
     this.showProductForm = false;
+    this.showProductList = false;
     this.offlineSellerFB();
   }
   backToCockpit() {

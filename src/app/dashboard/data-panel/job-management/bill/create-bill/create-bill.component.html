@@ -268,17 +268,22 @@
       <div *ngIf="cockpit">
         <p></p>
         <div class="row clearfix">
-          <div class="col-md-3">
+          <div class="col-md-4">
             <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
           </div>
-          <div class="col-md-3" >
+          <div class="col-md-4" >
             <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Bill General Info</button>
           </div>
-          <div class="col-md-3" >
+          <div class="col-md-4">
+            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6" >
             <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
           </div>
-          <div class="col-md-3">
-            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+          <div class="col-md-6" >
+            <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showSelectProductForm()">Select Product</button>
           </div>
         </div>
         <div *ngIf="jobDetails?.products?.length > 0">
@@ -476,7 +481,32 @@
         </form>
       </div>
       <!-- BILL General Info Edit End-->
-
+      <!-- product List start -->
+      <div *ngIf="showProductList">
+        <div class="card">
+          <div class="row">
+            <div class="col-md-3 col-md-offset-1">
+              <label class="font-small">Choose Product</label>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                  <select class="form-control dropdown" name="product_id" (change)="onSelectProductList($event.target.value)" ngModel>
+                    <option value="">Select</option>
+                    <option *ngFor="let list of customProductList?.data" [value]="list?.id">{{ list?.id}} | {{list?.product_name }}</option>                  
+                  </select>
+                </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3 col-md-offset-8">
+              <button class="btn btn btn-info " (click)="bindProductWithBill()">Select Product</button>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <!-- Product List End -->
       <!-- Ask category Start -->
       <div *ngIf="askMainCategory">
           <div class="card">
