@@ -237,6 +237,7 @@ export class ViewBillComponent implements OnInit {
         this.cockpit = true;
         console.log(res);
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       }, err => {
         console.log(err);
       })
@@ -313,6 +314,7 @@ export class ViewBillComponent implements OnInit {
         alert("verified")
         console.log(res);
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.showWarrantyEditForm = false;
         this.addons = true;
         if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
@@ -341,6 +343,7 @@ export class ViewBillComponent implements OnInit {
         alert("verified")
         console.log(res);
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.showInsuranceEditForm = false;
         this.addons = true;
         if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
@@ -369,6 +372,7 @@ export class ViewBillComponent implements OnInit {
         alert("verified")
         console.log(res);
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.showAmcEditForm = false;
         this.addons = true;
         if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
@@ -397,6 +401,7 @@ export class ViewBillComponent implements OnInit {
         alert("verified")
         console.log(res);
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.showRepairEditForm = false;
         this.addons = true;
         if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {

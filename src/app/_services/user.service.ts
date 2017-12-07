@@ -510,6 +510,11 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/bills/' + null + '/products/' + prodId, { 'bill_id':billId,'job_id':jobId}, this.options)
                 .map((response: Response) => response.json());
         }
+        unLinkProduct(prodId){
+                this.getCSRF();
+                return this.http.put(this.apiLink + 'api/products/' + prodId + '/unlink', {}, this.options)
+                .map((response: Response) => response.json());
+        }
         deleteProduct(billId, id) {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/bills/' + billId + '/products/' + id, this.options)
