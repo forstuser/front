@@ -1001,6 +1001,9 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
+								<span *ngFor="let image of selectedImageArray;">
+									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+								</span>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>
@@ -1149,6 +1152,9 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedEditWarrantyImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditWarrantyImageArray;let i = index">{{i+1}}</button>
+								<span *ngFor="let image of selectedEditWarrantyImageArray;">
+									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+								</span>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>
@@ -1303,6 +1309,9 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedEditInsuranceImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditInsuranceImageArray;let i = index">{{i+1}}</button>
+								<span *ngFor="let image of selectedEditInsuranceImageArray;">
+									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+								</span>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>
@@ -1459,6 +1468,9 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedEditAmcImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditAmcImageArray;let i = index">{{i+1}}</button>
+								<span *ngFor="let image of selectedEditAmcImageArray;">
+									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+								</span>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>
@@ -1612,6 +1624,9 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 							<div class="form-group" *ngIf="selectedEditRepairImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditRepairImageArray;let i = index">{{i+1}}</button>
+								<span *ngFor="let image of selectedEditRepairImageArray;">
+									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+								</span>
 								<p></p>
 							</div>
 							<ng-template #elseBlock>

@@ -66,7 +66,7 @@ export class CreateBillComponent implements OnInit {
   productFromMetaData: any[] = [];
   productEditFromMetaData: any[] = [];
   productObject: any;
-  productData:any;
+  productData: any;
   productEditObject: any;
   warrantyObject: any;
   insuranceObject: any;
@@ -105,8 +105,8 @@ export class CreateBillComponent implements OnInit {
   deleteJob: boolean = false;
   completeJobDialog: boolean = false;
   showSellerInfo: boolean = false;
-  caseButton:boolean = false;
-  myExtObject:any;
+  caseButton: boolean = false;
+  myExtObject: any;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -342,11 +342,11 @@ export class CreateBillComponent implements OnInit {
     delete editFilterData['category_id'];
     this.productEditFromMetaData = [];
     for (var val in editFilterData) {
-      if(val.includes('flag')){
-        this.productEditFromMetaData.push({ 'category_form_id': val.split('-')[1], 'form_value': editFilterData[val] });        
+      if (val.includes('flag')) {
+        this.productEditFromMetaData.push({ 'category_form_id': val.split('-')[1], 'form_value': editFilterData[val] });
       }
-      else{
-        this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });        
+      else {
+        this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
       }
     }
     this.productEditObject['metaData'] = this.productEditFromMetaData;
@@ -879,12 +879,12 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false;
     this.showRepairForm = false;
-    this.jobDetailsShow = false;    
+    this.jobDetailsShow = false;
   }
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
-        console.log(res,"actual product")
+        console.log(res, "actual product")
         this.productData = res.data;
         this.productMetaDataForBind = res.data.metaData;
         console.log("meta data", this.productMetaDataForBind);
@@ -936,41 +936,49 @@ export class CreateBillComponent implements OnInit {
   //select image 
   selectImage() {
     if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added")
+      console.log("Image Already Added 1")
+    } else {
+      this.selectedImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedWarrantyImageArray.includes(this.selectedWarrantyImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 2")
+    } else {
+      this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedEditWarrantyImageArray.includes(this.selectedEditWarrantyImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedEditWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 3")
+    } else {
+      this.selectedEditWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedInsuranceImageArray.includes(this.selectedInsuranceImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedInsuranceImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 4")
+    } else {
+      this.selectedInsuranceImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedEditInsuranceImageArray.includes(this.selectedEditInsuranceImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedEditInsuranceImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 5")
+    } else {
+      this.selectedEditInsuranceImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedAmcImageArray.includes(this.selectedAmcImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedAmcImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 6")
+    } else {
+      this.selectedAmcImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedEditAmcImageArray.includes(this.selectedEditAmcImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedEditAmcImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 7")
+    } else {
+      this.selectedEditAmcImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedRepairImageArray.includes(this.selectedRepairImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedRepairImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 8")
+    } else {
+      this.selectedRepairImageArray.push(this.imageArray[this.imageIndex]);
     }
-    else if (this.selectedEditRepairImageArray.includes(this.selectedEditRepairImageArray[this.imageIndex])) {
-      console.log("Image Already Added ")
+    if (this.selectedEditRepairImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 9")
     }
     else {
-      this.selectedImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedEditWarrantyImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedInsuranceImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedEditInsuranceImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedAmcImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedEditAmcImageArray.push(this.imageArray[this.imageIndex]);
-      this.selectedRepairImageArray.push(this.imageArray[this.imageIndex]);
       this.selectedEditRepairImageArray.push(this.imageArray[this.imageIndex]);
     }
   }

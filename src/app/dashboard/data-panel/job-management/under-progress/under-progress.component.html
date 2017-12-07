@@ -81,7 +81,7 @@
           <td *ngIf="userType==4">{{bill?.user?.email}}</td>
           <td *ngIf="userType!=4"><strong>Name : </strong>{{ bill.ce.full_name}}<br>
             <strong>Email ID : </strong>{{ bill.ce.email}}<br>
-            <strong>Task Date: </strong>{{ bill.ce.created_at | date}}<br>
+            <strong>Task Date: </strong>{{ bill?.ce_task_date | date}}<br>
             <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.ce_status== 4">New</span>
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 5">Complete</span>
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>            
@@ -92,7 +92,7 @@
           </td>
           <td *ngIf="userType!=4"><span *ngIf="bill.qe_status == 4 || bill.qe_status==5"><strong>Name : </strong>{{ bill.qe?.full_name}}<br>
                     <strong>Email ID : </strong>{{ bill.qe?.email}}<br>
-                    <strong>Task Date: </strong>{{ bill.qe?.created_at | date}}<br>
+                    <strong>Task Date: </strong>{{ bill?.qe_task_date | date}}<br>
                     <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
                       <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
                       <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
