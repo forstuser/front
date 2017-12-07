@@ -555,6 +555,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res)
         alert("Warranty Added");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.showWarrantyForm = false;
       },
       (error) => {
@@ -586,6 +587,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("Warranty Deleted");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       }, err => {
         console.log(err);
       })
@@ -613,6 +615,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res)
         alert("Warranty Updated");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.addons = true;
         this.showWarrantyEditForm = false;
       },
@@ -647,6 +650,7 @@ export class CreateBillComponent implements OnInit {
         alert("Insurance Added");
         this.showInsuranceForm = false;
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       },
       (error) => {
         console.log(error);
@@ -675,6 +679,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("Insurance Deleted");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       }, err => {
         console.log(err);
       })
@@ -702,6 +707,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res)
         alert("Insurance Updated");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.addons = true;
         this.showInsuranceEditForm = false;
       },
@@ -736,6 +742,7 @@ export class CreateBillComponent implements OnInit {
         alert("AMC Added");
         this.showAmcForm = false;
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       },
       (error) => {
         console.log(error);
@@ -765,6 +772,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("AMC Deleted");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       }, err => {
         console.log(err);
       })
@@ -792,6 +800,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res)
         alert("AMC Updated");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.addons = true;
         this.showAmcEditForm = false;
       },
@@ -823,6 +832,7 @@ export class CreateBillComponent implements OnInit {
         alert("Repair Added");
         this.showRepairForm = false;
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       },
       (error) => {
         console.log(error);
@@ -853,6 +863,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res);
         alert("Repair Deleted");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
       }, err => {
         console.log(err);
       })
@@ -876,6 +887,7 @@ export class CreateBillComponent implements OnInit {
         console.log(res)
         alert("Repair Updated");
         this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
         this.addons = true;
         this.showRepairEditForm = false;
       },
@@ -912,6 +924,7 @@ export class CreateBillComponent implements OnInit {
     this.jobDetailsShow = false;
     this.showProductList = false;
   }
+  
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
@@ -1051,6 +1064,7 @@ export class CreateBillComponent implements OnInit {
     this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category
     this.getOfflineSellerList();
+    this.onlineSellerList();    
   }
   // show select product
   showSelectProductForm(){
@@ -1089,6 +1103,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddInsuranceForm() {
     this.getOfflineSellerList();
+    this.onlineSellerList();    
     this.showWarrantyForm = false;
     this.showAmcForm = false;
     this.showInsuranceForm = true;
@@ -1096,6 +1111,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddAmcForm() {
     this.getOfflineSellerList();
+    this.onlineSellerList();    
     this.showWarrantyForm = false;
     this.showAmcForm = true;
     this.showInsuranceForm = false
@@ -1103,6 +1119,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddRepairForm() {
     this.getOfflineSellerList();
+    this.onlineSellerList();
     this.showWarrantyForm = false;
     this.showAmcForm = false;
     this.showInsuranceForm = false
