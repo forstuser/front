@@ -42,7 +42,7 @@ export class CreateBillComponent implements OnInit {
   imageIndex: number = 0;
   jobDetails: any;
   productList: any;
-  customProductList:any;
+  customProductList: any;
   onlineSeller: any;
   offlineSeller: any;
   offlineSellerArray: any[] = [];
@@ -245,19 +245,19 @@ export class CreateBillComponent implements OnInit {
   //********************************* Product Functions***********************************//
   deleteCall(req) {
     console.log(req);
-    if(req.status_type==11){
+    if (req.status_type == 11) {
       this.deleteJob = false;
       this.userService.unLinkProduct(req.id)
-      .subscribe(res => {
-        console.log(res);
-        alert("Product Un-linked");
-        this.getDetailsOfJob();
-        // this.openProductList();
-      }, err => {
-        console.log(err);
-      })
+        .subscribe(res => {
+          console.log(res);
+          alert("Product Un-linked");
+          this.getDetailsOfJob();
+          // this.openProductList();
+        }, err => {
+          console.log(err);
+        })
     }
-    else{
+    else {
       this.deleteJob = true;
       this.requestId = req.id
       this.billId = req.bill_id;
@@ -286,103 +286,115 @@ export class CreateBillComponent implements OnInit {
   }
   // create product 
   productFormData(form: NgForm) {
-    // console.log(form.value);
-    this.productObject = {
-      'category_id': this.catId,
-      'main_category_id': this.mainCatId,
-      'product_name': form.value.product_name,
-      'purchase_cost': form.value.purchase_cost,
-      'copies': this.selectedImageArray,
-      'taxes': form.value.taxes,
-      'brand_id': form.value.brand_id,
-      'colour_id': form.value.colour_id,
-      'seller_id': this.sellerId,
-      'user_id': this.userId,
-      'job_id': this.jobId,
-      'billId': this.billId
+    if (form.valid) {
+      // console.log(form.value);
+      this.productObject = {
+        'category_id': this.catId,
+        'main_category_id': this.mainCatId,
+        'product_name': form.value.product_name,
+        'purchase_cost': form.value.purchase_cost,
+        'document_date': form.value.document_date,
+        'copies': this.selectedImageArray || [],
+        'taxes': form.value.taxes,
+        'brand_id': form.value.brand_id,
+        'colour_id': form.value.colour_id,
+        'seller_id': this.sellerId,
+        'user_id': this.userId,
+        'job_id': this.jobId,
+        'billId': this.billId
+      }
+      // console.log(this.productObject);
+      const filterData = form.value;
+      delete filterData['product_name'];
+      delete filterData['purchase_cost'];
+      delete filterData['taxes'];
+      delete filterData['brand_id'];
+      delete filterData['colour_id'];
+      delete filterData['seller_id'];
+      delete filterData['document_date'];
+      this.productFromMetaData = [];
+      for (var val in filterData) {
+        this.productFromMetaData.push({ 'category_form_id': +val, 'form_value': filterData[val] });
+      }
+      this.productObject['metaData'] = this.productFromMetaData;
+      // console.log(this.productFromMetaData);
+      console.log('product data', this.productObject);
+      this.userService.createProduct(this.productObject)
+        .subscribe(res => {
+          console.log(res)
+          alert("Product Added");
+          this.askMainCategory = false;
+          this.showProductForm = false;
+          this.getDetailsOfJob();
+        },
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
+    } else {
+      alert('Please fill mendatory fields');
     }
-    // console.log(this.productObject);
-    const filterData = form.value;
-    delete filterData['product_name'];
-    delete filterData['purchase_cost'];
-    delete filterData['taxes'];
-    delete filterData['brand_id'];
-    delete filterData['colour_id'];
-    delete filterData['seller_id'];
-    this.productFromMetaData = [];
-    for (var val in filterData) {
-      this.productFromMetaData.push({ 'category_form_id': val, 'form_value': filterData[val] });
-    }
-    this.productObject['metaData'] = this.productFromMetaData;
-    // console.log(this.productFromMetaData);
-    console.log(this.productObject);
-    this.userService.createProduct(this.productObject)
-      .subscribe(res => {
-        console.log(res)
-        alert("Product Added");
-        this.askMainCategory = false;
-        this.showProductForm = false;
-        this.getDetailsOfJob();
-      },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
   }
   // edit product form
   productEditFormData(form: NgForm) {
     // console.log(form.value);
-    this.productEditObject = {
-      'category_id': form.value.category_id,
-      'main_category_id': form.value.main_category_id,
-      'product_name': form.value.product_name,
-      'purchase_cost': form.value.purchase_cost,
-      'copies': this.selectedImageArray,
-      'taxes': form.value.taxes,
-      'brand_id': form.value.brand_id,
-      'colour_id': form.value.colour_id,
-      'seller_id': form.value.seller_id,
-      'user_id': this.userId,
-      'job_id': this.jobId,
-      'billId': this.billId,
-      'productId': this.productId
-    }
-    console.log(this.productEditObject);
-    const editFilterData = form.value;
-    console.log("Edit Filter Data", editFilterData);
-    delete editFilterData['product_name'];
-    delete editFilterData['purchase_cost'];
-    delete editFilterData['taxes'];
-    delete editFilterData['brand_id'];
-    delete editFilterData['colour_id'];
-    delete editFilterData['seller_id'];
-    delete editFilterData['main_category_id'];
-    delete editFilterData['category_id'];
-    this.productEditFromMetaData = [];
-    for (var val in editFilterData) {
-      if (val.includes('flag')) {
-        this.productEditFromMetaData.push({ 'category_form_id': val.split('-')[1], 'form_value': editFilterData[val] });
+    if (form.valid) {
+      this.productEditObject = {
+        'category_id': form.value.category_id,
+        'main_category_id': form.value.main_category_id,
+        'document_date': form.value.document_date,
+        'product_name': form.value.product_name,
+        'purchase_cost': form.value.purchase_cost,
+        'copies': this.selectedImageArray,
+        'taxes': form.value.taxes,
+        'brand_id': form.value.brand_id,
+        'colour_id': form.value.colour_id,
+        'seller_id': form.value.seller_id,
+        'user_id': this.userId,
+        'job_id': this.jobId,
+        'billId': this.billId,
+        'productId': this.productId
       }
-      else {
-        this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
+      console.log(this.productEditObject);
+      const editFilterData = form.value;
+      console.log("Edit Filter Data", editFilterData);
+      delete editFilterData['product_name'];
+      delete editFilterData['purchase_cost'];
+      delete editFilterData['taxes'];
+      delete editFilterData['brand_id'];
+      delete editFilterData['colour_id'];
+      delete editFilterData['seller_id'];
+      delete editFilterData['main_category_id'];
+      delete editFilterData['category_id'];
+      delete editFilterData['document_date'];
+      this.productEditFromMetaData = [];
+      for (var val in editFilterData) {
+        if (val.includes('flag')) {
+          this.productEditFromMetaData.push({ 'category_form_id': val.split('-')[1], 'form_value': editFilterData[val] });
+        }
+        else {
+          this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
+        }
       }
+      this.productEditObject['metaData'] = this.productEditFromMetaData;
+      console.log(this.productEditObject);
+      this.userService.updateProduct(this.productEditObject)
+        .subscribe(res => {
+          console.log(res)
+          alert("Product Updated");
+          this.getDetailsOfJob();
+          this.cockpit = true;
+          this.productFormEdit = false;
+        },
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
+    } else {
+      alert('Please fill mendatory fields');
     }
-    this.productEditObject['metaData'] = this.productEditFromMetaData;
-    console.log(this.productEditObject);
-    this.userService.updateProduct(this.productEditObject)
-      .subscribe(res => {
-        console.log(res)
-        alert("Product Updated");
-        this.getDetailsOfJob();
-        this.cockpit = true;
-        this.productFormEdit = false;
-      },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
   }
 
   // get list of main category
@@ -522,32 +534,32 @@ export class CreateBillComponent implements OnInit {
       })
   }
   // get product list of status 11 
-   getCustomProductList(){
+  getCustomProductList() {
     this.userService.getCustomProductList(this.userId)
-    .subscribe((res) => {
-      this.customProductList = res;
-      console.log("custom",res);
-    }, (err) => {
-      console.log(err);
-    })
-   }
-   onSelectProductList(id){
-     console.log(this.jobId);
-     console.log(this.billId);
-     console.log(id);
+      .subscribe((res) => {
+        this.customProductList = res;
+        console.log("custom", res);
+      }, (err) => {
+        console.log(err);
+      })
+  }
+  onSelectProductList(id) {
+    console.log(this.jobId);
+    console.log(this.billId);
+    console.log(id);
     this.productId = id;
-   }
-   bindProductWithBill(){
-    this.userService.linkProduct(this.jobId,this.billId,this.productId)
-    .subscribe((res) => {
-      console.log(res);
-      alert("Product Linked with bill")
-      this.getDetailsOfJob();
-      this.showProductList = false;
-    }, (err) => {
-      console.log(err);
-    })
-   }
+  }
+  bindProductWithBill() {
+    this.userService.linkProduct(this.jobId, this.billId, this.productId)
+      .subscribe((res) => {
+        console.log(res);
+        alert("Product Linked with bill")
+        this.getDetailsOfJob();
+        this.showProductList = false;
+      }, (err) => {
+        console.log(err);
+      })
+  }
   //********************************* Warranty Functions***********************************//
   warrantyFormData(form: NgForm) {
     console.log(form.value);
@@ -653,6 +665,7 @@ export class CreateBillComponent implements OnInit {
       'online_seller_id': form.value.online_seller_id,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
+      'amount_insured': form.value.amount_insured,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -711,6 +724,7 @@ export class CreateBillComponent implements OnInit {
       'online_seller_id': form.value.online_seller_id,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
+      'amount_insured': form.value.amount_insured,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -941,7 +955,7 @@ export class CreateBillComponent implements OnInit {
     this.jobDetailsShow = false;
     this.showProductList = false;
   }
-  
+
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
       .subscribe(res => {
@@ -1044,7 +1058,8 @@ export class CreateBillComponent implements OnInit {
     }
   }
   // remove image
-  removeImage(i) {
+  removeImage(i, $event) {
+    console.log('Inside Remove image', $event);
     this.selectedImageArray.splice(i, 1);
     this.selectedWarrantyImageArray.splice(i, 1);
     this.selectedEditWarrantyImageArray.splice(i, 1);
@@ -1081,10 +1096,10 @@ export class CreateBillComponent implements OnInit {
     this.showSellerForm = false
     this.mainCategoryList(); // call function for get main category
     this.getOfflineSellerList();
-    this.onlineSellerList();    
+    this.onlineSellerList();
   }
   // show select product
-  showSelectProductForm(){
+  showSelectProductForm() {
     this.billGeneralInfoEdit = false;
     this.askMainCategory = false;
     this.showSellerForm = false
@@ -1101,9 +1116,12 @@ export class CreateBillComponent implements OnInit {
     this.offlineSellerFB();
   }
   backToCockpit() {
-    this.addons = false;
     this.cockpit = true;
     // this.cockpit2 = true;
+    if (this.addons) {
+      this.backTojobDetailsShow();
+    }
+    this.addons = false;
     this.showWarrantyForm = false;
     this.showInsuranceForm = false;
     this.showAmcForm = false;
@@ -1120,7 +1138,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddInsuranceForm() {
     this.getOfflineSellerList();
-    this.onlineSellerList();    
+    this.onlineSellerList();
     this.showWarrantyForm = false;
     this.showAmcForm = false;
     this.showInsuranceForm = true;
@@ -1128,7 +1146,7 @@ export class CreateBillComponent implements OnInit {
   }
   showAddAmcForm() {
     this.getOfflineSellerList();
-    this.onlineSellerList();    
+    this.onlineSellerList();
     this.showWarrantyForm = false;
     this.showAmcForm = true;
     this.showInsuranceForm = false
