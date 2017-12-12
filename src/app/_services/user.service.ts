@@ -486,7 +486,7 @@ export class UserService {
                 this.getCSRF();
                 const billId = prod.billId;
                 delete prod['billId'];
-                Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
+                Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && !(prod[key] instanceof Array) && delete prod[key]);
                 const data = JSON.stringify(prod);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/bills/' + billId + '/products', data, this.options)
