@@ -220,15 +220,15 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // get offline seller list by query
-        getOfflineSellerListByQuery(query:string) {
+        getOfflineSellerListByQuery(query: string) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/offlineSeller?seller_name='+query, this.options)
+                return this.http.get(this.apiLink + 'api/offlineSeller?seller_name=' + query, this.options)
                         .map((response: Response) => response.json());
         }
         // get details of offline seller by id
         getOfflineSellerDetailsbyID(ID: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/offlineSeller/'+ID, this.options)
+                return this.http.get(this.apiLink + 'api/offlineSeller/' + ID, this.options)
                         .map((response: Response) => response.json());
         }
 
@@ -270,7 +270,7 @@ export class UserService {
         }
         getBrandListByCategory(catID) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands?category_id='+catID +'&status=1', this.options)
+                return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&status=1', this.options)
                         .map((response: Response) => response.json());
         }
         // Create Brand
@@ -380,7 +380,7 @@ export class UserService {
         }
         getDayLeftJobList(BillType: Number, day) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&job_day=' +day, this.options)
+                return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&job_day=' + day, this.options)
                         .map((response: Response) => response.json());
         }
         // getFilteredQEJobList(BillType: Number, id) {
@@ -474,12 +474,12 @@ export class UserService {
         }
         getCustomProductList(userId: number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/products?user_id=' + userId+'&status_type=11', this.options)
+                return this.http.get(this.apiLink + 'api/products?user_id=' + userId + '&status_type=11', this.options)
                         .map((response: Response) => response.json());
         }
-        getProductDetailById(pid:number){
+        getProductDetailById(pid: number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/products/'+pid, this.options)
+                return this.http.get(this.apiLink + 'api/products/' + pid, this.options)
                         .map((response: Response) => response.json());
         }
         createProduct(prod: any) {
@@ -505,15 +505,15 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/bills/' + billId + '/products/' + prodId, data, this.options)
                         .map((response: Response) => response.json());
         }
-        linkProduct(jobId,billId,prodId){
+        linkProduct(jobId, billId, prodId) {
                 this.getCSRF();
-                return this.http.put(this.apiLink + 'api/bills/' + null + '/products/' + prodId, { 'bill_id':billId,'job_id':jobId}, this.options)
-                .map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/bills/' + null + '/products/' + prodId, { 'bill_id': billId, 'job_id': jobId }, this.options)
+                        .map((response: Response) => response.json());
         }
-        unLinkProduct(prodId){
+        unLinkProduct(prodId) {
                 this.getCSRF();
                 return this.http.put(this.apiLink + 'api/products/' + prodId + '/unlink', {}, this.options)
-                .map((response: Response) => response.json());
+                        .map((response: Response) => response.json());
         }
         deleteProduct(billId, id) {
                 this.getCSRF();
@@ -524,6 +524,16 @@ export class UserService {
                 this.getCSRF();
                 const data = { 'status_type': 5 }
                 return this.http.put(this.apiLink + 'api/bills/' + bill_id + '/products/' + product_id, data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        /* UnverifyProduct
+        *  @author: Shubham Nigam
+        *  lastWorkedOn: 12/12/2017     
+        */
+        unverifyProduct(product_id) {
+                this.getCSRF();
+                const data = { 'status_type': 11 }
+                return this.http.put(this.apiLink + 'api/products/' + product_id + '/unverify', data, this.options)
                         .map((response: Response) => response.json());
         }
         productMetaData(billId, prodId) {
