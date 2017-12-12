@@ -53,7 +53,7 @@ export class ViewBillComponent implements OnInit {
   billGeneralInfoFormObjectForBind: any;
   productFromMetaData: any[] = [];
   productObject: any;
-  productData:any;
+  productData: any;
   warrantyObject: any;
   insuranceObject: any;
   amcObject: any;
@@ -108,6 +108,7 @@ export class ViewBillComponent implements OnInit {
         for (let i of this.imageArray) {
           this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
+        this.showProductForm = true;
       },
       (error) => {
         console.log(error);
@@ -229,13 +230,35 @@ export class ViewBillComponent implements OnInit {
   }
   // verify Product
   verifyProductFormData() {
+    this.showProductForm = false;
+    this.askMainCategory = false;
     this.userService.verifyProduct(this.billId, this.productId)
       .subscribe(res => {
-        alert(" Product verified")
-        this.showProductForm = false;
-        this.askMainCategory = false;
+        alert(" Product verified");
+        this.showProductInfo();
         this.cockpit = true;
         console.log(res);
+        this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
+        this.productFormObjectForBind.status_type = 5;
+      }, err => {
+        console.log(err);
+      })
+  }
+  /* Unverify Product
+  *  @author: Shubham Nigam
+  *  lastWorkedOn: 12/12/2017
+  */
+  unverifyProduct() {
+    this.showProductForm = false;
+    this.askMainCategory = false;
+    this.userService.unverifyProduct(this.productId)
+      .subscribe(res => {
+        alert(" Product un-verified successfully");
+        this.showProductInfo();
+        this.cockpit = true;
+        console.log(res);
+        this.productFormObjectForBind.status_type = 11;
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
       }, err => {
@@ -424,7 +447,7 @@ export class ViewBillComponent implements OnInit {
     console.log(prod, "pro");
     this.productFormObjectForBind = prod;
     console.log("here");
-    console.log(this.productFormObjectForBind,"final")
+    console.log(this.productFormObjectForBind, "final")
     this.productId = prod.id;
     this.fillProductForm(this.productId);
     this.addons = true;
@@ -433,7 +456,7 @@ export class ViewBillComponent implements OnInit {
     this.showProductForm = false;
     this.askMainCategory = false;
     this.billGeneralInfoEdit = false;
-    this.jobDetailsShow = false;  
+    this.jobDetailsShow = false;
   }
   fillProductForm(prodID) {
     this.userService.productMetaData(this.billId, prodID)
@@ -530,7 +553,7 @@ export class ViewBillComponent implements OnInit {
   }
   backtoAddons() {
     this.addons = true;
-    if (this.jobDetails.bills.length  == 0) {
+    if (this.jobDetails.bills.length == 0) {
       this.addons = false;
       this.jobDetailsShow = true;
     }
