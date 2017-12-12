@@ -30,7 +30,8 @@
 				<tr>
 					<td style="padding: 10px">
 						<div class="imagelist" align="center">
-							<img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
+							<img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%"
+							 style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
 							<!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
 						</div>
 					</td>
@@ -128,35 +129,72 @@
 				</div>
 				<div class="card" *ngIf="jobDetails?.products?.length > 0">
 					<div class="header padding_fix">
-						<p><b>
-							Product Lists
+						<p>
+							<b>
+								Product Lists
 							</b>
 						</p>
 					</div>
 					<div class="body table-responsive">
 						<table class="table table-condensed">
-						<thead>
-							<tr>
-							<th><small>Job ID</small></th>
-							<th><small>Bill ID</small></th>
-							<th><small>Product ID</small></th>
-							<th><small>Product Name</small></th>
-							<th><small>Document Date</small></th>
-									<th><small>Action</small></th>
-									<th *ngIf="ceId < 2"><small>Delete</small></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr *ngFor="let prod of jobDetails?.products">
-							<th><small>{{ prod?.job_id }}</small></th>
-							<th><small>{{ prod?.bill_id }}</small></th>
-							<th><small>{{ prod?.id }}</small></th>
-							<th><small>{{ prod?.product_name }}</small></th>
-							<th><small>{{ prod?.document_date | date }}</small></th>
-							<th><small><span class="btn btn-info btn-xs"  title="Make Product" (click)="addAddons(prod)"><i class="material-icons" >insert_drive_file</i></span></small></th>
-									<th *ngIf="ceId < 2"><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th>
-									</tr>
-						</tbody>
+							<thead>
+								<tr>
+									<th>
+										<small>Job ID</small>
+									</th>
+									<th>
+										<small>Bill ID</small>
+									</th>
+									<th>
+										<small>Product ID</small>
+									</th>
+									<th>
+										<small>Product Name</small>
+									</th>
+									<th>
+										<small>Document Date</small>
+									</th>
+									<th>
+										<small>Action</small>
+									</th>
+									<th *ngIf="ceId < 2">
+										<small>Delete</small>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let prod of jobDetails?.products">
+									<th>
+										<small>{{ prod?.job_id }}</small>
+									</th>
+									<th>
+										<small>{{ prod?.bill_id }}</small>
+									</th>
+									<th>
+										<small>{{ prod?.id }}</small>
+									</th>
+									<th>
+										<small>{{ prod?.product_name }}</small>
+									</th>
+									<th>
+										<small>{{ prod?.document_date | date }}</small>
+									</th>
+									<th>
+										<small>
+											<span class="btn btn-info btn-xs" title="Make Product" (click)="addAddons(prod)">
+												<i class="material-icons">insert_drive_file</i>
+											</span>
+										</small>
+									</th>
+									<th *ngIf="ceId < 2">
+										<small>
+											<span class="btn btn-danger btn-xs" title="Delete " (click)="deleteCall(list);deleteJob=true;">
+												<i class="material-icons">delete_forever</i>
+											</span>
+										</small>
+									</th>
+								</tr>
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -1002,7 +1040,7 @@
 							<div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</button>
 								<span *ngFor="let image of selectedImageArray;">
-									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+									<img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
 								</span>
 								<p></p>
 							</div>
@@ -1103,24 +1141,28 @@
 							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
 								<div class="form-group" *ngIf="form?.form_type == 1">
 									<div class="form-line">
-										<input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+										<input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+										 disabled>
 									</div>
 								</div>
 								<p></p>
 								<div class="form-group" *ngIf="form?.form_type == 2">
-									<select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+									<select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+									 disabled>
 										<option value="">Select</option>
 										<option *ngFor="let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
 									</select>
 								</div>
 								<div class="form-group" *ngIf="form?.form_type == 3">
 									<div class="form-line">
-										<input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+										<input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+										 disabled>
 									</div>
 								</div>
 								<div class="form-group" *ngIf="form?.form_type == 4">
 									<div class="form-line">
-										<input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+										<input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+										 disabled>
 									</div>
 								</div>
 							</div>
@@ -1128,9 +1170,10 @@
 					</div>
 					<br>
 					<div class="row clearfix" *ngIf="userType!=4">
-						<div class="col-md-4 col-md-offset-7">
-							<button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="productFormObjectForBind?.status_type!=5">Verify Product</button>
-							<p class="badge bg-green" style="padding:10px;" *ngIf="productFormObjectForBind?.status_type==5">Verified by Admin / QE</p>
+						<div class="col-md-8 col-md-offset-3">
+							<button class="btn bg-primary pull-right btn-lg" type="submit" *ngIf="productFormObjectForBind?.status_type!=5">Verify Product</button>
+							<p class="badge bg-gray" style="padding:13px;" *ngIf="productFormObjectForBind?.status_type==5">Verified by Admin / QE</p>
+							<button class="btn bg-primary pull-right btn-lg" type="button" (click)="unverifyProduct()" *ngIf="productFormObjectForBind?.status_type == 5">Un-verify Product</button>
 						</div>
 					</div>
 					<br>
@@ -1153,7 +1196,7 @@
 							<div class="form-group" *ngIf="selectedEditWarrantyImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditWarrantyImageArray;let i = index">{{i+1}}</button>
 								<span *ngFor="let image of selectedEditWarrantyImageArray;">
-									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+									<img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
 								</span>
 								<p></p>
 							</div>
@@ -1310,7 +1353,7 @@
 							<div class="form-group" *ngIf="selectedEditInsuranceImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditInsuranceImageArray;let i = index">{{i+1}}</button>
 								<span *ngFor="let image of selectedEditInsuranceImageArray;">
-									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+									<img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
 								</span>
 								<p></p>
 							</div>
@@ -1469,7 +1512,7 @@
 							<div class="form-group" *ngIf="selectedEditAmcImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditAmcImageArray;let i = index">{{i+1}}</button>
 								<span *ngFor="let image of selectedEditAmcImageArray;">
-									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+									<img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
 								</span>
 								<p></p>
 							</div>
@@ -1625,7 +1668,7 @@
 							<div class="form-group" *ngIf="selectedEditRepairImageArray?.length > 0;else elseBlock">
 								<button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditRepairImageArray;let i = index">{{i+1}}</button>
 								<span *ngFor="let image of selectedEditRepairImageArray;">
-									<img  src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+									<img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
 								</span>
 								<p></p>
 							</div>
