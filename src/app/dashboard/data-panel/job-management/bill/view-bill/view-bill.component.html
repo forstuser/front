@@ -1173,7 +1173,7 @@
 						<div class="col-md-8 col-md-offset-3">
 							<button class="btn bg-primary pull-right btn-lg" type="submit" *ngIf="productFormObjectForBind?.status_type!=5">Verify Product</button>
 							<p class="badge bg-gray" style="padding:13px;" *ngIf="productFormObjectForBind?.status_type==5">Verified by Admin / QE</p>
-							<button class="btn bg-primary pull-right btn-lg" type="button" (click)="unverifyProduct()" *ngIf="productFormObjectForBind?.status_type == 5">Un-verify Product</button>
+							<button class="btn bg-primary pull-right btn-lg" type="button" (click)="unverifyProduct()" *ngIf="productFormObjectForBind?.status_type == 5 && userType === 2">Un-verify Product</button>
 						</div>
 					</div>
 					<br>

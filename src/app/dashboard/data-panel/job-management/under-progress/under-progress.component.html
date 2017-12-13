@@ -2,7 +2,7 @@
   <div class="header">
     <h2>
       Under Progress JOB List
-      <small> For assign  the job click on the assign button</small>
+      <small> For assign the job click on the assign button</small>
     </h2>
   </div>
   <div class="row clearfix" *ngIf="userType <= 2">
@@ -12,9 +12,9 @@
     <div class="col-md-2">
       <div class="form-group">
         <select class="form-control dropdown" (change)=onSelectType($event.target.value)>
-            <option>Select</option>
-            <option value="ce">CE</option>
-            <option value="qe">QE</option>
+          <option>Select</option>
+          <option value="ce">CE</option>
+          <option value="qe">QE</option>
         </select>
       </div>
     </div>
@@ -24,8 +24,8 @@
     <div class="col-md-3">
       <div class="form-group">
         <select class="form-control dropdown" (change)=onSelectUser($event.target.value)>
-            <option value="">Select</option>
-            <option *ngFor="let user of activeUser?.data" value="{{user.id}}" >{{ user.email }}</option>
+          <option value="">Select</option>
+          <option *ngFor="let user of activeUser?.data" value="{{user.id}}">{{ user.email }}</option>
         </select>
       </div>
     </div>
@@ -38,6 +38,18 @@
     <div class="col-md-1">
       <button class="btn btn-info btn-block" (click)="jobDay(dayInput.value)">Days</button>
     </div>
+    <div class="col-md-12 row">
+      <div class="col-md-4">
+        <label class="col-md-6 form-control-label">Start Date</label>
+        <input class="col-md-6" id="start_date" [ngModel]="start_date_filter | date:'yyyy-MM-dd'" type="date" (ngModelChange)="start_date_filter=$event"
+          (change)="selectDate($event.target.value,start)" />
+      </div>
+      <div class="col-md-4">
+        <label class="col-md-4 form-control-label">End Date</label>
+        <input class="col-md-6" id="end_date" type="date" [ngModel]="end_date_filter | date:'yyyy-MM-dd'" (ngModelChange)="end_date_filter=$event"
+          (change)="selectDate($event.target.value,end)" />
+      </div>
+    </div>
   </div>
   <div class="text-center" *ngIf="loader">
     <h1>Please Wait ...</h1>
@@ -46,8 +58,12 @@
   <div class="body table-responsive">
     <nav>
       <ul class="pager">
-        <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a></li>
-        <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
       </ul>
     </nav>
     <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
@@ -58,7 +74,7 @@
           <th>Name</th>
           <th>Phone No.</th>
           <th>JOB Date</th>
-          <th *ngIf="userType==4">Comment</th>          
+          <th *ngIf="userType==4">Comment</th>
           <th *ngIf="userType==4">Email</th>
           <th *ngIf="userType!=4">Customer Executive</th>
           <th *ngIf="userType!=4">Quality Executive</th>
@@ -71,42 +87,76 @@
       <tbody *ngFor="let bill of bills?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+offset }} </th>
-          <td><button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+          <td>
+            <button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
               <i class="material-icons">verified_user</i>
-          </button> {{ bill?.job_id}}</td>
+            </button> {{ bill?.job_id}}</td>
           <td>{{ bill.user.full_name}}</td>
           <td>{{ bill.user.mobile_no}}</td>
           <td>{{ bill?.created_at | date}}</td>
-          <td *ngIf="userType==4">{{bill?.comments}}</td>          
+          <td *ngIf="userType==4">{{bill?.comments}}</td>
           <td *ngIf="userType==4">{{bill?.user?.email}}</td>
-          <td *ngIf="userType!=4"><strong>Name : </strong>{{ bill.ce.full_name}}<br>
-            <strong>Email ID : </strong>{{ bill.ce.email}}<br>
-            <strong>Task Date: </strong>{{ bill?.ce_task_date | date}}<br>
-            <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.ce_status== 4">New</span>
+          <td *ngIf="userType!=4">
+            <strong>Name : </strong>{{ bill.ce.full_name}}
+            <br>
+            <strong>Email ID : </strong>{{ bill.ce.email}}
+            <br>
+            <strong>Task Date: </strong>{{ bill?.ce_task_date | date}}
+            <br>
+            <strong>Status : </strong>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 4">New</span>
             <span class="badge bg-orange" *ngIf="bill?.ce_status== 5">Complete</span>
-            <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>            
-            <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span><br><br>
-            <span class="pull-right" *ngIf="bill.ce_status != 5"><button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
-              <i class="material-icons">replay</i><span>Re-Assign</span></button>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>
+            <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span>
+            <br>
+            <br>
+            <span class="pull-right" *ngIf="bill.ce_status != 5">
+              <button type="button" class="btn btn-xs bg-purple waves-effect" (click)="openModel(bill)">
+                <i class="material-icons">replay</i>
+                <span>Re-Assign</span>
+              </button>
             </span>
           </td>
-          <td *ngIf="userType!=4"><span *ngIf="bill.qe_status == 4 || bill.qe_status==5"><strong>Name : </strong>{{ bill.qe?.full_name}}<br>
-                    <strong>Email ID : </strong>{{ bill.qe?.email}}<br>
-                    <strong>Task Date: </strong>{{ bill?.qe_task_date | date}}<br>
-                    <strong>Status : </strong><span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
-                      <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
-                      <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
-                    </span><br><br>
-            <span *ngIf="bill.ce_status == 5 && bill.qe_status !=5"><button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
-              <i class="material-icons">done</i><span>Assign / Re-Assign</span></button>
+          <td *ngIf="userType!=4">
+            <span *ngIf="bill.qe_status == 4 || bill.qe_status==5">
+              <strong>Name : </strong>{{ bill.qe?.full_name}}
+              <br>
+              <strong>Email ID : </strong>{{ bill.qe?.email}}
+              <br>
+              <strong>Task Date: </strong>{{ bill?.qe_task_date | date}}
+              <br>
+              <strong>Status : </strong>
+              <span class="badge bg-orange" *ngIf="bill?.qe_status== 4">New</span>
+              <span class="badge bg-orange" *ngIf="bill?.qe_status== 5">Complete</span>
+              <span class="badge bg-orange" *ngIf="bill?.qe_status== 8">In-progress</span>
+            </span>
+            <br>
+            <br>
+            <span *ngIf="bill.ce_status == 5 && bill.qe_status !=5">
+              <button type="button" class="btn btn-xs bg-indigo waves-effect" (click)="assignQE(bill)">
+                <i class="material-icons">done</i>
+                <span>Assign / Re-Assign</span>
+              </button>
             </span>
           </td>
-          <td *ngIf="userType!=4"><button type="button" class="btn btn-xs bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button></td>
-          <td *ngIf="userType!=4"><span class="btn btn-xs  btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span></td>
-          <td *ngIf="userType==4"><span class="btn btn-xs btn-danger" routerLink="create/{{ bill.id }}" >Add Bill</span></td>  
-          <td *ngIf="userType <=2"><button type="button" class="btn btn-xs bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
-            >View Bill</button><div style="margin-top:10px;"><span class="btn btn-warning btn-xs" (click)="assignQE(bill)" *ngIf="bill?.qe_status==5">Assign TO QE</span></div></td>
-          <td><span *ngIf="userType<=2 && bill.qe_status==5" class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span></td>                    
+          <td *ngIf="userType!=4">
+            <button type="button" class="btn btn-xs bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button>
+          </td>
+          <td *ngIf="userType!=4">
+            <span class="btn btn-xs  btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span>
+          </td>
+          <td *ngIf="userType==4">
+            <span class="btn btn-xs btn-danger" routerLink="create/{{ bill.id }}">Add Bill</span>
+          </td>
+          <td *ngIf="userType <=2">
+            <button type="button" class="btn btn-xs bg-cyan waves-effect" routerLink="view/{{ bill.id }}">View Bill</button>
+            <div style="margin-top:10px;">
+              <span class="btn btn-warning btn-xs" (click)="assignQE(bill)" *ngIf="bill?.qe_status==5">Assign TO QE</span>
+            </div>
+          </td>
+          <td>
+            <span *ngIf="userType<=2 && bill.qe_status==5" class="btn btn-success" (click)="commentBox.open();getJobId(bill.id)">Complete JOB</span>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -127,8 +177,8 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                  <option>Select</option>
-                  <option *ngFor="let user of activeCE?.data" [ngValue]="user.id" >{{ user.email }}</option>
+                <option>Select</option>
+                <option *ngFor="let user of activeCE?.data" [ngValue]="user.id">{{ user.email }}</option>
               </select>
             </div>
           </div>
@@ -168,8 +218,8 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                <option>Select</option>                  
-                <option *ngFor="let user of activeQE?.data" [ngValue]="user.id" >{{ user.email }}</option>
+                <option>Select</option>
+                <option *ngFor="let user of activeQE?.data" [ngValue]="user.id">{{ user.email }}</option>
               </select>
             </div>
           </div>
@@ -224,70 +274,89 @@
   </app-dialog>
 </div>
 <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
-    <modal-content>
-        <div *ngIf="!loader">
-    <div class="body">
-      <div class="row clearfix" style="overflow:scroll">
+  <modal-content>
+    <div *ngIf="!loader">
+      <div class="body">
+        <div class="row clearfix" style="overflow:scroll">
           <div class="col-md-12">
-              <img  [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
-              <p></p>
+            <img [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <p></p>
           </div>
+        </div>
       </div>
-    </div>
-    <div class="caption">
-      <p class="text-center">
-        <button type="button" class="btn btn-info btn-xs waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
-        <button type="button" class="btn btn-warning btn-xs waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-        <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-xs waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
-        <button type="button" class="btn btn-danger btn-xs waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
-        <button type="button" class="btn btn-info btn-xs waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
-        <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
-      </p>
-    </div>
+      <div class="caption">
+        <p class="text-center">
+          <button type="button" class="btn btn-info btn-xs waves-effect" (click)="prevImage()">
+            <i class="material-icons">skip_previous</i>
+            <span>Prev</span>
+          </button>
+          <button type="button" class="btn btn-warning btn-xs waves-effect" (click)="rotate()">
+            <i class="material-icons">rotate_right</i>
+            <span>Rotate</span>
+          </button>
+          <a href="{{images[imageIndex]}}" download>
+            <button type="button" class="btn btn-success btn-xs waves-effect">
+              <i class="material-icons">file_download</i>
+              <span>Download</span>
+            </button>
+          </a>
+          <button type="button" class="btn btn-danger btn-xs waves-effect" (click)="alertBox.open();imageView.close()">
+            <i class="material-icons">clear</i>
+            <span>Discard Image</span>
+          </button>
+          <button type="button" class="btn btn-info btn-xs waves-effect" (click)="nextImage()">
+            <i class="material-icons">skip_next</i>
+            <span>Next</span>
+          </button>
+          <span style="margin-left:5px">
+            <b>Image {{imageIndex+1}} of {{arrayLength}}</b>
+          </span>
+        </p>
+      </div>
     </div>
     <div class="text-center" *ngIf="loader">
       <h1>Please Wait ...</h1>
-        <img src="../../../assets/images/loader.gif" alt="">
-      </div>
+      <img src="../../../assets/images/loader.gif" alt="">
+    </div>
   </modal-content>
 </modal>
 <modal #alertBox [closeOnOutsideClick]="true" modalClass="modal-md">
-    <modal-content>
-      <div class="body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #comment>
-                    </div>
-                </div>
+  <modal-content>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" class="form-control" name="comments" placeholder="Enter Comment" #comment>
             </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 text-right">
-              <button class="btn bg-red btn-xs btn-lg" type="submit" (click)="commentBoxData(comment.value);alertBox.close()">Discard Image</button>    
           </div>
         </div>
       </div>
-    </modal-content>
-  </modal>
-  <modal #commentBox [closeOnOutsideClick]="true" modalClass="modal-md">
-    <modal-content>
-      <div class="body">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <div class="form-line">
-                        <input type="text" class="form-control" name="comments" placeholder="Enter Comment"  #commentInput>
-                    </div>
-                </div>
-            </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn bg-red btn-xs btn-lg" type="submit" (click)="commentBoxData(comment.value);alertBox.close()">Discard Image</button>
         </div>
-        <div class="row">
-          <div class="col-md-12 text-right">
-              <button class="btn bg-indigo btn-xs btn-lg" type="submit" (click)="commentBoxDataAdmin(commentInput.value);commentBox.close()">Complete JOB</button>    
+      </div>
+    </div>
+  </modal-content>
+</modal>
+<modal #commentBox [closeOnOutsideClick]="true" modalClass="modal-md">
+  <modal-content>
+    <div class="body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" class="form-control" name="comments" placeholder="Enter Comment" #commentInput>
+            </div>
           </div>
         </div>
       </div>
-    </modal-content>
-  </modal>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn bg-indigo btn-xs btn-lg" type="submit" (click)="commentBoxDataAdmin(commentInput.value);commentBox.close()">Complete JOB</button>
+        </div>
+      </div>
+    </div>
+  </modal-content>
+</modal>

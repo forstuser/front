@@ -108,7 +108,6 @@ export class ViewBillComponent implements OnInit {
         for (let i of this.imageArray) {
           this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
-        this.showProductForm = true;
       },
       (error) => {
         console.log(error);
