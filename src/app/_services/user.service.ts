@@ -349,6 +349,7 @@ export class UserService {
                                 arr[i].id = undefined;
                         }
                 }
+                Object.keys(asc).forEach((key) => (asc[key] == '' || asc[key] == null) && !(asc[key] instanceof Array) && delete asc[key]);
                 this.getCSRF();
                 delete asc['center_id']
                 const data = JSON.stringify(asc);
