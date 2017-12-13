@@ -42,13 +42,17 @@ export class UnderProgressComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   activeCE: any;
   activeQE: any;
-  activeUser:any;
-  type:any;
-  filter:any;
+  activeUser: any;
+  type: any;
+  filter: any;
+  start_date_filter: any;
+  end_date_filter: any;
   userId: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
+    this.start_date_filter = '';
+    this.end_date_filter = '';
     this.userId = info.id;
     console.log("userType", this.userType)
     this.assignForm = this.fb.group({
@@ -74,12 +78,12 @@ export class UnderProgressComponent implements OnInit {
           this.bills = bills;
           console.log(this.bills);
         });
-        this.userservice.ActiveCE()
+      this.userservice.ActiveCE()
         .subscribe(res => {
           this.activeCE = res;
           console.log(res)
         })
-        this.userservice.ActiveQE()
+      this.userservice.ActiveQE()
         .subscribe(res => {
           this.activeQE = res;
           console.log(res)
@@ -147,15 +151,15 @@ export class UnderProgressComponent implements OnInit {
     }
     else if (this.userType === 4) {
       this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
-      .subscribe(bills => {
-        console.log(bills)
-        if (bills.data.length == 0) {
-          this.rightFlag = true;
-          this.noData = true;
-        }
-        this.bills = bills;
-        console.log(this.bills);
-      });
+        .subscribe(bills => {
+          console.log(bills)
+          if (bills.data.length == 0) {
+            this.rightFlag = true;
+            this.noData = true;
+          }
+          this.bills = bills;
+          console.log(this.bills);
+        });
     }
   }
   // passs current user as argument and open the popup
@@ -328,7 +332,7 @@ export class UnderProgressComponent implements OnInit {
             this.bills = bills;
             console.log(this.bills);
           });
-      },error=>{
+      }, error => {
         console.log(error);
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -356,47 +360,59 @@ export class UnderProgressComponent implements OnInit {
       })
   }
   // Filter   '&assigned_to_ce='
-  onSelectType(type){
+  onSelectType(type) {
     console.log(type);
     this.type = type;
-    if(type=='ce'){
+    if (type == 'ce') {
       this.userservice.ActiveCE()
-      .subscribe(res => {
-        this.activeUser = res;
-        console.log(res)
-      })
+        .subscribe(res => {
+          this.activeUser = res;
+          console.log(res)
+        })
     }
-    else{
+    else {
       this.userservice.ActiveQE()
-      .subscribe(res => {
-        this.activeUser = res;
-        console.log(res)
-      })
+        .subscribe(res => {
+          this.activeUser = res;
+          console.log(res)
+        })
     }
   }
-  onSelectUser(id){
+  onSelectUser(id) {
     console.log(id);
-    if(this.type=='ce'){
-      this.filter='&assigned_to_ce='+id;
-    }else{
-      this.filter='&assigned_to_qe='+id;
+    if (this.type == 'ce') {
+      this.filter = '&assigned_to_ce=' + id;
+    } else {
+      this.filter = '&assigned_to_qe=' + id;
     }
     this.loader = true;
-    this.userservice.getFilteredJobList(8,this.filter) // incomplete = 6 refer api doc
-    .subscribe(bills => {
-      this.bills = bills;
-      this.loader = false;
-      console.log(this.bills);
-    });
+    this.userservice.getFilteredJobList(8, this.filter) // incomplete = 6 refer api doc
+      .subscribe(bills => {
+        this.bills = bills;
+        this.loader = false;
+        console.log(this.bills);
+      });
   }
-  jobDay(day){
+  selectDate(date, start) {
+    if (this.start_date_filter && this.end_date_filter) {
+      this.filter = `&start_date=${this.start_date_filter}&end_date=${this.end_date_filter}`;
+      this.loader = true;
+      this.userservice.getFilteredJobList(8, this.filter) // incomplete = 6 refer api doc
+        .subscribe(bills => {
+          this.bills = bills;
+          this.loader = false;
+          console.log(this.bills);
+        });
+    }
+  }
+  jobDay(day) {
     console.log(day);
-    this.loader =true;
-    this.userservice.getDayLeftJobList(8,day) // incomplete = 6 refer api doc
-    .subscribe(bills => {
-      this.bills = bills;
-      this.loader = false;
-      console.log(this.bills);
-    });
+    this.loader = true;
+    this.userservice.getDayLeftJobList(8, day) // incomplete = 6 refer api doc
+      .subscribe(bills => {
+        this.bills = bills;
+        this.loader = false;
+        console.log(this.bills);
+      });
   }
 }

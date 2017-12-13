@@ -12,82 +12,83 @@ import { Component, OnInit } from '@angular/core';
 export class BrandListComponent implements OnInit {
   brands: Brand;
   editBrandForm: FormGroup;
-  cat:Category;
+  cat: Category;
   offset = 0;
-  leftFlag:boolean= true;
-  rightFlag:boolean = false;
-  noData:boolean = false;
-  showBrandList:boolean = true;
-  detailType:any;
-  center=[];
+  leftFlag: boolean = true;
+  rightFlag: boolean = false;
+  noData: boolean = false;
+  showBrandList: boolean = true;
+  detailType: any;
+  center = [];
   brand;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
-        // get list of category
-        this.userService.getCategoryList(2) // 2 for category refer to api doc
-        .subscribe(getCat => {
-          this.cat = getCat;
-          console.log('category is ' + getCat);
-        });
-     this.editBrandForm = new FormGroup({
+    // get list of category
+    this.userService.getCategoryList(2) // 2 for category refer to api doc
+      .subscribe(getCat => {
+        this.cat = getCat;
+        console.log('category is ' + getCat);
+      });
+    this.editBrandForm = new FormGroup({
       brand_name: new FormControl(''),
       brand_description: new FormControl(''),
+      status_type: new FormControl(1),
       brand_id: new FormControl(''),
       details: new FormArray([])
     });
     this.userService.getAllBrandList(this.offset)
-      .subscribe( brandList => {
+      .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands);
       });
-          // get list of detail type
+    // get list of detail type
     this.userService.getDetailList()
-    .subscribe(detail_type =>{
-      this.detailType = detail_type;
-      console.log(this.detailType);
-    })
+      .subscribe(detail_type => {
+        this.detailType = detail_type;
+        console.log(this.detailType);
+      })
   }
 
   // function for pagination
-  left(){
+  left() {
     this.leftFlag = true;
     this.rightFlag = false;
     this.noData = false;
-    if(this.offset>1){
-      this.offset = this.offset-50; 
-      this.leftFlag = false;         
+    if (this.offset > 1) {
+      this.offset = this.offset - 50;
+      this.leftFlag = false;
     }
     this.userService.getAllBrandList(this.offset)
-    .subscribe( brandList => {
-      console.log(brandList.statusCode)
-      this.rightFlag = false;
-      this.brands = brandList;
-      console.log(this.brands);
-    });
+      .subscribe(brandList => {
+        console.log(brandList.statusCode)
+        this.rightFlag = false;
+        this.brands = brandList;
+        console.log(this.brands);
+      });
   }
 
-  right(){
+  right() {
     this.noData = false;
     this.leftFlag = false;
-    this.offset = this.offset+50;
+    this.offset = this.offset + 50;
     this.userService.getAllBrandList(this.offset)
-    .subscribe( brandList => {
-      console.log(brandList,"brandlist")
-      if(brandList.data.length==0){
-        this.rightFlag = true;
-        this.noData = true;
-      }
-      this.brands = brandList;
-      console.log(this.brands);
-    });
+      .subscribe(brandList => {
+        console.log(brandList, "brandlist")
+        if (brandList.data.length == 0) {
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.brands = brandList;
+        console.log(this.brands);
+      });
   }
   // function for add row in detials field
   createItem() {
     return this.fb.group({
       'id': [null],
-      'category_id':[null],
+      'category_id': [null],
       'detail_type': [null],
       'value': [null]
     });
@@ -104,18 +105,18 @@ export class BrandListComponent implements OnInit {
   }
 
 
-  removeItem(item,data){
-    console.log(data,"bhai data")
-    console.log(item,data,"brandsssss")
-    this.center=data.brand_id;
-    console.log(item,item['_value'],"catId");
-    this.brand=item['_value'];
+  removeItem(item, data) {
+    console.log(data, "bhai data")
+    console.log(item, data, "brandsssss")
+    this.center = data.brand_id;
+    console.log(item, item['_value'], "catId");
+    this.brand = item['_value'];
 
-    this.userService.removeBrandDetails(this.brand,this.center)
-    .subscribe( res => {
-      console.log(res);
-      alert('Detail deleted successfully');
-    });
+    this.userService.removeBrandDetails(this.brand, this.center)
+      .subscribe(res => {
+        console.log(res);
+        alert('Detail deleted successfully');
+      });
   }
   // passs current brand id as argument and open the popup
   openBrandModel(item) {
@@ -124,28 +125,30 @@ export class BrandListComponent implements OnInit {
     this.editBrandForm = new FormGroup({
       brand_name: new FormControl(''),
       brand_description: new FormControl(''),
+      status_type: new FormControl(1),
       brand_id: new FormControl(''),
       details: new FormArray([])
     });
     // get information of current selected brand
     this.userService.getBrandDetailsbyID(item.brand_id)
       .subscribe(res => {
-      console.log(res);
-      this.showBrandList = false;
-      // prop autofill data to form
-      this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
-      this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
-      this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
-      res.data.details.forEach(
-      (po) => {
-        (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
+        console.log(res);
+        this.showBrandList = false;
+        // prop autofill data to form
+        this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
+        this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
+        this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
+        this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
+        res.data.details.forEach(
+          (po) => {
+            (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
+          });
       });
-    });
   }
 
 
- createDetailsFormGroup(payOffObj) {
-   console.log(payOffObj);
+  createDetailsFormGroup(payOffObj) {
+    console.log(payOffObj);
     return new FormGroup({
       id: new FormControl(payOffObj.id),
       category_id: new FormControl(payOffObj.category_id),
@@ -155,40 +158,41 @@ export class BrandListComponent implements OnInit {
   }
 
 
-  updateBrand( data: any) {
+  updateBrand(data: any) {
     console.log(data);
-    this.center=data.details;
-    console.log(this.center,"senter details")
-    this.userService.updateBrand(data,this.center)
-      .subscribe( res => {
+    this.center = data.details;
+    data.status_type = data.status_type || 2;
+    console.log(this.center, "senter details")
+    this.userService.updateBrand(data, this.center)
+      .subscribe(res => {
         // console.log(res);
         alert('brand updated successfully');
-        this.showBrandList =true;
+        this.showBrandList = true;
         this.userService.getAllBrandList(this.offset)
-        .subscribe( brandList => {
-          this.brands = brandList;
-          console.log(this.brands);
-        });
-    });
+          .subscribe(brandList => {
+            this.brands = brandList;
+            console.log(this.brands);
+          });
+      });
   }
 
 
   // delete brand
-  deleteBrand( brandId: number) {
+  deleteBrand(brandId: number) {
     this.userService.deleteBrand(brandId)
-      .subscribe( res => {
+      .subscribe(res => {
         // console.log(res);
         alert('brand deleted successfully');
         this.userService.getAllBrandList(this.offset)
-        .subscribe( brandList => {
-          this.brands = brandList;
-          console.log(this.brands);
-        });
-    });
+          .subscribe(brandList => {
+            this.brands = brandList;
+            console.log(this.brands);
+          });
+      });
   }
 
 
-  back(){
+  back() {
     this.showBrandList = true;
   }
 }
