@@ -21,7 +21,7 @@ export class AddOnlineSellerComponent implements OnInit {
     this.onlineSellerForm = this.fb.group({
       'seller_name' : ['', Validators.required],
       'url' : ['', Validators.required],
-      'gstin': ['', Validators.required],
+      'gstin': '',
       'contact':'',
       'email':''
     });

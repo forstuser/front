@@ -45,7 +45,7 @@
           <td *ngIf="userType==3">{{ bill.user.email}}</td>
           <td *ngIf="userType==4">{{ bill.user.email}}</td> 
 
-          <td *ngIf="userType==1 || userType==2">{{ bill.user.updated_at | date}}</td>
+          <td *ngIf="userType==1 || userType==2">{{ bill.updated_at | date}}</td>
           <td *ngIf="userType==3">{{ bill.qe.updated_at | date}}</td>
           <td *ngIf="userType==4">{{ bill.ce.updated_at | date}}</td>
 
