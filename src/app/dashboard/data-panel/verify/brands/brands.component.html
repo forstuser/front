@@ -1,0 +1,49 @@
+<div class="card" *ngIf="showBrandList">
+  <div class="header">
+    <h2>
+      Brand List
+      <small> For change the Brand details click on the edit button</small>
+    </h2>
+  </div>
+  <div class="body table-responsive">
+    <nav>
+      <ul class="pager">
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let list of brands?.data; let i = index">
+        <tr>
+          <th scope="row">{{ i+1+offset}}</th>
+          <td>{{ list?.brand_name }}</td>
+          <td>{{ list?.brand_description }}</td>
+          <td>
+            <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="verifyBrand(list?.brand_id)" title="Verify">
+              <i class="material-icons">done</i>
+            </span>
+            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteBrand(list?.brand_id)" title="Un Verify">
+              <i class="material-icons">clear</i>
+            </span>
+          </td>
+          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openBrandModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #elseBlock>
+      <h4> No Data Available </h4>
+    </ng-template>
+  </div>
+</div>

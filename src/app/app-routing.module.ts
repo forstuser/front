@@ -1,3 +1,4 @@
+import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.component';
 import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
@@ -29,6 +30,7 @@ import { ColorComponent } from './dashboard/data-panel/color/color.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule, Component } from '@angular/core';
+import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
 
 
 
@@ -63,6 +65,8 @@ const appRoutes: Routes = [
             { path: 'offlineList', component: OfflineSellerListComponent },
             { path: 'addOnline', component: AddOnlineSellerComponent },
             { path: 'onlineList', component: OnlineSellerListComponent },
+            { path:'verifyBrands', component: BrandsComponent},
+            { path: 'verifyModels',component:ModelsComponent },
             { path: 'color', component: ColorComponent },
             { path: 'addServiceCenter', component: AddServiceCenterComponent },
             { path: 'serviceCenterList', component: ServiceCenterListComponent },

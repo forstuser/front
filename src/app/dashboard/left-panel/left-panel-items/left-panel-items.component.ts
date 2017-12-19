@@ -206,6 +206,28 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
+      'name': 'Verify',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Brands',
+          'd_icon': 'add',
+          'd_link': 'verifyBrands'
+        },
+        {
+          'd_name': 'Models',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'verifyModels'
+        }
+      ]
+    },
+    {
       'name': 'Color',
       'icon': 'format_color_fill',
       'link': 'color',
@@ -365,6 +387,28 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Service Center List',
           'd_icon': 'format_list_numbered',
           'd_link': 'serviceCenterList'
+        }
+      ]
+    },
+    {
+      'name': 'Verify',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Brands',
+          'd_icon': 'add',
+          'd_link': 'verifyBrands'
+        },
+        {
+          'd_name': 'Models',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'verifyModels'
         }
       ]
     },

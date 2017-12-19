@@ -53,6 +53,8 @@ import {SelectModule} from 'ng2-select';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
 import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
+import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.component';
+import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/vi
     ListManagementComponent,
     CreateBillComponent,
     ViewBillComponent,
+    BrandsComponent,
+    ModelsComponent,
   ],
   imports: [
     BrowserModule,
