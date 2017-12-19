@@ -262,6 +262,12 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands?limit=50&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
+        // get User Created brand list
+        getUserBrandList(off) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands?status=11&limit=50&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
         // get active brand list
         getBrandList() {
                 this.getCSRF();
@@ -279,6 +285,12 @@ export class UserService {
                 const data = JSON.stringify(brand);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/brands', data, this.options).map((response: Response) => response.json());
+        }
+        //verify brand
+        verifyBrand(brandId,statusId){
+                const data = { 'status_type':statusId}
+                this.getCSRF();
+                return this.http.put(this.apiLink + 'api/brands/' + brandId, data, this.options).map((response: Response) => response.json());                
         }
         // Delete brand
         deleteBrand(brandId: any) {
