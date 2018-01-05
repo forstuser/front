@@ -31,11 +31,14 @@
           <th scope="row">{{ i+1+offset}}</th>
           <td>{{ list?.brand_name }}</td>
           <td>{{ list?.brand_description }}</td>
-          <td *ngIf="list?.status_type=='1'">
-            <span class="label bg-green">Active</span>
-          </td>
           <td *ngIf="list?.status_type=='2'">
-            <span class="label bg-red">InActive</span>
+            <span class="label bg-red">Un Verified</span>
+          </td>
+          <td *ngIf="list?.status_type=='1'">
+            <span class="label bg-green">Verified</span>
+          </td>
+          <td *ngIf="list?.status_type=='11'">
+            <span class="label bg-orange">User Created</span>
           </td>
           <td>
             <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openBrandModel(list)" title="Edit">

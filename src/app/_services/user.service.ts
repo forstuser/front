@@ -268,6 +268,12 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/brands?status=11&limit=50&offset=' + off, this.options)
                         .map((response: Response) => response.json());
         }
+        // get User Created brand list
+        getUserBrandDropdownList(off) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brand/dropdowns?limit=50&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
         // get active brand list
         getBrandList() {
                 this.getCSRF();
@@ -291,6 +297,12 @@ export class UserService {
                 const data = { 'status_type':statusId}
                 this.getCSRF();
                 return this.http.put(this.apiLink + 'api/brands/' + brandId, data, this.options).map((response: Response) => response.json());                
+        }
+        //verify brand model
+        verifyBrandModel(dropdownId,statusId){
+                const data = { 'status_type':statusId}
+                this.getCSRF();
+                return this.http.put(this.apiLink + 'api/brand/dropdowns/' + dropdownId, data, this.options).map((response: Response) => response.json());                
         }
         // Delete brand
         deleteBrand(brandId: any) {
