@@ -21,7 +21,7 @@ export class ModelsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserBrandList(this.offset)
+    this.userService.getUserBrandDropdownList(this.offset)
       .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands);
@@ -37,7 +37,7 @@ export class ModelsComponent implements OnInit {
       this.offset = this.offset - 50;
       this.leftFlag = false;
     }
-    this.userService.getUserBrandList(this.offset)
+    this.userService.getUserBrandDropdownList(this.offset)
       .subscribe(brandList => {
         console.log(brandList.statusCode)
         this.rightFlag = false;
@@ -50,7 +50,7 @@ export class ModelsComponent implements OnInit {
     this.noData = false;
     this.leftFlag = false;
     this.offset = this.offset + 50;
-    this.userService.getUserBrandList(this.offset)
+    this.userService.getUserBrandDropdownList(this.offset)
       .subscribe(brandList => {
         console.log(brandList, "brandlist")
         if (brandList.data.length == 0) {
@@ -64,9 +64,9 @@ export class ModelsComponent implements OnInit {
 
   verifyBrand(item) {
     console.log(item);
-    this.userService.verifyBrand(item,1).subscribe( res=> {
-      alert("Brand Verified and moved to Brand List");
-      this.userService.getUserBrandList(this.offset)
+    this.userService.verifyBrandModel(item,1).subscribe( res=> {
+      alert("Model Verified");
+      this.userService.getUserBrandDropdownList(this.offset)
       .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands);
@@ -77,11 +77,11 @@ export class ModelsComponent implements OnInit {
 
   // delete brand
   deleteBrand(brandId: number) {
-    this.userService.verifyBrand(brandId,2)
+    this.userService.verifyBrandModel(brandId,2)
       .subscribe(res => {
         // console.log(res);
-        alert('brand deleted successfully');
-        this.userService.getAllBrandList(this.offset)
+        alert('Model deleted successfully');
+        this.userService.getUserBrandDropdownList(this.offset)
           .subscribe(brandList => {
             this.brands = brandList;
             console.log(this.brands);
