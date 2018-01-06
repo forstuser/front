@@ -255,6 +255,12 @@ export class UserService {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);
         }
+        // Insurance Provider
+        getInsuranceProviderList(off) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/insurance/brands?status=1&limit=50&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
         // Brand
         // get All brand list
         getAllBrandList(off) {

@@ -55,6 +55,8 @@ import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/
 import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
 import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.component';
 import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
+import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
+import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,8 @@ import { ModelsComponent } from './dashboard/data-panel/verify/models/models.com
     ViewBillComponent,
     BrandsComponent,
     ModelsComponent,
+    AddInsuranceProviderComponent,
+    InsuranceProviderListComponent,
   ],
   imports: [
     BrowserModule,
