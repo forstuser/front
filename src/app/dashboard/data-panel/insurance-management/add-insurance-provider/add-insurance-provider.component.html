@@ -1,3 +1,203 @@
-<p>
-  add-insurance-provider works!
-</p>
+<div class="card">
+  <div class="header">
+    <h2>
+      Add Insurance Provider
+    </h2>
+  </div>
+  <div class="body">
+    <form class="form-horizontal" [formGroup]='addInsuranceForm' (ngSubmit)="createInsurance(addInsuranceForm.value)">
+      <h4>
+        <u>Information </u>
+      </h4>
+      <hr>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Name</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" formControlName="name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('name')">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Select Main Category</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <select class="form-control dropdown" formControlName="main_category_id" (change)="onSelect($event.target.value)" style=" border-bottom:1px solid #ccc">
+              <option>Select Category</option>
+              <option *ngFor="let brandList of getCatList?.data" [value]="brandList?.category_id">{{ brandList.category_name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Select Sub Category</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
+              <option [value]="">Select Subcategory</option>
+              <option *ngFor="let subCategory of cat" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <h4>
+        <u>Address </u>
+      </h4>
+      <hr>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Address</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="address" class="form-control " placeholder="Enter Address here
+              " (keyup)="avoidSpace( 'address') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">City</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="city" class="form-control " placeholder="Enter City Name here
+              " (keyup)="avoidSpace( 'city') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">State</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="state" class="form-control" placeholder="Enter State Name here
+              " (keyup)="avoidSpace( 'state') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Pin Code</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="pincode" class="form-control " placeholder="Enter Pin Code here
+              " (keyup)="avoidSpace( 'pincode') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Latitude</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="latitude" class="form-control " placeholder="Enter Latitude here
+              " (keyup)="avoidSpace( 'latitude') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Longitude</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="longitude" class="form-control " placeholder="Enter Longitude here
+              " (keyup)="avoidSpace( 'longitude')">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Pan No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="pan_no" class="form-control " placeholder="Enter Pan No.here
+              " (keyup)="avoidSpace( 'pan_no') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Reg No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="reg_no" class="form-control " placeholder="Enter Reg No.here
+              " (keyup)="avoidSpace( 'reg_no') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Url</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="url" class="form-control " placeholder="Enter Url here " (keyup)="avoidSpace(
+              'url') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Email</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="email" class="form-control " placeholder="Enter Email here
+              " (keyup)="avoidSpace( 'email') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Contact No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="contact_no" class="form-control " placeholder="Enter Contact No here
+              " (keyup)="avoidSpace( 'contact_no') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Gstin</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="gstin" class="form-control " placeholder="Enter Gstin here
+              " (keyup)="avoidSpace( 'gstin') ">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row clearfix ">
+        <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 ">
+          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!addInsuranceForm.valid ">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

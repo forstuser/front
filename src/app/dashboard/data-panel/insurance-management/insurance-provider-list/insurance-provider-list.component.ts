@@ -21,7 +21,26 @@ export class InsuranceProviderListComponent implements OnInit {
   detailType: any;
   center = [];
   brand;
+  addInsuranceForm:FormGroup;
   constructor(private userService: UserService, private fb: FormBuilder) {
+    this.addInsuranceForm = this.fb.group({
+      'name': ['', Validators.required],
+      'main_category_id':['',Validators.required],
+      'categories':'',
+      'city': '',
+      'state': '',
+      'pincode': '',
+      'address': '',
+      'latitude': '',
+      'longitude': '',
+      'gstin': '',
+      'reg_no': '',
+      'pan_no': '',
+      'email': '',
+      'url': '',
+      'contact_no':'',
+      'status_type':"1"
+    });
   }
 
   ngOnInit() {
@@ -80,8 +99,8 @@ export class InsuranceProviderListComponent implements OnInit {
           this.rightFlag = true;
           this.noData = true;
         }
-        this.insuranceProviders = insuranceProvider;
-        console.log(this.insuranceProviders);
+        // this.insuranceProviders = insuranceProvider;
+        // console.log(this.insuranceProviders);
       });
   }
   // function for add row in detials field
@@ -119,31 +138,33 @@ export class InsuranceProviderListComponent implements OnInit {
       });
   }
   // passs current brand id as argument and open the popup
-  openBrandModel(item) {
+  openInsuranceProvider(item) {
     console.log(item);
+    this.showBrandList = false;
+    
     // reset  editBrand form
-    this.editBrandForm = new FormGroup({
-      brand_name: new FormControl(''),
-      brand_description: new FormControl(''),
-      status_type: new FormControl(1),
-      brand_id: new FormControl(''),
-      details: new FormArray([])
-    });
+    // this.editBrandForm = new FormGroup({
+    //   brand_name: new FormControl(''),
+    //   brand_description: new FormControl(''),
+    //   status_type: new FormControl(1),
+    //   brand_id: new FormControl(''),
+    //   details: new FormArray([  ])
+    // });
     // get information of current selected brand
-    this.userService.getBrandDetailsbyID(item.brand_id)
-      .subscribe(res => {
-        console.log(res);
-        this.showBrandList = false;
-        // prop autofill data to form
-        this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
-        this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
-        this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
-        this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
-        res.data.details.forEach(
-          (po) => {
-            (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
-          });
-      });
+    // this.userService.getInsuranceProviderID(item.brand_id)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     this.showBrandList = false;
+    //     // prop autofill data to form
+    //     this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
+    //     this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
+    //     this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
+    //     this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
+    //     res.data.details.forEach(
+    //       (po) => {
+    //         (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
+    //       });
+    //   });
   }
 
 
@@ -177,18 +198,22 @@ export class InsuranceProviderListComponent implements OnInit {
   }
 
 
-  // delete brand
-  deleteBrand(brandId: number) {
-    this.userService.deleteBrand(brandId)
-      .subscribe(res => {
-        // console.log(res);
-        alert('brand deleted successfully');
-        this.userService.getAllBrandList(this.offset)
+  // delete insurance provider
+  deleteInsuranceProvide(brandId: number) {
+    console.log("deleteBrandId",brandId)
+        this.userService.deleteInsuranceProvider(brandId)
           .subscribe(insuranceProvider => {
-            this.insuranceProviders = insuranceProvider;
-            console.log(this.insuranceProviders);
+            alert("successfully deleted")
+            this.userService.getCategoryList(2) // 2 for category refer to api doc
+            .subscribe(getCat => {
+              this.cat = getCat;
+              console.log('category is ' + getCat);
+            });
+          },error=>{
+              console.log(error);
+              const err = JSON.parse(error['_body']);
+              alert(err.reason);
           });
-      });
   }
 
 
