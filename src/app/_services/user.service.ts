@@ -80,6 +80,7 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/categories/' + catID, this.options)
                         .map((response: Response) => response.json());
         }
+        //delete
         // Create Main category
         createMainCategory(category: any) {
                 this.getCSRF();
@@ -358,6 +359,25 @@ export class UserService {
                 const data = JSON.stringify(asc);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/servicecenters', data, this.options).map((response: Response) => response.json());
+        }
+        // Create insurance provider center
+        createInsuranceProvider(insurance: any) {
+                this.getCSRF();
+                const data = JSON.stringify(insurance);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/insurance/brands', data, this.options).map((response: Response) => response.json());
+        }
+        //delete insurance provider
+        deleteInsuranceProvider(id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/insurance/brands/' + id, this.options)
+                        .map((response: Response) => response);
+        }
+        //edit insurance provider
+        getInsuranceProviderID(ID: Number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/insurance/brands/' + ID, this.options)
+                        .map((response: Response) => response.json());
         }
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(center_id: any) {

@@ -7,20 +7,20 @@
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <label>
-                    Select Type
-                  </label>
+                        Select Type
+                    </label>
                     <div class="form-group">
                         <select class="form-control dropdown" formControlName="type" (change)="onSelect($event.target.value)">
-                        <option [ngValue]="1"> URL</option>
-                        <option [ngValue]="2"> Email ID</option>
-                        <option [ngValue]="3"> Phone Number</option>
-                    </select>
+                            <option [ngValue]="1"> URL</option>
+                            <option [ngValue]="2"> Email ID</option>
+                            <option [ngValue]="3"> Phone Number</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <label>
-                    Display Name
-                  </label>
+                        Display Name
+                    </label>
                     <div class="form-group">
                         <div class="form-line">
                             <input type="text" class="form-control" formControlName="title" (keyup)="avoidSpace('title')">
@@ -56,11 +56,21 @@
                 <tr>
                     <th scope="row">{{ i+1 }}</th>
                     <td>{{ list.title}}</td>
-                    <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>
-                    <td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span></td>                    
-                    <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>  
-                        <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span>
-                    </td>                  
+                    <td *ngIf="list?.status_type=='1'">
+                        <span class="label bg-green">Active</span>
+                    </td>
+                    <td *ngIf="list?.status_type=='2'">
+                        <span class="label bg-red">InActive</span>
+                    </td>
+                    <td>
+                        <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategoryModel(list)"
+                            title="Edit">
+                            <i class="material-icons">mode_edit</i>
+                        </span>
+                        <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete">
+                            <i class="material-icons">delete</i>
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -85,18 +95,18 @@
                     </div>
                 </div>
                 <div class="row clearfix">
-                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                            <label for="name">Status</label>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                            <div class="form-group">
-                                <select class="form-control dropdown" formControlName="status_type">
-                            <option [ngValue]="1"> Active</option>
-                            <option [ngValue]="2"> InActive</option>
-                        </select>
-                            </div>
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="name">Status</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-group">
+                            <select class="form-control dropdown" formControlName="status_type">
+                                <option [ngValue]="1"> Active</option>
+                                <option [ngValue]="2"> InActive</option>
+                            </select>
                         </div>
                     </div>
+                </div>
                 <div class="row clearfix">
                     <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
                         <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editExclusionForm.valid">
