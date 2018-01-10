@@ -44,7 +44,8 @@ export class InsuranceProviderListComponent implements OnInit {
       'email': '',
       'url': '',
       'contact_no':'',
-      'status_type':"1"
+      'status_type':"1",
+      'type':''
     });
   }
 
@@ -169,7 +170,8 @@ export class InsuranceProviderListComponent implements OnInit {
       'pan_no': new FormControl(''),
       'email': new FormControl(''),
       'url': new FormControl(''),
-      'contact_no':new FormControl('')
+      'contact_no':new FormControl(''),
+      'type': new FormControl('')
     })
   
     // get information of current selected brand
@@ -194,7 +196,7 @@ export class InsuranceProviderListComponent implements OnInit {
         this.editInsuranceForm.controls['url'].setValue(res.data.url);
         this.editInsuranceForm.controls['contact_no'].setValue(res.data.contact_no);
         this.editInsuranceForm.controls['categories'].setValue(res.data.categories);
-        // this.editInsuranceForm.controls['type'].setValue(res.data.type);
+        this.editInsuranceForm.controls['type'].setValue(res.data.type);
         
         // res.data.details.forEach(
         //   (po) => {
@@ -267,6 +269,12 @@ export class InsuranceProviderListComponent implements OnInit {
 
   createInsurance(data: any) {
     const iD=this.id
+    console.log('data:', data);
+    data.categories = data.categories.map((item) => {
+    return  {
+    category_id: item
+      };
+    });
     console.log('data:::::', data);
   // if (this.checkCategoryValues(data.center_details)) {
     this.userService.updateInsuranceProvider(data,iD)
