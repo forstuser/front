@@ -384,6 +384,7 @@ export class UserService {
         updateInsuranceProvider(insurance: any,ID) {
                 console.log("id",ID)
                 this.getCSRF();
+                Object.keys(insurance).forEach((key) => (insurance[key] == '' || insurance[key] == null) && delete insurance[key]);                
                 const data = JSON.stringify(insurance);
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/insurance/brands/'+ID, data, this.options).map((response: Response) => response.json());
