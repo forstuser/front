@@ -61,13 +61,18 @@
 
 <!-- edit insurance provider -->
 <div class="card" *ngIf="!showBrandList">
+  <div class="modal-header">
+    <button class="btn bg-blue" (click)="back()">Back</button>
+    <hr>
+    <h4 class="modal-title" id="smallModalLabel">Edit Service Center</h4>
+  </div>
   <div class="header">
     <h2>
       Add Insurance Provider
     </h2>
   </div>
   <div class="body">
-    <form class="form-horizontal" [formGroup]='addInsuranceForm' (ngSubmit)="createInsurance(addInsuranceForm.value)">
+    <form class="form-horizontal" [formGroup]='editInsuranceForm' (ngSubmit)="createInsurance(editInsuranceForm.value)">
       <h4>
         <u>Information </u>
       </h4>
@@ -100,8 +105,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
-              <option [value]="">Select Subcategory</option>
-              <option *ngFor="let subCategory of cat" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
+              <option>Select Subcategory</option>
+              <option *ngFor="let subCategory of cat?.subCategories" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
             </select>
           </div>
         </div>
@@ -257,7 +262,7 @@
 
       <div class="row clearfix ">
         <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 ">
-          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!addInsuranceForm.valid ">Submit</button>
+          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!editInsuranceForm.valid ">Submit</button>
         </div>
       </div>
     </form>

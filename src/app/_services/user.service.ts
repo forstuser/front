@@ -379,6 +379,14 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/insurance/brands/' + ID, this.options)
                         .map((response: Response) => response.json());
         }
+        //update Insurance provider
+        updateInsuranceProvider(insurance: any,ID) {
+                console.log("id",ID)
+                this.getCSRF();
+                const data = JSON.stringify(insurance);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/insurance/brands/'+ID, data, this.options).map((response: Response) => response.json());
+        }
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(center_id: any) {
                 this.getCSRF();
@@ -547,7 +555,7 @@ export class UserService {
                 console.log("prod", prod);
                 this.getCSRF();
                 const billId = prod.billId;
-                const prodId = prod.productId;
+                const prodId = prod.productId;          
                 delete prod['billId'];
                 delete prod['productId'];
                 Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
