@@ -363,6 +363,7 @@ export class UserService {
         // Create insurance provider center
         createInsuranceProvider(insurance: any) {
                 this.getCSRF();
+                Object.keys(insurance).forEach((key) => (insurance[key] == '' || insurance[key] == null) && delete insurance[key]);
                 const data = JSON.stringify(insurance);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/insurance/brands', data, this.options).map((response: Response) => response.json());
@@ -555,7 +556,7 @@ export class UserService {
                 console.log("prod", prod);
                 this.getCSRF();
                 const billId = prod.billId;
-                const prodId = prod.productId;          
+                const prodId = prod.productId;
                 delete prod['billId'];
                 delete prod['productId'];
                 Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);

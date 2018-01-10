@@ -32,7 +32,8 @@ export class AddInsuranceProviderComponent implements OnInit {
       'email': '',
       'url': '',
       'contact_no':'',
-      'status_type':"1"
+      'status_type':"1",
+      'type':''
     });
    }
 
@@ -65,6 +66,11 @@ export class AddInsuranceProviderComponent implements OnInit {
   createInsurance(data: any) {
       
     console.log('data:', data);
+    data.categories = data.categories.map((item) => {
+    return  {
+    category_id: item
+      };
+    });
     // if (this.checkCategoryValues(data.center_details)) {
       this.userService.createInsuranceProvider(data)
         .subscribe(res => {
