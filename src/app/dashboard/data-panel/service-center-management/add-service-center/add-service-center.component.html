@@ -27,8 +27,8 @@
                 <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <select class="form-control dropdown" formControlName="center_brands" multiple>
-                    <option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
-                  </select>
+                            <option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -153,25 +153,25 @@
                         <div class="col-md-2 col-lg-2 col-md-offset-1">
                             <label> Category </label>
                             <select class="form-control dropdown" formControlName="category_id">
-                            <option selected>Select</option>                            
-                        <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
-                    </select>
+                                <option selected>Select</option>
+                                <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+                            </select>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
                             <label>
-Detail Type
-                </label>
+                                Detail Type
+                            </label>
                             <select class="form-control dropdown" formControlName="detail_type">
-                            <option selected>Select</option>                            
-                        <option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>                    
-                        
-                    </select>
+                                <option selected>Select</option>
+                                <option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>
+
+                            </select>
                         </div>
 
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
                             <label>
-                    Value
-                </label>
+                                Value
+                            </label>
                             <div class="form-group">
                                 <div class="form-line">
                                     <input type="text" class="form-control" formControlName="value" placeholder="Enter display name">

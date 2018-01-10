@@ -8,8 +8,12 @@
 	<div class="body table-responsive">
 		<nav>
 			<ul class="pager">
-				<li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a> </li>
-				<li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a> </li>
+				<li [ngClass]="{ 'disabled': leftFlag }">
+					<a class="waves-effect" (click)="left()">Previous</a>
+				</li>
+				<li [ngClass]="{ 'disabled': rightFlag }">
+					<a class="waves-effect" (click)="right()">Next</a>
+				</li>
 			</ul>
 		</nav>
 		<table class="table table-condensed table-bordered">
@@ -31,10 +35,21 @@
 					<td>{{ list.center_address }}</td>
 					<td>{{ list.center_city}}</td>
 					<td>{{ list.center_state}}</td>
-					<td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span> </td>
-					<td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span> </td>
-					<td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span>						<span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list?.center_id)"
-						 title="Delete"><i class="material-icons">delete</i></span> </td>
+					<td *ngIf="list?.status_type=='1'">
+						<span class="label bg-green">Active</span>
+					</td>
+					<td *ngIf="list?.status_type=='2'">
+						<span class="label bg-red">InActive</span>
+					</td>
+					<td>
+						<span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit">
+							<i class="material-icons">mode_edit</i>
+						</span>
+						<span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteAuthorizedServiceCenter(list?.center_id)"
+						 title="Delete">
+							<i class="material-icons">delete</i>
+						</span>
+					</td>
 					<!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
 				</tr>
 			</tbody>
@@ -64,7 +79,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace(center_name)">							</div>
+							<input type="text" formControlName="center_name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace(center_name)"> </div>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -73,8 +88,8 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<select class="form-control dropdown" multiple>
-                    		<option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
-                  		</select>
+							<option *ngFor="let brandList of brands?.data" [ngValue]="brandList.brand_id">{{ brandList.brand_name }}</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -89,7 +104,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_address" class="form-control" placeholder="Enter Address here" (keyup)="avoidSpace('center_address')">							</div>
+							<input type="text" formControlName="center_address" class="form-control" placeholder="Enter Address here" (keyup)="avoidSpace('center_address')"> </div>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -98,7 +113,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('center_city')">							</div>
+							<input type="text" formControlName="center_city" class="form-control" placeholder="Enter City Name here" (keyup)="avoidSpace('center_city')"> </div>
 					</div>
 				</div>
 			</div>
@@ -109,7 +124,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('center_state')">							</div>
+							<input type="text" formControlName="center_state" class="form-control" placeholder="Enter State Name here" (keyup)="avoidSpace('center_state')"> </div>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -118,7 +133,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_pin" class="form-control" placeholder="Enter Pin Code here" (keyup)="avoidSpace('center_pin')">							</div>
+							<input type="text" formControlName="center_pin" class="form-control" placeholder="Enter Pin Code here" (keyup)="avoidSpace('center_pin')"> </div>
 					</div>
 				</div>
 			</div>
@@ -129,7 +144,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_latitude" class="form-control" placeholder="Enter Latitude here" (keyup)="avoidSpace('center_latitude')">							</div>
+							<input type="text" formControlName="center_latitude" class="form-control" placeholder="Enter Latitude here" (keyup)="avoidSpace('center_latitude')"> </div>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -138,7 +153,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('center_longitude')">							</div>
+							<input type="text" formControlName="center_longitude" class="form-control" placeholder="Enter Longitude here" (keyup)="avoidSpace('center_longitude')"> </div>
 					</div>
 				</div>
 			</div>
@@ -149,7 +164,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_country" class="form-control" placeholder="Enter Country Name here" (keyup)="avoidSpace('center_country')">							</div>
+							<input type="text" formControlName="center_country" class="form-control" placeholder="Enter Country Name here" (keyup)="avoidSpace('center_country')"> </div>
 					</div>
 				</div>
 			</div>
@@ -160,7 +175,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_days" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('center_days')">							</div>
+							<input type="text" formControlName="center_days" class="form-control" placeholder="Enter OpenDays  here" (keyup)="avoidSpace('center_days')"> </div>
 					</div>
 				</div>
 				<div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -169,7 +184,7 @@
 				<div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
 					<div class="form-group">
 						<div class="form-line">
-							<input type="text" formControlName="center_timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('center_timings')">							</div>
+							<input type="text" formControlName="center_timings" class="form-control" placeholder="Enter Timing here" (keyup)="avoidSpace('center_timings')"> </div>
 					</div>
 				</div>
 			</div>
@@ -190,16 +205,16 @@
 						<div class="col-md-2 col-lg-2 col-md-offset-1">
 							<label> Category </label>
 							<select class="form-control dropdown" formControlName="category_id">
-									<option selected>Select</option>
-									<option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
-								</select>
+								<option selected>Select</option>
+								<option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+							</select>
 						</div>
 						<div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
 							<label> Detail Type </label>
 							<select class="form-control dropdown" formControlName="detail_type">
-									<option selected>Select</option>
-									<option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>
-								</select>
+								<option selected>Select</option>
+								<option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>
+							</select>
 						</div>
 						<div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
 							<label> Value </label>
