@@ -2,6 +2,7 @@ import { Category } from './../../../../_models/category';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
+import { FunctionService } from './../../../../_services/function.service';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class InsuranceProviderListComponent implements OnInit {
   categories_id:any;
   id:number;
 
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.addInsuranceForm = this.fb.group({
       'name': ['', Validators.required],
       'main_category_id':['',Validators.required],
@@ -193,6 +194,7 @@ export class InsuranceProviderListComponent implements OnInit {
         this.editInsuranceForm.controls['url'].setValue(res.data.url);
         this.editInsuranceForm.controls['contact_no'].setValue(res.data.contact_no);
         this.editInsuranceForm.controls['categories'].setValue(res.data.categories);
+        // this.editInsuranceForm.controls['type'].setValue(res.data.type);
         
         // res.data.details.forEach(
         //   (po) => {
@@ -281,7 +283,10 @@ export class InsuranceProviderListComponent implements OnInit {
   // } else {
     // alert('Please select category first !');
   }
-
+  avoidSpace(e) {
+    console.log(e);
+    this.functionService.NoWhitespaceValidator(this.editInsuranceForm, e)
+  }
   back() {
     this.showBrandList = true;
   }
