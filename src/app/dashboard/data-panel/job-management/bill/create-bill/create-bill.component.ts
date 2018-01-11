@@ -1,3 +1,4 @@
+import { WarrantyList } from './../../../../../_models/finalBill.interface';
 import { OfflineSeller } from './../../../../../_models/offlineSeller.interface';
 import { FunctionService } from './../../../../../_services/function.service';
 import { appConfig } from './../../../../../app.config';
@@ -109,6 +110,9 @@ export class CreateBillComponent implements OnInit {
   caseButton: boolean = false;
   showProductList: boolean = false;
   myExtObject: any;
+  warrProvider:any;
+  insurancProvider:any;
+  type:number;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -118,6 +122,8 @@ export class CreateBillComponent implements OnInit {
   ngOnInit() {
     this.getDetailsOfJob();
     webGlObject.init();
+    this.warrantyProvider();
+    this.insuranceProvider();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -142,6 +148,24 @@ export class CreateBillComponent implements OnInit {
         console.log(error);
       }
       )
+  }
+
+  warrantyProvider(){
+    this.type=2
+    this.userService.warrantyProvider(this.type)
+    .subscribe(res=>{
+      this.warrProvider=res.data;
+      console.log(this.warrProvider,"Warranty Provider List")
+    })
+  }
+
+  insuranceProvider(){
+    this.type=1
+    this.userService.warrantyProvider(this.type)
+    .subscribe(res=>{
+      this.insurancProvider=res.data;
+      console.log(this.insurancProvider,"Insurance Provider List")
+    })
   }
   // prev image
   prevImage() {
@@ -569,6 +593,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+      'provider_id':form.value.provider_id,
+      'dual_warranty_item':form.value.dual_warranty_item,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -629,6 +655,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+      'provider_id':form.value.provider_id,     
+      'dual_warranty_item':form.value.dual_warranty_item,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -722,6 +750,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+      'provider_id':form.value.type,
+      
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'amount_insured': form.value.amount_insured,
@@ -757,6 +787,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+      'provider_id':form.value.provider_id,
+      
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -816,6 +848,7 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,

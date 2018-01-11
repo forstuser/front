@@ -380,6 +380,12 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/insurance/brands/' + ID, this.options)
                         .map((response: Response) => response.json());
         }
+        // Warranty Provider
+        warrantyProvider(type){
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/insurance/brands?type=type', this.options)
+                        .map((response: Response) => response.json());
+        }
         //update Insurance provider
         updateInsuranceProvider(insurance: any,ID) {
                 console.log("id",ID)
@@ -389,6 +395,8 @@ export class UserService {
                 console.log(data);
                 return this.http.put(this.apiLink + 'api/insurance/brands/'+ID, data, this.options).map((response: Response) => response.json());
         }
+
+        
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(center_id: any) {
                 this.getCSRF();
