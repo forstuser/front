@@ -31,6 +31,7 @@ export class CategoryComponent implements OnInit {
       category_name: new FormControl(''),
       ID: new FormControl(''),
       ref_id: new FormControl(''),
+      dual_warranty_item: new FormControl(''),
       category_forms: new FormArray([])
     });
 
@@ -40,6 +41,7 @@ export class CategoryComponent implements OnInit {
       'ref_id': [null, Validators.required],
       'category_id': [null],
       'category_level': 2,
+      'dual_warranty_item':[''],
       category_forms: this.fb.array([this.createItem(),])
     });
   }
@@ -157,10 +159,11 @@ export class CategoryComponent implements OnInit {
         'category_level': 2,
         'ref_id': category.ref_id,
         'category_name': category.category_name,
-        'category_forms': category.category_forms
+        'category_forms': category.category_forms,
+        'dual_warranty_item':category.dual_warranty_item
       };
 
-    console.log(this.createCat)
+    console.log(this.createCat,"create category")
     this.userService.createCategoryForm(this.createCat)
       .subscribe(res => {
         // console.log(res);
