@@ -334,6 +334,7 @@
                 </div>
               </div>
             </div>
+
             <br>
             <div class="row clearfix">
               <div class="col-md-4 col-md-offset-3">
@@ -620,6 +621,19 @@
                 </div>
               </div>
             </div>
+            <!-- <div class="row clearfix">
+              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                <label class="font-small">Insurance Provider</label>
+              </div>
+              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+                <div class="form-group">
+                  <select class="form-control dropdown" name="seller_id" ngModel="{{ billGeneralInfoFormObjectForBind?.seller_id}}">
+                    <option value="">Select</option>
+                    <option *ngFor="let seller of onlineSeller?.data" value="{{seller.sid}}">{{ seller.seller_name }}</option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
             <br>
             <div class="row clearfix">
               <div class="col-md-4 col-md-offset-4">
@@ -1678,6 +1692,37 @@
           </div>
           <p></p>
           <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="dual_warranty_item" ngModel>
+                  <option value="">Select</option>
+                  <option value="1">Normal</option>
+                  <option value="2">Extended</option>
+                  <option value="3">Dual</option>
+                  <option value="4">Accessories</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
               <button class="btn bg-green btn-block btn-lg" type="submit">Add Warranty</button>
             </div>
@@ -1996,6 +2041,20 @@
                 <select class="form-control dropdown" name="online_seller_id" ngModel>
                   <option value="">Select</option>
                   <option *ngFor="let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Insurance Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel>
+                  <option value="">Select</option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}</option>
                 </select>
               </div>
             </div>
