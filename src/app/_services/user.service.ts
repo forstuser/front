@@ -91,13 +91,16 @@ export class UserService {
 
         // Create category form
         createCategoryForm(category: any) {
-                console.log(category, "bhia cat")
+                console.log(category, "categoriesssss")
+                const forms=category.category_forms;
+                console.log(forms,"formsss")
                 this.getCSRF();
                 const id = category.category_id;
                 delete category['category_id'];
-                const data = JSON.stringify(category);
+                category.category_forms = forms.filter((item) => item.form_type);
+                const data = JSON.stringify(category);                
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/categories/', data, this.options).map((response: Response) => response.json());
+                return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
         // Update Main category
         updateCategory(category: any) {
