@@ -97,7 +97,10 @@ export class UserService {
                 this.getCSRF();
                 const id = category.category_id;
                 delete category['category_id'];
-                category.category_forms = forms.filter((item) => item.form_type);
+                category.category_forms = forms.map((item) => {
+                        item.main_category_id = category.ref_id;
+                        return item;
+                }).filter((item) => item.form_type);
                 const data = JSON.stringify(category);                
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
