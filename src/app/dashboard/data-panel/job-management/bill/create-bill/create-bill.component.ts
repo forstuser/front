@@ -30,6 +30,7 @@ export class CreateBillComponent implements OnInit {
   imageArray: any[] = [];
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
+  selectedPucImageArray:any[]=[];
   selectedEditWarrantyImageArray: any[] = [];
   selectedInsuranceImageArray: any[] = [];
   selectedEditInsuranceImageArray: any[] = [];
@@ -74,6 +75,8 @@ export class CreateBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
+
+pucObject:any;
   productMetaDataForBind: any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
@@ -92,6 +95,7 @@ export class CreateBillComponent implements OnInit {
   showAmcForm: boolean = false;
   showAmcEditForm = false;
   showRepairForm: boolean = false;
+  showPucForm:boolean=false;
   showRepairEditForm: boolean = false;
   productFormEdit: boolean = false;
   imagerotation: number = 0;
@@ -961,6 +965,43 @@ export class CreateBillComponent implements OnInit {
         alert(err.reason);
       });
   }
+  // ********************************PUC functions***************************************//
+
+  pucFormData(form: NgForm) {
+    console.log(form.value);
+    this.pucObject = {
+      'document_date': form.value.document_date,
+      'document_number': form.value.document_number,
+      'effective_date': form.value.effective_date,
+      'expiry_date': form.value.expiry_date,
+      'created_at':form.value.created_at,
+      // 'online_seller_id': form.value.online_seller_id,
+      // 'provider_id':form.value.provider_id,
+      // 'warranty_type':form.value.warranty_type,
+      'renewal_cost': form.value.renewal_cost,
+      'renewal_taxes': form.value.renewal_taxes,
+      'renewal_type': form.value.renewal_type,
+      'seller_id': form.value.seller_id,
+      'user_id': this.userId,
+      'job_id': this.jobId,
+      'product_id': this.productId,
+      'copies': this.selectedPucImageArray
+    }
+    console.log(this.pucObject);
+    this.userService.createPuc(this.pucObject)
+      .subscribe(res => {
+        console.log(res)
+        alert("Repair Added");
+        this.showPucForm = false;
+        this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
+      },
+      (error) => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      });
+  }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
     this.getBrandList();
@@ -1053,6 +1094,11 @@ export class CreateBillComponent implements OnInit {
     } else {
       this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
+    if (this.selectedPucImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 2")
+    } else {
+      this.selectedPucImageArray.push(this.imageArray[this.imageIndex]);
+    }
     if (this.selectedEditWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added 3")
     } else {
@@ -1096,6 +1142,8 @@ export class CreateBillComponent implements OnInit {
     this.selectedImageArray.splice(i, 1);
     this.selectedWarrantyImageArray.splice(i, 1);
     this.selectedEditWarrantyImageArray.splice(i, 1);
+    this.selectedPucImageArray.splice(i, 1);
+    // this.selectedEditWarrantyImageArray.splice(i, 1);
     this.selectedInsuranceImageArray.splice(i, 1);
     this.selectedEditInsuranceImageArray.splice(i, 1);
     this.selectedAmcImageArray.splice(i, 1);
@@ -1158,6 +1206,7 @@ export class CreateBillComponent implements OnInit {
     this.showWarrantyForm = false;
     this.showInsuranceForm = false;
     this.showAmcForm = false;
+    this.showPucForm=false;
     this.showRepairForm = false;
   }
   showAddWarrantyForm() {
@@ -1167,6 +1216,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = false;
+    this.showPucForm=false;
     // this.addons = false;
   }
   showAddInsuranceForm() {
@@ -1176,6 +1226,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = true;
     this.showRepairForm = false;
+    this.showPucForm=false;
   }
   showAddAmcForm() {
     this.getOfflineSellerList();
@@ -1184,6 +1235,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = true;
     this.showInsuranceForm = false
     this.showRepairForm = false;
+    this.showPucForm=false;
   }
   showAddRepairForm() {
     this.getOfflineSellerList();
@@ -1192,7 +1244,17 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = true;
+    this.showPucForm=false;
   }
+  showAddPucForm(){
+    this.showWarrantyForm = false;
+    this.showAmcForm = false;
+    this.showInsuranceForm = false
+    this.showRepairForm = false;
+    this.showPucForm=false;
+    this.showPucForm=true;
+  }
+
   backtoAddons() {
     this.addons = true;
     this.showWarrantyEditForm = false;

@@ -716,6 +716,16 @@ export class UserService {
                 return this.http.put(this.apiLink + 'api/products/' + product_id + '/amcs/' + amcId, data, this.options)
                         .map((response: Response) => response.json());
         }
+        createPuc(rep: any) {
+                this.getCSRF();
+                const product_id = rep.product_id;
+                delete rep['product_id'];
+                Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
+                const data = JSON.stringify(rep);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/products/' + product_id + '/pucs', data, this.options)
+                        .map((response: Response) => response.json());
+        }
         createRepair(rep: any) {
                 this.getCSRF();
                 const product_id = rep.product_id;
