@@ -5,6 +5,15 @@
 			<small> For change the Authorized Service Center details click on the edit button</small>
 		</h2>
 	</div>
+	<div class="col-md-12">
+		<div class="col-md-3">
+			<input type="text" class="form-control" [(ngModel)]="centerName" placeholder="Search By ASC Name" (keyup)=searchByCenter($event.target.value)>
+		</div>
+		<div class="col-md-3">
+			<!-- <input type="text" class="form-control" [(ngModel)]="brandName" placeholder="Search By Brand"> -->
+		</div>
+
+	</div>
 	<div class="body table-responsive">
 		<nav>
 			<ul class="pager">

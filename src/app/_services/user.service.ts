@@ -74,6 +74,7 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/categories?category_level=' + Level, this.options)
                         .map((response: Response) => response.json());
         }
+       
         // get category list by category id
         getSubCategoryList(catID: number) {
                 this.getCSRF();
@@ -357,6 +358,12 @@ export class UserService {
         getAuthorizedServiceCenterList(off) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
+        //search by center name
+        getCategoryListSearch(offset,event) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset='+offset+'&center_name='+event, this.options)
                         .map((response: Response) => response.json());
         }
         // Create authorized service center
@@ -725,6 +732,25 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/products/' + product_id + '/pucs', data, this.options)
                         .map((response: Response) => response.json());
+        }
+        updatePuc(puc: any,id,product_id) {
+                console.log(puc,"post puc data")
+                this.getCSRF();
+                // const pucId = puc['id'];
+                // const product_id = puc.product_id;
+                // console.log(pucId,product_id,"id & puc_id")
+                delete puc['product_id'];
+                delete puc['id'];
+                Object.keys(puc).forEach((key) => (puc[key] == '' || puc[key] == null) && delete puc[key]);
+                const data = JSON.stringify(puc);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/products/' + id + '/pucs/' + product_id, data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        deletePucs(product_id, id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/products/' + product_id + '/amcs/' + id, this.options)
+                        .map((response: Response) => response);
         }
         createRepair(rep: any) {
                 this.getCSRF();

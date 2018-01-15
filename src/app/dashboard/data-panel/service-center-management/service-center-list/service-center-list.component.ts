@@ -269,4 +269,13 @@ export class ServiceCenterListComponent implements OnInit {
       this.functionService.NoWhitespaceValidator(this.authorizedServiceCenterForm, e)      
     }
   }
+  searchByCenter(event){
+    console.log(event,"search event")
+    this.userService.getCategoryListSearch(this.offset,event) // 2 for category refer to api doc
+    .subscribe(authorizedServiceCenterList => {
+      this.authorizedServiceCenter = authorizedServiceCenterList;
+      console.log(this.cat,"search by name")
+      // console.log(getCat);
+    });
+  }
 }
