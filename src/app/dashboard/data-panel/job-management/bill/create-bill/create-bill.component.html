@@ -1333,7 +1333,7 @@
           </div>
         </div>
         <div class="row clearfix">
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:95%;">
             <div *ngIf="productData?.warranties?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
@@ -1385,7 +1385,7 @@
 
 
 
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:95%">
             <div *ngIf="productData?.insurances?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
@@ -1437,15 +1437,14 @@
 
         </div>
         <div class="row clearfix">
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:95%;">
             <div *ngIf="productData?.amcs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
                       <th>
-                        <small>AMC
-                          <br>ID</small>
+                        <small>AMC ID</small>
                       </th>
                       <th>
                         <small>Product ID</small>
@@ -1490,7 +1489,7 @@
 
 
 
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:95%;">
             <div *ngIf="productData?.repairs?.length > 0">
               <div class="body table-responsive" style="padding-bottom:0px;">
                 <table class="table table-condensed">
@@ -1539,6 +1538,55 @@
             </div>
           </div>
 
+          <!-- puc -->
+          <div class="col-md-12" style="border: 1px solid black;width:95%">
+            <div *ngIf="productData?.pucs?.length > 0">
+              <div class="body table-responsive" style="padding-bottom:0px;">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>
+                        <small>PUC ID</small>
+                      </th>
+                      <th>
+                        <small>Product ID</small>
+                      </th>
+                      <th>
+                        <small>Add</small>
+                      </th>
+                      <th>
+                        <small>Delete</small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of productData?.pucs">
+                      <th *ngIf="list?.product_id==productId">
+                        <small>{{ list?.id }}</small>
+                      </th>
+                      <th *ngIf="list?.product_id==productId">
+                        <small>{{ list?.product_id }}</small>
+                      </th>
+                      <th *ngIf="list?.product_id==productId">
+                        <small>
+                          <span class="btn btn-info btn-xs" title="Repair Info" (click)="editPucForm(list)">
+                            <i class="material-icons">insert_drive_file</i>
+                          </span>
+                        </small>
+                      </th>
+                      <th *ngIf="list?.product_id==productId">
+                        <small>
+                          <span class="btn btn-danger btn-xs" title="Warranty Info" (click)="deletePuc(list);deletePuc=true;">
+                            <i class="material-icons">delete_forever</i>
+                          </span>
+                        </small>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -2793,6 +2841,156 @@
         </form>
       </div>
       <!-- Repair Form End -->
+      <!--repair end form-->
+
+      <!-- Repair Edit Form Start -->
+
+      <div *ngIf="showPucEditForm">
+        <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
+        <form #pucEditForm="ngForm" (ngSubmit)="pucEditFormData(pucEditForm)">
+          <p></p>
+          <p class="badge bg-teal">PUC</p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group" *ngIf="selectedPucImageArray?.length > 0;else elseBlock">
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedPucImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span *ngFor="let image of selectedPucImageArray;">
+                  <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+                </span>
+                <p></p>
+              </div>
+              <ng-template #elseBlock>
+                <p> No Image Selected </p>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Number</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{pucFormObjectForBind?.document_number}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_cost}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_taxes}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{pucFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="renewal_type" ngModel="{{pucFormObjectForBind?.renewal_type}}">
+                  <option value="">Select</option>
+                  <option value=1>Yearly</option>
+                  <option value=2>Half Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=4>Monthly</option>
+                  <option value=5>5 Yearly</option>
+                  <option value=6>10 Yearly</option>
+                  <option value=7>6 Month</option>
+                  <option value=8>1 Year</option>
+                  <option value=9>2 Years</option>
+                  <option value=10>3 Years</option>
+                  <option value=11>4 Years</option>
+                  <option value=12>5 Years</option>
+                  <option value=13>10 Years</option>
+                  <option value=14>15 Years</option>
+                  <option value=15>20 Years</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Effective Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{pucFormObjectForBind?.effective_date |date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Expiry Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{pucFormObjectForBind?.expiry_date |date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel="{{pucFormObjectForBind?.seller_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-md-4 col-md-offset-7">
+              <button class="btn bg-green btn-block btn-lg" type="submit">Add Puc</button>
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+
+      <!--repair edit form end-->
 
       <!-- Repair Edit Form Start -->
       <div *ngIf="showRepairEditForm">

@@ -15,6 +15,8 @@ declare var webGlObject: any;
 })
 export class CreateBillComponent implements OnInit {
   public offlineSellerForm: FormGroup;
+  puc_id:number;
+  product_ids:number;
   ceId: number;
   jobId: number;
   userId: number;
@@ -31,6 +33,7 @@ export class CreateBillComponent implements OnInit {
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
   selectedPucImageArray:any[]=[];
+  selectedEditPucImageArray: any[] = [];  
   selectedEditWarrantyImageArray: any[] = [];
   selectedInsuranceImageArray: any[] = [];
   selectedEditInsuranceImageArray: any[] = [];
@@ -63,6 +66,8 @@ export class CreateBillComponent implements OnInit {
   insuranceFormObjectForBind: any;
   amcEditFormObject: any;
   amcFormObjectForBind: any;
+  pucEditFormObject:any;
+  pucFormObjectForBind:any;
   repairEditFormObject: any;
   repairFormObjectForBind: any;
   productFormObjectForBind: any;
@@ -75,7 +80,6 @@ export class CreateBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
-
 pucObject:any;
   productMetaDataForBind: any;
   //******************Hide and Show Variables  ****************************//
@@ -96,6 +100,7 @@ pucObject:any;
   showAmcEditForm = false;
   showRepairForm: boolean = false;
   showPucForm:boolean=false;
+  showPucEditForm:boolean=false;  
   showRepairEditForm: boolean = false;
   productFormEdit: boolean = false;
   imagerotation: number = 0;
@@ -909,6 +914,7 @@ pucObject:any;
       });
   }
   editRepairForm(rep) {
+   
     this.getOfflineSellerList();
     this.repairId = rep.id;
     this.selectedEditRepairImageArray = rep.copies;
@@ -991,10 +997,80 @@ pucObject:any;
     this.userService.createPuc(this.pucObject)
       .subscribe(res => {
         console.log(res)
-        alert("Repair Added");
+        alert("PUC Added");
         this.showPucForm = false;
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
+      },
+      (error) => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      });
+  }
+
+  editPucForm(rep) {
+    this.puc_id=rep.id;
+    this.product_ids=rep.product_id;
+    console.log(rep,"puc")
+    this.getOfflineSellerList();
+    this.repairId = rep.id;
+    this.selectedPucImageArray = rep.copies;
+    this.pucFormObjectForBind = rep;
+    this.addons = false;
+    this.showPucEditForm=true;    
+    this.showRepairForm = false;
+    this.showWarrantyForm = false;
+    this.showInsuranceForm = false;
+    this.showAmcForm = false;
+    this.showRepairForm = false;
+  }
+
+  deletePuc(req) {
+    this.delRep = req.id;
+
+  }
+
+  deletePucs() {
+    this.userService.deletePucs(this.productId, this.delRep)
+      .subscribe(res => {
+        console.log(res);
+        alert("Repair Deleted");
+        this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
+      }, err => {
+        console.log(err);
+      })
+  }
+  //*********************************PUC EDIT ********************************************//
+  pucEditFormData(form: NgForm) {
+    console.log(form.value);
+    this.pucEditFormObject = {
+      'document_date': form.value.document_date,
+      'document_number': form.value.document_number,
+      'effective_date': form.value.effective_date,
+      'expiry_date': form.value.expiry_date,
+      // 'online_seller_id': form.value.online_seller_id,
+      // 'provider_id':form.value.provider_id,     
+      // 'warranty_type':form.value.warranty_type,
+      'renewal_cost': form.value.renewal_cost,
+      'renewal_taxes': form.value.renewal_taxes,
+      'renewal_type': form.value.renewal_type,
+      'seller_id': form.value.seller_id,
+      'user_id': this.userId,
+      'job_id': this.jobId,
+      // 'warrantyId': this.warrantyId,
+      // 'product_id': this.productId,
+      'copies': this.selectedEditPucImageArray
+    }
+    this.userService.updatePuc(this.pucEditFormObject,this.puc_id,this.product_ids)
+      .subscribe(res => {
+        console.log(res)
+        alert("Puc Updated");
+        this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
+        this.addons = true;
+        this.showPucEditForm = false;
       },
       (error) => {
         console.log(error);
@@ -1251,7 +1327,6 @@ pucObject:any;
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = false;
-    this.showPucForm=false;
     this.showPucForm=true;
   }
 
@@ -1262,6 +1337,7 @@ pucObject:any;
     this.showAmcEditForm = false;
     this.showRepairEditForm = false;
     this.productFormEdit = false;
+    this.showPucEditForm=false;
   }
   // function for avoid only space submit
   avoidSpace(e) {
