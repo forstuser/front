@@ -80,8 +80,9 @@ export class CreateBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
-pucObject:any;
+  pucObject:any;
   productMetaDataForBind: any;
+  catForms:any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -376,6 +377,7 @@ pucObject:any;
       this.productEditObject = {
         'category_id': form.value.category_id,
         'main_category_id': form.value.main_category_id,
+        'sub_category_id':form.value.sub_category_id,
         'document_date': form.value.document_date,
         'product_name': form.value.product_name,
         'purchase_cost': form.value.purchase_cost,
@@ -400,6 +402,7 @@ pucObject:any;
       delete editFilterData['seller_id'];
       delete editFilterData['main_category_id'];
       delete editFilterData['category_id'];
+      delete editFilterData['sub_category_id'];
       delete editFilterData['document_date'];
       this.productEditFromMetaData = [];
       for (var val in editFilterData) {
@@ -467,6 +470,7 @@ pucObject:any;
     this.catId = catID;
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
+        this.catForms = res.data.subCategories;        
         this.catForm = res.data.categoryForms;
         console.log(this.catForm, "category form");
         // this.showProductForm = true;

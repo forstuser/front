@@ -23,13 +23,16 @@ export class SubCategoryComponent implements OnInit {
   editCatModel:boolean =false;
   editCategoryFormData:any;
   editCategoryFormList:any;
+  catForm:any;
+  catId:any;
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
 
 
     // create main category form
     this.createCategoryForm = this.fb.group({
-      'Name': [null, Validators.required],
+      // 'Name': [null],
       'RefID': [null, Validators.required],
+      'category_name':[null,Validators.required],
       FormList: this.fb.array([this.createItem(),])
     });
   }
@@ -90,14 +93,14 @@ export class SubCategoryComponent implements OnInit {
   
   // create category
   createCategory(category: any) {
-    console.log(category);
-    this.createCat = { 'Level': 2, 'RefID': category.RefID, 'Name': category.Name, 'FormList': category.FormList };
-    console.log(this.createCat)
-    this.userService.createCategoryForm(this.createCat)
+    console.log(category,"category data");
+    this.createCat = { 'category_level': 3, 'ref_id': category.RefID, 'category_name': category.category_name, 'category_forms': [] };
+    console.log(this.createCat,"data send")
+    this.userService.addSubCategory(this.createCat)
       .subscribe(res => {
         // console.log(res);
         alert('New Category added succesfully');
-        // this.createCategoryForm.reset();
+        this.createCategoryForm.reset();
         // reset  editCategory form
 
 
@@ -107,6 +110,34 @@ export class SubCategoryComponent implements OnInit {
             // console.log(res,"category")
           });
       });
+  }
+
+  onSelectMainCat(catID: number) {
+    console.log(catID,"CATEGORY ID")
+    this.userService.getSubCategoryList(catID)
+      .subscribe(res => {
+        this.cat = res.data.subCategories;
+        console.log(res, "categorys");
+      });
+  }
+
+  onSelectCat(catID: number) {
+    // this.showEdit = true;
+    console.log(catID);
+    this.catId=catID;
+    this.userService.getSubCategoryList(catID)
+      .subscribe(res => {
+        this.catForm = res.data.subCategories;
+        console.log(this.catForm, "category formssssssssss");
+      });
+  }
+
+  addSubcategory(){
+    this.userService.addSubCategory(this.catId)
+    .subscribe(res=>{
+      console.log(res,"subcategory post")
+    })
+
   }
 
   createDetailsFormGroup(payOffObj) {

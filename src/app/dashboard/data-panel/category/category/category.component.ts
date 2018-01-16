@@ -144,8 +144,8 @@ export class CategoryComponent implements OnInit {
     console.log(catID);
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
-        this.catForm = res.data.categoryForms;
-        console.log(this.catForm, "category form");
+        this.catForm = res.data.subCategories;
+        console.log(this.catForm, "category formssssssssss");
       });
   }
 

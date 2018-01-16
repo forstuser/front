@@ -102,12 +102,12 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Category',
           'd_icon': 'looks_two',
           'd_link': 'category'
+        },
+        {
+          'd_name': 'SubCategory',
+          'd_icon': 'looks_3',
+          'd_link': 'subCategory'
         }
-        // {
-        //   'd_name': 'SubCategory',
-        //   'd_icon': 'looks_3',
-        //   'd_link': 'subCategory'
-        // }
       ]
     },
     {
@@ -321,12 +321,12 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Category',
           'd_icon': 'looks_two',
           'd_link': 'category'
+        },
+        {
+          'd_name': 'SubCategory',
+          'd_icon': 'looks_3',
+          'd_link': 'subCategory'
         }
-        // {
-        //   'd_name': 'SubCategory',
-        //   'd_icon': 'looks_3',
-        //   'd_link': 'subCategory'
-        // }
       ]
     },
     {

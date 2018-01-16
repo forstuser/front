@@ -929,6 +929,21 @@
               </div>
             </div>
           </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">SubCategory</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="sub_category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.sub_category_id}}"
+                  disabled>
+                  <option value="">Select</option>
+                  <option *ngFor="let categoryList of catForms" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Image</label>

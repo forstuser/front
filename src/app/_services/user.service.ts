@@ -81,6 +81,14 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/categories/' + catID, this.options)
                         .map((response: Response) => response.json());
         }
+        // add subcategory list
+        addSubCategory(data){
+                // console.log(data,"bhai form submit")
+                this.getCSRF();
+                const datas = JSON.stringify(data);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/categories/' , datas,this.options)
+                .map((response: Response) => response.json());        }
         //delete
         // Create Main category
         createMainCategory(category: any) {
