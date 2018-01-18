@@ -67,7 +67,7 @@ const appRoutes: Routes = [
             { path: 'offlineList', component: OfflineSellerListComponent },
             { path: 'addOnline', component: AddOnlineSellerComponent },
             { path: 'onlineList', component: OnlineSellerListComponent },
-            { path:'verifyBrands', component: BrandsComponent},
+            { path:'addModels', component: BrandsComponent},
             { path: 'verifyModels',component:ModelsComponent },
             { path: 'color', component: ColorComponent },
             { path: 'addServiceCenter', component: AddServiceCenterComponent },

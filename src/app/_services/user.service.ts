@@ -89,7 +89,29 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories/' , datas,this.options)
                 .map((response: Response) => response.json());        }
-        //delete
+        //add models
+        addModal(data){
+        this.getCSRF();
+        const datas = JSON.stringify(data);
+        console.log(data);
+        return this.http.post(this.apiLink + 'api/brand/dropdowns' , datas,this.options)
+        .map((response: Response) => response.json());   
+     }
+
+        updateModel(data,id){
+        console.log(data,"post data model")
+        this.getCSRF();
+        // const id = data.id;
+        // delete data['id'];
+        // if (user.password == null) {
+        //         delete user['password'];
+        // }
+        const datas = JSON.stringify(data);
+        console.log(datas);
+        return this.http.put(this.apiLink + 'api/brand/dropdowns/' + id, datas, this.options)
+                .map((response: Response) => response.json());
+}
+
         // Create Main category
         createMainCategory(category: any) {
                 this.getCSRF();
@@ -97,6 +119,7 @@ export class UserService {
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
+
 
         // Create category form
         createCategoryForm(category: any) {

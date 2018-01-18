@@ -936,8 +936,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="sub_category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.sub_category_id}}"
-                  disabled>
+                <select class="form-control dropdown" name="sub_category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.sub_category_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let categoryList of catForms" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
                 </select>

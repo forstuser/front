@@ -237,10 +237,11 @@ export class LeftPanelItemsComponent implements OnInit {
       'addClass': 'none',
       'addSubClass': 'none',
       'dropdownList': [
+
         {
-          'd_name': 'Brands',
+          'd_name': 'Add Models',
           'd_icon': 'add',
-          'd_link': 'verifyBrands'
+          'd_link': 'addModels'
         },
         {
           'd_name': 'Models',
@@ -423,9 +424,9 @@ export class LeftPanelItemsComponent implements OnInit {
       'addSubClass': 'none',
       'dropdownList': [
         {
-          'd_name': 'Brands',
+          'd_name': 'Add Models',
           'd_icon': 'add',
-          'd_link': 'verifyBrands'
+          'd_link': 'addModels'
         },
         {
           'd_name': 'Models',
