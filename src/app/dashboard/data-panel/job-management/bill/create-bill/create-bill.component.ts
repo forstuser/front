@@ -134,6 +134,7 @@ export class CreateBillComponent implements OnInit {
     webGlObject.init();
     this.warrantyProvider();
     this.insuranceProvider();
+    // this.onSelectCat2(this.catId)
   }
   // get details of current job
   getDetailsOfJob() {

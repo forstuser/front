@@ -1,9 +1,12 @@
-.margin-right{
-    margin-right: 25px;
+.margin-right {
+  margin-right: 25px;
 }
-.pager{
-    text-align: right;
+.pager {
+  text-align: right;
 }
-.disabled{
-    display: none;
+.disabled {
+  display: none;
+}
+.mains {
+  border-bottom: 1px solid #ccc;
 }
