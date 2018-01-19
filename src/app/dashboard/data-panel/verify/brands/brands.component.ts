@@ -14,8 +14,8 @@ export class BrandsComponent implements OnInit {
   assignForm: FormGroup;
   mainCatId:any;
   cat:any;
-catId:any;
-catForms:any;
+  catId:any;
+  catForms:any;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['',Validators.required],

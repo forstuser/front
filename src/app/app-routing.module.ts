@@ -35,6 +35,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule, Component } from '@angular/core';
 import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
 import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
+import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
+import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
 
 
 // routers
@@ -76,7 +78,10 @@ const appRoutes: Routes = [
             { path: 'list-details',component:ListManagementComponent},
             { path:'addinsuranceProvider' ,component:AddInsuranceProviderComponent},
             { path:'insuranceProviderList', component:InsuranceProviderListComponent},
-            { path:'sendNotifications',component:SendNotificationComponent}
+            { path:'sendNotifications',component:SendNotificationComponent},
+            { path:'serviceSchedule',component:ServiceScheduleComponent},
+            { path:'addServiceSchedule',component:AddServiceScheduleComponent}
+            
             ]
     }
     // otherwise redirect to home
