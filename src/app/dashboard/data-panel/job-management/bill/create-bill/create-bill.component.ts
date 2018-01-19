@@ -134,7 +134,6 @@ export class CreateBillComponent implements OnInit {
     webGlObject.init();
     this.warrantyProvider();
     this.insuranceProvider();
-    // this.onSelectCat2(this.catId)
   }
   // get details of current job
   getDetailsOfJob() {
@@ -261,6 +260,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceForm = false;
     this.showAmcForm = false;
     this.showRepairForm = false;
+    this.onSelectCat2(this.catId);    
   }
   // complete job
   completeJob() {
@@ -327,6 +327,7 @@ export class CreateBillComponent implements OnInit {
         'category_id': this.catId,
         'main_category_id': this.mainCatId,
         'product_name': form.value.product_name,
+        'model':form.value.model,
         'purchase_cost': form.value.purchase_cost,
         'document_date': form.value.document_date,
         'copies': this.selectedImageArray || [],
@@ -341,6 +342,7 @@ export class CreateBillComponent implements OnInit {
       // console.log(this.productObject);
       const filterData = form.value;
       delete filterData['product_name'];
+      delete filterData['model']
       delete filterData['purchase_cost'];
       delete filterData['taxes'];
       delete filterData['brand_id'];
@@ -381,6 +383,7 @@ export class CreateBillComponent implements OnInit {
         'sub_category_id':form.value.sub_category_id,
         'document_date': form.value.document_date,
         'product_name': form.value.product_name,
+        'model':form.value.model,
         'purchase_cost': form.value.purchase_cost,
         'copies': this.selectedImageArray,
         'taxes': form.value.taxes,
@@ -396,6 +399,7 @@ export class CreateBillComponent implements OnInit {
       const editFilterData = form.value;
       console.log("Edit Filter Data", editFilterData);
       delete editFilterData['product_name'];
+      delete editFilterData['model'];      
       delete editFilterData['purchase_cost'];
       delete editFilterData['taxes'];
       delete editFilterData['brand_id'];

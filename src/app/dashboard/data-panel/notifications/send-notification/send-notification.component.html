@@ -1,0 +1,109 @@
+<div class="card">
+  <div class="header">
+    <h2>Send Notification</h2>
+  </div>
+
+  <div>
+    <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="addNotification(assignForm.value)">
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+          <label class="font-small">Title</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
+          <div class="form-group">
+            <input type="text" class="form-control mains" formControlName="title">
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+          <label class="font-small">Description</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
+          <div class="form-group">
+            <input type="text" class="form-control mains" formControlName="description">
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+          <label class="font-small">Image Url</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+          <div class="form-group">
+            <input type="text" class="form-control mains" formControlName="image_url">
+          </div>
+        </div>
+      </div>
+      <br>
+
+
+      <div class="row clearfix">
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+          <label class="font-small">Type</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+          <div class="form-group">
+            <input type="text" class="form-control mains" formControlName="notification_type">
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-3 col-md-offset-8">
+          <!-- <div class="form-group"> -->
+          <input type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains" placeholder="search mobile no.">
+          <!-- </div> -->
+        </div>
+      </div>
+      <br>
+      <br>
+
+      <div class="body table-responsive" style="padding:0% 12%">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>
+                <small>#</small>
+              </th>
+              <th>
+                <small>User Name</small>
+              </th>
+              <th>
+                <small>Email</small>
+              </th>
+              <th>
+                <small>Mobile No.</small>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let notifications of notification">
+              <th>
+                <input type="checkbox" (click)="clicked($event,notifications?.id)" formControlName="user_id" style="position: relative;left: 0;opacity: 1;margin-top: 10px;">
+              </th>
+              <th>
+                <small>{{notifications?.full_name }}</small>
+              </th>
+              <th>
+                <small>{{notifications?.email}}</small>
+              </th>
+              <th>
+                <small>{{notifications?.mobile_no}}</small>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
+          <button class="btn bg-green btn-md btn-lg" type="submit">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -972,6 +972,18 @@
               </div>
             </div>
           </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">model</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="model" class="form-control" ngModel="{{productFormObjectForBind?.model}}">
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- document_date -->
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
@@ -3225,3 +3237,52 @@
     </div>
   </div>
 </app-dialog>
+
+<!-- view image -->
+<modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+  <modal-content>
+    <div *ngIf="!loader">
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-md-12" style="text-align:center;">
+            <img [src]="images[imageIndex]" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <p class="text-center">
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()">
+            <i class="material-icons">skip_previous</i>
+            <span>Prev</span>
+          </button>
+          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()">
+            <i class="material-icons">rotate_right</i>
+            <span>Rotate</span>
+          </button>
+          <a href="{{images[imageIndex]}}" download>
+            <button type="button" class="btn btn-success btn-sm waves-effect">
+              <i class="material-icons">file_download</i>
+              <span>Download</span>
+            </button>
+          </a>
+          <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()">
+            <i class="material-icons">clear</i>
+            <span>Discard Image</span>
+          </button>
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()">
+            <i class="material-icons">skip_next</i>
+            <span>Next</span>
+          </button>
+          <span style="margin-left:5px">
+            <b>Image {{imageIndex+1}} of {{arrayLength}}</b>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="text-center" *ngIf="loader">
+      <h1>Please Wait ...</h1>
+      <img src="../../../assets/images/loader.gif" alt="">
+    </div>
+  </modal-content>
+</modal>

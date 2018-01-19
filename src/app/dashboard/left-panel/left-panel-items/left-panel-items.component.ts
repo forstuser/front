@@ -251,6 +251,24 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
+      'name': 'Notification',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Send Notifications',
+          'd_icon': 'add',
+          'd_link': 'sendNotifications'
+        }
+      ]
+    },
+    {
       'name': 'Color',
       'icon': 'format_color_fill',
       'link': 'color',
@@ -432,6 +450,24 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Models',
           'd_icon': 'format_list_numbered',
           'd_link': 'verifyModels'
+        }
+      ]
+    },
+    {
+      'name': 'Notification',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Send Notification',
+          'd_icon': 'add',
+          'd_link': 'sendNotification'
         }
       ]
     },

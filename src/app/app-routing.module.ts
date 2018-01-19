@@ -1,3 +1,5 @@
+import { ComponentFixture } from '@angular/core/testing';
+import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
 import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
 import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.component';
 import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
@@ -33,7 +35,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgModule, Component } from '@angular/core';
 import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
 import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
-
 
 
 // routers
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
             { path: 'serviceCenterList', component: ServiceCenterListComponent },
             { path: 'list-details',component:ListManagementComponent},
             { path:'addinsuranceProvider' ,component:AddInsuranceProviderComponent},
-            { path:'insuranceProviderList', component:InsuranceProviderListComponent}
+            { path:'insuranceProviderList', component:InsuranceProviderListComponent},
+            { path:'sendNotifications',component:SendNotificationComponent}
             ]
     }
     // otherwise redirect to home
