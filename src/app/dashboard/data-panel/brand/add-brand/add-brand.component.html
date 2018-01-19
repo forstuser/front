@@ -36,7 +36,7 @@
           <label for="Details">Details</label>
         </div>
         <div class="pull-right margin-right">
-          <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Deatils</button>
+          <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Details</button>
         </div>
       </div>
       <div class="panel panel-default">
@@ -44,9 +44,9 @@
           <br>
           <div class="row clearfix" [formGroupName]="i">
             <div class="col-md-3 col-lg-3 col-md-offset-1">
-            <label>
+              <label>
                 Category
-            </label>
+              </label>
               <select class="form-control dropdown" formControlName="category_id">
                 <option>Select</option>
                 <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
@@ -54,17 +54,17 @@
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
               <label>
-                    Detail Type
-                </label>
+                Detail Type
+              </label>
               <select class="form-control dropdown" formControlName="detail_type">
-                    <option selected>Select</option>
-                    <option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>                    
-            </select>
+                <option selected>Select</option>
+                <option *ngFor="let list of detailType?.data" [ngValue]="list.id">{{ list?.title }}</option>
+              </select>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
               <label>
-                    Value
-                </label>
+                Value
+              </label>
               <div class="form-group">
                 <div class="form-line">
                   <input type="text" class="form-control" formControlName="value" placeholder="Enter display name">

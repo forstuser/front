@@ -1,0 +1,9 @@
+.mains {
+  border: 2px solid #eee;
+}
+.form-line {
+  margin-left: 7%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding-left: 3%;
+}

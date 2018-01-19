@@ -143,6 +143,12 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
 
+        //service schedule get
+        serviceSchedule(){
+        this.getCSRF();
+        return this.http.get(this.apiLink + 'api/serviceSchedules', this.options)
+                .map((response: Response) => response.json());
+}
 
         // Create category form
         createCategoryForm(category: any) {

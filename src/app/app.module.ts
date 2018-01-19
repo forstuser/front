@@ -58,6 +58,8 @@ import { ModelsComponent } from './dashboard/data-panel/verify/models/models.com
 import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
 import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
 import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
+import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
+import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { SendNotificationComponent } from './dashboard/data-panel/notifications/
     AddInsuranceProviderComponent,
     InsuranceProviderListComponent,
     SendNotificationComponent,
+    ServiceScheduleComponent,
+    AddServiceScheduleComponent,
   ],
   imports: [
     BrowserModule,

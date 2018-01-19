@@ -1,0 +1,174 @@
+<div class="card" *ngIf="showBrandList">
+  <div class="header">
+    <h2>
+      Service Schedule
+    </h2>
+  </div>
+  <div class="body table-responsive">
+    <nav>
+      <ul class="pager">
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let list of schedule; let i = index">
+        <tr>
+          <th scope="row">{{ i+1+offset}}</th>
+          <td>{{ list?.title }}</td>
+          <td *ngIf="list?.status_type=='2'">
+            <span class="label bg-red">Un Verified</span>
+          </td>
+          <td *ngIf="list?.status_type=='1'">
+            <span class="label bg-green">Verified</span>
+          </td>
+          <td *ngIf="list?.status_type=='11'">
+            <span class="label bg-orange">User Created</span>
+          </td>
+          <td>
+            <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="editBrand(list)" title="Edit">
+              <i class="material-icons">mode_edit</i>
+            </span>
+            <!-- <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="verifyBrand(list?.id)" title="Verify">
+              <i class="material-icons">done</i>
+            </span> -->
+            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteBrand(list?.id)" title="Un Verify">
+              <i class="material-icons">clear</i>
+            </span>
+          </td>
+          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openBrandModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #elseBlock>
+      <h4> No Data Available </h4>
+    </ng-template>
+  </div>
+</div>
+
+<div class="card" *ngIf="!showBrandList">
+  <div class="header">
+    <h2>
+      Add Service Scheduler
+    </h2>
+  </div>
+  <div class="body">
+    <form class="form-horizontal" [formGroup]='editBrandForm' (ngSubmit)="createBrand(editBrandForm.value)">
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Subcategory</label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
+          <select class="form-control dropdown" formControlName="category_id">
+            <option>Select</option>
+            <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Brand</label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
+          <select class="form-control dropdown" formControlName="brand_id">
+            <option>Select</option>
+            <option *ngFor="let list of cat?.data" [ngValue]="list.brand_id">{{ list.category_name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4 form-control-label">
+          <label for="description">Title</label>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-8 col-xs-8">
+          <div class="form-group">
+            <div class="form-line" style=" margin-left: 7%;border: 1px solid #ccc;border-radius: 6px;">
+              <input type="text" class="form-control" formControlName="title" placeholder="" (keyup)="avoidSpace('title')">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- template for add row  -->
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="Details">Details</label>
+        </div>
+        <div class="pull-right margin-right">
+          <button type="button" class="btn btn-info m-t-15 waves-effect" (click)="addItem()">Add More Details</button>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div formArrayName="details" *ngFor="let item of editBrandForm.controls.details['controls']; let i = index;">
+          <br>
+          <div class="row clearfix" [formGroupName]="i">
+            <div class="col-md-2 col-lg-2 col-md-offset-1">
+              <label>
+                Service Number
+              </label>
+              <br>
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" class="form-control" formControlName="service_number" placeholder="" (keyup)="avoidSpace('service_number')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
+              <label>
+                Service Type
+              </label>
+              <br>
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" class="form-control" formControlName="service_type" placeholder="" (keyup)="avoidSpace('service_type')">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
+              <label>
+                Distance
+              </label>
+              <br>
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" class="form-control" formControlName="distance" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6 ">
+              <label>
+                Due Months
+              </label>
+              <br>
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" class="form-control mains" formControlName="due_in_months" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-6">
+              <button type="button" class="btn btn-danger m-t-15 waves-effect" *ngIf="editBrandForm.controls['details'].length > 1" (click)="removeDetails(i)">Remove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- template for add row end  -->
+      <div class="row clearfix">
+        <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+          <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!editBrandForm.valid">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

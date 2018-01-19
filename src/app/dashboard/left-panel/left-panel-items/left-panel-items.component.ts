@@ -269,6 +269,29 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
+      'name': 'serviceSchedule',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Add Service Schedule',
+          'd_icon': 'add',
+          'd_link': 'addServiceSchedule'
+        },
+        {
+          'd_name': 'Service Schedule',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'serviceSchedule'
+        }
+      ]
+    },
+    {
       'name': 'Color',
       'icon': 'format_color_fill',
       'link': 'color',
@@ -468,6 +491,28 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Send Notification',
           'd_icon': 'add',
           'd_link': 'sendNotification'
+        }
+      ]
+    },
+    {
+      'name': 'Service Schedule',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Add Service Schedule',
+          'd_icon': 'add',
+          'd_link': 'addServiceSchedule'
+        },
+        {
+          'd_name': 'Service Schedule',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'serviceSchedule'
         }
       ]
     },
