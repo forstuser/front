@@ -38,12 +38,35 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/users?role_type=' + role_type, this.options)
                         .map((response: Response) => response.json());
         }
+
+        // get notification detail
+        getUserListNotification(role_type: number) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/users?role_type=' + role_type, this.options)
+                        .map((response: Response) => response.json());
+        }
         // Create User
         createUser(user: User) {
                 this.getCSRF();
                 const data = JSON.stringify(user);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/users', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // send notification
+        sendNotification(user: User) {
+                this.getCSRF();
+                const data = JSON.stringify(user);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/notify/users', data, this.options)
+                        .map((response: Response) => response.json());
+        }
+        // search mobile notfication
+        searchMobile(user,role_type){
+                this.getCSRF();
+                // const data = JSON.stringify(user);
+                // console.log(data);
+                return this.http.get(this.apiLink + 'api/users?role_type=' + role_type+'&mobile_no='+user, this.options)
                         .map((response: Response) => response.json());
         }
         // Delete user

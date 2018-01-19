@@ -25,7 +25,9 @@
 				</div>
 			</div>
 			<hr>
-			<p class="text-center">Image {{imageIndex+1}} of {{imageArrayLength}}</p>
+			<p class="text-center">Image {{imageIndex+1}} of {{imageArrayLength}}
+				<span></span>
+			</p>
 			<table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;overflow:scroll">
 				<tr>
 					<td style="padding: 10px">
@@ -1063,17 +1065,18 @@
 					</div>
 					<div class="row clearfix">
 						<div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-						  <label class="font-small">
-							<span class="text-red"></span>Purchase Date</label>
+							<label class="font-small">
+								<span class="text-red"></span>Purchase Date</label>
 						</div>
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-						  <div class="form-group">
-							<div class="form-line">
-							  <input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+									 disabled>
+								</div>
 							</div>
-						  </div>
 						</div>
-					  </div>
+					</div>
 					<div class="row clearfix">
 						<div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
 							<label class="font-small">Purchase Cost</label>

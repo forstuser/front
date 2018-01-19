@@ -1,21 +1,21 @@
-.dropdown{
-    border-bottom:1px solid #ccc;
+.dropdown {
+  border-bottom: 1px solid #ccc;
 }
-.pager{
-    text-align: right;
+.pager {
+  text-align: right;
 }
-.textareaDitto{
-    height:100px;
-    width:500px;
-    word-break: break-word;
+.textareaDitto {
+  height: 100px;
+  width: 500px;
+  word-break: break-word;
 }
-.disabled{
-    display: none;
+.disabled {
+  display: none;
 }
-.modal .modal-content{
-    height: 600px !important;
+.modal .modal-content {
+  height: 600px !important;
 }
-.comment{
-  max-width:250px;
+.comment {
+  max-width: 250px;
   overflow-wrap: break-word;
 }

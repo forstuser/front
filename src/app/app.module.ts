@@ -57,6 +57,7 @@ import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.com
 import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
 import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
 import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
+import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance
     ModelsComponent,
     AddInsuranceProviderComponent,
     InsuranceProviderListComponent,
+    SendNotificationComponent,
   ],
   imports: [
     BrowserModule,
