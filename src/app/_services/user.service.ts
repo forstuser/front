@@ -133,7 +133,7 @@ export class UserService {
         console.log(datas);
         return this.http.put(this.apiLink + 'api/brand/dropdowns/' + id, datas, this.options)
                 .map((response: Response) => response.json());
-}
+        }
 
         // Create Main category
         createMainCategory(category: any) {
@@ -148,8 +148,37 @@ export class UserService {
         this.getCSRF();
         return this.http.get(this.apiLink + 'api/serviceSchedules', this.options)
                 .map((response: Response) => response.json());
-}
+        }
+        // edit schedule
+        editServiceSchedule(schedule,id){
+        this.getCSRF();
+        // const data = JSON.stringify(schedule);
+        // console.log(data);
+        return this.http.get(this.apiLink + 'api/serviceSchedules/'+id, this.options)
+                .map((response: Response) => response.json());
+        }
 
+        // update schedule
+        updateServiceSchedule(schedule,id){
+        this.getCSRF();                
+        const data = JSON.stringify(schedule);
+        console.log(data);
+        return this.http.put(this.apiLink + 'api/serviceSchedules/'+id,data, this.options)
+                .map((response: Response) => response.json());
+        }
+        // post service schedule
+        addServiceSchedule(schedule){
+        this.getCSRF();
+        const data = JSON.stringify(schedule);
+        console.log(data);
+        return this.http.post(this.apiLink + 'api/serviceSchedules',data, this.options)
+                .map((response: Response) => response.json());
+        }
+        //delete schedule
+        deleteSchedule(id) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/serviceSchedules/' + id, this.options).map((response: Response) => response);
+        }
         // Create category form
         createCategoryForm(category: any) {
                 console.log(category, "categoriesssss")

@@ -8,12 +8,12 @@
     <form class="form-horizontal" [formGroup]='brandForm' (ngSubmit)="createBrand(brandForm.value)">
       <div class="row clearfix">
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-          <label for="name">Subcategory</label>
+          <label for="name">Category</label>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
-          <select class="form-control dropdown" formControlName="category_id">
+          <select class="form-control dropdown" formControlName="category_id" (change)="onSelectCat($event.target.value)">
             <option>Select</option>
-            <option *ngFor="let list of cat?.data" [ngValue]="list.category_id">{{ list.category_name }}</option>
+            <option *ngFor="let list of cat" [value]="list.category_id">{{ list.category_name }}</option>
           </select>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <div class="col-lg-3 col-md-3 col-sm-8 col-xs-7">
           <select class="form-control dropdown" formControlName="brand_id">
             <option>Select</option>
-            <option *ngFor="let list of cat?.data" [ngValue]="list.brand_id">{{ list.category_name }}</option>
+            <option *ngFor="let list of catForms" [value]="list.brand_id">{{ list.brand_name }}</option>
           </select>
         </div>
       </div>
