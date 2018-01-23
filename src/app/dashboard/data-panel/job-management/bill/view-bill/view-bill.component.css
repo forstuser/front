@@ -1,0 +1,39 @@
+.textareaDitto{
+    height:100px;
+    width:500px;
+    word-break: break-word;
+}
+.card .header {
+    padding-bottom: 4px;
+    padding-top: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 0px !important;
+  }
+  
+  .btn-circle {
+    margin-top: 16px;
+    margin-right: 5px;
+  }
+  
+  .dropdown {
+    border: 1px solid #ccc;
+  }
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      /* appearance: none; */
+      margin: 0; 
+  }
+  .right{
+    float: right
+  }
+  .fix_image{
+    width: 150px;
+    height: 150px;
+  }
+  .font-small{
+      font-size: smaller;
+  }

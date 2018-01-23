@@ -5,10 +5,10 @@ export class FunctionService {
   constructor() { }
     // function for avoid only space submit
     public NoWhitespaceValidator(formName:any,inputName:any) {
-      console.log(formName,inputName);
+      // console.log(formName,inputName);
       const isWhitespace = (formName.controls[inputName].value || '').trim().length === 0;
       const isValid = !isWhitespace;
-      console.log(isValid);
+      // console.log(isValid);
       if(!isValid){
         formName.controls[inputName].setValue('');
       }

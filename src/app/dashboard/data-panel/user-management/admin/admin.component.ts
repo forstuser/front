@@ -10,87 +10,95 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  users: User;
+  users: any;
   dropdownUser: UserType;
-  item: Object = { }; // object for single user
-  del: any = { };
+  item: Object = {}; // object for single user
+  del: any = {};
   showDialog = false;
   name: String = '';
-  editUserForm: FormGroup ;
+  editUserForm: FormGroup;
   statusCode: Number;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.editUserForm = this.fb.group({
-      'UserType' : [null, Validators.required],
-      'Name' : [null, Validators.required],
-      'EmailID' : [null, Validators.required],
-      'Status' : [null, Validators.required],
-      'ID': [null, Validators.required],
-      'Password' : null
+      'role_type': [null, Validators.required],
+      'name': null,
+      'email': [null, Validators.required],
+      'user_status_type': [null, Validators.required],
+      'id': [null, Validators.required],
+      'password': null
     });
-   }
+  }
 
   ngOnInit() {
     // get list of admin
-    this.userService.getUserList('2') // 2 for admin refer to api doc
-    .subscribe(users => {
-      this.users = users;
-      console.log(users);
-    });
-    // get dropdown list
-    this.userService.getAllUser()
-    .subscribe(users => {
-      this.dropdownUser = users;
-      console.log(users);
-    });
+    this.userService.getUserList(2) // 2 for admin refer to api doc
+      .subscribe(users => {
+        this.users = users;
+        console.log(users);
+      },
+      (error => {
+        console.log(error);
+      })
+      );
   }
 
   // passs current user as argument and open the popup
   openUserModel(item: any) {
-    this.showDialog = true ; // for show dialog
+    console.log(item);
+    this.showDialog = true; // for show dialog
     this.item = item;
-    if (item.Status === 'Active') {
+    if (item.user_status_type === 'Active') {
       this.statusCode = 1;
     } else {
       this.statusCode = 2;
     }
     // populate prefilled value in form
     this.editUserForm.setValue({
-      UserType: 2,
-      Name: item.Name,
-      EmailID: item.EmailID,
-      Status: this.statusCode,
-      ID: item.ID,
-      Password: ''
+      role_type: 2,
+      name: item.full_name,
+      email: item.email,
+      user_status_type: item.user_status_type,
+      id: item.id,
+      password:null
     });
   }
 
   updateUser(user: any) {
     console.log(user);
     this.userService.updateUser(user)
-      .subscribe( res => {
+      .subscribe(res => {
         // console.log(res);
         alert('User updated successfully');
-        this.showDialog = false ;
-        this.userService.getUserList('2') // list update after edit
+        this.showDialog = false;
+        this.userService.getUserList(2) // list update after edit
           .subscribe(users => {
-          this.users = users;
-          // console.log(users);
-        });
+            this.users = users;
+            // console.log(users);
+          });
+      },
+      (error) => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
-
   }
+
+  
   deleteUser(user: any) {
     console.log(user);
-    this.del = { 'ID': user.ID };
-    confirm('Confirm');
-    this.userService.deleteUser(this.del)
+    this.userService.deleteUser(user.id)
       .subscribe(res => {
         console.log(res);
-        this.userService.getUserList('2') // list update after edit
-          .subscribe(users => {
-          this.users = users;
-            // console.log(users);
-        });
-    });
+        if (res.status == 204) {
+          alert("Deleted Successfully")
+          this.userService.getUserList(2) // list update after edit
+            .subscribe(users => {
+              this.users = users;
+            });
+        }
+      }),
+      (error => {
+        console.log(error);
+      });
   }
 }

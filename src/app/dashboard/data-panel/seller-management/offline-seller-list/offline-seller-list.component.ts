@@ -1,3 +1,4 @@
+import { FunctionService } from './../../../../_services/function.service';
 import { Category } from './../../../../_models/category';
 import { OfflineSeller } from './../../../../_models/offlineSeller.interface';
 import { UserService } from './../../../../_services/user.service';
@@ -14,153 +15,124 @@ export class OfflineSellerListComponent implements OnInit {
   offlineSeller: OfflineSeller;
   showDialog = false;
   offlineSellerForm: FormGroup;
-  cat:Category;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  cat: Category;
+  showOfflineSellerList: boolean = true; // for toggle form
+  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
   }
 
   ngOnInit() {
-      // get list of category
-      this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ' + getCat);
-      });
-     this.offlineSellerForm = new FormGroup({
-      ID: new FormControl(''),
-      Name: new FormControl(''),
-      OwnerName: new FormControl(''),
-      GstinNo: new FormControl(''),
-      PanNo: new FormControl(''),
-      RegNo: new FormControl(''),
-      ServiceProvider: new FormControl(''),
-      Onboarded: new FormControl(''),
-      HouseNo: new FormControl(''),
-      Block: new FormControl(''),
-      Street: new FormControl(''),
-      Sector: new FormControl(''),
-      City: new FormControl(''),
-      State: new FormControl(''),
-      PinCode: new FormControl(''),
-      NearBy: new FormControl(''),
-      Lattitude: new FormControl(''),
-      Longitude: new FormControl(''),
-      Details: new FormArray([])
+    this.offlineSellerForm = new FormGroup({
+      sid: new FormControl(''),
+      seller_name: new FormControl(''),
+      owner_name: new FormControl(''),
+      gstin: new FormControl(''),
+      pan_no: new FormControl(''),
+      reg_no: new FormControl(''),
+      is_service: new FormControl(''),
+      is_onboarded: new FormControl(''),
+      address: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      pincode: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+      url: new FormControl(''),
+      email: new FormControl(''),
+      contact_no: new FormControl(''),
+      status_type: new FormControl('')
     });
     this.userService.getOfflineSellerList()
-      .subscribe( offlineSellerList => {
+      .subscribe(offlineSellerList => {
         this.offlineSeller = offlineSellerList;
-        // console.log(this.offlineSeller);
+        console.log(this.offlineSeller);
       });
   }
-  // function for add row in detials field
-  createItem() {
-    return this.fb.group({
-      'CategoryID':[null],
-      'DetailID': [null],
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
-    });
-  }
-  addItem() {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
-    control.push(this.createItem());
-  }
-  removeDetails(i: number) {
-    const control = <FormArray>this.offlineSellerForm.controls['Details'];
-    control.removeAt(i);
-  }
+
   // passs current brand id as argument and open the popup
   openOfflineSellerModel(item) {
-
-    this.showDialog = true ; // for show dialog
+    console.log('item is ', item);
+    this.showOfflineSellerList = false; // for show dialog
     // reset  editBrand form
     this.offlineSellerForm = new FormGroup({
-      ID: new FormControl(''),
-      Name: new FormControl(''),
-      OwnerName: new FormControl(''),
-      GstinNo: new FormControl(''),
-      PanNo: new FormControl(''),
-      RegNo: new FormControl(''),
-      ServiceProvider: new FormControl(''),
-      Onboarded: new FormControl(''),
-      HouseNo: new FormControl(''),
-      Block: new FormControl(''),
-      Street: new FormControl(''),
-      Sector: new FormControl(''),
-      City: new FormControl(''),
-      State: new FormControl(''),
-      PinCode: new FormControl(''),
-      NearBy: new FormControl(''),
-      Lattitude: new FormControl(''),
-      Longitude: new FormControl(''),
-      Details: new FormArray([])
+      sid: new FormControl(''),
+      seller_name: new FormControl(''),
+      owner_name: new FormControl(''),
+      gstin: new FormControl(''),
+      pan_no: new FormControl(''),
+      reg_no: new FormControl(''),
+      is_service: new FormControl(''),
+      is_onboarded: new FormControl(''),
+      address: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      pincode: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+      url: new FormControl(''),
+      email: new FormControl(''),
+      contact_no: new FormControl(''),
+      status_type: new FormControl('')
     });
-      // // get information of current selected brand
-      this.userService.getOfflineSellerDetailsbyID(item)
+
+    // prop autofill data to form
+    this.offlineSellerForm.setValue({
+      sid: item.sid,
+      owner_name: item.owner_name,
+      seller_name: item.seller_name,
+      gstin: item.gstin,
+      pan_no: item.pan_no,
+      reg_no: item.reg_no,
+      is_service: item.is_service,
+      is_onboarded: item.is_onboarded,
+      address: item.address,
+      city: item.city,
+      state: item.state,
+      pincode: item.pincode,
+      latitude: item.latitude,
+      longitude: item.longitude,
+      url: item.url,
+      email: item.email,
+      contact_no: item.contact_no,
+      status_type: item.status_type,
+    });
+  }
+  // update offline seller
+  updateOfflineSeller(req: any) {
+    console.log(req);
+    if (req.status_type == 1) {
+      this.userService.updateOfflineSeller(req)
         .subscribe(res => {
-        // this.showDialog = true ; // for show dialog
-        // this.responseSeller = res;
-        console.log(res);
-        // prop autofill data to form
-        this.offlineSellerForm.controls['ID'].setValue(res.ID);
-        this.offlineSellerForm.controls['Name'].setValue(res.Name);
-        this.offlineSellerForm.controls['OwnerName'].setValue(res.OwnerName);
-        this.offlineSellerForm.controls['GstinNo'].setValue(res.GstinNo);
-        this.offlineSellerForm.controls['PanNo'].setValue(res.PanNo);
-        this.offlineSellerForm.controls['RegNo'].setValue(res.RegNo);
-        this.offlineSellerForm.controls['ServiceProvider'].setValue(res.ServiceProvider);
-        this.offlineSellerForm.controls['Onboarded'].setValue(res.Onboarded);
-        this.offlineSellerForm.controls['HouseNo'].setValue(res.HouseNo);
-        this.offlineSellerForm.controls['Block'].setValue(res.Block);
-        this.offlineSellerForm.controls['Street'].setValue(res.Street);
-        this.offlineSellerForm.controls['Sector'].setValue(res.Sector);
-        this.offlineSellerForm.controls['City'].setValue(res.City);
-        this.offlineSellerForm.controls['State'].setValue(res.State);
-        this.offlineSellerForm.controls['PinCode'].setValue(res.PinCode);
-        this.offlineSellerForm.controls['NearBy'].setValue(res.NearBy);
-        this.offlineSellerForm.controls['Lattitude'].setValue(res.Lattitude);
-        this.offlineSellerForm.controls['Longitude'].setValue(res.Longitude);
-        res.Details.forEach(
-        (po) => {
-          (<FormArray>this.offlineSellerForm.controls['Details']).push(this.createDetailsFormGroup(po));
+          // console.log(res);
+          alert('Offline Seller updated successfully');
+          this.showOfflineSellerList = true;
+          this.userService.getOfflineSellerList() // list update after edit
+            .subscribe(offlineSellerList => {
+              this.offlineSeller = offlineSellerList;
+            });
         });
-      });
-  }
- createDetailsFormGroup(payOffObj) {
-    return new FormGroup({
-      CategoryID:new FormControl(payOffObj.CategoryID),
-      DetailID: new FormControl(payOffObj.DetailID),
-      DetailTypeID: new FormControl(payOffObj.DetailTypeID),
-      DisplayName: new FormControl(payOffObj.DisplayName),
-      Details: new FormControl(payOffObj.Details)
-    });
-  }
-  updateOfflineSeller( brand: any) {
-    console.log(brand);
-    this.userService.updateOfflineSeller(brand)
-      .subscribe( res => {
-        // console.log(res);
-        alert('Offline Seller updated successfully');
-        this.showDialog = false ;
-        this.userService.getOfflineSellerList() // list update after edit
-          .subscribe(offlineSellerList => {
-          this.offlineSeller = offlineSellerList;
-        });
-    });
+    }
+    else {
+      alert("Please Active first then update");
+    }
   }
   // delete offline seller
-  deleteOfflineSeller( brand: any) {
-    console.log(brand);
-    const brandId = {'ID': brand.ID };
-    this.userService.deleteOfflineSeller(brandId)
-      .subscribe( res => {
+  deleteOfflineSeller(sellerId: any) {
+    this.userService.deleteOfflineSeller(sellerId)
+      .subscribe(res => {
         // console.log(res);
         alert('Offline Seller deleted successfully');
         this.userService.getOfflineSellerList() // list update after edit
           .subscribe(offlineSellerList => {
-          this.offlineSeller = offlineSellerList;
-        });
-    });
+            this.offlineSeller = offlineSellerList;
+          });
+      });
+  }
+  // back button 
+  back() {
+    this.showOfflineSellerList = true;
+  }
+  // function for avoid only space submit
+  avoidSpace(e) {
+    this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
   }
 }

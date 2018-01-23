@@ -13,50 +13,59 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 export class AddBrandComponent implements OnInit {
   public brandForm: FormGroup;
   cat:Category;
+  detailType:any;
   // items: Brand [] = [];
 
   constructor(private userService: UserService, private fb: FormBuilder,  private functionService:FunctionService) {
    }
   ngOnInit() {
     this.brandForm = this.fb.group({
-      'Name' : ['', Validators.required],
-      'Description' : '',
-       Details: this.fb.array([ this.createItem(), ])
+      'brand_name' : ['', Validators.required],
+      'brand_description' : '',
+      details: this.fb.array([ this.createItem(), ])
     });
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
     .subscribe(getCat => {
       this.cat = getCat;
-      console.log('category is ' + getCat);
+      console.log(getCat,"category list");
     });
+    // get list of detail type
+    this.userService.getDetailList()
+      .subscribe(detail_type =>{
+        this.detailType = detail_type;
+        console.log(this.detailType);
+      })
 
   }
   createItem() {
     return this.fb.group({
-      'CategoryID':'',
-      'DetailTypeID': '',
-      'DisplayName': '',
-      'Details': ''
+      'category_id':'',
+      'detail_type': '',
+      'value': ''
     });
   }
+
+  
   addItem() {
-    const control = <FormArray>this.brandForm.controls['Details'];
+    const control = <FormArray>this.brandForm.controls['details'];
     control.push(this.createItem());
   }
   removeDetails(i: number) {
-    const control = <FormArray>this.brandForm.controls['Details'];
+    const control = <FormArray>this.brandForm.controls['details'];
     control.removeAt(i);
   }
-  createBrand(data: Brand) {
+  createBrand(data: any) {
+    console.log(data)
     this.userService.createBrand(data)
       .subscribe(res => {
         console.log(res);
         alert('New Brand added succesfully');
         this.brandForm.reset();
       }, error => {
-        if (error.status === 0) {
-          alert('data not found');
-        }
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
     // function for avoid only space submit

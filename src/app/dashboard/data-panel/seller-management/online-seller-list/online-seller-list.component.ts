@@ -1,4 +1,5 @@
-import { Category } from './../../../../_models/category';
+import { FunctionService } from './../../../../_services/function.service';
+import { Category, CategoryList } from './../../../../_models/category';
 import { UserService } from './../../../../_services/user.service';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { OnlineSeller } from './../../../../_models/onlineSeller.interface';
@@ -13,109 +14,91 @@ export class OnlineSellerListComponent implements OnInit {
   onlineSeller: OnlineSeller;
   showDialog = false;
   onlineSellerForm: FormGroup;
-  cat:Category;
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  cat: Category;
+  showOnlineSellerList: boolean = true; // for toggle form
+  constructor(private userService: UserService, private fb: FormBuilder,private functionService:FunctionService) {
   }
 
   ngOnInit() {
-      // get list of category
-      this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ' + getCat);
-      });
-     this.onlineSellerForm = new FormGroup({
-      Name: new FormControl('',Validators.required),
-      URL: new FormControl(''),
-      GstinNo: new FormControl(''),
-      ID: new FormControl(''),
-      Details: new FormArray([])
+    this.onlineSellerForm = new FormGroup({
+      seller_name: new FormControl('', Validators.required),
+      url: new FormControl('', Validators.required),
+      gstin: new FormControl('', Validators.required),
+      contact: new FormControl(''),
+      email: new FormControl(''),
+      status_type: new FormControl(''),
+      sid:new FormControl('')
     });
+    // get online seller list
     this.userService.getOnlineSellerList()
-      .subscribe( onlineSellerList => {
+      .subscribe(onlineSellerList => {
         this.onlineSeller = onlineSellerList;
         console.log(this.onlineSeller);
       });
   }
-  // function for add row in detials field
-  createItem() {
-    return this.fb.group({
-      'CategoryID':[null],
-      'DetailID': [null],
-      'DetailTypeID': [null],
-      'DisplayName': [null],
-      'Details': [null]
-    });
-  }
-  addItem() {
-    const control = <FormArray>this.onlineSellerForm.controls['Details'];
-    control.push(this.createItem());
-  }
-  removeDetails(i: number) {
-    const control = <FormArray>this.onlineSellerForm.controls['Details'];
-    control.removeAt(i);
-  }
-  // passs current brand id as argument and open the popup
+  // passs current brand id as argument and open the next page model
   openOnlineSellerModel(item) {
     console.log('item is ', item);
-    // reset  editBrand form
+    this.showOnlineSellerList = false;
+    // reset edit online Seller form
     this.onlineSellerForm = new FormGroup({
-      Name: new FormControl(''),
-      URL: new FormControl(''),
-      GstinNo: new FormControl(''),
-      ID: new FormControl(''),
-      Details: new FormArray([])
+      seller_name: new FormControl('', Validators.required),
+      url: new FormControl('', Validators.required),
+      gstin: new FormControl('', Validators.required),
+      contact: new FormControl(''),
+      email: new FormControl(''),
+      status_type:new FormControl(''),
+      sid:new FormControl('')
     });
-    // get information of current selected brand
-    this.userService.getOnlineSellerDetailsbyID(item.ID)
+    // populate prefilled value in form
+    this.onlineSellerForm.setValue({
+      seller_name: item.seller_name,
+      url: item.url,
+      gstin: item.gstin,
+      contact: item.contact,
+      email: item.email,
+      status_type:item.status_type,
+      sid:item.sid
+    });
+  }
+
+  // update online seller
+  updateOnlineSeller(req: any) {
+    console.log(req);
+    if(req.status_type==1){
+      this.userService.updateOnlineSeller(req)
       .subscribe(res => {
-      this.showDialog = true ; // for show dialog
-      console.log(res);
-      // prop autofill data to form
-      this.onlineSellerForm.controls['ID'].setValue(res.ID);
-      this.onlineSellerForm.controls['Name'].setValue(res.Name);
-      this.onlineSellerForm.controls['URL'].setValue(res.URL);
-      this.onlineSellerForm.controls['GstinNo'].setValue(res.GstinNo);
-      res.Details.forEach(
-      (po) => {
-        (<FormArray>this.onlineSellerForm.controls['Details']).push(this.createDetailsFormGroup(po));
-      });
-    });
-  }
- createDetailsFormGroup(payOffObj) {
-    return new FormGroup({
-      CategoryID:new FormControl(payOffObj.CategoryID),
-      DetailID: new FormControl(payOffObj.DetailID),
-      DetailTypeID: new FormControl(payOffObj.DetailTypeID),
-      DisplayName: new FormControl(payOffObj.DisplayName),
-      Details: new FormControl(payOffObj.Details)
-    });
-  }
-  updateOnlineSeller( brand: any) {
-    console.log(brand);
-    this.userService.updateOnlineSeller(brand)
-      .subscribe( res => {
         // console.log(res);
         alert('Online Seller updated successfully');
-        this.showDialog = false ;
+        this.showOnlineSellerList = true;
         this.userService.getOnlineSellerList() // list update after edit
           .subscribe(onlineSeller => {
-          this.onlineSeller = onlineSeller;
-        });
-    });
+            this.onlineSeller = onlineSeller;
+          });
+      });
+    }
+    else{
+      alert("Please Active first then update");
+    }
   }
-  // delete brand
-  deleteOnlineSeller( brand: any) {
-    console.log(brand);
-    const brandId = {'ID': brand.ID };
-    this.userService.deleteOnlineSeller(brandId)
-      .subscribe( res => {
+  // delete online seller
+  deleteOnlineSeller(sellerId: number) {
+    this.userService.deleteOnlineSeller(sellerId)
+      .subscribe(res => {
         // console.log(res);
         alert('Online Seller deleted successfully');
         this.userService.getOnlineSellerList() // list update after edit
           .subscribe(onlineSeller => {
-          this.onlineSeller = onlineSeller;
-        });
-    });
+            this.onlineSeller = onlineSeller;
+          });
+      });
   }
+  // back button 
+  back() {
+    this.showOnlineSellerList = true;
+  }
+    // function for avoid only space submit
+    avoidSpace(e){
+      this.functionService.NoWhitespaceValidator(this.onlineSellerForm,e)
+    }
 }

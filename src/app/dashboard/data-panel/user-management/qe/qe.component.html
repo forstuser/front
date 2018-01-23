@@ -17,12 +17,13 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody *ngFor="let user of users?.UserList; let i = index">
+            <tbody *ngFor="let user of users?.data; let i = index">
                 <tr>
                     <th scope="row">{{ i+1 }} </th>
-                    <td>{{ user.Name}}</td>
-                    <td>{{ user.EmailID}}</td>
-                    <td><span class="label bg-green">{{ user.Status }}</span></td>
+                    <td>{{ user?.full_name}}</td>
+                    <td>{{ user?.email}}</td>
+                    <td *ngIf="user?.user_status_type=='1'"><span class="label bg-green">Active</span></td>
+                    <td *ngIf="user?.user_status_type=='2'"><span class="label bg-red">InActive</span></td>     
                     <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openUserModel(user)" title="Edit"><i class="material-icons" >mode_edit</i></span>  <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteUser(user)" title="Delete"><i class="material-icons">delete</i></span></td>
                 </tr>
             </tbody>
@@ -40,10 +41,12 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
-                        <select class="form-control dropdown" formControlName="UserType">
-                            <!-- <option>Please Select</option> -->
-                            <option *ngFor="let user of dropdownUser?.UserTypeList" [ngValue]="user.TypeID" >{{ user.Name }}</option>
-                        </select>
+                            <select class="form-control dropdown" formControlName="role_type">
+                                <!-- <option>Please Select</option> -->
+                                <option [ngValue]="2"> Admin</option>
+                                <option [ngValue]="3"> Quality Executive</option>
+                                <option [ngValue]="4"> Customer Executive</option>    
+                            </select>
                         </div>
                     </div>  
                 </div>
@@ -54,9 +57,9 @@
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                                <input type="text" class="form-control" formControlName="name" placeholder="Enter your name">
                             </div>
-                            <p class="text-danger" *ngIf="!editUserForm.controls['Name'].valid && editUserForm.controls['Name'].touched">Name is required</p>
+                            <p class="text-danger" *ngIf="!editUserForm.controls['name'].valid && editUserForm.controls['name'].touched">Name is required</p>
                         </div>
                     </div>
                 </div>
@@ -67,9 +70,9 @@
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="text" class="form-control" formControlName="EmailID" placeholder="Enter your email address" required>
+                                <input type="text" class="form-control" formControlName="email" placeholder="Enter your email address" required>
                             </div>
-                            <p class="text-danger" *ngIf="!editUserForm.controls['EmailID'].valid && editUserForm.controls['EmailID'].touched">EmailID is required</p>
+                            <p class="text-danger" *ngIf="!editUserForm.controls['email'].valid && editUserForm.controls['email'].touched">EmailID is required</p>
                         </div>
                     </div>
                 </div>
@@ -80,7 +83,7 @@
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
                             <div class="form-line">
-                                <input type="password" formControlName="Password" class="form-control" placeholder="Enter your password">
+                                <input type="password" formControlName="password" class="form-control" placeholder="Enter your password">
                             </div>
                             <!-- <p class="text-danger" *ngIf="!editUserForm.controls['Password'].valid && editUserForm.controls['Password'].touched">Password is required</p> -->
                         </div>
@@ -92,7 +95,7 @@
                     </div>
                     <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
                         <div class="form-group">
-                        <select class="form-control dropdown" formControlName="Status">
+                        <select class="form-control dropdown" formControlName="user_status_type">
                             <!-- <option>Please Select</option> -->
                             <option [ngValue]="1">Active</option>
                             <option [ngValue]="2">Inactive</option>

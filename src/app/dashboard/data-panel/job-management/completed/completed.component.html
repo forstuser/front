@@ -1,8 +1,8 @@
 <div class="card">
   <div class="header">
     <h2>
-      Completed Bill List
-      <small> For assign  the bill click on the assign button</small>
+      Completed JOB List
+      <small> For assign  the job click on the assign button</small>
     </h2>
   </div>
   <div class="body table-responsive">
@@ -20,28 +20,43 @@
           <th>Name</th>
           <th>Phone No.</th>
           <th>Email ID</th>
-          <th>Bill Date</th>
+          <th>JOB Date</th>
           <th>Comments</th>
-          <!-- <th>CE Name</th>
-                  <th>CE Task Date</th>
-                  <th>QE Name</th>
-                  <th>QE Task Date</th> -->
-          <th></th>
+          <th>View JOB</th>
+          <th *ngIf="userType <=2">View Bill</th>
         </tr>
       </thead>
-      <tbody *ngFor="let bill of billList?.BillList; let i = index">
+      <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+1 }} </th>
-          <td>{{ bill.BillNo}}</td>
-          <td>{{ bill.Name}}</td>
-          <td>{{ bill.PhoneNo}}</td>
-          <td>{{ bill.EmailID}}</td>
-          <td>{{ bill.BillDate | date}}</td>
-          <td>{{ bill.Comments}}</td>
-          <!-- <td>{{ bill.CE_Name}}</td>
-                  <td>{{ bill.CE_TaskDate | date}}</td>
-                  <td>{{ bill.QE_Name}}</td>
-                  <td>{{ bill.QE_TaskDate | date}}</td> -->
+          <th scope="row">{{ i+1+prev }} </th>
+          <td *ngIf="userType==1 || userType==2">{{ bill.job_id}}</td>
+          <td *ngIf="userType==3">{{ bill.job_id}}</td>
+          <td *ngIf="userType==4">{{ bill.job_id}}</td>
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.full_name}}</td>
+          <td *ngIf="userType==3">{{ bill.user.full_name}}</td>
+          <td *ngIf="userType==4">{{ bill.user.full_name}}</td>
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.mobile_no}}</td>
+          <td *ngIf="userType==3">{{ bill.user.mobile_no}}</td>
+          <td *ngIf="userType==4">{{ bill.user.mobile_no}}</td>       
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill.user.email}}</td>
+          <td *ngIf="userType==3">{{ bill.user.email}}</td>
+          <td *ngIf="userType==4">{{ bill.user.email}}</td> 
+
+          <td *ngIf="userType==1 || userType==2">{{ bill.updated_at | date}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.updated_at | date}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.updated_at | date}}</td>
+
+          
+          <td *ngIf="userType==1 || userType==2">{{ bill?.comments}}</td>
+          <td *ngIf="userType==3">{{ bill.qe.comments}}</td>
+          <td *ngIf="userType==4">{{ bill.ce.comments}}</td>
+          
+          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)">View</button></td>
+          <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
+            >View Bill</button></td>
         </tr>
       </tbody>
     </table>
@@ -50,3 +65,31 @@
     </ng-template>
   </div>
 </div>
+<modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+  <modal-content>
+    <div *ngIf="!loader">
+      <div class="body">
+        <div class="row clearfix" style="overflow:scroll">
+          <div class="col-md-12" style="text-align:center;">
+            <img [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <p class="text-center">
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+          <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
+          <!-- <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button> -->
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+          <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
+        </p>
+      </div>
+    </div>
+    <div class="text-center" *ngIf="loader">
+      <h1>Please Wait ...</h1>
+      <img src="../../../assets/images/loader.gif" alt="">
+    </div>
+  </modal-content>
+</modal>

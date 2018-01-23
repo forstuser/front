@@ -1,0 +1,281 @@
+<div class="card" *ngIf="showBrandList">
+  <div class="header">
+    <h2>
+      Insurance Provider List
+      <small> For change the Insurance Provider click on the edit button</small>
+    </h2>
+  </div>
+  <div class="body table-responsive">
+    <nav>
+      <ul class="pager">
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
+      </ul>
+    </nav>
+    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>url</th>
+          <th>Action</th>
+          <th>Email</th>
+          <th>Contact Number</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let list of insuranceProviders?.data; let i = index">
+        <tr>
+          <th scope="row">{{ i+1+offset}}</th>
+          <td>{{ list?.name }}</td>
+          <td>{{ list?.url }}</td>
+          <td *ngIf="list?.status_type=='1'">
+            <span class="label bg-green">Active</span>
+          </td>
+          <td *ngIf="list?.status_type=='2'">
+            <span class="label bg-red">InActive</span>
+          </td>
+          <td>{{ list?.email }}</td>
+          <td>{{ list?.contact_no }}</td>
+          <td>
+            <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openInsuranceProvider(list)" title="Edit">
+              <i class="material-icons">mode_edit</i>
+            </span>
+            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteInsuranceProvide(list.id)" title="Delete">
+              <i class="material-icons">delete</i>
+            </span>
+          </td>
+          <!-- <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openBrandModel(list)" title="Edit"><i class="material-icons" >mode_edit</i></span></td> -->
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #elseBlock>
+      <h4> No Data Available </h4>
+    </ng-template>
+  </div>
+</div>
+
+<!-- edit insurance provider -->
+<div class="card" *ngIf="!showBrandList">
+  <div class="modal-header">
+    <button class="btn bg-blue" (click)="back()">Back</button>
+    <hr>
+    <h4 class="modal-title" id="smallModalLabel">Edit Service Center</h4>
+  </div>
+  <div class="body">
+    <form class="form-horizontal" [formGroup]='editInsuranceForm' (ngSubmit)="createInsurance(editInsuranceForm.value)">
+      <h4>
+        <u>Information </u>
+      </h4>
+      <hr>
+      <div class="row clearfix">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Name</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" formControlName="name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('name')">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+          <label for="name">Select Main Category</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+          <div class="form-group">
+            <select class="form-control dropdown" formControlName="main_category_id" (change)="onSelect($event.target.value)" style=" border-bottom:1px solid #ccc">
+              <option>Select Category</option>
+              <option *ngFor="let brandList of getCatList?.data" [value]="brandList?.category_id">{{ brandList.category_name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Select Brand</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
+              <option>Select Subcategory</option>
+              <option *ngFor="let subCategory of cat?.subCategories" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <h4>
+        <u>Address </u>
+      </h4>
+      <hr>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Address</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="address" class="form-control " placeholder="Enter Address here
+                " (keyup)="avoidSpace( 'address') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">City</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="city" class="form-control " placeholder="Enter City Name here
+                " (keyup)="avoidSpace( 'city') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">State</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="state" class="form-control" placeholder="Enter State Name here
+                " (keyup)="avoidSpace( 'state') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Pin Code</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="pincode" class="form-control " placeholder="Enter Pin Code here
+                " (keyup)="avoidSpace( 'pincode') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Latitude</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="latitude" class="form-control " placeholder="Enter Latitude here
+                " (keyup)="avoidSpace( 'latitude') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Longitude</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="longitude" class="form-control " placeholder="Enter Longitude here
+                " (keyup)="avoidSpace( 'longitude')">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Pan No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="pan_no" class="form-control " placeholder="Enter Pan No.here
+                " (keyup)="avoidSpace( 'pan_no') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Reg No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="reg_no" class="form-control " placeholder="Enter Reg No.here
+                " (keyup)="avoidSpace( 'reg_no') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Url</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="url" class="form-control " placeholder="Enter Url here " (keyup)="avoidSpace(
+                'url') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Email</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="email" class="form-control " placeholder="Enter Email here
+                " (keyup)="avoidSpace( 'email') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Contact No.</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="contact_no" class="form-control " placeholder="Enter Contact No here
+                " (keyup)="avoidSpace( 'contact_no') ">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Gstin</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <input type="text " formControlName="gstin" class="form-control " placeholder="Enter Gstin here
+                " (keyup)="avoidSpace( 'gstin') ">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
+          <label for="name ">Type</label>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
+          <div class="form-group ">
+            <div class="form-line ">
+              <select class="form-control dropdown" formControlName="type">
+                <option [ngValue]="1">Insurance</option>
+                <option [ngValue]="2">Warranty</option>
+                <option [ngValue]="3">Insurance & Warranty(Both)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row clearfix ">
+        <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 ">
+          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!editInsuranceForm.valid ">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -5,51 +5,97 @@
         </h2>
     </div>
     <div class="body">
-        <form [formGroup]='colorForm' (ngSubmit) = "createColor(colorForm.value)">
+        <form [formGroup]='colorForm' (ngSubmit)="createColor(colorForm.value)">
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 form-control-label">
-                        <label>
+                    <label>
                             Color Name
                         </label>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Name" (keyup)="avoidSpace('Name')" >
+                            <input type="text" class="form-control" formControlName="colour_name" (keyup)="avoidSpace('colour_name')">
                         </div>
-                        <p class="text-danger" *ngIf="!colorForm.controls['Name'].valid && colorForm.controls['Name'].touched">Color Name is required</p>
+                        <p class="text-danger" *ngIf="!colorForm.controls['colour_name'].valid && colorForm.controls['colour_name'].touched">Color Name is required</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!colorForm.valid" >
+                    <input type="submit" value="CREATE" class="btn btn-success  m-t-15 waves-effect" [disabled]="!colorForm.valid">
                 </div>
             </div>
         </form>
     </div>
 </div>
 <div class="card">
-  <div class="header">
-      <h2>
-          Color List
-          <small> For change the color details click on the edit button</small>
-      </h2>
-  </div>
-  <div class="body table-responsive">
-      <table class="table table-condensed">
-          <thead>
-              <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Action</th>
-              </tr>
-          </thead>
-           <tbody *ngFor="let list of color?.ColorList; let i = index">
-              <tr>
-                  <th scope="row">{{ i+1 }}</th>
-                  <td>{{ list.Name }}</td>
-                  <td><span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
-              </tr>
-          </tbody>
-      </table>
-  </div>
+    <div class="header">
+        <h2>
+            Color List
+            <small> For change the color details click on the edit button</small>
+        </h2>
+    </div>
+    <div class="body table-responsive">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let list of color?.data; let i = index">
+                <tr>
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>{{ list?.colour_name }}</td>
+                    <td *ngIf="list?.status_type=='1'"><span class="label bg-green">Active</span></td>
+                    <td *ngIf="list?.status_type=='2'"><span class="label bg-red">InActive</span></td>
+                    <td><span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openCategory(list)"
+                            title="Edit"><i class="material-icons">mode_edit</i></span>
+                        <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteCategory(list)" title="Delete"><i class="material-icons">delete</i></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <app-dialog [(visible)]="showDialog">
+        <div class="modal-header">
+            <h4 class="modal-title" id="smallModalLabel">Edit Color List</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal" [formGroup]='editCategoryForm' (ngSubmit)="updateCategory(editCategoryForm.value)">
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="name">Name</label>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+                        <div class="form-group">
+                            <div class="form-line">
+                                <input type="text" class="form-control" formControlName="colour_name" placeholder="Enter your name">
+                            </div>
+                            <p class="text-danger" *ngIf="!editCategoryForm.controls['colour_name'].valid && editCategoryForm.controls['colour_name'].touched">Name is required</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+                        <label for="name">Status</label>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="form-group">
+                            <select class="form-control dropdown" formControlName="status_type">
+                                <option [ngValue]="1"> Active</option>
+                                <option [ngValue]="2"> InActive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+                        <input type="submit" value="Save Changes" class="btn btn-success  m-t-15 waves-effect" [disabled]="!editCategoryForm.valid">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </app-dialog>
+
 </div>

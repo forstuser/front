@@ -4,3 +4,11 @@
 .pager{
     text-align: right;
 }
+.disabled{
+    display: none;
+}
+.comment{
+    max-width:250px;
+    overflow-wrap: break-word;
+  }
+  
