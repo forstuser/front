@@ -1,10 +1,7 @@
 import { FunctionService } from './_services/function.service';
 import { DataService } from './_services/data.service';
-import { BillComponent } from './dashboard/data-panel/job-management/bill/bill.component';
-import {
-  ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
-import {
-   AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
+import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { UserService } from './_services/user.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
@@ -15,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
-import { MdButtonModule, MdCheckboxModule } from '@angular/material';
+// import { MdButtonModule, MdCheckboxModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './sign-in/sign-in.component';
@@ -40,21 +37,30 @@ import { AddOnlineSellerComponent } from './dashboard/data-panel/seller-manageme
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
 import { OfflineSellerListComponent } from './dashboard/data-panel/seller-management/offline-seller-list/offline-seller-list.component';
 import { ColorComponent } from './dashboard/data-panel/color/color.component';
-import { ExclusionsComponent } from './dashboard/data-panel/list-management/exclusions/exclusions.component';
-import { InclusionsComponent } from './dashboard/data-panel/list-management/inclusions/inclusions.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { SwiperModule } from 'angular2-useful-swiper';
-import { BillViewComponent } from './dashboard/data-panel/job-management/bill/bill-view/bill-view.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
-import { BillCreateComponent } from './dashboard/data-panel/job-management/bill/bill-create/bill-create.component';
-import { BillEditComponent } from './dashboard/data-panel/job-management/bill/bill-edit/bill-edit.component';
-import { ProductAddonsComponent } from './dashboard/data-panel/job-management/bill/product-addons/product-addons.component';
 import { MyDatePickerModule } from 'mydatepicker';
 import { DiscardedComponent } from './dashboard/data-panel/job-management/discarded/discarded.component';
 import { AngularDraggableModule } from 'angular2-draggable';
-import {ModalModule} from "ng2-modal";
+import { ModalModule} from "ng2-modal";
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {SelectModule} from 'ng2-select';
+// import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
+import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
+import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/create-bill/create-bill.component';
+import { ViewBillComponent } from './dashboard/data-panel/job-management/bill/view-bill/view-bill.component';
+import { BrandsComponent } from './dashboard/data-panel/verify/brands/brands.component';
+import { ModelsComponent } from './dashboard/data-panel/verify/models/models.component';
+import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
+import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
+import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
+import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
+import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,34 +87,43 @@ import {ModalModule} from "ng2-modal";
     OnlineSellerListComponent,
     OfflineSellerListComponent,
     ColorComponent,
-    ExclusionsComponent,
-    InclusionsComponent,
+    // ExclusionsComponent,
+    // InclusionsComponent,
     AddServiceCenterComponent,
     ServiceCenterListComponent,
     NewComponent,
     CompletedComponent,
     UnderProgressComponent,
-    BillComponent,
-    BillViewComponent,
-    BillCreateComponent,
-    BillEditComponent,
-    ProductAddonsComponent,
     DiscardedComponent,
+    // JobManagementComponent,
+    ListManagementComponent,
+    CreateBillComponent,
+    ViewBillComponent,
+    BrandsComponent,
+    ModelsComponent,
+    AddInsuranceProviderComponent,
+    InsuranceProviderListComponent,
+    SendNotificationComponent,
+    ServiceScheduleComponent,
+    AddServiceScheduleComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MdButtonModule,
-    MdCheckboxModule,
+    // MdButtonModule,
+    // MdCheckboxModule,
     HttpModule,
     AppRoutingModule,
     SwiperModule,
     MultiselectDropdownModule,
     MyDatePickerModule,
     AngularDraggableModule,
-    ModalModule
+    ModalModule,
+    Ng2OrderModule,
+    Ng2SearchPipeModule,
+    SelectModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]

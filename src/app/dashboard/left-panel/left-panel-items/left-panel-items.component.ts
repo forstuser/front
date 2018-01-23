@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./left-panel-items.component.css']
 })
 export class LeftPanelItemsComponent implements OnInit {
-  userType: any;
+  role_type: any;
   LeftPanelItems: any;
   superAdmin = [
     {
@@ -17,7 +17,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -48,7 +48,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'User Management',
+      'name': 'User ',
       'icon': 'accessibility',
       'link': '#',
       'class': 'menu-toggle',
@@ -66,11 +66,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_icon': 'build',
           'd_link': 'admin'
         },
-        {
-          'd_name': 'Customer',
-          'd_icon': 'account_box',
-          'd_link': 'customer'
-        },
+        // {
+        //   'd_name': 'Customer',
+        //   'd_icon': 'account_box',
+        //   'd_link': 'customer'
+        // },
         {
           'd_name': 'Customer Executive',
           'd_icon': 'headset_mic',
@@ -84,7 +84,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Category Management',
+      'name': 'Category ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -102,16 +102,16 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Category',
           'd_icon': 'looks_two',
           'd_link': 'category'
+        },
+        {
+          'd_name': 'SubCategory',
+          'd_icon': 'looks_3',
+          'd_link': 'subCategory'
         }
-        // {
-        //   'd_name': 'SubCategory',
-        //   'd_icon': 'looks_3',
-        //   'd_link': 'subCategory'
-        // }
       ]
     },
     {
-      'name': 'Brand Management',
+      'name': 'Brand ',
       'icon': 'loyalty',
       'link': '#',
       'class': 'menu-toggle',
@@ -133,7 +133,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Seller Management',
+      'name': 'Seller ',
       'icon': 'shop_two',
       'link': '#',
       'class': 'menu-toggle',
@@ -165,29 +165,26 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Inclusion / Exclusion Management',
+      'name': 'Detail Type',
       'icon': 'menu',
-      'link': '#',
-      'class': 'menu-toggle',
-      'handler': 'toggleState',
-      'addActive': 'none',
-      'addClass': 'none',
-      'addSubClass': 'none',
-      'dropdownList': [
-        {
-          'd_name': 'Exclusions',
-          'd_icon': 'call_made',
-          'd_link': 'exclusions'
-        },
-        {
-          'd_name': 'Inclusions',
-          'd_icon': 'call_received',
-          'd_link': 'inclusions'
-        }
-      ]
+      'link': 'list-details',
+      'handler': 'doNothing',
+      'class': '',
+      // 'dropdownList': [
+      //   {
+      //     'd_name': 'Exclusions',
+      //     'd_icon': 'call_made',
+      //     'd_link': 'exclusions'
+      //   },
+      //   {
+      //     'd_name': 'Inclusions',
+      //     'd_icon': 'call_received',
+      //     'd_link': 'inclusions'
+      //   }
+      // ]
     },
     {
-      'name': 'Authorized Service Center Management',
+      'name': 'ASC ',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -205,6 +202,92 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Service Center List',
           'd_icon': 'format_list_numbered',
           'd_link': 'serviceCenterList'
+        }
+      ]
+    },
+    {
+      'name': 'Insurance Provider ',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Add Insurance Provider',
+          'd_icon': 'add',
+          'd_link': 'addinsuranceProvider'
+        },
+        {
+          'd_name': 'Insurance Provider List',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'insuranceProviderList'
+        }
+      ]
+    },
+    {
+      'name': 'Verify',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Add Models',
+          'd_icon': 'add',
+          'd_link': 'addModels'
+        },
+        {
+          'd_name': 'Models',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'verifyModels'
+        }
+      ]
+    },
+    {
+      'name': 'Notification',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Send Notifications',
+          'd_icon': 'add',
+          'd_link': 'sendNotifications'
+        }
+      ]
+    },
+    {
+      'name': 'serviceSchedule',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Add Service Schedule',
+          'd_icon': 'add',
+          'd_link': 'addServiceSchedule'
+        },
+        {
+          'd_name': 'Service Schedule',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'serviceSchedule'
         }
       ]
     },
@@ -230,7 +313,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job ',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -262,7 +345,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
 
     {
-      'name': 'Category Management',
+      'name': 'Category ',
       'icon': 'menu',
       'link': '#',
       'class': 'menu-toggle',
@@ -280,16 +363,16 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Category',
           'd_icon': 'looks_two',
           'd_link': 'category'
+        },
+        {
+          'd_name': 'SubCategory',
+          'd_icon': 'looks_3',
+          'd_link': 'subCategory'
         }
-        // {
-        //   'd_name': 'SubCategory',
-        //   'd_icon': 'looks_3',
-        //   'd_link': 'subCategory'
-        // }
       ]
     },
     {
-      'name': 'Brand Management',
+      'name': 'Brand ',
       'icon': 'loyalty',
       'link': '#',
       'class': 'menu-toggle',
@@ -311,7 +394,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Seller Management',
+      'name': 'Seller ',
       'icon': 'shop_two',
       'link': '#',
       'class': 'menu-toggle',
@@ -343,29 +426,14 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Inclusion / Exclusion Management',
+      'name': 'Detail Type',
       'icon': 'menu',
-      'link': '#',
-      'class': 'menu-toggle',
-      'handler': 'toggleState',
-      'addActive': 'none',
-      'addClass': 'none',
-      'addSubClass': 'none',
-      'dropdownList': [
-        {
-          'd_name': 'Exclusions',
-          'd_icon': 'call_made',
-          'd_link': 'exclusions'
-        },
-        {
-          'd_name': 'Inclusions',
-          'd_icon': 'call_received',
-          'd_link': 'inclusions'
-        }
-      ]
+      'link': 'list-details',
+      'handler': 'doNothing',
+      'class': '',
     },
     {
-      'name': 'Authorized Service Center Management',
+      'name': 'ASC ',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -383,6 +451,68 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Service Center List',
           'd_icon': 'format_list_numbered',
           'd_link': 'serviceCenterList'
+        }
+      ]
+    },
+    {
+      'name': 'Verify',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Add Models',
+          'd_icon': 'add',
+          'd_link': 'addModels'
+        },
+        {
+          'd_name': 'Models',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'verifyModels'
+        }
+      ]
+    },
+    {
+      'name': 'Notification',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+
+        {
+          'd_name': 'Send Notification',
+          'd_icon': 'add',
+          'd_link': 'sendNotification'
+        }
+      ]
+    },
+    {
+      'name': 'Service Schedule',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Add Service Schedule',
+          'd_icon': 'add',
+          'd_link': 'addServiceSchedule'
+        },
+        {
+          'd_name': 'Service Schedule',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'serviceSchedule'
         }
       ]
     },
@@ -405,7 +535,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job Management',
+      'name': 'Job ',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -418,7 +548,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_icon': 'arrow_downward',
           'd_link': 'new'
         },
-
+        {
+          'd_name': 'Under Progress',
+          'd_icon': 'more_horiz',
+          'd_link': 'underProgress'
+        },
         {
           'd_name': 'Completed',
           'd_icon': 'check',
@@ -431,21 +565,21 @@ export class LeftPanelItemsComponent implements OnInit {
   constructor() {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     // console.log("info", info)
-    this.userType = info.UserType;
-    // console.log("userType", this.userType)
+    this.role_type = info.role_type;
+    // console.log("role_type", this.role_type)
 
-    if (this.userType === '1') {
+    if (this.role_type === 1) {
       this.LeftPanelItems = this.superAdmin;
       // console.log(this.superAdmin)
     }
 
-    else if (this.userType === '2') {
+    else if (this.role_type === 2) {
       this.LeftPanelItems = this.admin;
       // console.log(this.admin)
 
     }
 
-    else if (this.userType === '3' || this.userType === '4') {
+    else if (this.role_type === 3 || this.role_type === 4) {
       this.LeftPanelItems = this.ce_qe;
     }
   }

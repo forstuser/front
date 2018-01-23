@@ -1,23 +1,25 @@
 <div class="card">
     <div class="header">
         <h2>
-           Add New User
+            Add New User
         </h2>
     </div>
     <!-- <pre>{{newUserForm.value | json}}</pre> -->
     <div class="body">
-        <form class="form-horizontal" [formGroup]='newUserForm' (ngSubmit) = "addNewUser(newUserForm.value)">
+        <form class="form-horizontal" [formGroup]='newUserForm' (ngSubmit)="addNewUser(newUserForm.value)">
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
                     <label for="email_address_2">Select User Type</label>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                     <div class="form-group">
-                    <select class="form-control dropdown" formControlName="UserType">
-                        <option *ngFor="let user of users?.UserTypeList" [ngValue]="user.TypeID" >{{ user.Name }}</option>
-                    </select>
+                        <select class="form-control dropdown" formControlName="role_type">
+                            <option [ngValue]="2"> Admin</option>
+                            <option [ngValue]="3"> Quality Executive</option>
+                            <option [ngValue]="4"> Customer Executive</option>
+                        </select>
                     </div>
-                </div>  
+                </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
@@ -26,9 +28,9 @@
                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="Name" placeholder="Enter your name">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Enter your name">
                         </div>
-                        <p class="text-danger" *ngIf="!newUserForm.controls['Name'].valid && newUserForm.controls['Name'].touched">Name is required</p>
+                        <p class="text-danger" *ngIf="!newUserForm.controls['name'].valid && newUserForm.controls['name'].touched">Name is required</p>
                     </div>
                 </div>
             </div>
@@ -39,28 +41,28 @@
                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="text" class="form-control" formControlName="EmailID" placeholder="Enter your email address" required>
+                            <input type="text" class="form-control" formControlName="email" placeholder="Enter your email address" required>
                         </div>
-                        <p class="text-danger" *ngIf="!newUserForm.controls['EmailID'].valid && newUserForm.controls['EmailID'].touched">EmailID is required</p>
+                        <p class="text-danger" *ngIf="!newUserForm.controls['email'].valid && newUserForm.controls['email'].touched">email is required</p>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
-                    <label for="password_2">Password</label>
+                    <label for="password_2">password</label>
                 </div>
                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                     <div class="form-group">
                         <div class="form-line">
-                            <input type="password" formControlName="Password" class="form-control" placeholder="Enter your password" required>
+                            <input type="password" formControlName="password" class="form-control" placeholder="Enter your password" required>
                         </div>
-                        <p class="text-danger" *ngIf="!newUserForm.controls['Password'].valid && newUserForm.controls['Password'].touched">Password is required</p>
+                        <p class="text-danger" *ngIf="!newUserForm.controls['password'].valid && newUserForm.controls['password'].touched">password is required</p>
                     </div>
                 </div>
             </div>
             <div class="row clearfix">
                 <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                    <input type="submit" value="SUBMIT" class="btn btn-primary m-t-15 waves-effect" [disabled]="!newUserForm.valid" >
+                    <input type="submit" value="SUBMIT" class="btn btn-primary m-t-15 waves-effect" [disabled]="!newUserForm.valid">
                 </div>
             </div>
         </form>

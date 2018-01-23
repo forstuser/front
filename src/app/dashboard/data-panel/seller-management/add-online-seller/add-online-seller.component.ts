@@ -18,38 +18,17 @@ export class AddOnlineSellerComponent implements OnInit {
   constructor(private userService: UserService, private fb: FormBuilder, private functionService:FunctionService) {
    }
   ngOnInit() {
-      // get list of category
-      this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ' + getCat);
-      }); 
     this.onlineSellerForm = this.fb.group({
-      'Name' : ['', Validators.required],
-      'URL' : '',
-      'GstinNo': '',
-       Details: this.fb.array([ this.createItem(), ])
+      'seller_name' : ['', Validators.required],
+      'url' : ['', Validators.required],
+      'gstin': '',
+      'contact':'',
+      'email':''
     });
-  }
-  createItem() {
-    return this.fb.group({
-      'CategoryID':'',
-      'DetailTypeID': '',
-      'DisplayName': '',
-      'Details': '',
-    });
-  }
-  addItem() {
-    const control = <FormArray>this.onlineSellerForm.controls['Details'];
-    control.push(this.createItem());
-  }
-  removeDetails(i: number) {
-    const control = <FormArray>this.onlineSellerForm.controls['Details'];
-    control.removeAt(i);
   }
   //  create online seller function
   createOnlineSeller(data: OnlineSeller) {
-    console.log(data);
+    // console.log(data);
     this.userService.createOnlineSeller(data)
       .subscribe(res => {
         console.log(res);
