@@ -12,6 +12,7 @@ import { FunctionService } from './../../../../_services/function.service';
 })
 export class InsuranceProviderListComponent implements OnInit {
   insuranceProviders: any;
+  activeInsuranceProviders: any;
   editInsuranceForm: FormGroup;
   cat: Category;
   offset = 0;
@@ -22,16 +23,17 @@ export class InsuranceProviderListComponent implements OnInit {
   detailType: any;
   center = [];
   brand;
-  addInsuranceForm:FormGroup;
-  getCatList:any;
-  categories_id:any;
-  id:number;
-
+  addInsuranceForm: FormGroup;
+  getCatList: any;
+  categories_id: any;
+  id: number;
+  insuranceProviderId: number;
+  insuranceProviderNewId: number;
   constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.addInsuranceForm = this.fb.group({
       'name': ['', Validators.required],
-      'main_category_id':['',Validators.required],
-      'categories':'',
+      'main_category_id': ['', Validators.required],
+      'categories': '',
       'city': '',
       'state': '',
       'pincode': '',
@@ -43,13 +45,15 @@ export class InsuranceProviderListComponent implements OnInit {
       'pan_no': '',
       'email': '',
       'url': '',
-      'contact_no':'',
-      'status_type':"1",
-      'type':''
+      'contact_no': '',
+      'status_type': "1",
+      'type': ''
     });
   }
 
   ngOnInit() {
+    this.insuranceProviderList();
+    this.activeInsuranceProviderList();
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
@@ -63,11 +67,7 @@ export class InsuranceProviderListComponent implements OnInit {
     //   brand_id: new FormControl(''),
     //   details: new FormArray([])
     // });
-    this.userService.getInsuranceProviderList(this.offset)
-      .subscribe(insuranceProvider => {
-        this.insuranceProviders = insuranceProvider;
-        console.log(this.insuranceProviders);
-      });
+
     // get list of detail type
     this.userService.getDetailList()
       .subscribe(detail_type => {
@@ -76,6 +76,23 @@ export class InsuranceProviderListComponent implements OnInit {
       })
   }
 
+  // get list of all insurance provider
+  insuranceProviderList() {
+    this.userService.getInsuranceProviderList(this.offset)
+      .subscribe(insuranceProvider => {
+        this.insuranceProviders = insuranceProvider;
+        console.log(this.insuranceProviders);
+      });
+  }
+  // get list of active insurance provider
+  activeInsuranceProviderList() {
+    this.userService.getInsuranceProviderListByStatus(1)
+      .subscribe((res) => {
+        this.activeInsuranceProviders = res;
+      }, (err) => {
+        console.log(err);
+      })
+  }
   // function for pagination
   left() {
     this.leftFlag = true;
@@ -85,7 +102,7 @@ export class InsuranceProviderListComponent implements OnInit {
       this.offset = this.offset - 50;
       this.leftFlag = false;
     }
-    this.userService.getAllBrandList(this.offset)
+    this.userService.getInsuranceProviderList(this.offset)
       .subscribe(insuranceProvider => {
         console.log(insuranceProvider.statusCode)
         this.rightFlag = false;
@@ -98,67 +115,32 @@ export class InsuranceProviderListComponent implements OnInit {
     this.noData = false;
     this.leftFlag = false;
     this.offset = this.offset + 50;
-    this.userService.getAllBrandList(this.offset)
+    this.userService.getInsuranceProviderList(this.offset)
       .subscribe(insuranceProvider => {
         console.log(insuranceProvider, "insuranceProviders")
         if (insuranceProvider.data.length == 0) {
           this.rightFlag = true;
           this.noData = true;
         }
-        // this.insuranceProviders = insuranceProvider;
-        // console.log(this.insuranceProviders);
+        this.insuranceProviders = insuranceProvider;
       });
   }
-  // function for add row in detials field
-  // createItem() {
-  //   return this.fb.group({
-  //     'id': [null],
-  //     'category_id': [null],
-  //     'detail_type': [null],
-  //     'value': [null]
-  //   });
-  // }
-  // addItem() {
-  //   const control = <FormArray>this.editBrandForm.controls['details'];
-  //   control.push(this.createItem());
-  // }
-
-
-  // removeDetails(i: number) {
-  //   const control = <FormArray>this.editBrandForm.controls['details'];
-  //   control.removeAt(i);
-  // }
-
-
-  // removeItem(item, data) {
-  //   console.log(data, "bhai data")
-  //   console.log(item, data, "brandsssss")
-  //   this.center = data.brand_id;
-  //   console.log(item, item['_value'], "catId");
-  //   this.brand = item['_value'];
-
-  //   this.userService.removeBrandDetails(this.brand, this.center)
-  //     .subscribe(res => {
-  //       console.log(res);
-  //       alert('Detail deleted successfully');
-  //     });
-  // }
   // passs current brand id as argument and open the popup
   openInsuranceProvider(item) {
-    console.log(item,"edit data");
-    this.id=item.id
+    console.log(item, "edit data");
+    this.id = item.id
     this.showBrandList = false;
     this.userService.getCategoryList(1)
-    .subscribe(res=>{
-      console.log(res,"categorylist")
-      this.getCatList=res;
-      console.log(this.getCatList,"list of category")
-    })
+      .subscribe(res => {
+        console.log(res, "categorylist")
+        this.getCatList = res;
+        console.log(this.getCatList, "list of category")
+      })
     // reset  editBrand form
     this.editInsuranceForm = new FormGroup({
       'name': new FormControl(''),
-      'main_category_id':new FormControl(''),
-      'categories':new FormControl(''),
+      'main_category_id': new FormControl(''),
+      'categories': new FormControl(''),
       'city': new FormControl(''),
       'state': new FormControl(''),
       'pincode': new FormControl(''),
@@ -170,14 +152,14 @@ export class InsuranceProviderListComponent implements OnInit {
       'pan_no': new FormControl(''),
       'email': new FormControl(''),
       'url': new FormControl(''),
-      'contact_no':new FormControl(''),
+      'contact_no': new FormControl(''),
       'type': new FormControl('')
     })
-  
+
     // get information of current selected brand
     this.userService.getInsuranceProviderID(item.id)
       .subscribe(res => {
-        console.log(res.data.name,"edit form");
+        console.log(res.data.name, "edit form");
         this.showBrandList = false;
         // prop autofill data to form
         this.editInsuranceForm.controls['name'].setValue(res.data.name);
@@ -197,37 +179,20 @@ export class InsuranceProviderListComponent implements OnInit {
         this.editInsuranceForm.controls['contact_no'].setValue(res.data.contact_no);
         this.editInsuranceForm.controls['categories'].setValue(res.data.categories);
         this.editInsuranceForm.controls['type'].setValue(res.data.type);
-        
-        // res.data.details.forEach(
-        //   (po) => {
-        //     (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
-        //   });
       });
   }
-
-
-  // createDetailsFormGroup(payOffObj) {
-  //   console.log(payOffObj);ra
-  //   return new FormGroup({
-  //     id: new FormControl(payOffObj.id),
-  //     category_id: new FormControl(payOffObj.category_id),
-  //     detail_type: new FormControl(payOffObj.detail_type),
-  //     value: new FormControl(payOffObj.value)
-  //   });
-  // }
-
-  onSelect(catId){
-    console.log(catId,"id");
+  onSelect(catId) {
+    console.log(catId, "id");
     this.userService.getSubCategoryList(catId)
-    .subscribe(res=>{
-      this.cat=res.data;
-      console.log(this.cat,"subCategoriesss")
-    })
+      .subscribe(res => {
+        this.cat = res.data;
+        console.log(this.cat, "subCategoriesss")
+      })
   }
 
-  onSelectCat(refId){
-    this.categories_id=refId;
-    console.log("this.categories_id",this.categories_id)
+  onSelectCat(refId) {
+    this.categories_id = refId;
+    console.log("this.categories_id", this.categories_id)
   }
 
   updateBrand(data: any) {
@@ -240,7 +205,7 @@ export class InsuranceProviderListComponent implements OnInit {
         // console.log(res);
         alert('brand updated successfully');
         this.showBrandList = true;
-        this.userService.getAllBrandList(this.offset)
+        this.userService.getAllBrandList()
           .subscribe(insuranceProvider => {
             this.insuranceProviders = insuranceProvider;
             console.log(this.insuranceProviders);
@@ -251,36 +216,36 @@ export class InsuranceProviderListComponent implements OnInit {
 
   // delete insurance provider
   deleteInsuranceProvide(brandId: number) {
-    console.log("deleteBrandId",brandId)
-        this.userService.deleteInsuranceProvider(brandId)
-          .subscribe(insuranceProvider => {
-            alert("successfully deleted")
-            this.userService.getCategoryList(2) // 2 for category refer to api doc
-            .subscribe(getCat => {
-              this.cat = getCat;
-              console.log('category is ' + getCat);
-            });
-          },error=>{
-              console.log(error);
-              const err = JSON.parse(error['_body']);
-              alert(err.reason);
+    console.log("deleteBrandId", brandId)
+    this.userService.deleteInsuranceProvider(brandId)
+      .subscribe(insuranceProvider => {
+        alert("successfully deleted")
+        this.userService.getCategoryList(2) // 2 for category refer to api doc
+          .subscribe(getCat => {
+            this.cat = getCat;
+            console.log('category is ' + getCat);
           });
+      }, error => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      });
   }
 
   createInsurance(data: any) {
-    const iD=this.id
+    const iD = this.id
     console.log('data:', data);
     data.categories = data.categories.map((item) => {
-    return  {
-    category_id: item
+      return {
+        category_id: item
       };
     });
     console.log('data:::::', data);
-  // if (this.checkCategoryValues(data.center_details)) {
-    this.userService.updateInsuranceProvider(data,iD)
+    // if (this.checkCategoryValues(data.center_details)) {
+    this.userService.updateInsuranceProvider(data, iD)
       .subscribe(res => {
         console.log(res);
-        alert('New Service center added succesfully');
+        alert('New Insurance Provide updated succesfully');
         this.addInsuranceForm.reset();
       },
       error => {
@@ -288,8 +253,35 @@ export class InsuranceProviderListComponent implements OnInit {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       });
-  // } else {
+    // } else {
     // alert('Please select category first !');
+  }
+  // get list of insurance provider according to status
+  onSelectStatus(req) {
+    if (req == 1 || req == 2 || req == 11) {
+      this.userService.getInsuranceProviderListByStatus(req)
+        .subscribe(brandList => {
+          this.insuranceProviders = brandList;
+          console.log(this.insuranceProviders);
+        })
+    } else {
+      this.insuranceProviderList();
+    }
+  }
+  // link brand
+  onClickUserInsuranceProvider(req) {
+
+    this.insuranceProviderId = req;
+  }
+  onSelectInsuranceProvider(req) {
+    this.insuranceProviderNewId = req;
+  }
+  linkBrand() {
+    this.userService.verifyUserInsuranceProviders(this.insuranceProviderId, this.insuranceProviderNewId)
+      .subscribe(res => {
+        alert("Insurance provider Replaced Successfully")
+        this.insuranceProviderList();
+      })
   }
   avoidSpace(e) {
     console.log(e);

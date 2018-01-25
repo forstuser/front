@@ -13,10 +13,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfflineSellerListComponent implements OnInit {
   offlineSeller: OfflineSeller;
+  activeOfflineSellers: any;
   showDialog = false;
   offlineSellerForm: FormGroup;
   cat: Category;
   showOfflineSellerList: boolean = true; // for toggle form
+  offlineSellerNewId: number;
+  offlineSellerId: number;
   constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
   }
 
@@ -41,11 +44,23 @@ export class OfflineSellerListComponent implements OnInit {
       contact_no: new FormControl(''),
       status_type: new FormControl('')
     });
+    this.allOfflineSeller();
+    this.activeOfflineSeller();
+  }
+  // get all offline seller list
+  allOfflineSeller() {
     this.userService.getOfflineSellerList()
       .subscribe(offlineSellerList => {
         this.offlineSeller = offlineSellerList;
         console.log(this.offlineSeller);
       });
+  }
+  activeOfflineSeller() {
+    this.userService.getOfflineSellerListByStatus(1)
+      .subscribe(res => {
+        this.activeOfflineSellers = res;
+        console.log(this.activeOfflineSellers);
+      })
   }
 
   // passs current brand id as argument and open the popup
@@ -126,6 +141,34 @@ export class OfflineSellerListComponent implements OnInit {
             this.offlineSeller = offlineSellerList;
           });
       });
+  }
+  // get list of brand according to status
+  onSelectStatus(req) {
+    console.log(req);
+    if (req == 1 || req == 2 || req == 11) {
+      this.userService.getOfflineSellerListByStatus(req)
+        .subscribe(res => {
+          this.offlineSeller = res;
+          console.log(this.offlineSeller);
+        })
+    } else {
+      this.allOfflineSeller();
+    }
+
+  }
+  // link brand
+  onClickUserOfflineSeller(req) {
+    this.offlineSellerId = req;
+  }
+  onSelectOfflineSeller(req) {
+    this.offlineSellerNewId = req;
+  }
+  linkOfflineSeller() {
+    this.userService.verifyUserOfflineSeller(this.offlineSellerId, this.offlineSellerNewId)
+      .subscribe(res => {
+        alert("Offline Seller Replaced Successfully")
+        this.allOfflineSeller();
+      })
   }
   // back button 
   back() {

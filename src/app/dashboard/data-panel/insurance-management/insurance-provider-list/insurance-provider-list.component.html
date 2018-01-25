@@ -6,6 +6,34 @@
     </h2>
   </div>
   <div class="body table-responsive">
+    <div class="row">
+      <div class="col-md-3">
+        <label>
+          Select Status Type
+        </label>
+        <div>
+          <select class="form-control dropdown" (change)="onSelectStatus($event.target.value)">
+            <option>Select</option>
+            <option value='all'>All</option>
+            <option value='1'>Verified</option>
+            <option value='2'>Un Verified</option>
+            <option value='11'>User Created</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- <nav>
+              <ul class="pager">
+                <li [ngClass]="{ 'disabled': leftFlag }">
+                  <a class="waves-effect" (click)="left()">Previous</a>
+                </li>
+                <li [ngClass]="{ 'disabled': rightFlag }">
+                  <a class="waves-effect" (click)="right()">Next</a>
+                </li>
+              </ul>
+            </nav> -->
+      </div>
+    </div>
     <nav>
       <ul class="pager">
         <li [ngClass]="{ 'disabled': leftFlag }">
@@ -21,7 +49,7 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <th>url</th>
+          <!-- <th>url</th> -->
           <th>Action</th>
           <th>Email</th>
           <th>Contact Number</th>
@@ -32,12 +60,15 @@
         <tr>
           <th scope="row">{{ i+1+offset}}</th>
           <td>{{ list?.name }}</td>
-          <td>{{ list?.url }}</td>
+          <!-- <td>{{ list?.url }}</td> -->
           <td *ngIf="list?.status_type=='1'">
             <span class="label bg-green">Active</span>
           </td>
           <td *ngIf="list?.status_type=='2'">
             <span class="label bg-red">InActive</span>
+          </td>
+          <td *ngIf="list?.status_type=='11'">
+            <span class="label bg-orange">User Created</span>
           </td>
           <td>{{ list?.email }}</td>
           <td>{{ list?.contact_no }}</td>
@@ -45,7 +76,8 @@
             <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openInsuranceProvider(list)" title="Edit">
               <i class="material-icons">mode_edit</i>
             </span>
-            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteInsuranceProvide(list.id)" title="Delete">
+            <span *ngIf="list?.status_type===11" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteInsuranceProvider.open();onClickUserInsuranceProvider(list?.id)"
+              title="Delete">
               <i class="material-icons">delete</i>
             </span>
           </td>
@@ -279,3 +311,23 @@
     </form>
   </div>
 </div>
+<modal #deleteInsuranceProvider [closeOnOutsideClick]="true" modalClass="modal-md">
+  <modal-content>
+    <label>
+      Replace this Insurance Provider to existing one
+    </label>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <select class="form-control dropdown" (change)="onSelectInsuranceProvider($event.target.value)">
+            <option>Select Insurance Provider</option>
+            <option *ngFor="let list of activeInsuranceProviders?.data; let i = index" [value]="list?.id">{{list?.name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-info btn-block btn-md" (click)="linkBrand();deleteInsuranceProvider.close()">Replace</button>
+      </div>
+    </div>
+  </modal-content>
+</modal>

@@ -11,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BrandListComponent implements OnInit {
   brands: Brand;
+  activeBrands: any;
   editBrandForm: FormGroup;
   cat: Category;
-  offset = 0;
+  // offset = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
@@ -21,10 +22,14 @@ export class BrandListComponent implements OnInit {
   detailType: any;
   center = [];
   brand;
+  brandNewId: number;
+  brandId: number;
   constructor(private userService: UserService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
+    this.allBrands();
+    this.activeBrandList();
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
@@ -38,11 +43,6 @@ export class BrandListComponent implements OnInit {
       brand_id: new FormControl(''),
       details: new FormArray([])
     });
-    this.userService.getAllBrandList(this.offset)
-      .subscribe(brandList => {
-        this.brands = brandList;
-        console.log(this.brands);
-      });
     // get list of detail type
     this.userService.getDetailList()
       .subscribe(detail_type => {
@@ -50,40 +50,56 @@ export class BrandListComponent implements OnInit {
         console.log(this.detailType);
       })
   }
+  // get list of all brands
+  allBrands() {
+    this.userService.getAllBrandList()
+      .subscribe(brandList => {
+        this.brands = brandList;
+        console.log(this.brands);
+      });
+  }
+  // get list of verified brands 
+  activeBrandList() {
+    this.userService.getBrandListByStatus(1)
+      .subscribe(brandList => {
+        this.activeBrands = brandList;
+        console.log(this.brands);
+      })
+  }
 
   // function for pagination
-  left() {
-    this.leftFlag = true;
-    this.rightFlag = false;
-    this.noData = false;
-    if (this.offset > 1) {
-      this.offset = this.offset - 50;
-      this.leftFlag = false;
-    }
-    this.userService.getAllBrandList(this.offset)
-      .subscribe(brandList => {
-        console.log(brandList.statusCode)
-        this.rightFlag = false;
-        this.brands = brandList;
-        console.log(this.brands);
-      });
-  }
+  // left() {
+  //   this.leftFlag = true;
+  //   this.rightFlag = false;
+  //   this.noData = false;
+  //   if (this.offset > 1) {
+  //     this.offset = this.offset - 50;
+  //     this.leftFlag = false;
+  //   }
+  //   this.userService.getAllBrandList(this.offset)
+  //     .subscribe(brandList => {
+  //       console.log(brandList.statusCode)
+  //       this.rightFlag = false;
+  //       this.brands = brandList;
+  //       console.log(this.brands);
+  //     });
+  // }
 
-  right() {
-    this.noData = false;
-    this.leftFlag = false;
-    this.offset = this.offset + 50;
-    this.userService.getAllBrandList(this.offset)
-      .subscribe(brandList => {
-        console.log(brandList, "brandlist")
-        if (brandList.data.length == 0) {
-          this.rightFlag = true;
-          this.noData = true;
-        }
-        this.brands = brandList;
-        console.log(this.brands);
-      });
-  }
+  // right() {
+  //   this.noData = false;
+  //   this.leftFlag = false;
+  //   this.offset = this.offset + 50;
+  //   this.userService.getAllBrandList(this.offset)
+  //     .subscribe(brandList => {
+  //       console.log(brandList, "brandlist")
+  //       if (brandList.data.length == 0) {
+  //         this.rightFlag = true;
+  //         this.noData = true;
+  //       }
+  //       this.brands = brandList;
+  //       console.log(this.brands);
+  //     });
+  // }
   // function for add row in detials field
   createItem() {
     return this.fb.group({
@@ -106,8 +122,6 @@ export class BrandListComponent implements OnInit {
 
 
   removeItem(item, data) {
-    console.log(data, "bhai data")
-    console.log(item, data, "brandsssss")
     this.center = data.brand_id;
     console.log(item, item['_value'], "catId");
     this.brand = item['_value'];
@@ -168,7 +182,7 @@ export class BrandListComponent implements OnInit {
         // console.log(res);
         alert('brand updated successfully');
         this.showBrandList = true;
-        this.userService.getAllBrandList(this.offset)
+        this.userService.getAllBrandList()
           .subscribe(brandList => {
             this.brands = brandList;
             console.log(this.brands);
@@ -183,15 +197,39 @@ export class BrandListComponent implements OnInit {
       .subscribe(res => {
         // console.log(res);
         alert('brand deleted successfully');
-        this.userService.getAllBrandList(this.offset)
-          .subscribe(brandList => {
-            this.brands = brandList;
-            console.log(this.brands);
-          });
+        this.allBrands();
       });
   }
 
-
+  // get list of brand according to status
+  onSelectStatus(req) {
+    if (req == 1 || req == 2 || req == 11) {
+      this.userService.getBrandListByStatus(req)
+        .subscribe(brandList => {
+          this.brands = brandList;
+          console.log(this.brands);
+        })
+    } else {
+      this.allBrands();
+    }
+  }
+  // link brand
+  onClickUserBrand(req) {
+    this.brandId = req;
+    console.log("Old Brand Id is", req)
+  }
+  onSelectBrand(req) {
+    console.log(req);
+    this.brandNewId = req;
+    console.log("New Brand Id is", req)
+  }
+  linkBrand() {
+    this.userService.verifyUserBrands(this.brandId, this.brandNewId)
+      .subscribe(res => {
+        alert("Brand Replaced Successfully")
+        this.allBrands();
+      })
+  }
   back() {
     this.showBrandList = true;
   }

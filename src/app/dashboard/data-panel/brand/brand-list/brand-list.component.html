@@ -6,16 +6,35 @@
     </h2>
   </div>
   <div class="body table-responsive">
-    <nav>
-      <ul class="pager">
-        <li [ngClass]="{ 'disabled': leftFlag }">
-          <a class="waves-effect" (click)="left()">Previous</a>
-        </li>
-        <li [ngClass]="{ 'disabled': rightFlag }">
-          <a class="waves-effect" (click)="right()">Next</a>
-        </li>
-      </ul>
-    </nav>
+    <div class="row">
+      <div class="col-md-3">
+        <label>
+          Select Status Type
+        </label>
+        <div>
+          <select class="form-control dropdown" (change)="onSelectStatus($event.target.value)">
+            <option>Select</option>
+            <option value='all'>All</option>
+            <option value='1'>Verified</option>
+            <option value='2'>Un Verified</option>
+            <option value='11'>User Created</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- <nav>
+          <ul class="pager">
+            <li [ngClass]="{ 'disabled': leftFlag }">
+              <a class="waves-effect" (click)="left()">Previous</a>
+            </li>
+            <li [ngClass]="{ 'disabled': rightFlag }">
+              <a class="waves-effect" (click)="right()">Next</a>
+            </li>
+          </ul>
+        </nav> -->
+      </div>
+    </div>
+
     <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
       <thead>
         <tr>
@@ -28,7 +47,7 @@
       </thead>
       <tbody *ngFor="let list of brands?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+1+offset}}</th>
+          <th scope="row">{{ i+1}}</th>
           <td>{{ list?.brand_name }}</td>
           <td>{{ list?.brand_description }}</td>
           <td *ngIf="list?.status_type=='2'">
@@ -45,7 +64,8 @@
             <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="openBrandModel(list)" title="Edit">
               <i class="material-icons">mode_edit</i>
             </span>
-            <span class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteBrand(list?.brand_id)" title="Delete">
+            <span *ngIf="list?.status_type===11" class="btn btn-danger btn-circle waves-effect waves-circle waves-float" (click)="deleteBrand.open();onClickUserBrand(list?.brand_id)"
+              title="Delete">
               <i class="material-icons">delete</i>
             </span>
           </td>
@@ -158,3 +178,23 @@
     </form>
   </div>
 </div>
+<modal #deleteBrand [closeOnOutsideClick]="true" modalClass="modal-md">
+  <modal-content>
+    <label>
+      Replace this Brand to existing one
+    </label>
+    <div class="row">
+      <div class="col-md-6">
+        <div>
+          <select class="form-control dropdown" (change)="onSelectBrand($event.target.value)">
+            <option>Select Brand</option>
+            <option *ngFor="let list of activeBrands?.data; let i = index" [value]="list?.brand_id">{{list?.brand_name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-info btn-block btn-md" (click)="linkBrand();deleteBrand.close()">Replace</button>
+      </div>
+    </div>
+  </modal-content>
+</modal>
