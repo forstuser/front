@@ -62,11 +62,11 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // search mobile notfication
-        searchMobile(user,role_type){
+        searchMobile(user, role_type) {
                 this.getCSRF();
                 // const data = JSON.stringify(user);
                 // console.log(data);
-                return this.http.get(this.apiLink + 'api/users?role_type=' + role_type+'&mobile_no='+user, this.options)
+                return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&mobile_no=' + user, this.options)
                         .map((response: Response) => response.json());
         }
         // Delete user
@@ -97,7 +97,7 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/categories?category_level=' + Level, this.options)
                         .map((response: Response) => response.json());
         }
-       
+
         // get category list by category id
         getSubCategoryList(catID: number) {
                 this.getCSRF();
@@ -105,34 +105,35 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // add subcategory list
-        addSubCategory(data){
+        addSubCategory(data) {
                 // console.log(data,"bhai form submit")
                 this.getCSRF();
                 const datas = JSON.stringify(data);
                 console.log(data);
-                return this.http.post(this.apiLink + 'api/categories/' , datas,this.options)
-                .map((response: Response) => response.json());        }
+                return this.http.post(this.apiLink + 'api/categories/', datas, this.options)
+                        .map((response: Response) => response.json());
+        }
         //add models
-        addModal(data){
-        this.getCSRF();
-        const datas = JSON.stringify(data);
-        console.log(data);
-        return this.http.post(this.apiLink + 'api/brand/dropdowns' , datas,this.options)
-        .map((response: Response) => response.json());   
-     }
+        addModal(data) {
+                this.getCSRF();
+                const datas = JSON.stringify(data);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/brand/dropdowns', datas, this.options)
+                        .map((response: Response) => response.json());
+        }
 
-        updateModel(data,id){
-        console.log(data,"post data model")
-        this.getCSRF();
-        // const id = data.id;
-        // delete data['id'];
-        // if (user.password == null) {
-        //         delete user['password'];
-        // }
-        const datas = JSON.stringify(data);
-        console.log(datas);
-        return this.http.put(this.apiLink + 'api/brand/dropdowns/' + id, datas, this.options)
-                .map((response: Response) => response.json());
+        updateModel(data, id) {
+                console.log(data, "post data model")
+                this.getCSRF();
+                // const id = data.id;
+                // delete data['id'];
+                // if (user.password == null) {
+                //         delete user['password'];
+                // }
+                const datas = JSON.stringify(data);
+                console.log(datas);
+                return this.http.put(this.apiLink + 'api/brand/dropdowns/' + id, datas, this.options)
+                        .map((response: Response) => response.json());
         }
 
         // Create Main category
@@ -144,35 +145,35 @@ export class UserService {
         }
 
         //service schedule get
-        serviceSchedule(){
-        this.getCSRF();
-        return this.http.get(this.apiLink + 'api/serviceSchedules', this.options)
-                .map((response: Response) => response.json());
+        serviceSchedule() {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/serviceSchedules', this.options)
+                        .map((response: Response) => response.json());
         }
         // edit schedule
-        editServiceSchedule(schedule,id){
-        this.getCSRF();
-        // const data = JSON.stringify(schedule);
-        // console.log(data);
-        return this.http.get(this.apiLink + 'api/serviceSchedules/'+id, this.options)
-                .map((response: Response) => response.json());
+        editServiceSchedule(schedule, id) {
+                this.getCSRF();
+                // const data = JSON.stringify(schedule);
+                // console.log(data);
+                return this.http.get(this.apiLink + 'api/serviceSchedules/' + id, this.options)
+                        .map((response: Response) => response.json());
         }
 
         // update schedule
-        updateServiceSchedule(schedule,id){
-        this.getCSRF();                
-        const data = JSON.stringify(schedule);
-        console.log(data);
-        return this.http.put(this.apiLink + 'api/serviceSchedules/'+id,data, this.options)
-                .map((response: Response) => response.json());
+        updateServiceSchedule(schedule, id) {
+                this.getCSRF();
+                const data = JSON.stringify(schedule);
+                console.log(data);
+                return this.http.put(this.apiLink + 'api/serviceSchedules/' + id, data, this.options)
+                        .map((response: Response) => response.json());
         }
         // post service schedule
-        addServiceSchedule(schedule){
-        this.getCSRF();
-        const data = JSON.stringify(schedule);
-        console.log(data);
-        return this.http.post(this.apiLink + 'api/serviceSchedules',data, this.options)
-                .map((response: Response) => response.json());
+        addServiceSchedule(schedule) {
+                this.getCSRF();
+                const data = JSON.stringify(schedule);
+                console.log(data);
+                return this.http.post(this.apiLink + 'api/serviceSchedules', data, this.options)
+                        .map((response: Response) => response.json());
         }
         //delete schedule
         deleteSchedule(id) {
@@ -182,8 +183,8 @@ export class UserService {
         // Create category form
         createCategoryForm(category: any) {
                 console.log(category, "categoriesssss")
-                const forms=category.category_forms;
-                console.log(forms,"formsss")
+                const forms = category.category_forms;
+                console.log(forms, "formsss")
                 this.getCSRF();
                 const id = category.category_id;
                 delete category['category_id'];
@@ -191,7 +192,7 @@ export class UserService {
                         item.main_category_id = category.ref_id;
                         return item;
                 }).filter((item) => item.form_type);
-                const data = JSON.stringify(category);                
+                const data = JSON.stringify(category);
                 console.log(data);
                 return this.http.post(this.apiLink + 'api/categories', data, this.options).map((response: Response) => response.json());
         }
@@ -316,6 +317,12 @@ export class UserService {
                 return this.http.get(this.apiLink + 'api/offlineSeller', this.options)
                         .map((response: Response) => response.json());
         }
+        // get offline seller by status
+        getOfflineSellerListByStatus(status) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/offlineSeller?status_type=' + status, this.options)
+                        .map((response: Response) => response.json());
+        }
         // get offline seller list by query
         getOfflineSellerListByQuery(query: string) {
                 this.getCSRF();
@@ -352,23 +359,44 @@ export class UserService {
                 this.getCSRF();
                 return this.http.delete(this.apiLink + 'api/offlineSeller/' + sellerId, this.options).map((response: Response) => response);
         }
+        // verify user created offline seller
+        verifyUserOfflineSeller(oldId, newId) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/offlineSeller/' + oldId + '/replace/' + newId, this.options).map((response: Response) => response);
+        }
         // Insurance Provider
         getInsuranceProviderList(off) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/insurance/brands?status=1&limit=50&offset=' + off, this.options)
+                return this.http.get(this.apiLink + 'api/insurance/brands?limit=50&offset=' + off, this.options)
                         .map((response: Response) => response.json());
+        }
+        getInsuranceProviderListByStatus(status) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/insurance/brands?status_type=' + status, this.options)
+                        .map((response: Response) => response.json());
+        }
+
+        // link user created insurance provider to verified insurance providers
+        verifyUserInsuranceProviders(oldId, newId) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/insurance/brands/' + oldId + '/replace/' + newId, this.options).map((response: Response) => response);
         }
         // Brand
         // get All brand list
-        getAllBrandList(off) {
+        getAllBrandList() {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/brands?limit=50&offset=' + off, this.options)
+                return this.http.get(this.apiLink + 'api/brands', this.options)
                         .map((response: Response) => response.json());
         }
         // get User Created brand list
         getUserBrandList(off) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/brands?status=11&limit=50&offset=' + off, this.options)
+                        .map((response: Response) => response.json());
+        }
+        getBrandListByStatus(status) {
+                this.getCSRF();
+                return this.http.get(this.apiLink + 'api/brands?status_type=' + status, this.options)
                         .map((response: Response) => response.json());
         }
         // get User Created brand list
@@ -396,16 +424,16 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/brands', data, this.options).map((response: Response) => response.json());
         }
         //verify brand
-        verifyBrand(brandId,statusId){
-                const data = { 'status_type':statusId}
+        verifyBrand(brandId, statusId) {
+                const data = { 'status_type': statusId }
                 this.getCSRF();
-                return this.http.put(this.apiLink + 'api/brands/' + brandId, data, this.options).map((response: Response) => response.json());                
+                return this.http.put(this.apiLink + 'api/brands/' + brandId, data, this.options).map((response: Response) => response.json());
         }
         //verify brand model
-        verifyBrandModel(dropdownId,statusId){
-                const data = { 'status_type':statusId}
+        verifyBrandModel(dropdownId, statusId) {
+                const data = { 'status_type': statusId }
                 this.getCSRF();
-                return this.http.put(this.apiLink + 'api/brand/dropdowns/' + dropdownId, data, this.options).map((response: Response) => response.json());                
+                return this.http.put(this.apiLink + 'api/brand/dropdowns/' + dropdownId, data, this.options).map((response: Response) => response.json());
         }
         // Delete brand
         deleteBrand(brandId: any) {
@@ -443,6 +471,11 @@ export class UserService {
                 return this.http.delete(this.apiLink + 'api/brands/' + center + '/details/' + id, this.options)
                         .map((response: Response) => response.json());
         }
+        // link user created brand to verified brands
+        verifyUserBrands(oldId, newId) {
+                this.getCSRF();
+                return this.http.delete(this.apiLink + 'api/brands/' + oldId + '/replace/' + newId, this.options).map((response: Response) => response);
+        }
         // get authorized service center list
         getAuthorizedServiceCenterList(off) {
                 this.getCSRF();
@@ -450,9 +483,9 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         //search by center name
-        getCategoryListSearch(offset,event) {
+        getCategoryListSearch(offset, event) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset='+offset+'&center_name='+event, this.options)
+                return this.http.get(this.apiLink + 'api/servicecenters?limit=100&offset=' + offset + '&center_name=' + event, this.options)
                         .map((response: Response) => response.json());
         }
         // Create authorized service center
@@ -483,22 +516,22 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // Warranty Provider
-        warrantyProvider(type){
+        warrantyProvider(type) {
                 this.getCSRF();
                 return this.http.get(this.apiLink + 'api/insurance/brands?type=type', this.options)
                         .map((response: Response) => response.json());
         }
         //update Insurance provider
-        updateInsuranceProvider(insurance: any,ID) {
-                console.log("id",ID)
+        updateInsuranceProvider(insurance: any, ID) {
+                console.log("id", ID)
                 this.getCSRF();
-                Object.keys(insurance).forEach((key) => (insurance[key] == '' || insurance[key] == null) && delete insurance[key]);                
+                Object.keys(insurance).forEach((key) => (insurance[key] == '' || insurance[key] == null) && delete insurance[key]);
                 const data = JSON.stringify(insurance);
                 console.log(data);
-                return this.http.put(this.apiLink + 'api/insurance/brands/'+ID, data, this.options).map((response: Response) => response.json());
+                return this.http.put(this.apiLink + 'api/insurance/brands/' + ID, data, this.options).map((response: Response) => response.json());
         }
 
-        
+
         // Delete authorized service center
         DeleteAuthorizedServiceCenter(center_id: any) {
                 this.getCSRF();
@@ -822,8 +855,8 @@ export class UserService {
                 return this.http.post(this.apiLink + 'api/products/' + product_id + '/pucs', data, this.options)
                         .map((response: Response) => response.json());
         }
-        updatePuc(puc: any,id,product_id) {
-                console.log(puc,"post puc data")
+        updatePuc(puc: any, id, product_id) {
+                console.log(puc, "post puc data")
                 this.getCSRF();
                 // const pucId = puc['id'];
                 // const product_id = puc.product_id;

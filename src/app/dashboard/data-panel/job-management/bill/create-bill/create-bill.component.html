@@ -949,10 +949,10 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
-                <span *ngFor="let image of selectedImageArray;">
-                  <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
-                </span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="imageView.open();" >{{i+1}}</span>
+                  <span *ngFor="let image of selectedImageArray;">
+                    <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+                  </span>
                 <p></p>
               </div>
               <ng-template #elseBlock>
@@ -3283,6 +3283,26 @@
     <div class="text-center" *ngIf="loader">
       <h1>Please Wait ...</h1>
       <img src="../../../assets/images/loader.gif" alt="">
+    </div>
+  </modal-content>
+</modal>
+<modal #alertBox [closeOnOutsideClick]="true" modalClass="modal-md">
+  <modal-content>
+    <div class="body">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                  <div class="form-line">
+                      <input type="text" class="form-control" name="Comments" placeholder="Enter Comment"  #commentInput>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+            <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>    
+        </div>
+      </div>
     </div>
   </modal-content>
 </modal>
