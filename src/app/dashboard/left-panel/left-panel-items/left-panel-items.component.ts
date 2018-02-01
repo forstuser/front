@@ -455,6 +455,28 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
+      'name': 'Insurance Provider ',
+      'icon': 'receipt',
+      'link': '#',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addActive': 'none',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'Add Insurance Provider',
+          'd_icon': 'add',
+          'd_link': 'addinsuranceProvider'
+        },
+        {
+          'd_name': 'Insurance Provider List',
+          'd_icon': 'format_list_numbered',
+          'd_link': 'insuranceProviderList'
+        }
+      ]
+    },
+    {
       'name': 'Verify',
       'icon': 'receipt',
       'link': '#',

@@ -4,7 +4,7 @@ import { FunctionService } from './../../../../../_services/function.service';
 import { appConfig } from './../../../../../app.config';
 import { UserService } from './../../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm, Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { NgForm, Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 declare var webGlObject: any;
@@ -15,8 +15,11 @@ declare var webGlObject: any;
 })
 export class CreateBillComponent implements OnInit {
   public offlineSellerForm: FormGroup;
-  puc_id:number;
-  product_ids:number;
+  public editOfflineSellerForm: FormGroup;
+  sellerIdforSellerInfo: number;
+  sellerInfoObject: any;
+  puc_id: number;
+  product_ids: number;
   ceId: number;
   jobId: number;
   userId: number;
@@ -32,8 +35,8 @@ export class CreateBillComponent implements OnInit {
   imageArray: any[] = [];
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
-  selectedPucImageArray:any[]=[];
-  selectedEditPucImageArray: any[] = [];  
+  selectedPucImageArray: any[] = [];
+  selectedEditPucImageArray: any[] = [];
   selectedEditWarrantyImageArray: any[] = [];
   selectedInsuranceImageArray: any[] = [];
   selectedEditInsuranceImageArray: any[] = [];
@@ -66,8 +69,8 @@ export class CreateBillComponent implements OnInit {
   insuranceFormObjectForBind: any;
   amcEditFormObject: any;
   amcFormObjectForBind: any;
-  pucEditFormObject:any;
-  pucFormObjectForBind:any;
+  pucEditFormObject: any;
+  pucFormObjectForBind: any;
   repairEditFormObject: any;
   repairFormObjectForBind: any;
   productFormObjectForBind: any;
@@ -80,9 +83,9 @@ export class CreateBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
-  pucObject:any;
+  pucObject: any;
   productMetaDataForBind: any;
-  catForms:any;
+  catForms: any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -100,8 +103,8 @@ export class CreateBillComponent implements OnInit {
   showAmcForm: boolean = false;
   showAmcEditForm = false;
   showRepairForm: boolean = false;
-  showPucForm:boolean=false;
-  showPucEditForm:boolean=false;  
+  showPucForm: boolean = false;
+  showPucEditForm: boolean = false;
   showRepairEditForm: boolean = false;
   productFormEdit: boolean = false;
   imagerotation: number = 0;
@@ -120,9 +123,9 @@ export class CreateBillComponent implements OnInit {
   caseButton: boolean = false;
   showProductList: boolean = false;
   myExtObject: any;
-  warrProvider:any;
-  insurancProvider:any;
-  type:number;
+  warrProvider: any;
+  insurancProvider: any;
+  type: number;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -134,6 +137,7 @@ export class CreateBillComponent implements OnInit {
     webGlObject.init();
     this.warrantyProvider();
     this.insuranceProvider();
+    this.editOfflineSellerFB();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -144,7 +148,6 @@ export class CreateBillComponent implements OnInit {
         this.userId = res.data.user_id;
         this.imageArray = res.data.copies;
         console.log(this.imageArray, "image array")
-        // console.log(this.imageArray,"image ka array");
         this.imageArrayLength = this.imageArray.length;
         // console.log(this.imageArrayLength, "image length")
         if (this.imageArray.length == 0) {
@@ -160,22 +163,23 @@ export class CreateBillComponent implements OnInit {
       )
   }
 
-  warrantyProvider(){
-    this.type=2
+  warrantyProvider() {
+    this.type = 2
     this.userService.warrantyProvider(this.type)
-    .subscribe(res=>{
-      this.warrProvider=res.data;
-      console.log(this.warrProvider,"Warranty Provider List")
-    })
+      .subscribe(res => {
+        this.warrProvider = res.data;
+        // console.log(this.warrProvider, "Warranty Provider List")
+      })
   }
 
-  insuranceProvider(){
-    this.type=1
+  insuranceProvider() {
+    this.type = 1
     this.userService.warrantyProvider(this.type)
-    .subscribe(res=>{
-      this.insurancProvider=res.data;
-      console.log(this.insurancProvider,"Insurance Provider List")
-    })
+      .subscribe(res => {
+        console.log(res, "insurance provider")
+        this.insurancProvider = res.data;
+        // console.log(this.insurancProvider, "Insurance Provider List")
+      })
   }
   // prev image
   prevImage() {
@@ -260,7 +264,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceForm = false;
     this.showAmcForm = false;
     this.showRepairForm = false;
-    this.onSelectCat2(this.catId);    
+    this.onSelectCat2(this.catId);
   }
   // complete job
   completeJob() {
@@ -327,7 +331,7 @@ export class CreateBillComponent implements OnInit {
         'category_id': this.catId,
         'main_category_id': this.mainCatId,
         'product_name': form.value.product_name,
-        'model':form.value.model,
+        'model': form.value.model,
         'purchase_cost': form.value.purchase_cost,
         'document_date': form.value.document_date,
         'copies': this.selectedImageArray || [],
@@ -380,10 +384,10 @@ export class CreateBillComponent implements OnInit {
       this.productEditObject = {
         'category_id': form.value.category_id,
         'main_category_id': form.value.main_category_id,
-        'sub_category_id':form.value.sub_category_id,
+        'sub_category_id': form.value.sub_category_id,
         'document_date': form.value.document_date,
         'product_name': form.value.product_name,
-        'model':form.value.model,
+        'model': form.value.model,
         'purchase_cost': form.value.purchase_cost,
         'copies': this.selectedImageArray,
         'taxes': form.value.taxes,
@@ -399,7 +403,7 @@ export class CreateBillComponent implements OnInit {
       const editFilterData = form.value;
       console.log("Edit Filter Data", editFilterData);
       delete editFilterData['product_name'];
-      delete editFilterData['model'];      
+      delete editFilterData['model'];
       delete editFilterData['purchase_cost'];
       delete editFilterData['taxes'];
       delete editFilterData['brand_id'];
@@ -475,7 +479,7 @@ export class CreateBillComponent implements OnInit {
     this.catId = catID;
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
-        this.catForms = res.data.subCategories;        
+        this.catForms = res.data.subCategories;
         this.catForm = res.data.categoryForms;
         console.log(this.catForm, "category form");
         // this.showProductForm = true;
@@ -497,7 +501,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getBrandListByCategory(catID)
       .subscribe(brandList => {
         this.brands = brandList;
-        console.log(this.brands, "brands");
+        // console.log(this.brands, "brands");
       });
   }
   // color list
@@ -611,8 +615,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
-      'provider_id':form.value.provider_id,
-      'warranty_type':form.value.warranty_type,
+      'provider_id': form.value.provider_id,
+      'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -673,8 +677,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
-      'provider_id':form.value.provider_id,     
-      'warranty_type':form.value.warranty_type,
+      'provider_id': form.value.provider_id,
+      'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -709,6 +713,7 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
+      'provider_id': form.value.provider_id,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'amount_insured': form.value.amount_insured,
@@ -735,6 +740,7 @@ export class CreateBillComponent implements OnInit {
       });
   }
   editInsuranceForm(ins) {
+    console.log(ins, "insurance form data")
     this.getOfflineSellerList();
     this.insuranceId = ins.id;
     this.selectedEditInsuranceImageArray = ins.copies;
@@ -768,8 +774,7 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
-      'provider_id':form.value.type,
-      
+      'provider_id': form.value.provider_id,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'amount_insured': form.value.amount_insured,
@@ -805,8 +810,8 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
-      'provider_id':form.value.provider_id,
-      
+      'provider_id': form.value.provider_id,
+
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
@@ -901,6 +906,8 @@ export class CreateBillComponent implements OnInit {
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
       'repair_taxes': form.value.repair_taxes,
+      'warranty_upto': form.value.warranty_upto,
+      'repair_for': form.value.repair_for,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
       'job_id': this.jobId,
@@ -923,7 +930,7 @@ export class CreateBillComponent implements OnInit {
       });
   }
   editRepairForm(rep) {
-   
+    console.log(rep)
     this.getOfflineSellerList();
     this.repairId = rep.id;
     this.selectedEditRepairImageArray = rep.copies;
@@ -958,6 +965,8 @@ export class CreateBillComponent implements OnInit {
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
       'repair_taxes': form.value.repair_taxes,
+      'warranty_upto': form.value.warranty_upto,
+      'repair_for': form.value.repair_for,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
       'job_id': this.jobId,
@@ -989,7 +998,7 @@ export class CreateBillComponent implements OnInit {
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
-      'created_at':form.value.created_at,
+      'created_at': form.value.created_at,
       // 'online_seller_id': form.value.online_seller_id,
       // 'provider_id':form.value.provider_id,
       // 'warranty_type':form.value.warranty_type,
@@ -1019,15 +1028,15 @@ export class CreateBillComponent implements OnInit {
   }
 
   editPucForm(rep) {
-    this.puc_id=rep.id;
-    this.product_ids=rep.product_id;
-    console.log(rep,"puc")
+    this.puc_id = rep.id;
+    this.product_ids = rep.product_id;
+    console.log(rep, "puc")
     this.getOfflineSellerList();
     this.repairId = rep.id;
     this.selectedPucImageArray = rep.copies;
     this.pucFormObjectForBind = rep;
     this.addons = false;
-    this.showPucEditForm=true;    
+    this.showPucEditForm = true;
     this.showRepairForm = false;
     this.showWarrantyForm = false;
     this.showInsuranceForm = false;
@@ -1072,7 +1081,7 @@ export class CreateBillComponent implements OnInit {
       // 'product_id': this.productId,
       'copies': this.selectedEditPucImageArray
     }
-    this.userService.updatePuc(this.pucEditFormObject,this.puc_id,this.product_ids)
+    this.userService.updatePuc(this.pucEditFormObject, this.puc_id, this.product_ids)
       .subscribe(res => {
         console.log(res)
         alert("Puc Updated");
@@ -1100,6 +1109,7 @@ export class CreateBillComponent implements OnInit {
     this.selectedImageArray = prod.copies;
     this.fillProductForm(this.productId);
     this.productFormObjectForBind = prod;
+    this.sellerIdforSellerInfo = prod.seller_id;
     this.addons = true;
     this.cockpit = false;
     this.cockpit2 = false;
@@ -1157,6 +1167,52 @@ export class CreateBillComponent implements OnInit {
       'contact_no': ''
     });
   }
+  // initialize edit seller form 
+  editOfflineSellerFB() {
+    this.editOfflineSellerForm = new FormGroup({
+      sid: new FormControl(''),
+      seller_name: new FormControl(''),
+      owner_name: new FormControl(''),
+      gstin: new FormControl(''),
+      pan_no: new FormControl(''),
+      reg_no: new FormControl(''),
+      is_service: new FormControl(''),
+      is_onboarded: new FormControl(''),
+      address: new FormControl(''),
+      city: new FormControl(''),
+      state: new FormControl(''),
+      pincode: new FormControl(''),
+      latitude: new FormControl(''),
+      longitude: new FormControl(''),
+      url: new FormControl(''),
+      email: new FormControl(''),
+      contact_no: new FormControl(''),
+      status_type: new FormControl('')
+    });
+  }
+  // populate edit offfline form
+  fillEditOfflineSellerForm() {
+    this.editOfflineSellerForm.setValue({
+      sid: this.sellerInfoObject.sid,
+      owner_name: this.sellerInfoObject.owner_name,
+      seller_name: this.sellerInfoObject.seller_name,
+      gstin: this.sellerInfoObject.gstin,
+      pan_no: this.sellerInfoObject.pan_no,
+      reg_no: this.sellerInfoObject.reg_no,
+      is_service: this.sellerInfoObject.is_service,
+      is_onboarded: this.sellerInfoObject.is_onboarded,
+      address: this.sellerInfoObject.address,
+      city: this.sellerInfoObject.city,
+      state: this.sellerInfoObject.state,
+      pincode: this.sellerInfoObject.pincode,
+      latitude: this.sellerInfoObject.latitude,
+      longitude: this.sellerInfoObject.longitude,
+      url: this.sellerInfoObject.url,
+      email: this.sellerInfoObject.email,
+      contact_no: this.sellerInfoObject.contact_no,
+      status_type: this.sellerInfoObject.status_type,
+    })
+  }
   createOfflineSeller(data) {
     console.log(data);
     this.userService.createOfflineSeller(data)
@@ -1166,9 +1222,31 @@ export class CreateBillComponent implements OnInit {
         this.offlineSellerForm.reset();
       });
   }
+  // this function changes the id after select dropdown
+  changeSellerId(req) {
+    console.log(req);
+    this.sellerIdforSellerInfo = req;
+  }
+  sellerEdit() {
+    console.log(this.sellerIdforSellerInfo);
+    this.userService.getOfflineSellerDetailsbyID(this.sellerIdforSellerInfo)
+      .subscribe(res => {
+        this.sellerInfoObject = res.data;
+        this.fillEditOfflineSellerForm();
+        console.log(res);
+      })
+  }
+  updateOfflineSeller(req) {
+    this.userService.updateOfflineSeller(req)
+      .subscribe(res => {
+        // console.log(res);
+        alert('Offline Seller updated successfully');
+      });
+  }
   // ******************************** Small Functions ***********************************//
   //select image 
   selectImage() {
+    console.log(this.imageArray[this.imageIndex]);
     if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added 1")
     } else {
@@ -1291,7 +1369,7 @@ export class CreateBillComponent implements OnInit {
     this.showWarrantyForm = false;
     this.showInsuranceForm = false;
     this.showAmcForm = false;
-    this.showPucForm=false;
+    this.showPucForm = false;
     this.showRepairForm = false;
   }
   showAddWarrantyForm() {
@@ -1301,7 +1379,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = false;
-    this.showPucForm=false;
+    this.showPucForm = false;
     // this.addons = false;
   }
   showAddInsuranceForm() {
@@ -1311,7 +1389,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = true;
     this.showRepairForm = false;
-    this.showPucForm=false;
+    this.showPucForm = false;
   }
   showAddAmcForm() {
     this.getOfflineSellerList();
@@ -1320,7 +1398,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = true;
     this.showInsuranceForm = false
     this.showRepairForm = false;
-    this.showPucForm=false;
+    this.showPucForm = false;
   }
   showAddRepairForm() {
     this.getOfflineSellerList();
@@ -1329,14 +1407,14 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = true;
-    this.showPucForm=false;
+    this.showPucForm = false;
   }
-  showAddPucForm(){
+  showAddPucForm() {
     this.showWarrantyForm = false;
     this.showAmcForm = false;
     this.showInsuranceForm = false
     this.showRepairForm = false;
-    this.showPucForm=true;
+    this.showPucForm = true;
   }
 
   backtoAddons() {
@@ -1346,10 +1424,11 @@ export class CreateBillComponent implements OnInit {
     this.showAmcEditForm = false;
     this.showRepairEditForm = false;
     this.productFormEdit = false;
-    this.showPucEditForm=false;
+    this.showPucEditForm = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {
     this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
+    this.functionService.NoWhitespaceValidator(this.editOfflineSellerForm, e)
   }
 }
