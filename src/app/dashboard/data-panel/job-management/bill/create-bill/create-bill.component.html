@@ -906,8 +906,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="main_category_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}"
-                  disabled>
+                <select class="form-control dropdown" name="main_category_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>
                 </select>
@@ -921,8 +920,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}"
-                  disabled>
+                <select class="form-control dropdown" name="category_id" (change)="onSelectCat2($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
                 </select>
@@ -949,10 +947,10 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="imageView.open();" >{{i+1}}</span>
-                  <span *ngFor="let image of selectedImageArray;">
-                    <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
-                  </span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
+                <span *ngFor="let image of selectedImageArray;">
+                  <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+                </span>
                 <p></p>
               </div>
               <ng-template #elseBlock>
@@ -974,7 +972,7 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">model</label>
+              <label class="font-small">Model</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1057,12 +1055,17 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="seller_id" ngModel="{{productFormObjectForBind?.seller_id}}">
+                <select class="form-control dropdown" name="seller_id" (ngModelChange)="changeSellerId($event)" ngModel="{{productFormObjectForBind?.seller_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
             </div>
           </div>
@@ -1659,7 +1662,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                  <input type="text" name="renewal_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -1671,7 +1674,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -1851,7 +1854,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_cost}}">
+                  <input type="text" name="renewal_cost" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_cost}}">
                 </div>
               </div>
             </div>
@@ -1863,7 +1866,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_taxes}}">
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel="{{warrantyFormObjectForBind?.renewal_taxes}}">
                 </div>
               </div>
             </div>
@@ -1961,6 +1964,37 @@
           </div>
           <p></p>
           <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="warranty_type" ngModel="{{warrantyFormObjectForBind?.warranty_type}}">
+                  <option value="">Select</option>
+                  <option value="1">Normal</option>
+                  <option value="2">Extended</option>
+                  <option value="3">Dual</option>
+                  <option value="4">Accessories</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
             <div class="col-md-4 col-md-offset-7">
               <button class="btn bg-green btn-block btn-lg" type="submit">Update Warranty</button>
             </div>
@@ -2011,7 +2045,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                  <input type="text" name="renewal_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2023,7 +2057,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2189,7 +2223,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_cost}}">
+                  <input type="text" name="renewal_cost" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_cost}}">
                 </div>
               </div>
             </div>
@@ -2201,7 +2235,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_taxes}}">
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel="{{insuranceFormObjectForBind?.renewal_taxes}}">
                 </div>
               </div>
             </div>
@@ -2296,6 +2330,20 @@
                 <select class="form-control dropdown" name="online_seller_id" ngModel="{{insuranceFormObjectForBind?.online_seller_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Insurance Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel="{{insuranceFormObjectForBind?.provider_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}</option>
                 </select>
               </div>
             </div>
@@ -2504,7 +2552,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_cost}}">
+                  <input type="text" name="renewal_cost" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_cost}}">
                 </div>
               </div>
             </div>
@@ -2516,7 +2564,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_taxes}}">
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel="{{amcFormObjectForBind?.renewal_taxes}}">
                 </div>
               </div>
             </div>
@@ -2655,7 +2703,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel>
+                  <input type="text" name="renewal_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2667,7 +2715,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel>
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2800,7 +2848,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="repair_cost" class="form-control" ngModel>
+                  <input type="text" name="repair_cost" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2825,6 +2873,30 @@
               <div class="form-group">
                 <div class="form-line">
                   <input type="date" name="document_date" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Upto</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="warranty_upto" class="form-control" ngModel>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Repair For</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="repair_for" class="form-control" ngModel>
                 </div>
               </div>
             </div>
@@ -2912,7 +2984,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_cost}}">
+                  <input type="text" name="renewal_cost" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_cost}}">
                 </div>
               </div>
             </div>
@@ -2924,7 +2996,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_taxes}}">
+                  <input type="text" name="renewal_taxes" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_taxes}}">
                 </div>
               </div>
             </div>
@@ -3085,6 +3157,30 @@
               <div class="form-group">
                 <div class="form-line">
                   <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Upto</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="warranty_upto" class="form-control" ngModel="{{repairFormObjectForBind?.warranty_upto}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Repair For</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="repair_for" class="form-control" ngModel="{{repairFormObjectForBind?.repair_for}}">
                 </div>
               </div>
             </div>
@@ -3290,19 +3386,274 @@
   <modal-content>
     <div class="body">
       <div class="row">
-          <div class="col-md-12">
-              <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" class="form-control" name="Comments" placeholder="Enter Comment"  #commentInput>
-                  </div>
-              </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" class="form-control" name="Comments" placeholder="Enter Comment" #commentInput>
+            </div>
           </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12 text-right">
-            <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>    
+          <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>
         </div>
       </div>
+    </div>
+  </modal-content>
+</modal>
+<modal #sellerBox [closeOnOutsideClick]="true" modalClass="modal-md right">
+  <modal-content>
+    <div class="body">
+      <h4>Edit Offline Seller</h4>
+      <form class="form-horizontal" [formGroup]='editOfflineSellerForm' (ngSubmit)="updateOfflineSeller(editOfflineSellerForm.value)">
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <span style="color:red">*</span>
+              <small>Name</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="seller_name" class="form-control" (keyup)="avoidSpace('seller_name')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Owner Name</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="owner_name" class="form-control" (keyup)="avoidSpace('owner_name')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Gstin No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="gstin" class="form-control" (keyup)="avoidSpace('gstin')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Pan No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="pan_no" class="form-control" (keyup)="avoidSpace('pan_no')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Reg No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="reg_no" class="form-control" (keyup)="avoidSpace('reg_no')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>is Service?</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" formControlName="is_service">
+                  <option [ngValue]="true"> Yes</option>
+                  <option [ngValue]="false"> No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Is Onboarded?</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" formControlName="is_onboarded">
+                  <option [ngValue]="true"> Yes</option>
+                  <option [ngValue]="false"> No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4>
+          <u>Address </u>
+        </h4>
+        <hr>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Address</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="address" class="form-control" (keyup)="avoidSpace('address')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>City</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="city" class="form-control" (keyup)="avoidSpace('city')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>State</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="state" class="form-control" (keyup)="avoidSpace('state')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>PinCode</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="pincode" class="form-control" (keyup)="avoidSpace('pincode')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Latitude</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="latitude" class="form-control" (keyup)="avoidSpace('latitude')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Longitude</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="longitude" class="form-control" (keyup)="avoidSpace('longitude')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>URL</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="url" class="form-control" (keyup)="avoidSpace('url')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Email</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="email" class="form-control" (keyup)="avoidSpace('email')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Contact No.</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" formControlName="contact_no" class="form-control" (keyup)="avoidSpace('contact_no')">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="Status">
+              <small>Status</small>
+            </label>
+          </div>
+          <!-- <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" formControlName="status_type">
+                  <option [ngValue]="1"> Active</option>
+                  <option [ngValue]="2"> InActive</option>
+                </select>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div class="row clearfix">
+          <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5">
+            <button type="submit" class="btn btn-lg btn-success btn-block m-t-15 waves-effect" [disabled]="!editOfflineSellerForm.valid">Update</button>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn bg-red btn-md btn-lg" type="submit" (click)="sellerBoxData(commentInput.value);sellerBox.close()">Update Seller</button>
+        </div>
+      </div> -->
     </div>
   </modal-content>
 </modal>
