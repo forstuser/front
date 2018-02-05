@@ -516,9 +516,9 @@ export class UserService {
                         .map((response: Response) => response.json());
         }
         // Warranty Provider
-        warrantyProvider(type) {
+        warrantyProvider(type: Number) {
                 this.getCSRF();
-                return this.http.get(this.apiLink + 'api/insurance/brands?type=type', this.options)
+                return this.http.get(this.apiLink + 'api/insurance/brands?type=' + type, this.options)
                         .map((response: Response) => response.json());
         }
         //update Insurance provider
