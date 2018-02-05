@@ -33,12 +33,12 @@
           </div>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
-          <label for="name ">Select Sub Category</label>
+          <label for="name ">Select Category</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
-              <option [value]="">Select Subcategory</option>
+              <option [value]="">Select Category</option>
               <option *ngFor="let subCategory of cat" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
             </select>
           </div>

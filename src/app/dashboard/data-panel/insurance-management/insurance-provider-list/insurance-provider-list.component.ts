@@ -60,13 +60,6 @@ export class InsuranceProviderListComponent implements OnInit {
         this.cat = getCat;
         console.log('category is ' + getCat);
       });
-    // this.editBrandForm = new FormGroup({
-    //   brand_name: new FormControl(''),
-    //   brand_description: new FormControl(''),
-    //   status_type: new FormControl(1),
-    //   brand_id: new FormControl(''),
-    //   details: new FormArray([])
-    // });
 
     // get list of detail type
     this.userService.getDetailList()
@@ -132,7 +125,6 @@ export class InsuranceProviderListComponent implements OnInit {
     this.showBrandList = false;
     this.userService.getCategoryList(1)
       .subscribe(res => {
-        console.log(res, "categorylist")
         this.getCatList = res;
         console.log(this.getCatList, "list of category")
       })
@@ -159,11 +151,12 @@ export class InsuranceProviderListComponent implements OnInit {
     // get information of current selected brand
     this.userService.getInsuranceProviderID(item.id)
       .subscribe(res => {
-        console.log(res.data.name, "edit form");
+        console.log(res.data, "edit form");
         this.showBrandList = false;
         // prop autofill data to form
         this.editInsuranceForm.controls['name'].setValue(res.data.name);
         this.editInsuranceForm.controls['main_category_id'].setValue(res.data.main_category_id);
+        this.onSelect(res.data.main_category_id);
         this.editInsuranceForm.controls['city'].setValue(res.data.city);
         // this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
         this.editInsuranceForm.controls['state'].setValue(res.data.state);
@@ -177,8 +170,9 @@ export class InsuranceProviderListComponent implements OnInit {
         this.editInsuranceForm.controls['email'].setValue(res.data.email);
         this.editInsuranceForm.controls['url'].setValue(res.data.url);
         this.editInsuranceForm.controls['contact_no'].setValue(res.data.contact_no);
-        this.editInsuranceForm.controls['categories'].setValue(res.data.categories);
+        this.editInsuranceForm.controls['categories'].setValue(res.data.details);
         this.editInsuranceForm.controls['type'].setValue(res.data.type);
+
       });
   }
   onSelect(catId) {
