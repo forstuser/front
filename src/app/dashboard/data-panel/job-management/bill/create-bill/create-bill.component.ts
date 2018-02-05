@@ -1247,53 +1247,72 @@ export class CreateBillComponent implements OnInit {
   //select image 
   selectImage() {
     console.log(this.imageArray[this.imageIndex]);
+    this.selectedImageArray = this.selectedImageArray || [];
     if (this.selectedImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added 1")
     } else {
       this.selectedImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedWarrantyImageArray = this.selectedWarrantyImageArray || [];
     if (this.selectedWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added 2")
     } else {
       this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedPucImageArray = this.selectedPucImageArray || [];
     if (this.selectedPucImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 2")
+      console.log("Image Already Added 3")
     } else {
       this.selectedPucImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedEditWarrantyImageArray = this.selectedEditWarrantyImageArray || [];
     if (this.selectedEditWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 3")
+      console.log("Image Already Added 4")
     } else {
       this.selectedEditWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedInsuranceImageArray = this.selectedInsuranceImageArray || [];
     if (this.selectedInsuranceImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 4")
+      console.log("Image Already Added 5")
     } else {
       this.selectedInsuranceImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedEditInsuranceImageArray = this.selectedEditInsuranceImageArray || [];
     if (this.selectedEditInsuranceImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 5")
+      console.log("Image Already Added 6")
     } else {
       this.selectedEditInsuranceImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedAmcImageArray = this.selectedAmcImageArray || [];
     if (this.selectedAmcImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 6")
+      console.log("Image Already Added 7")
     } else {
       this.selectedAmcImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedEditAmcImageArray = this.selectedEditAmcImageArray || [];
     if (this.selectedEditAmcImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 7")
+      console.log("Image Already Added 8")
     } else {
       this.selectedEditAmcImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedRepairImageArray = this.selectedRepairImageArray || [];
     if (this.selectedRepairImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 8")
+      console.log("Image Already Added 9")
     } else {
       this.selectedRepairImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedEditRepairImageArray = this.selectedEditRepairImageArray || [];
     if (this.selectedEditRepairImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 9")
+      console.log("Image Already Added 10")
     }
     else {
       this.selectedEditRepairImageArray.push(this.imageArray[this.imageIndex]);
@@ -1429,6 +1448,5 @@ export class CreateBillComponent implements OnInit {
   // function for avoid only space submit
   avoidSpace(e) {
     this.functionService.NoWhitespaceValidator(this.offlineSellerForm, e)
-    this.functionService.NoWhitespaceValidator(this.editOfflineSellerForm, e)
   }
 }
