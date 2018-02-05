@@ -96,7 +96,7 @@
   <div class="modal-header">
     <button class="btn bg-blue" (click)="back()">Back</button>
     <hr>
-    <h4 class="modal-title" id="smallModalLabel">Edit Service Center</h4>
+    <h4 class="modal-title" id="smallModalLabel">Edit Insurance Provider</h4>
   </div>
   <div class="body">
     <form class="form-horizontal" [formGroup]='editInsuranceForm' (ngSubmit)="createInsurance(editInsuranceForm.value)">
@@ -127,12 +127,12 @@
           </div>
         </div>
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
-          <label for="name ">Select Brand</label>
+          <label for="name ">Select Category</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
-              <option>Select Subcategory</option>
+              <option>Select Category</option>
               <option *ngFor="let subCategory of cat?.subCategories" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
             </select>
           </div>
