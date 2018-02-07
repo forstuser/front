@@ -120,7 +120,7 @@ export class InsuranceProviderListComponent implements OnInit {
   }
   // passs current brand id as argument and open the popup
   openInsuranceProvider(item) {
-    console.log(item, "edit data");
+    // console.log(item, "edit data");
     this.id = item.id
     this.showBrandList = false;
     this.userService.getCategoryList(1)

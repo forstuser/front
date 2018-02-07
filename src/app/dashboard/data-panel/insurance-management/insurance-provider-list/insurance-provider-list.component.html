@@ -59,7 +59,7 @@
       <tbody *ngFor="let list of insuranceProviders?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+offset}}</th>
-          <td>{{ list?.name }}</td>
+          <td class="fix-width">{{ list?.name }}</td>
           <!-- <td>{{ list?.url }}</td> -->
           <td *ngIf="list?.status_type=='1'">
             <span class="label bg-green">Active</span>
