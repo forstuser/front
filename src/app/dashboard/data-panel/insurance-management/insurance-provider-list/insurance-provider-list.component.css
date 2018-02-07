@@ -1,9 +1,15 @@
 .margin-right {
   margin-right: 25px;
 }
+
 .pager {
   text-align: right;
 }
+
 .disabled {
   display: none;
+}
+
+.fix-width {
+  word-break: break-all;
 }

@@ -37,8 +37,8 @@
       <tbody *ngFor="let list of offlineSeller?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1 }}</th>
-          <td>{{ list.seller_name }}</td>
-          <td>{{ list.address }}</td>
+          <td class="fix-width">{{ list.seller_name }}</td>
+          <td class="fix-width">{{ list.address }}</td>
           <td>{{ list.city }}</td>
           <td>{{ list.state }}</td>
           <td *ngIf="list?.status_type=='1'">

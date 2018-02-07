@@ -1059,7 +1059,11 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" (ngModelChange)="changeSellerId($event)" ngModel="{{productFormObjectForBind?.seller_id}}">
                   <option value="">Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span style="color:orange">
+                      <span *ngIf="list?.status_type==11">(User Created)</span>
+                    </span>
+                  </option>
                 </select>
               </div>
             </div>
