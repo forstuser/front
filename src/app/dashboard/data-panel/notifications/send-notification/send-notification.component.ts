@@ -9,26 +9,27 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 
 export class SendNotificationComponent implements OnInit {
 
-  assignForm:FormGroup;
-  notification:any;
-  categoryArray: any[] = [];  
+  assignForm: FormGroup;
+  notification: any;
+  categoryArray: any[] = [];
 
-  constructor(private userService: UserService,private fb: FormBuilder) { 
+  constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
-      'description': ['',Validators.required],
-      'image_url':['',Validators.required],
-      'title':'',
-      'notification_type':'',
-      'user_id':''
+      'description': '',
+      'image_url': '',
+      'link': '',
+      'title': ['', Validators.required],
+      'notification_type': ['', Validators.required],
+      'user_id': ''
     });
-   }
+  }
 
   ngOnInit() {
     this.userService.getUserListNotification(5)
-    .subscribe(res=>{
-      console.log(res)
-      this.notification=res.data;
-    })
+      .subscribe(res => {
+        console.log(res)
+        this.notification = res.data;
+      })
   }
 
   clicked(event, id) {
@@ -42,24 +43,24 @@ export class SendNotificationComponent implements OnInit {
     console.log(this.categoryArray);
   }
 
-  addNotification(form){
-    form['user_id']=this.categoryArray;
-    console.log(form,"notify")
+  addNotification(form) {
+    form['user_id'] = this.categoryArray;
+    console.log(form, "notify")
     this.userService.sendNotification(form)
-    .subscribe(res=>{
-      console.log(res,"resposnse")
-    })
+      .subscribe(res => {
+        console.log(res, "resposnse")
+      })
   }
 
-  mobileChange(event){
-    console.log("event",event);
-    this.userService.searchMobile(event,5)
-    .subscribe(res=>{
-      if(event){
-      this.notification=res.data;      
-      console.log(res,"response")
-      }
-    })
+  mobileChange(event) {
+    console.log("event", event);
+    this.userService.searchMobile(event, 5)
+      .subscribe(res => {
+        if (event) {
+          this.notification = res.data;
+          console.log(res, "response")
+        }
+      })
   }
-  
+
 }

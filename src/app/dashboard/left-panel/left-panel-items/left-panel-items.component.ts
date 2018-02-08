@@ -228,7 +228,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Verify',
+      'name': 'Brand Models',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -269,7 +269,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'serviceSchedule',
+      'name': 'Service Schedule',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -477,7 +477,7 @@ export class LeftPanelItemsComponent implements OnInit {
       ]
     },
     {
-      'name': 'Verify',
+      'name': 'Brand Models',
       'icon': 'receipt',
       'link': '#',
       'class': 'menu-toggle',
@@ -512,7 +512,7 @@ export class LeftPanelItemsComponent implements OnInit {
         {
           'd_name': 'Send Notification',
           'd_icon': 'add',
-          'd_link': 'sendNotification'
+          'd_link': 'sendNotifications'
         }
       ]
     },
