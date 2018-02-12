@@ -1,7 +1,6 @@
 <div class="card">
   <div class="row clearfix">
     <!--**********************************************IMAGE****************************************** -->
-
     <!-- Image Panel Start -->
     <div class="col-md-6">
       <p></p>
@@ -32,8 +31,7 @@
         <tr>
           <td style="padding: 10px">
             <div class="imagelist" align="center">
-              <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%"
-                style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
+              <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
               <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
             </div>
           </td>
@@ -41,7 +39,6 @@
       </table>
     </div>
     <!-- Image Panel End -->
-
     <!--**********************************************DATA ****************************************** -->
     <div class="col-md-6">
       <!-- JOB Details Start -->
@@ -208,7 +205,7 @@
             <div class="row clearfix">
               <div class="col-md-5" style="border: 1px solid black;width:48%">
                 <div *ngIf="productData?.warranties?.length > 0">
-                  <div class="body table-responsive" style="padding-bottom:0px;">
+                  <div class="body table-responsive" style="padding:0px;">
                     <table class="table table-condensed">
                       <thead>
                         <tr>
@@ -246,7 +243,7 @@
               </div>
               <div class="col-md-5" style="border: 1px solid black;width:48%">
                 <div *ngIf="jobDetails?.insurances?.length > 0">
-                  <div class="body table-responsive" style="padding-bottom:0px;">
+                  <div class="body table-responsive" style="padding:0px;">
                     <table class="table table-condensed">
                       <thead>
                         <tr>
@@ -286,7 +283,7 @@
             <div class="row clearfix">
               <div class="col-md-5" style="border: 1px solid black;width:48%">
                 <div *ngIf="jobDetails?.amcs?.length > 0">
-                  <div class="body table-responsive" style="padding-bottom:0px;">
+                  <div class="body table-responsive" style="padding:0px;">
                     <table class="table table-condensed">
                       <thead>
                         <tr>
@@ -325,7 +322,7 @@
               </div>
               <div class="col-md-5" style="border: 1px solid black;width:48%">
                 <div *ngIf="jobDetails?.repairs?.length > 0">
-                  <div class="body table-responsive" style="padding-bottom:0px;">
+                  <div class="body table-responsive" style="padding:0px;">
                     <table class="table table-condensed">
                       <thead>
                         <tr>
@@ -383,7 +380,6 @@
         </div>
         <br>
       </div>
-
       <!--complete job popup -->
       <app-dialog [(visible)]="completeJobDialog">
         <div class="modal-header">
@@ -393,13 +389,11 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <h3>Are You sure you want to complete the job?</h3>
             </div>
-
           </div>
           <div class="row clearfix">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-
               <button class="btn bg-green btn-block btn-lg" type="submit" (click)="completeJob();completeJobDialog=false;">YES</button>
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -410,7 +404,6 @@
           </div>
         </div>
       </app-dialog>
-
       <!-- JOB Details End -->
       <!-- Reassign Start -->
       <app-dialog [(visible)]="reassignDialog">
@@ -440,7 +433,6 @@
         </div>
       </app-dialog>
       <!-- Reassign End -->
-
       <!-- Product Buttons Start -->
       <div *ngIf="cockpit">
         <p></p>
@@ -452,11 +444,11 @@
             <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoForm()">Bill General Info</button>
           </div>
           <!-- <div class="col-md-4">
-							<button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Offline Seller</button>
-						</div> -->
+              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Offline Seller</button>
+            </div> -->
         </div>
         <div *ngIf="jobDetails?.products?.length > 0">
-          <div class="body table-responsive" style="padding-bottom:0px;">
+          <div class="body table-responsive" style="padding:0px;">
             <table class="table table-condensed">
               <thead>
                 <tr>
@@ -527,8 +519,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}"
-                      disabled>
+                    <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}" disabled>
                   </div>
                 </div>
               </div>
@@ -540,8 +531,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}"
-                      disabled>
+                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}" disabled>
                   </div>
                 </div>
               </div>
@@ -553,8 +543,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}"
-                      disabled>
+                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}" disabled>
                   </div>
                 </div>
               </div>
@@ -566,8 +555,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}"
-                      disabled>
+                    <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}" disabled>
                   </div>
                 </div>
               </div>
@@ -580,8 +568,7 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                      disabled>
+                    <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                   </div>
                 </div>
               </div>
@@ -610,7 +597,6 @@
         </form>
       </div>
       <!-- BILL General Info Edit End-->
-
       <!-- Seller Form Start -->
       <div *ngIf="showSellerForm">
         <form class="form-horizontal" [formGroup]='offlineSellerForm' (ngSubmit)="createOfflineSeller(offlineSellerForm.value)">
@@ -838,9 +824,9 @@
           </div>
         </div>
         <div class="row clearfix">
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:96%">
             <div *ngIf="productData?.warranties?.length > 0">
-              <div class="body table-responsive" style="padding-bottom:0px;">
+              <div class="body table-responsive" style="padding:0px;">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
@@ -876,9 +862,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:96%">
             <div *ngIf="productData?.insurances?.length > 0">
-              <div class="body table-responsive" style="padding-bottom:0px;">
+              <div class="body table-responsive" style="padding:0px;">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
@@ -916,9 +902,9 @@
           </div>
         </div>
         <div class="row clearfix">
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:96%">
             <div *ngIf="productData?.amcs?.length > 0">
-              <div class="body table-responsive" style="padding-bottom:0px;">
+              <div class="body table-responsive" style="padding:0px;">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
@@ -955,9 +941,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6" style="border: 1px solid black;width:48%">
+          <div class="col-md-12" style="border: 1px solid black;width:96%">
             <div *ngIf="productData?.repairs?.length > 0">
-              <div class="body table-responsive" style="padding-bottom:0px;">
+              <div class="body table-responsive" style="padding:0px;">
                 <table class="table table-condensed">
                   <thead>
                     <tr>
@@ -993,6 +979,44 @@
               </div>
             </div>
           </div>
+          <div class="col-md-12" style="border: 1px solid black;width:96%">
+            <div *ngIf="productData?.pucs?.length > 0">
+              <div class="body table-responsive" style="padding:0px;">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>
+                        <small>PUC ID</small>
+                      </th>
+                      <th>
+                        <small>Product ID</small>
+                      </th>
+                      <th>
+                        <small>Action</small>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let list of productData?.pucs">
+                      <th *ngIf="list?.product_id==productId">
+                        <small>{{ list?.id }}</small>
+                      </th>
+                      <th *ngIf="list?.product_id==productId">
+                        <small>{{ list?.product_id }}</small>
+                      </th>
+                      <th *ngIf="list?.product_id==productId">
+                        <small>
+                          <span class="btn btn-info btn-xs" title="Puc Info" (click)="editPucForm(list)">
+                            <i class="material-icons">insert_drive_file</i>
+                          </span>
+                        </small>
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- Addons Buttons End -->
@@ -1005,8 +1029,7 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
             <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}"
-                disabled>
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}" disabled>
                 <option value="">Select</option>
                 <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>
               </select>
@@ -1020,8 +1043,7 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
             <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}"
-                disabled>
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}" disabled>
                 <option value="">Select</option>
                 <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
               </select>
@@ -1030,7 +1052,6 @@
         </div>
       </div>
       <!-- Ask Category End -->
-
       <!-- Product Form Start -->
       <div *ngIf="showProductForm">
         <form #productForm="ngForm" (ngSubmit)="verifyProductFormData(productForm)">
@@ -1083,8 +1104,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1169,28 +1189,24 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
-                      disabled>
+                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
                   </div>
                 </div>
                 <p></p>
                 <div class="form-group" *ngIf="form?.form_type == 2">
-                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
-                    disabled>
+                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
                     <option value="">Select</option>
                     <option *ngFor="let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">
                   <div class="form-line">
-                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
-                      disabled>
+                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
                   </div>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 4">
                   <div class="form-line">
-                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
-                      disabled>
+                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
                   </div>
                 </div>
               </div>
@@ -1208,7 +1224,6 @@
         </form>
       </div>
       <!-- Product Form End -->
-
       <!-- Warranty Edit Form Start -->
       <div *ngIf="showWarrantyEditForm">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
@@ -1276,8 +1291,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1290,12 +1304,24 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{warrantyFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=1>Yearly</option>
-                  <option value=2>Half Yearly</option>
-                  <option value=3>Quarterly</option>
                   <option value=4>Monthly</option>
-                  <option value=5>5 Yearly</option>
-                  <option value=6>10 Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=7>Half Yearly</option>
+                  <option value=8>1 Year</option>
+                  <option value=22>1.5 Years</option>
+                  <option value=9>2 Years</option>
+                  <option value=10>3 Years</option>
+                  <option value=11>4 Years</option>
+                  <option value=12>5 Years</option>
+                  <option value=13>6 Years</option>
+                  <option value=14>7 Years</option>
+                  <option value=15>8 Years</option>
+                  <option value=16>9 Years</option>
+                  <option value=17>10 Years</option>
+                  <option value=18>15 Years</option>
+                  <option value=19>20 Years</option>
+                  <option value=20>50 Years</option>
+                  <option value=21>Life Time</option>
                 </select>
               </div>
             </div>
@@ -1307,8 +1333,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1320,8 +1345,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1365,7 +1389,6 @@
         </form>
       </div>
       <!-- Warranty Edit Form End -->
-
       <!-- Insurance Edit Form Start -->
       <div *ngIf="showInsuranceEditForm">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
@@ -1397,8 +1420,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}"
-                    disabled>
+                  <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}" disabled>
                 </div>
               </div>
             </div>
@@ -1429,13 +1451,24 @@
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Amount Insured</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="amount_insured" class="form-control" ngModel="{{insuranceFormObjectForBind?.amount_insured}}" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Document Date</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1448,12 +1481,24 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{insuranceFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=1>Yearly</option>
-                  <option value=2>Half Yearly</option>
-                  <option value=3>Quarterly</option>
                   <option value=4>Monthly</option>
-                  <option value=5>5 Yearly</option>
-                  <option value=6>10 Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=7>Half Yearly</option>
+                  <option value=8>1 Year</option>
+                  <option value=22>1.5 Years</option>
+                  <option value=9>2 Years</option>
+                  <option value=10>3 Years</option>
+                  <option value=11>4 Years</option>
+                  <option value=12>5 Years</option>
+                  <option value=13>6 Years</option>
+                  <option value=14>7 Years</option>
+                  <option value=15>8 Years</option>
+                  <option value=16>9 Years</option>
+                  <option value=17>10 Years</option>
+                  <option value=18>15 Years</option>
+                  <option value=19>20 Years</option>
+                  <option value=20>50 Years</option>
+                  <option value=21>Life Time</option>
                 </select>
               </div>
             </div>
@@ -1465,8 +1510,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1478,8 +1522,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1505,10 +1548,23 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="online_seller_id" ngModel="{{insuranceFormObjectForBind?.online_seller_id}}"
-                  disabled>
+                <select class="form-control dropdown" name="online_seller_id" ngModel="{{insuranceFormObjectForBind?.online_seller_id}}" disabled>
                   <option>Select</option>
                   <option *ngFor="let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Insurance Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel="{{insuranceFormObjectForBind?.provider_id}}" disabled>
+                  <option>Select</option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}</option>
                 </select>
               </div>
             </div>
@@ -1524,7 +1580,6 @@
         </form>
       </div>
       <!-- Insurance Edit Form End -->
-
       <!-- AMC Edit Form Start -->
       <div *ngIf="showAmcEditForm">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
@@ -1592,8 +1647,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1606,12 +1660,24 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{amcFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=1>Yearly</option>
-                  <option value=2>Half Yearly</option>
-                  <option value=3>Quarterly</option>
                   <option value=4>Monthly</option>
-                  <option value=5>5 Yearly</option>
-                  <option value=6>10 Yearly</option>
+                  <option value=3>Quarterly</option>
+                  <option value=7>Half Yearly</option>
+                  <option value=8>1 Year</option>
+                  <option value=22>1.5 Years</option>
+                  <option value=9>2 Years</option>
+                  <option value=10>3 Years</option>
+                  <option value=11>4 Years</option>
+                  <option value=12>5 Years</option>
+                  <option value=13>6 Years</option>
+                  <option value=14>7 Years</option>
+                  <option value=15>8 Years</option>
+                  <option value=16>9 Years</option>
+                  <option value=17>10 Years</option>
+                  <option value=18>15 Years</option>
+                  <option value=19>20 Years</option>
+                  <option value=20>50 Years</option>
+                  <option value=21>Life Time</option>
                 </select>
               </div>
             </div>
@@ -1623,8 +1689,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1636,8 +1701,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1712,14 +1776,14 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" name="document_number" class="form-control" ngModel="{{repairFormObjectForBind?.document_number}}" disabled>
+                  <input type="text" name="document_number" class="form-control" ngModel="{{pucFormObjectForBind?.document_number}}" disabled>
                 </div>
               </div>
             </div>
           </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Repair Cost</label>
+              <label class="font-small">Renewal Cost</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -1748,8 +1812,7 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
-                    disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
                 </div>
               </div>
             </div>
@@ -1793,6 +1856,145 @@
         </form>
       </div>
       <!-- Repair Edit Form End -->
+      <!-- Puc Form Start -->
+      <div *ngIf="showPucEditForm">
+        <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
+        <button *ngIf="jobDetails?.bills?.length == 0" class="btn btn-md btn-primary" (click)="addonProductInfo(repairFormObjectForBind.product_id)">Product Info</button>
+        <form #pucEditForm="ngForm" (ngSubmit)="verifyPuc(pucEditForm)">
+          <p></p>
+          <p class="badge bg-red">Puc</p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Image</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group" *ngIf="selectedEditPucImageArray?.length > 0;else elseBlock">
+                <button class="btn btn-md bg-red" disabled="disabled" *ngFor="let image of selectedEditPucImageArray;let i = index">{{i+1}}</button>
+                <span *ngFor="let image of selectedEditPucImageArray;">
+                  <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
+                </span>
+                <p></p>
+              </div>
+              <ng-template #elseBlock>
+                <p> No Image Selected </p>
+              </ng-template>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Number</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="document_number" class="form-control" ngModel="{{pucFormObjectForBind?.document_number}}" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Cost</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_cost" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_cost}}" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Taxes</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="number" name="renewal_taxes" class="form-control" ngModel="{{pucFormObjectForBind?.renewal_taxes}}" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Document Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="document_date" class="form-control" ngModel="{{pucFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Renewal Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="renewal_type" ngModel="{{pucFormObjectForBind?.renewal_type}}">
+                  <option value="">Select</option>
+                  <option value=1>1 Month</option>
+                  <option value=2>2 Months</option>
+                  <option value=3>3 Months</option>
+                  <option value=4>4 Months</option>
+                  <option value=5>5 Months</option>
+                  <option value=6>6 Months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Effective Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{pucFormObjectForBind?.effective_date |date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Expiry Date</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{pucFormObjectForBind?.expiry_date |date:'yyyy-MM-dd'}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Offline Seller</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="seller_id" ngModel="{{pucFormObjectForBind?.seller_id}}" disabled>
+                  <option>Select</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix" *ngIf="userType!=4">
+            <div class="col-md-4 col-md-offset-7">
+              <button class="btn bg-primary btn-block btn-lg" type="submit" *ngIf="pucFormObjectForBind?.status_type!=5">Verify PUC</button>
+              <p class="badge bg-green" style="padding:10px;" *ngIf="pucFormObjectForBind?.status_type==5">Verified by Admin / QE</p>
+            </div>
+          </div>
+          <br>
+        </form>
+      </div>
+      <!-- Puc Form End -->
     </div>
   </div>
 </div>
