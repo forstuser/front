@@ -27,6 +27,7 @@ export class CreateBillComponent implements OnInit {
   productId: number;
   sellerId: number;
   mainCatId: number;
+  subCatId:number;
   catId: number;
   warrantyId: number;
   insuranceId: number;
@@ -330,6 +331,7 @@ export class CreateBillComponent implements OnInit {
       this.productObject = {
         'category_id': this.catId,
         'main_category_id': this.mainCatId,
+        'sub_category_id':form.value.sub_category_id,
         'product_name': form.value.product_name,
         'model': form.value.model,
         'purchase_cost': form.value.purchase_cost,
@@ -345,6 +347,7 @@ export class CreateBillComponent implements OnInit {
       }
       // console.log(this.productObject);
       const filterData = form.value;
+      delete filterData['sub_category_id'];
       delete filterData['product_name'];
       delete filterData['model']
       delete filterData['purchase_cost'];
@@ -467,6 +470,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
+        this.catForms = res.data.subCategories;
         console.log(this.catForm, "category form");
         this.showProductForm = true;
         this.getBrandListByCategory(catID);
@@ -498,10 +502,10 @@ export class CreateBillComponent implements OnInit {
   }
   // brand list by category
   getBrandListByCategory(catID) {
-    this.userService.getBrandListByCategory(catID)
+    this.userService.getBrandListByCategoryAndUser(catID)
       .subscribe(brandList => {
         this.brands = brandList;
-        // console.log(this.brands, "brands");
+        console.log(this.brands, "brands");
       });
   }
   // color list
@@ -523,15 +527,20 @@ export class CreateBillComponent implements OnInit {
   // get offline seller by search
   public typed(value: any): void {
     // console.log('New search input: ', value);
-    this.userService.getOfflineSellerListByQuery(value)
+    this.userService.getOfflineSellerListByQuery(value,this.userId)
       .subscribe(res => {
         // console.log(res);
         this.offlineSellerArray = [];
         for (var i = 0; i < res.data.length; i++) {
           var pushValue = res.data[i].seller_name;
           var pushId = res.data[i].sid;
+          let userText = '';
+          if(res.data[i].status_type==11){
+            // alert(pushValue);
+            userText = ' [User Created]';
+          }
           // console.log(pushId);
-          var push = '[' + pushId + '] ' + pushValue;
+          var push = '[' + pushId + '] ' + pushValue + userText;
           this.offlineSellerArray.push(push);
         }
         console.log(this.offlineSellerArray);
@@ -1000,9 +1009,6 @@ export class CreateBillComponent implements OnInit {
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'created_at': form.value.created_at,
-      // 'online_seller_id': form.value.online_seller_id,
-      // 'provider_id':form.value.provider_id,
-      // 'warranty_type':form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,

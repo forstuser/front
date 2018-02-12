@@ -26,6 +26,7 @@ export class ViewBillComponent implements OnInit {
   insuranceId: number;
   amcId: number;
   repairId: number;
+  pucId: number;
   imageArray: any[] = [];
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
@@ -36,6 +37,7 @@ export class ViewBillComponent implements OnInit {
   selectedEditAmcImageArray: any[] = [];
   selectedRepairImageArray: any[] = [];
   selectedEditRepairImageArray: any[] = [];
+  selectedEditPucImageArray: any[] = [];
   imageArrayLength: number;
   images: string[] = [];
   imageUrl: String = appConfig.apiUrl;
@@ -70,17 +72,20 @@ export class ViewBillComponent implements OnInit {
   reassignDialog: boolean = false;
   showWarrantyEditForm: boolean = false;
   showInsuranceEditForm: boolean = false;
-  showAmcEditForm = false;
+  showAmcEditForm: boolean = false;
   showRepairEditForm: boolean = false;
+  showPucEditForm: boolean = false;
   productFormObjectForBind: any;
   warrantyFormObjectForBind: any;
   insuranceEditFormObject: any;
   insuranceFormObjectForBind: any;
   amcFormObjectForBind: any;
   repairFormObjectForBind: any;
+  pucFormObjectForBind: any;
   productMetaDataForBind: any;
   completeJobDialog: boolean = false;
   imagerotation: number = 0;
+  insurancProvider: any;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -91,28 +96,37 @@ export class ViewBillComponent implements OnInit {
   ngOnInit() {
     this.getDetailsOfJob();
     webGlObject.init();
+    this.insuranceProvider();
   }
   // get details of current job
   getDetailsOfJob() {
     this.userService.getJobByID(this.jobId)
       .subscribe(res => {
-        this.jobDetails = res.data;
-        console.log('job details', this.jobDetails);
-        this.userId = res.data.user_id;
-        this.imageArray = res.data.copies;
-        // console.log(this.imageArray,"image ka array");
-        this.imageArrayLength = this.imageArray.length;
-        if (this.imageArray.length == 0) {
-          alert("There is no image in this bill please contact Admin")
+          this.jobDetails = res.data;
+          console.log('job details', this.jobDetails);
+          this.userId = res.data.user_id;
+          this.imageArray = res.data.copies;
+          // console.log(this.imageArray,"image ka array");
+          this.imageArrayLength = this.imageArray.length;
+          if (this.imageArray.length == 0) {
+            alert("There is no image in this bill please contact Admin")
+          }
+          for (let i of this.imageArray) {
+            this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-        for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
       )
+  }
+  insuranceProvider() {
+    this.userService.warrantyProvider(1)
+      .subscribe(res => {
+        console.log(res, "insurance provider")
+        this.insurancProvider = res.data;
+        // console.log(this.insurancProvider, "Insurance Provider List")
+      })
   }
   // prev image
   prevImage() {
@@ -160,15 +174,15 @@ export class ViewBillComponent implements OnInit {
   completeJob() {
     this.userService.completeJobQE(this.jobId, this.ceId)
       .subscribe(res => {
-        console.log(res);
-        alert("JOB Completed Successfully");
-        this.router.navigateByUrl('/dashboard/new');
-      },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
+          console.log(res);
+          alert("JOB Completed Successfully");
+          this.router.navigateByUrl('/dashboard/new');
+        },
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        })
   }
   // reassignjob
   reassignJobPopUp() {
@@ -179,13 +193,13 @@ export class ViewBillComponent implements OnInit {
     const data = form.value;
     this.userService.reassignJob(this.jobId, data)
       .subscribe(res => {
-        console.log(res);
-        alert("JOB Reassigned Successfully");
-        this.router.navigateByUrl('/dashboard/new');
-      },
-      (error) => {
-        console.log(error);
-      })
+          console.log(res);
+          alert("JOB Reassigned Successfully");
+          this.router.navigateByUrl('/dashboard/new');
+        },
+        (error) => {
+          console.log(error);
+        })
   }
 
   //********************************* Product Functions***********************************//
@@ -206,26 +220,27 @@ export class ViewBillComponent implements OnInit {
     // console.log(pid);
     this.userService.getProductDetailById(pid)
       .subscribe(res => {
-        console.log(res);
-        this.askMainCategory = true;
-        this.showProductForm = true;
-        this.showWarrantyEditForm = false;
-        this.showInsuranceEditForm = false;
-        this.showAmcEditForm = false;
-        this.showRepairEditForm = false;
-        this.getBrandList();
-        this.getColorList();
-        this.getOfflineSellerList();
-        this.mainCategoryList();
-        this.onSelectMainCat(res.data.main_category_id);
-        this.onSelectCat(res.data.category_id);
-        this.fillProductForm(pid);
-        this.selectedImageArray = res.data.copies;
-        this.productFormObjectForBind = res.data;
-      },
-      (err) => {
-        console.log(err);
-      })
+          console.log(res);
+          this.askMainCategory = true;
+          this.showProductForm = true;
+          this.showWarrantyEditForm = false;
+          this.showInsuranceEditForm = false;
+          this.showAmcEditForm = false;
+          this.showRepairEditForm = false;
+          this.showPucEditForm = false;
+          this.getBrandList();
+          this.getColorList();
+          this.getOfflineSellerList();
+          this.mainCategoryList();
+          this.onSelectMainCat(res.data.main_category_id);
+          this.onSelectCat(res.data.category_id);
+          this.fillProductForm(pid);
+          this.selectedImageArray = res.data.copies;
+          this.productFormObjectForBind = res.data;
+        },
+        (err) => {
+          console.log(err);
+        })
   }
   // verify Product
   verifyProductFormData() {
@@ -245,9 +260,9 @@ export class ViewBillComponent implements OnInit {
       })
   }
   /* Unverify Product
-  *  @author: Shubham Nigam
-  *  lastWorkedOn: 12/12/2017
-  */
+   *  @author: Shubham Nigam
+   *  lastWorkedOn: 12/12/2017
+   */
   unverifyProduct() {
     this.showProductForm = false;
     this.askMainCategory = false;
@@ -434,6 +449,35 @@ export class ViewBillComponent implements OnInit {
         console.log(err);
       })
   }
+  //********************************* Puc Functions***********************************//
+  editPucForm(puc) {
+    console.log(puc);
+    this.repairId = puc.id;
+    this.getOfflineSellerList();
+    this.showPucEditForm = true;
+    this.addons = false;
+    this.jobDetailsShow = false;
+    this.selectedEditPucImageArray = puc.copies;
+    this.pucFormObjectForBind = puc;
+    this.productId = puc.product_id;
+  }
+  verifyPuc(form: NgForm) {
+    this.userService.verifyPuc(this.productId, this.repairId)
+      .subscribe(res => {
+        alert("verified")
+        console.log(res);
+        this.getDetailsOfJob();
+        this.fillProductForm(this.productId);
+        this.showPucEditForm = false;
+        this.addons = true;
+        if (this.jobDetails.bills.length == 0 && this.jobDetails.products.length == 0) {
+          this.addons = false;
+          this.jobDetailsShow = true;
+        }
+      }, err => {
+        console.log(err);
+      })
+  }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
     this.getBrandList();
@@ -560,6 +604,7 @@ export class ViewBillComponent implements OnInit {
     this.showInsuranceEditForm = false;
     this.showAmcEditForm = false;
     this.showRepairEditForm = false;
+    this.showPucEditForm = false;
     this.askMainCategory = false;
     this.showProductForm = false;
   }
