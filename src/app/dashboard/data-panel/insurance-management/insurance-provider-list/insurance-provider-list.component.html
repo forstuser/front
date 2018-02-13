@@ -321,7 +321,7 @@
         <div>
           <select class="form-control dropdown" (change)="onSelectInsuranceProvider($event.target.value)">
             <option>Select Insurance Provider</option>
-            <option *ngFor="let list of activeInsuranceProviders?.data; let i = index" [value]="list?.id">{{list?.name}}</option>
+            <option *ngFor="let list of activeInsuranceProviders?.data; let i = index" [value]="list?.id">{{list?.name }} ({{list?.main_category_name}})</option>
           </select>
         </div>
       </div>

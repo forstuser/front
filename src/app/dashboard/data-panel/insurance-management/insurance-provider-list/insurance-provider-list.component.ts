@@ -82,6 +82,7 @@ export class InsuranceProviderListComponent implements OnInit {
     this.userService.getInsuranceProviderListByStatus(1)
       .subscribe((res) => {
         this.activeInsuranceProviders = res;
+        console.log(res);
       }, (err) => {
         console.log(err);
       })
