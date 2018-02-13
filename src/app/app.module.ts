@@ -47,6 +47,8 @@ import { DiscardedComponent } from './dashboard/data-panel/job-management/discar
 import { AngularDraggableModule } from 'angular2-draggable';
 import { ModalModule} from "ng2-modal";
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {SelectModule} from 'ng2-select';
 // import { JobManagementComponent } from './dashboard/data-panel/job-management/job-management.component';
@@ -123,7 +125,8 @@ import { AddServiceScheduleComponent } from './dashboard/data-panel/service-sche
     ModalModule,
     Ng2OrderModule,
     // Ng2SearchPipeModule,
-    SelectModule
+    SelectModule,
+    AngularMultiSelectModule
   ],
   providers: [AuthenticationService, AuthGuard, UserService,DataService,FunctionService], // services will come here
   bootstrap: [AppComponent]
