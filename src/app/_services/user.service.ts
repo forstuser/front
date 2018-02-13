@@ -40,9 +40,9 @@ export class UserService {
   }
 
   // get notification detail
-  getUserListNotification(role_type: number) {
+  getUserListNotification(role_type: number,offSet:number) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type, this.options)
+    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type +'&limit=100&offset='+offSet, this.options)
       .map((response: Response) => response.json());
   }
   // Create User
@@ -64,9 +64,7 @@ export class UserService {
   // search mobile notfication
   searchMobile(user, role_type) {
     this.getCSRF();
-    // const data = JSON.stringify(user);
-    // console.log(data);
-    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&mobile_no=' + user, this.options)
+    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&mobile_no=' + user+'&limit=50', this.options)
       .map((response: Response) => response.json());
   }
   // Delete user
