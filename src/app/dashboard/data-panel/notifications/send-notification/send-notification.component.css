@@ -1,3 +1,6 @@
 .mains {
   border-bottom: 1px solid #ccc;
 }
+.pager{
+  text-align: right;
+}

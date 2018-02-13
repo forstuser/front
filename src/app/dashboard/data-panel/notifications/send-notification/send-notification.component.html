@@ -65,7 +65,10 @@
       <br>
 
       <div class="row">
-        <div class="col-md-3 col-md-offset-8">
+        <div class="col-md-3 col-md-offset-1">
+          <button class="btn btn-xs btn-info" (click)="selectAll()" type="button">Select All Users</button>
+        </div>
+        <div class="col-md-3 col-md-offset-3">
           <!-- <div class="form-group"> -->
           <input type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains" placeholder="search mobile no.">
           <!-- </div> -->
@@ -75,6 +78,16 @@
       <br>
 
       <div class="body table-responsive" style="padding:0% 12%">
+          <nav>
+              <ul class="pager">
+                <li [ngClass]="{ 'disabled': leftFlag }">
+                  <a class="waves-effect" (click)="left()">Previous</a>
+                </li>
+                <li [ngClass]="{ 'disabled': rightFlag }">
+                  <a class="waves-effect" (click)="right()">Next</a>
+                </li>
+              </ul>
+            </nav>
         <table class="table table-condensed">
           <thead>
             <tr>
@@ -95,7 +108,7 @@
           <tbody>
             <tr *ngFor="let notifications of notification">
               <th>
-                <input type="checkbox" (click)="clicked($event,notifications?.id)" formControlName="user_id" style="position: relative;left: 0;opacity: 1;margin-top: 10px;">
+                <input type="checkbox" (click)="clicked($event,notifications?.id)" formControlName="user_id" style="position: relative;left: 0;opacity: 1;margin-top: 10px;" [checked]="checkAll">
               </th>
               <th>
                 <small>{{notifications?.full_name }}</small>
@@ -109,6 +122,9 @@
             </tr>
           </tbody>
         </table>
+        <ng-template #elseBlock>
+            <h4> No Data Available </h4>
+          </ng-template>
       </div>
       <div class="row">
         <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">

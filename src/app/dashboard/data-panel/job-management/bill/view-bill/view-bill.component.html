@@ -31,7 +31,8 @@
         <tr>
           <td style="padding: 10px">
             <div class="imagelist" align="center">
-              <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%" style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
+              <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" width="100%"
+                style="    -webkit-logical-width: auto;border: 3px solid #555; padding:2px;" />
               <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
             </div>
           </td>
@@ -519,7 +520,8 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}" disabled>
+                    <input type="text" name="consumer_name" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_name}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -531,7 +533,8 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}" disabled>
+                    <input type="number" name="consumer_phone_no" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.consumer_phone_no}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -543,7 +546,8 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}" disabled>
+                    <input type="text" name="consumer_email" class="form-control" ngModel="{{ billGeneralInfoFormObjectForBind?.consumer_email}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -555,7 +559,8 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}" disabled>
+                    <input type="text" name="document_number" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_number}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -568,7 +573,8 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <div class="form-line">
-                    <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                    <input type="date" name="document_date" class="form-control" ngModel="{{billGeneralInfoFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -1029,7 +1035,8 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
             <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}" disabled>
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectMainCat($event.target.value)" ngModel="{{productFormObjectForBind?.main_category_id}}"
+                disabled>
                 <option value="">Select</option>
                 <option *ngFor="let mainCategoryList of mainCat?.data" [value]="mainCategoryList?.category_id">{{ mainCategoryList?.category_name }}</option>
               </select>
@@ -1043,7 +1050,8 @@
           </div>
           <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
             <div class="form-group">
-              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}" disabled>
+              <select class="form-control dropdown" name="ref_id" (change)="onSelectCat($event.target.value)" ngModel="{{productFormObjectForBind?.category_id}}"
+                disabled>
                 <option value="">Select</option>
                 <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
               </select>
@@ -1104,7 +1112,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{productFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1189,24 +1198,28 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group" *ngIf="form?.form_type == 1">
                   <div class="form-line">
-                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+                    <input type="text" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+                      disabled>
                   </div>
                 </div>
                 <p></p>
                 <div class="form-group" *ngIf="form?.form_type == 2">
-                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+                  <select class="form-control dropdown" name="{{form?.id}}" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+                    disabled>
                     <option value="">Select</option>
                     <option *ngFor="let list of form?.dropDowns" value="{{list?.id}}">{{ list?.title }}</option>
                   </select>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 3">
                   <div class="form-line">
-                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+                    <input type="date" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+                      disabled>
                   </div>
                 </div>
                 <div class="form-group" *ngIf="form?.form_type == 4">
                   <div class="form-line">
-                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}" disabled>
+                    <input type="number" name="{{form?.id}}" class="form-control" ngModel="{{ productMetaDataForBind && productMetaDataForBind[i]?.form_value}}"
+                      disabled>
                   </div>
                 </div>
               </div>
@@ -1291,7 +1304,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1333,7 +1347,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1345,7 +1360,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{warrantyFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1374,6 +1390,37 @@
                 <select class="form-control dropdown" name="online_seller_id" ngModel="{{warrantyFormObjectForBind?.online_seller_id}}" disabled>
                   <option>Select</option>
                   <option *ngFor="let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Provider</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Type</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="warranty_type" ngModel="{{warrantyFormObjectForBind?.warranty_type}}">
+                  <option value="">Select</option>
+                  <option value="1">Normal</option>
+                  <option value="2">Extended</option>
+                  <option value="3">Dual</option>
+                  <option value="4">Accessories</option>
                 </select>
               </div>
             </div>
@@ -1420,7 +1467,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}" disabled>
+                  <input type="text" name="document_number" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_number}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1456,7 +1504,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="number" name="amount_insured" class="form-control" ngModel="{{insuranceFormObjectForBind?.amount_insured}}" disabled>
+                  <input type="number" name="amount_insured" class="form-control" ngModel="{{insuranceFormObjectForBind?.amount_insured}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1468,7 +1517,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1510,7 +1560,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1522,7 +1573,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{insuranceFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1548,7 +1600,8 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="online_seller_id" ngModel="{{insuranceFormObjectForBind?.online_seller_id}}" disabled>
+                <select class="form-control dropdown" name="online_seller_id" ngModel="{{insuranceFormObjectForBind?.online_seller_id}}"
+                  disabled>
                   <option>Select</option>
                   <option *ngFor="let list of onlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
                 </select>
@@ -1647,7 +1700,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{amcFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1689,7 +1743,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="effective_date" class="form-control" ngModel="{{amcFormObjectForBind?.effective_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1701,7 +1756,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="expiry_date" class="form-control" ngModel="{{amcFormObjectForBind?.expiry_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
@@ -1812,7 +1868,33 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{repairFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Warranty Upto</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="warranty_upto" class="form-control" ngModel="{{repairFormObjectForBind?.warranty_upto}}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Repair For</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <input type="text" name="repair_for" class="form-control" ngModel="{{repairFormObjectForBind?.repair_for}}">
                 </div>
               </div>
             </div>
@@ -1923,7 +2005,8 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="date" name="document_date" class="form-control" ngModel="{{pucFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}" disabled>
+                  <input type="date" name="document_date" class="form-control" ngModel="{{pucFormObjectForBind?.document_date | date:'yyyy-MM-dd'}}"
+                    disabled>
                 </div>
               </div>
             </div>
