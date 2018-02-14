@@ -49,7 +49,7 @@
         <tr>
           <th>#</th>
           <th>Name</th>
-          <!-- <th>url</th> -->
+          <th>Main Category</th>
           <th>Action</th>
           <th>Email</th>
           <th>Contact Number</th>
@@ -60,7 +60,7 @@
         <tr>
           <th scope="row">{{ i+1+offset}}</th>
           <td class="fix-width">{{ list?.name }}</td>
-          <!-- <td>{{ list?.url }}</td> -->
+          <td>{{ list?.main_category_name }}</td>
           <td *ngIf="list?.status_type=='1'">
             <span class="label bg-green">Active</span>
           </td>

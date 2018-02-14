@@ -15,6 +15,7 @@ declare var webGlObject: any;
 })
 export class CreateBillComponent implements OnInit {
   public offlineSellerForm: FormGroup;
+  public assignForm: FormGroup;
   public editOfflineSellerForm: FormGroup;
   sellerIdforSellerInfo: number;
   sellerInfoObject: any;
@@ -27,8 +28,9 @@ export class CreateBillComponent implements OnInit {
   productId: number;
   sellerId: number;
   mainCatId: number;
-  subCatId:number;
+  subCatId: number;
   catId: number;
+  brandId: number;
   warrantyId: number;
   insuranceId: number;
   amcId: number;
@@ -97,6 +99,7 @@ export class CreateBillComponent implements OnInit {
   askMainCategory: boolean = false;
   showProductForm: boolean = false;
   showSellerForm: boolean = false;
+  showModelForm: boolean = false;
   showWarrantyForm: boolean = false;
   showWarrantyEditForm: boolean = false;
   showInsuranceForm: boolean = false;
@@ -126,6 +129,7 @@ export class CreateBillComponent implements OnInit {
   myExtObject: any;
   warrProvider: any;
   insurancProvider: any;
+  modelList: any;
   type: number;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
@@ -158,9 +162,9 @@ export class CreateBillComponent implements OnInit {
           this.images.push(this.imageUrl + 'api/' + i.copyUrl)
         }
       },
-      (error) => {
-        console.log(error);
-      }
+        (error) => {
+          console.log(error);
+        }
       )
   }
 
@@ -214,11 +218,11 @@ export class CreateBillComponent implements OnInit {
         this.backTojobDetailsShow();
         this.getDetailsOfJob();
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        })
 
   }
   // update bill
@@ -233,11 +237,11 @@ export class CreateBillComponent implements OnInit {
         // this.backTojobDetailsShow();
         this.getDetailsOfJob();
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        })
   }
   // delete bill
   deleteBill(req) {
@@ -275,11 +279,11 @@ export class CreateBillComponent implements OnInit {
         alert("JOB Completed Successfully");
         this.router.navigateByUrl('/dashboard/new');
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        })
   }
 
   //********************************* Product Functions***********************************//
@@ -331,7 +335,7 @@ export class CreateBillComponent implements OnInit {
       this.productObject = {
         'category_id': this.catId,
         'main_category_id': this.mainCatId,
-        'sub_category_id':form.value.sub_category_id,
+        'sub_category_id': form.value.sub_category_id,
         'product_name': form.value.product_name,
         'model': form.value.model,
         'purchase_cost': form.value.purchase_cost,
@@ -371,11 +375,11 @@ export class CreateBillComponent implements OnInit {
           this.showProductForm = false;
           this.getDetailsOfJob();
         },
-        (error) => {
-          console.log(error);
-          const err = JSON.parse(error['_body']);
-          alert(err.reason);
-        });
+          (error) => {
+            console.log(error);
+            const err = JSON.parse(error['_body']);
+            alert(err.reason);
+          });
     } else {
       alert('Please fill mendatory fields');
     }
@@ -435,11 +439,11 @@ export class CreateBillComponent implements OnInit {
           this.cockpit = true;
           this.productFormEdit = false;
         },
-        (error) => {
-          console.log(error);
-          const err = JSON.parse(error['_body']);
-          alert(err.reason);
-        });
+          (error) => {
+            console.log(error);
+            const err = JSON.parse(error['_body']);
+            alert(err.reason);
+          });
     } else {
       alert('Please fill mendatory fields');
     }
@@ -476,6 +480,10 @@ export class CreateBillComponent implements OnInit {
         this.getBrandListByCategory(catID);
         this.getColorList();
       });
+  }
+  onSelectBrand(brandID: number) {
+    this.brandId = brandID;
+    this.getModelList();
   }
   // after select category show  category form
   onSelectCat2(catID: number) {
@@ -527,7 +535,7 @@ export class CreateBillComponent implements OnInit {
   // get offline seller by search
   public typed(value: any): void {
     // console.log('New search input: ', value);
-    this.userService.getOfflineSellerListByQuery(value,this.userId)
+    this.userService.getOfflineSellerListByQuery(value, this.userId)
       .subscribe(res => {
         // console.log(res);
         this.offlineSellerArray = [];
@@ -535,7 +543,7 @@ export class CreateBillComponent implements OnInit {
           var pushValue = res.data[i].seller_name;
           var pushId = res.data[i].sid;
           let userText = '';
-          if(res.data[i].status_type==11){
+          if (res.data[i].status_type == 11) {
             // alert(pushValue);
             userText = ' [User Created]';
           }
@@ -546,14 +554,24 @@ export class CreateBillComponent implements OnInit {
         console.log(this.offlineSellerArray);
       });
   }
+  getModelList() {
+    this.userService.getModelListByCategoryAndBrand(this.catId, this.brandId, this.userId)
+      .subscribe(res => {
+        console.log(res, "model list");
+        this.modelList = res;
+      })
+  }
+  // add new model
+  addModels(form){
+    this.userService.addModal(form)
+    .subscribe(res=>{
+      console.log(res,"post data");
+      alert("Model Added successfully")
+      this.assignForm.reset();
+    })
+  }
   public selected(value: any): void {
     console.log('Selected value is: ', value);
-    // if(value.includes('[')){
-    //   const val = value.text.split('[').pop().split(']').shift();
-    //   console.log(val);
-    //   this.sellerId = val;
-    // }
-    // this.sellerId = 
   }
   public focused(value: any): void {
     console.log('focus value is:', value);
@@ -645,11 +663,11 @@ export class CreateBillComponent implements OnInit {
         this.fillProductForm(this.productId);
         this.showWarrantyForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   editWarrantyForm(war) {
     this.getOfflineSellerList();
@@ -708,11 +726,11 @@ export class CreateBillComponent implements OnInit {
         this.addons = true;
         this.showWarrantyEditForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   //********************************* Insurance Functions***********************************//
   insuranceFormData(form: NgForm) {
@@ -743,11 +761,11 @@ export class CreateBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   editInsuranceForm(ins) {
     console.log(ins, "insurance form data")
@@ -805,11 +823,11 @@ export class CreateBillComponent implements OnInit {
         this.addons = true;
         this.showInsuranceEditForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   //********************************* AMC Functions***********************************//
   amcFormData(form: NgForm) {
@@ -840,11 +858,11 @@ export class CreateBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   editAmcForm(amc) {
     this.getOfflineSellerList();
@@ -901,11 +919,11 @@ export class CreateBillComponent implements OnInit {
         this.addons = true;
         this.showAmcEditForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   //********************************* Repair Functions***********************************//
   repairFormData(form: NgForm) {
@@ -933,11 +951,11 @@ export class CreateBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   editRepairForm(rep) {
     console.log(rep)
@@ -993,11 +1011,11 @@ export class CreateBillComponent implements OnInit {
         this.addons = true;
         this.showRepairEditForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   // ********************************PUC functions***************************************//
 
@@ -1027,11 +1045,11 @@ export class CreateBillComponent implements OnInit {
         this.getDetailsOfJob();
         this.fillProductForm(this.productId);
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
 
   editPucForm(rep) {
@@ -1097,11 +1115,11 @@ export class CreateBillComponent implements OnInit {
         this.addons = true;
         this.showPucEditForm = false;
       },
-      (error) => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        (error) => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
   }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
@@ -1172,6 +1190,20 @@ export class CreateBillComponent implements OnInit {
       'url': '',
       'email': '',
       'contact_no': ''
+    });
+  }
+  // create model form using form builder
+  modelFB() {
+    this.assignForm = this.fb.group({
+      'brand_id': ['',Validators.required],
+      'category_id':['',Validators.required],
+      'title':['',Validators.required],
+      'warranty_renewal_type':'',
+      'dual_renewal_type':'',
+      'product_type':'',
+      'category_form_1_value':'',
+      'category_form_2_value':'',
+      'status_type':"1"
     });
   }
   // initialize edit seller form 
@@ -1363,7 +1395,8 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfoEdit = false;
     this.showProductList = false;
     this.askMainCategory = true;
-    this.showSellerForm = false
+    this.showSellerForm = false;
+    this.showModelForm = false;
     this.mainCategoryList(); // call function for get main category
     this.getOfflineSellerList();
     this.onlineSellerList();
@@ -1373,6 +1406,7 @@ export class CreateBillComponent implements OnInit {
     this.billGeneralInfoEdit = false;
     this.askMainCategory = false;
     this.showSellerForm = false
+    this.showModelForm = false;
     this.showProductList = true;
     this.getCustomProductList();
   }
@@ -1383,7 +1417,18 @@ export class CreateBillComponent implements OnInit {
     this.askMainCategory = false;
     this.showProductForm = false;
     this.showProductList = false;
+    this.showModelForm = false;
     this.offlineSellerFB();
+  }
+  showAddModelForm() {
+    this.billGeneralInfoEdit = false;
+    this.showSellerForm = false;
+    this.askMainCategory = false;
+    this.showProductForm = false;
+    this.showProductList = false;
+    this.showModelForm = true;
+    this.mainCategoryList();
+    this.modelFB();
   }
   backToCockpit() {
     this.cockpit = true;

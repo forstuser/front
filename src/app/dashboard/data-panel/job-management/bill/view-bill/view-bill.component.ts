@@ -86,6 +86,7 @@ export class ViewBillComponent implements OnInit {
   completeJobDialog: boolean = false;
   imagerotation: number = 0;
   insurancProvider: any;
+  warrProvider: any;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -97,6 +98,7 @@ export class ViewBillComponent implements OnInit {
     this.getDetailsOfJob();
     webGlObject.init();
     this.insuranceProvider();
+    this.warrantyProvider();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -126,6 +128,13 @@ export class ViewBillComponent implements OnInit {
         console.log(res, "insurance provider")
         this.insurancProvider = res.data;
         // console.log(this.insurancProvider, "Insurance Provider List")
+      })
+  }
+  warrantyProvider() {
+    this.userService.warrantyProvider(2)
+      .subscribe(res => {
+        this.warrProvider = res.data;
+        console.log(this.warrProvider, "Warranty Provider List")
       })
   }
   // prev image

@@ -80,7 +80,8 @@ export class BrandsComponent implements OnInit {
     console.log(form,"data added")
     this.userService.addModal(form)
     .subscribe(res=>{
-      console.log(res,"post data")
+      console.log(res,"post data");
+      alert("Model Added successfully")
     })
   }
 
