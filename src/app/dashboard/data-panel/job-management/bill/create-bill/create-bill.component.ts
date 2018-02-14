@@ -270,6 +270,7 @@ export class CreateBillComponent implements OnInit {
     this.showAmcForm = false;
     this.showRepairForm = false;
     this.onSelectCat2(this.catId);
+    this.getModelList();
   }
   // complete job
   completeJob() {
@@ -1129,8 +1130,9 @@ export class CreateBillComponent implements OnInit {
     this.mainCategoryList();
     this.onSelectMainCat(prod.main_category_id);
     this.onSelectCat2(prod.category_id);
-    // console.log(prod, "pro");
+    console.log(prod, "pro");
     this.productId = prod.id;
+    this.brandId = prod.brand_id;
     this.selectedImageArray = prod.copies;
     this.fillProductForm(this.productId);
     this.productFormObjectForBind = prod;

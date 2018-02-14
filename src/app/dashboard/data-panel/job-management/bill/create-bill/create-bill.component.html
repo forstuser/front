@@ -447,12 +447,6 @@
           <div class="col-md-6">
             <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
           </div>
-          <!-- <div class="col-md-3">
-            <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoEditForm()">Bill General Info</button>
-          </div>
-          <div class="col-md-3">
-            <button class="btn bg-teal btn-xs btn-block waves-effect m-b-15" (click)="showAddProductForm()">Add Product</button>
-          </div> -->
           <div class="col-md-6">
             <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
           </div>
@@ -712,8 +706,6 @@
                 (typed)="typed($event)" placeholder="No Seller selected">
               </ng-select>
             </div>
-            <!-- <button class="btn btn-block btn-info" (click)="sellerInfo()">Seller Info</button> -->
-
           </div>
         </div>
         <p></p>
@@ -976,6 +968,37 @@
               </div>
             </div>
           </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Brand</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}
+                    <span *ngIf="brand?.status_type==11">( User Created )</span>
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Model</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="model" ngModel="{{productFormObjectForBind?.model}}">
+                  <option value="">Select</option>
+                  <option *ngFor="let list of modelList?.data" value="{{list?.id}}">{{ list?.title }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Image</label>
@@ -1001,18 +1024,6 @@
               <div class="form-group">
                 <div class="form-line">
                   <input type="text" name="product_name" class="form-control" ngModel="{{productFormObjectForBind?.product_name}}">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Model</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" name="model" class="form-control" ngModel="{{productFormObjectForBind?.model}}">
                 </div>
               </div>
             </div>
@@ -1054,22 +1065,6 @@
                 <div class="form-line">
                   <input type="number" required name="taxes" class="form-control" ngModel="{{productFormObjectForBind?.taxes}}">
                 </div>
-              </div>
-            </div>
-          </div>
-          <p></p>
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Brand</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}">
-                  <option value="">Select</option>
-                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}
-                    <span *ngIf="brand?.status_type==11">( User Created )</span>
-                  </option>
-                </select>
               </div>
             </div>
           </div>
