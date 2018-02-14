@@ -170,4 +170,8 @@ export class ModelsComponent implements OnInit {
       console.log(res);
     })
   }
+  back() {
+    this.showEditForm = false;
+    this.showBrandList = true;
+  }
 }

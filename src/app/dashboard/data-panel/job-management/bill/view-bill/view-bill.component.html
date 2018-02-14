@@ -1401,7 +1401,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}">
+                <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}" disabled>
                   <option value="">Select</option>
                   <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
                 </select>
@@ -1415,7 +1415,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="warranty_type" ngModel="{{warrantyFormObjectForBind?.warranty_type}}">
+                <select class="form-control dropdown" name="warranty_type" ngModel="{{warrantyFormObjectForBind?.warranty_type}}" disabled>
                   <option value="">Select</option>
                   <option value="1">Normal</option>
                   <option value="2">Extended</option>

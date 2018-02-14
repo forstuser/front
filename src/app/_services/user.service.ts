@@ -40,9 +40,9 @@ export class UserService {
   }
 
   // get notification detail
-  getUserListNotification(role_type: number,offSet:number) {
+  getUserListNotification(role_type: number, offSet: number) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type +'&limit=100&offset='+offSet, this.options)
+    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&limit=100&offset=' + offSet, this.options)
       .map((response: Response) => response.json());
   }
   // Create User
@@ -64,7 +64,7 @@ export class UserService {
   // search mobile notfication
   searchMobile(user, role_type) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&mobile_no=' + user+'&limit=50', this.options)
+    return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&mobile_no=' + user + '&limit=50', this.options)
       .map((response: Response) => response.json());
   }
   // Delete user
@@ -325,6 +325,11 @@ export class UserService {
   getOfflineSellerListByQuery(query: string, userid) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/offlineSeller?seller_name=' + query + '&user_id=' + userid, this.options)
+      .map((response: Response) => response.json());
+  }
+  getModelListByCategoryAndBrand(category_id: number, brand_id: number, user_id: number) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/brand/dropdowns?brand_id=' + brand_id + '&category_id=' + category_id + '&user_id=' + user_id, this.options)
       .map((response: Response) => response.json());
   }
   // get details of offline seller by id
