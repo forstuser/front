@@ -1302,13 +1302,6 @@ export class CreateBillComponent implements OnInit {
       this.selectedWarrantyImageArray.push(this.imageArray[this.imageIndex]);
     }
 
-    this.selectedPucImageArray = this.selectedPucImageArray || [];
-    if (this.selectedPucImageArray.includes(this.imageArray[this.imageIndex])) {
-      console.log("Image Already Added 3")
-    } else {
-      this.selectedPucImageArray.push(this.imageArray[this.imageIndex]);
-    }
-
     this.selectedEditWarrantyImageArray = this.selectedEditWarrantyImageArray || [];
     if (this.selectedEditWarrantyImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log("Image Already Added 4")
@@ -1358,9 +1351,24 @@ export class CreateBillComponent implements OnInit {
     else {
       this.selectedEditRepairImageArray.push(this.imageArray[this.imageIndex]);
     }
+
+    this.selectedPucImageArray = this.selectedPucImageArray || [];
+    if (this.selectedPucImageArray.includes(this.imageArray[this.imageIndex])) {
+      console.log("Image Already Added 3")
+    } else {
+      this.selectedPucImageArray.push(this.imageArray[this.imageIndex]);
+    }
+
+    this.selectedEditPucImageArray = this.selectedEditPucImageArray || [];
+    if(this.selectedEditPucImageArray.includes(this.imageArray[this.imageIndex])){
+      console.log('Image already added hai kitni bar karoge');
+    } else {
+      this.selectedEditPucImageArray.push(this.imageArray[this.imageIndex]);
+    }
   }
   // remove image
   removeImage(i, $event) {
+    console.log(i);
     console.log('Inside Remove image', $event);
     this.selectedImageArray.splice(i, 1);
     this.selectedWarrantyImageArray.splice(i, 1);

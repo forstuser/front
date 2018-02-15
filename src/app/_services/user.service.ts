@@ -712,6 +712,7 @@ export class UserService {
     delete prod['billId'];
     delete prod['productId'];
     Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
+    prod['copies'] = prod['copies'] || [];
     const data = JSON.stringify(prod);
     console.log(data);
     return this.http.put(this.apiLink + 'api/bills/' + billId + '/products/' + prodId, data, this.options)
@@ -765,12 +766,14 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   updateWarranty(war: any) {
+    console.log(war,"war");
     this.getCSRF();
     const warId = war['warrantyId'];
     const product_id = war.product_id;
     delete war['product_id'];
     delete war['warrantyId'];
     Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
+    war['copies'] = war['copies'] || [];
     const data = JSON.stringify(war);
     console.log(data);
     return this.http.put(this.apiLink + 'api/products/' + product_id + '/warranties/' + warId, data, this.options)
@@ -794,6 +797,7 @@ export class UserService {
     delete ins['product_id'];
     delete ins['insuranceId'];
     Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);
+    ins['copies'] = ins['copies'] || [];
     const data = JSON.stringify(ins);
     console.log(data);
     return this.http.put(this.apiLink + 'api/products/' + product_id + '/insurances/' + insId, data, this.options)
@@ -837,6 +841,7 @@ export class UserService {
     delete amc['product_id'];
     delete amc['amcId'];
     Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);
+    amc['copies'] = amc['copies'] || [];
     const data = JSON.stringify(amc);
     console.log(data);
     return this.http.put(this.apiLink + 'api/products/' + product_id + '/amcs/' + amcId, data, this.options)
@@ -872,9 +877,10 @@ export class UserService {
     delete puc['product_id'];
     delete puc['id'];
     Object.keys(puc).forEach((key) => (puc[key] == '' || puc[key] == null) && delete puc[key]);
+    puc['copies'] = puc['copies'] || [];
     const data = JSON.stringify(puc);
     console.log(data);
-    return this.http.put(this.apiLink + 'api/products/' + id + '/pucs/' + product_id, data, this.options)
+    return this.http.put(this.apiLink + 'api/products/' + product_id + '/pucs/' + id, data, this.options)
       .map((response: Response) => response.json());
   }
   deletePucs(product_id, id) {
@@ -899,6 +905,7 @@ export class UserService {
     delete rep['product_id'];
     delete rep['repairId'];
     Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
+    rep['copies'] = rep['copies'] || [];
     const data = JSON.stringify(rep);
     console.log(data);
     return this.http.put(this.apiLink + 'api/products/' + product_id + '/repairs/' + repairId, data, this.options)
