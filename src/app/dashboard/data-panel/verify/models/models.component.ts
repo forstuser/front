@@ -168,6 +168,7 @@ export class ModelsComponent implements OnInit {
     this.userService.updateModel(form,this.formIds)
     .subscribe(res=>{
       console.log(res);
+      alert("Model updated successfully");
     })
   }
   back() {

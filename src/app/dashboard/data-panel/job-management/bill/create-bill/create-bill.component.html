@@ -1831,7 +1831,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedWarrantyImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedWarrantyImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedWarrantyImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedWarrantyImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2026,7 +2026,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditWarrantyImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditWarrantyImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditWarrantyImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedEditWarrantyImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2220,7 +2220,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedInsuranceImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedInsuranceImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedInsuranceImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedInsuranceImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2410,7 +2410,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditInsuranceImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditInsuranceImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditInsuranceImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedEditInsuranceImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2599,7 +2599,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedAmcImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedAmcImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedAmcImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedAmcImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2763,7 +2763,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditAmcImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditAmcImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditAmcImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedEditAmcImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -2926,7 +2926,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedPucImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedPucImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedPucImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedPucImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -3063,7 +3063,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedRepairImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedRepairImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedRepairImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedRepairImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -3199,7 +3199,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedPucImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedPucImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedPucImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedPucImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
@@ -3339,7 +3339,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group" *ngIf="selectedEditRepairImageArray?.length > 0;else elseBlock">
-                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditRepairImageArray;let i = index" (click)="removeImage(i)">{{i+1}}</span>
+                <span class="btn btn-md bg-red" *ngFor="let image of selectedEditRepairImageArray;let i = index" (click)="removeImage(i,$event)">{{i+1}}</span>
                 <span *ngFor="let image of selectedEditRepairImageArray;">
                   <img src="{{imageUrl}}api/{{image?.copyUrl}}" height="40px" width="25px">
                 </span>
