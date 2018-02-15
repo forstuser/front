@@ -99,7 +99,7 @@ export class UserService {
   // get category list by category id
   getSubCategoryList(catID: number) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/categories/' + catID, this.options)
+    return this.http.get(this.apiLink + 'api/categories/' + catID+'?status=1', this.options)
       .map((response: Response) => response.json());
   }
   // add subcategory list

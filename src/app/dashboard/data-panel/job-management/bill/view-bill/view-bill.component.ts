@@ -22,6 +22,7 @@ export class ViewBillComponent implements OnInit {
   productId: number;
   mainCatId: number;
   catId: number;
+  brandId:number;
   warrantyId: number;
   insuranceId: number;
   amcId: number;
@@ -87,6 +88,8 @@ export class ViewBillComponent implements OnInit {
   imagerotation: number = 0;
   insurancProvider: any;
   warrProvider: any;
+  catForms: any;
+  modelList: any;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -243,6 +246,7 @@ export class ViewBillComponent implements OnInit {
           this.mainCategoryList();
           this.onSelectMainCat(res.data.main_category_id);
           this.onSelectCat(res.data.category_id);
+          this.getModelList(res.data.brand_id);
           this.fillProductForm(pid);
           this.selectedImageArray = res.data.copies;
           this.productFormObjectForBind = res.data;
@@ -311,6 +315,7 @@ export class ViewBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
+        this.catForms = res.data.subCategories;
         // console.log(this.catForm, "category form");
         // this.showProductForm = true;
         this.getBrandList();
@@ -325,6 +330,14 @@ export class ViewBillComponent implements OnInit {
         this.brands = brandList;
         // console.log(this.brands,"brands");
       });
+  }
+  // model list
+  getModelList(brandId:number) {
+    this.userService.getModelListByCategoryAndBrand(this.catId, brandId, this.userId)
+      .subscribe(res => {
+        console.log(res, "model list");
+        this.modelList = res;
+      })
   }
   // color list
   getColorList() {
@@ -495,6 +508,7 @@ export class ViewBillComponent implements OnInit {
     this.mainCategoryList();
     this.onSelectMainCat(prod.main_category_id);
     this.onSelectCat(prod.category_id);
+    this.getModelList(prod.brand_id);
     this.selectedImageArray = prod.copies;
     console.log(prod, "pro");
     this.productFormObjectForBind = prod;
