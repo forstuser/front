@@ -1058,11 +1058,53 @@
             </div>
           </div>
         </div>
+        <p></p>
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+            <label class="font-small">Sub Category</label>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <select class="form-control dropdown" name="sub_category_id" ngModel="{{productFormObjectForBind?.sub_category_id}}" disabled>
+                <option value="">Select</option>
+                <option *ngFor="let categoryList of catForms" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- Ask Category End -->
       <!-- Product Form Start -->
       <div *ngIf="showProductForm">
         <form #productForm="ngForm" (ngSubmit)="verifyProductFormData(productForm)">
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Brand</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}" disabled>
+                  <option value="">Select</option>
+                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p></p>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label class="font-small">Model</label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" name="model" ngModel="{{productFormObjectForBind?.model}}" disabled>
+                  <option value="">Select</option>
+                  <option *ngFor="let list of modelList?.data" value="{{list?.id}}">{{ list?.title }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Image</label>
@@ -1088,18 +1130,6 @@
               <div class="form-group">
                 <div class="form-line">
                   <input type="text" name="product_name" class="form-control" ngModel="{{productFormObjectForBind?.product_name}}" disabled>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Model</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <div class="form-line">
-                  <input type="text" name="model" class="form-control" ngModel="{{productFormObjectForBind?.model}}" disabled>
                 </div>
               </div>
             </div>
@@ -1139,20 +1169,6 @@
                 <div class="form-line">
                   <input type="number" name="taxes" class="form-control" ngModel="{{productFormObjectForBind?.taxes}}" disabled>
                 </div>
-              </div>
-            </div>
-          </div>
-          <p></p>
-          <div class="row clearfix">
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small">Brand</label>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-              <div class="form-group">
-                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}" disabled>
-                  <option value="">Select</option>
-                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}</option>
-                </select>
               </div>
             </div>
           </div>
@@ -1318,9 +1334,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{warrantyFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -1531,9 +1547,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{insuranceFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -1714,9 +1730,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{amcFormObjectForBind?.renewal_type}}" disabled>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2025,6 +2041,7 @@
                   <option value=4>4 Months</option>
                   <option value=5>5 Months</option>
                   <option value=6>6 Months</option>
+                  <option value=12>12 Months</option>
                 </select>
               </div>
             </div>

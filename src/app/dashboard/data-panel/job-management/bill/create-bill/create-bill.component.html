@@ -975,7 +975,7 @@
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
-                <select class="form-control dropdown" name="brand_id" ngModel="{{productFormObjectForBind?.brand_id}}">
+                <select class="form-control dropdown" name="brand_id" (change)="onSelectBrand($event.target.value)" ngModel="{{productFormObjectForBind?.brand_id}}">
                   <option value="">Select</option>
                   <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}
                     <span *ngIf="brand?.status_type==11">( User Created )</span>
@@ -1898,9 +1898,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2093,9 +2093,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{warrantyFormObjectForBind?.renewal_type}}">
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2299,9 +2299,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2489,9 +2489,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{insuranceFormObjectForBind?.renewal_type}}">
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2666,9 +2666,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel>
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2830,9 +2830,9 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="renewal_type" ngModel="{{amcFormObjectForBind?.renewal_type}}">
                   <option value="">Select</option>
-                  <option value=4>Monthly</option>
-                  <option value=3>Quarterly</option>
-                  <option value=7>Half Yearly</option>
+                  <option value=4>1 Month</option>
+                  <option value=3>3 Months</option>
+                  <option value=7>6 Months</option>
                   <option value=8>1 Year</option>
                   <option value=22>1.5 Years</option>
                   <option value=9>2 Years</option>
@@ -2999,6 +2999,7 @@
                   <option value=4>4 Months</option>
                   <option value=5>5 Months</option>
                   <option value=6>6 Months</option>
+                  <option value=12>12 Months</option>
                 </select>
               </div>
             </div>
@@ -3271,6 +3272,7 @@
                   <option value=4>4 Months</option>
                   <option value=5>5 Months</option>
                   <option value=6>6 Months</option>
+                  <option value=12>12 Months</option>
                 </select>
               </div>
             </div>
