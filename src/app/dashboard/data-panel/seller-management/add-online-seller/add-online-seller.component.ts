@@ -30,11 +30,14 @@ export class AddOnlineSellerComponent implements OnInit {
   createOnlineSeller(data: OnlineSeller) {
     // console.log(data);
     this.userService.createOnlineSeller(data)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log(res);
         alert('New Online Seller added succesfully');
         this.onlineSellerForm.reset();
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
   // function for avoid only space submit
   avoidSpace(e){

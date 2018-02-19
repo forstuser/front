@@ -35,7 +35,10 @@ export class BrandsComponent implements OnInit {
         .subscribe(mainCat => {
           this.mainCat = mainCat;
           console.log(mainCat);
-        });
+        },(error=>{
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        }));
   }
 
   onSelectMainCat(catID: number) {
@@ -45,7 +48,10 @@ export class BrandsComponent implements OnInit {
       .subscribe(res => {
         this.cat = res.data.subCategories;
         // console.log(res, "category");
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   onSelectCat2(catID: number) {
@@ -59,7 +65,10 @@ export class BrandsComponent implements OnInit {
       this.catForms = res.data;
       console.log('catForms',this.catForms)
       // console.log(this.detailType);
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
 
 
 
@@ -82,7 +91,10 @@ export class BrandsComponent implements OnInit {
     .subscribe(res=>{
       console.log(res,"post data");
       alert("Model Added successfully")
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
 }

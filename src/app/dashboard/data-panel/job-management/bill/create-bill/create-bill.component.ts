@@ -511,7 +511,7 @@ export class CreateBillComponent implements OnInit {
   }
   // brand list by category
   getBrandListByCategory(catID) {
-    this.userService.getBrandListByCategoryAndUser(catID)
+    this.userService.getBrandListByCategory(catID)
       .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands, "brands");

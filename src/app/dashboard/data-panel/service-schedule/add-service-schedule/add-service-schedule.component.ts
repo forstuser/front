@@ -53,7 +53,10 @@ catForms:any;
     .subscribe(res => {
       this.catForms = res.data;
       console.log('catForms',this.catForms)
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
   createBrand(form){

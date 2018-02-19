@@ -178,7 +178,7 @@ export class BrandListComponent implements OnInit {
     data.status_type = data.status_type || 2;
     console.log(this.center, "senter details")
     this.userService.updateBrand(data, this.center)
-      .subscribe(res => {
+      .subscribe((res) => {
         // console.log(res);
         alert('brand updated successfully');
         this.showBrandList = true;
@@ -187,18 +187,24 @@ export class BrandListComponent implements OnInit {
             this.brands = brandList;
             console.log(this.brands);
           });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
 
   // delete brand
   deleteBrand(brandId: number) {
     this.userService.deleteBrand(brandId)
-      .subscribe(res => {
+      .subscribe((res) => {
         // console.log(res);
         alert('brand deleted successfully');
         this.allBrands();
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   // get list of brand according to status
@@ -228,7 +234,10 @@ export class BrandListComponent implements OnInit {
       .subscribe(res => {
         alert("Brand Replaced Successfully")
         this.allBrands();
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
   back() {
     this.showBrandList = true;

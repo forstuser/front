@@ -67,7 +67,7 @@ export class OnlineSellerListComponent implements OnInit {
     console.log(req);
     if(req.status_type==1){
       this.userService.updateOnlineSeller(req)
-      .subscribe(res => {
+      .subscribe((res) => {
         // console.log(res);
         alert('Online Seller updated successfully');
         this.showOnlineSellerList = true;
@@ -75,7 +75,10 @@ export class OnlineSellerListComponent implements OnInit {
           .subscribe(onlineSeller => {
             this.onlineSeller = onlineSeller;
           });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
     }
     else{
       alert("Please Active first then update");

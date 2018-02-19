@@ -34,7 +34,10 @@ id:any;
     .subscribe(res=>{
       console.log(res,"service schedule")
       this.schedule=res.data;
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
 
     
 
@@ -42,7 +45,10 @@ id:any;
     .subscribe(res => {
       this.cat = res.data.subCategories;
       console.log(this.cat, "category");
-    });
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }));
   }
 
   createItem() {
@@ -74,7 +80,10 @@ id:any;
     .subscribe(res => {
       this.catForms = res.data;
       console.log('catForms',this.catForms)
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
 
     this.editBrandForm = new FormGroup({
       category_id: new FormControl(''),
@@ -101,7 +110,10 @@ id:any;
         (po) => {
           (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
         });
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
   createDetailsFormGroup(payOffObj) {
@@ -119,7 +131,10 @@ id:any;
     this.userService.updateServiceSchedule(form,this.id)
     .subscribe(res=>{
       console.log(res)
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
   deleteBrand(id){
@@ -128,8 +143,9 @@ id:any;
     .subscribe(res=>{
       console.log(res)
       alert("Successsfully Deleted")
-    },error=>({
-
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
     })
   )
   }

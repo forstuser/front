@@ -33,7 +33,10 @@ export class SendNotificationComponent implements OnInit {
       .subscribe(res => {
         console.log(res)
         this.notification = res.data;
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
 
   clicked(event, id) {
@@ -54,7 +57,10 @@ export class SendNotificationComponent implements OnInit {
       .subscribe(res => {
         console.log(res, "resposnse");
         alert("Notification Sent Successfully");
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
 
   mobileChange(event) {
@@ -65,7 +71,10 @@ export class SendNotificationComponent implements OnInit {
           this.notification = res.data;
           console.log(res, "response")
         }
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
   selectAll(){
     // this.checkAll = true;
@@ -86,7 +95,10 @@ export class SendNotificationComponent implements OnInit {
         console.log(res);
         this.rightFlag = false;
         this.notification = res.data;
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
     }
   
     right() {
@@ -101,7 +113,10 @@ export class SendNotificationComponent implements OnInit {
           this.rightFlag = true;
           this.noData = true;
         }
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
     }
 
 }
