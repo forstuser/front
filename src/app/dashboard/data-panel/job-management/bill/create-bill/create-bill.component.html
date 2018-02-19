@@ -782,7 +782,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="model" ngModel>
                   <option value="">Select</option>
-                  <option *ngFor="let list of modelList?.data" value="{{list?.id}}">{{ list?.title }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of modelList?.data" value="{{list?.title}}">{{ list?.title }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -993,7 +993,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="model" ngModel="{{productFormObjectForBind?.model}}">
                   <option value="">Select</option>
-                  <option *ngFor="let list of modelList?.data" value="{{list?.id}}">{{ list?.title }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of modelList?.data" value="{{list?.title}}">{{ list?.title }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -1981,7 +1981,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel>
                   <option value="">Select</option>
-                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -2176,7 +2176,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}">
                   <option value="">Select</option>
-                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -2382,7 +2382,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel>
                   <option value="">Select</option>
-                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -2572,7 +2572,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel="{{insuranceFormObjectForBind?.provider_id}}">
                   <option value="">Select</option>
-                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}</option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>

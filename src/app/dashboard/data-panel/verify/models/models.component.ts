@@ -12,34 +12,34 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 })
 export class ModelsComponent implements OnInit {
   brands: Brand;
-  assignForm:FormGroup;
+  assignForm: FormGroup;
   offset = 0;
-  objectForm:any;
-  formIds:number;
+  objectForm: any;
+  formIds: number;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
   showBrandList: boolean = true;
   center = [];
-  showEditForm:boolean=false;
-  mainCatId:any;
-  cat:any;
-  catId:any;
-  catForms:any;
-  mainCat:any;
-  formsId:number;
-  userId:number;
-  constructor(private userService: UserService,private fb: FormBuilder) {
+  showEditForm: boolean = false;
+  mainCatId: any;
+  cat: any;
+  catId: any;
+  catForms: any;
+  mainCat: any;
+  formsId: number;
+  userId: number;
+  constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
-      'brand_id': ['',Validators.required],
-      'category_id':['',Validators.required],
-      'title':[''],
-      'warranty_renewal_type':'',
-      'dual_renewal_type':'',
-      'product_type':'',
-      'category_form_1_value':'',
-      'category_form_2_value':'',
-      'status_type':"1"
+      'brand_id': ['', Validators.required],
+      'category_id': ['', Validators.required],
+      'title': [''],
+      'warranty_renewal_type': '',
+      'dual_renewal_type': '',
+      'product_type': '',
+      'category_form_1_value': '',
+      'category_form_2_value': '',
+      'status_type': "1"
     });
   }
 
@@ -48,16 +48,16 @@ export class ModelsComponent implements OnInit {
       .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands);
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
 
-      this.userService.getCategoryList(1) // 1 for main category refer to api doc
+    this.userService.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(mainCat => {
         this.mainCat = mainCat;
         console.log(mainCat);
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
@@ -71,7 +71,7 @@ export class ModelsComponent implements OnInit {
       .subscribe(res => {
         this.cat = res.data.subCategories;
         // console.log(res, "category");
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
@@ -81,14 +81,14 @@ export class ModelsComponent implements OnInit {
     console.log("cat id", catID);
     this.catId = catID;
     this.userService.getBrandListByCategory(catID)
-    .subscribe(res => {
-      this.catForms = res.data;
-      console.log('catForms',this.catForms)
-      // console.log(this.detailType);
-    },(error=>{
-      const err = JSON.parse(error['_body']);
-      alert(err.reason);
-    }))
+      .subscribe(res => {
+        this.catForms = res.data;
+        console.log('catForms', this.catForms)
+        // console.log(this.detailType);
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
 
 
@@ -107,7 +107,7 @@ export class ModelsComponent implements OnInit {
         this.rightFlag = false;
         this.brands = brandList;
         console.log(this.brands);
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
@@ -126,7 +126,7 @@ export class ModelsComponent implements OnInit {
         }
         this.brands = brandList;
         console.log(this.brands);
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
@@ -134,14 +134,14 @@ export class ModelsComponent implements OnInit {
 
   verifyBrand(item) {
     console.log(item);
-    this.userService.verifyBrandModel(item,1).subscribe( res=> {
+    this.userService.verifyBrandModel(item, 1).subscribe(res => {
       alert("Model Verified");
       this.userService.getUserBrandDropdownList(this.offset)
-      .subscribe(brandList => {
-        this.brands = brandList;
-        console.log(this.brands);
-      });
-    },(error=>{
+        .subscribe(brandList => {
+          this.brands = brandList;
+          console.log(this.brands);
+        });
+    }, (error => {
       const err = JSON.parse(error['_body']);
       alert(err.reason);
     }))
@@ -150,7 +150,7 @@ export class ModelsComponent implements OnInit {
 
   // delete brand
   deleteBrand(brandId: number) {
-    this.userService.verifyBrandModel(brandId,2)
+    this.userService.verifyBrandModel(brandId, 2)
       .subscribe(res => {
         // console.log(res);
         alert('Model deleted successfully');
@@ -158,7 +158,7 @@ export class ModelsComponent implements OnInit {
           .subscribe(brandList => {
             this.brands = brandList;
             console.log(this.brands);
-          },(error=>{
+          }, (error => {
             const err = JSON.parse(error['_body']);
             alert(err.reason);
           }));
@@ -166,42 +166,42 @@ export class ModelsComponent implements OnInit {
   }
 
   // edit brand
-  editBrand(form){
-    this.formsId=form.category_id;  
-    this.formIds=form.id;  
-    this.userId =form.updated_by;
-    console.log(form,"form data")
-    this.objectForm=form;
-    this.showBrandList=false;
-    this.showEditForm=true;
+  editBrand(form) {
+    this.formsId = form.category_id;
+    this.formIds = form.id;
+    this.userId = form.updated_by;
+    console.log(form, "form data")
+    this.objectForm = form;
+    this.showBrandList = false;
+    this.showEditForm = true;
     this.userService.getSubCategoryList(this.formsId)
-    .subscribe(res => {
-      this.cat = res.data;
-      this.mainCatId = this.cat.category_id;
-      this.userService.getBrandListByCategoryAndUser(this.formsId,this.userId)
+      .subscribe(res => {
+        this.cat = res.data;
+        this.mainCatId = this.cat.category_id;
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
+    this.userService.getBrandListByCategoryAndUser(this.formsId, this.userId)
       .subscribe(res => {
         this.catForms = res.data;
-        console.log('catForms',this.catForms)
-        
-        // console.log(this.detailType);
-      })
-      // console.log(res, "category");
-    },(error=>{
-      const err = JSON.parse(error['_body']);
-      alert(err.reason);
-    }));
+        console.log('catForms', this.catForms)
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
 
-  addModels(form){
-    form['category_id']= this.mainCatId;
-    this.userService.updateModel(form,this.formIds)
-    .subscribe(res=>{
-      console.log(res);
-      alert("Model updated successfully");
-    },(error=>{
-      const err = JSON.parse(error['_body']);
-      alert(err.reason);
-    }))
+  addModels(form) {
+    form['category_id'] = this.mainCatId;
+    this.userService.updateModel(form, this.formIds)
+      .subscribe(res => {
+        console.log(res);
+        alert("Model updated successfully");
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
   back() {
     this.showEditForm = false;
