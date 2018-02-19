@@ -26,18 +26,19 @@
           <th>Email ID</th>
           <th>JOB Date</th>
           <th>Comments</th>
-          <th></th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+offset }} </th>
+          <th scope="row">{{ i+1+prev }} </th>
           <td>{{ bill?.job_id}}</td>
           <td>{{ bill?.user.full_name}}</td>
           <td>{{ bill?.user.mobile_no}}</td>
           <td>{{ bill?.user.email}}</td>
           <td>{{ bill?.updated_at | date}}</td>
           <td class="comment">{{ bill?.comments}}</td>
+          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
         </tr>
       </tbody>
     </table>
@@ -85,3 +86,31 @@
     </div>
   </app-dialog>
 </div>
+<modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+    <modal-content>
+      <div *ngIf="!loader">
+        <div class="body">
+          <div class="row clearfix">
+            <div class="col-md-12" style="text-align:center;">
+              <img [src]="images[imageIndex]" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          <p class="text-center">
+            <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
+            <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
+            <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
+            <!-- <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button> -->
+            <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
+            <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
+          </p>
+        </div>
+      </div>
+      <div class="text-center" *ngIf="loader">
+        <h1>Please Wait ...</h1>
+        <img src="../../../assets/images/loader.gif" alt="">
+      </div>
+    </modal-content>
+  </modal>

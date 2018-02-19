@@ -675,6 +675,7 @@ export class CreateBillComponent implements OnInit {
     this.warrantyId = war.id;
     this.selectedEditWarrantyImageArray = war.copies;
     this.warrantyFormObjectForBind = war;
+    this.sellerIdforSellerInfo = war.seller_id;
     console.log(war);
     this.addons = false;
     this.showWarrantyEditForm = true;
@@ -772,6 +773,7 @@ export class CreateBillComponent implements OnInit {
     console.log(ins, "insurance form data")
     this.getOfflineSellerList();
     this.insuranceId = ins.id;
+    this.sellerIdforSellerInfo = ins.seller_id;
     this.selectedEditInsuranceImageArray = ins.copies;
     this.insuranceFormObjectForBind = ins;
     this.addons = false;
@@ -868,6 +870,7 @@ export class CreateBillComponent implements OnInit {
   editAmcForm(amc) {
     this.getOfflineSellerList();
     this.amcId = amc.id;
+    this.sellerIdforSellerInfo = amc.seller_id;
     this.selectedEditAmcImageArray = amc.copies;
     this.amcFormObjectForBind = amc;
     this.addons = false;
@@ -962,6 +965,7 @@ export class CreateBillComponent implements OnInit {
     console.log(rep)
     this.getOfflineSellerList();
     this.repairId = rep.id;
+    this.sellerIdforSellerInfo = rep.seller_id;
     this.selectedEditRepairImageArray = rep.copies;
     this.repairFormObjectForBind = rep;
     this.addons = false;
@@ -1059,6 +1063,7 @@ export class CreateBillComponent implements OnInit {
     console.log(rep, "puc")
     this.getOfflineSellerList();
     this.repairId = rep.id;
+    this.sellerIdforSellerInfo = rep.seller_id;
     this.selectedPucImageArray = rep.copies;
     this.pucFormObjectForBind = rep;
     this.addons = false;
@@ -1273,6 +1278,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getOfflineSellerDetailsbyID(this.sellerIdforSellerInfo)
       .subscribe(res => {
         this.sellerInfoObject = res.data;
+        console.log(this.sellerInfoObject,"seller info for edit");
         this.fillEditOfflineSellerForm();
         console.log(res);
       })
@@ -1282,6 +1288,9 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         // console.log(res);
         alert('Offline Seller updated successfully');
+      },(error)=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       });
   }
   // ******************************** Small Functions ***********************************//
