@@ -15,7 +15,7 @@ export class ModelsComponent implements OnInit {
   assignForm: FormGroup;
   offset = 0;
   objectForm: any;
-  formIds: number;
+  modelId: number;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
@@ -27,8 +27,8 @@ export class ModelsComponent implements OnInit {
   catId: any;
   catForms: any;
   mainCat: any;
-  formsId: number;
-  userId: number;
+  categoryName: any;
+  brandList: any;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['', Validators.required],
@@ -44,14 +44,7 @@ export class ModelsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserBrandDropdownList(this.offset)
-      .subscribe(brandList => {
-        this.brands = brandList;
-        console.log(this.brands);
-      }, (error => {
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      }));
+    this.getUserBrandDropdownList();
 
     this.userService.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(mainCat => {
@@ -63,14 +56,11 @@ export class ModelsComponent implements OnInit {
       }));
   }
 
-
-  onSelectMainCat(catID: number) {
-    this.mainCatId = catID;
-    this.cat = [];
-    this.userService.getSubCategoryList(catID)
-      .subscribe(res => {
-        this.cat = res.data.subCategories;
-        // console.log(res, "category");
+  getUserBrandDropdownList() {
+    this.userService.getUserBrandDropdownList(this.offset)
+      .subscribe(brandList => {
+        this.brands = brandList;
+        console.log(this.brands);
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -78,12 +68,10 @@ export class ModelsComponent implements OnInit {
   }
 
   onSelectCat2(catID: number) {
-    console.log("cat id", catID);
-    this.catId = catID;
     this.userService.getBrandListByCategory(catID)
       .subscribe(res => {
-        this.catForms = res.data;
-        console.log('catForms', this.catForms)
+        this.brandList = res.data;
+        console.log('Brand List', this.catForms)
         // console.log(this.detailType);
       }, (error => {
         const err = JSON.parse(error['_body']);
@@ -167,37 +155,47 @@ export class ModelsComponent implements OnInit {
 
   // edit brand
   editBrand(form) {
-    this.formsId = form.category_id;
-    this.formIds = form.id;
-    this.userId = form.updated_by;
-    console.log(form, "form data")
-    this.objectForm = form;
-    this.showBrandList = false;
+    console.log(form, "edit model data");
     this.showEditForm = true;
-    this.userService.getSubCategoryList(this.formsId)
-      .subscribe(res => {
-        this.cat = res.data;
-        this.mainCatId = this.cat.category_id;
-      }, (error => {
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      }));
-    this.userService.getBrandListByCategoryAndUser(this.formsId, this.userId)
-      .subscribe(res => {
-        this.catForms = res.data;
-        console.log('catForms', this.catForms)
-      }, (error => {
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      }))
+    this.showBrandList = false;
+    this.modelId = form.id;
+    this.categoryDetailsById(form.category_id);
+    this.onSelectCat2(form.category_id);
+    this.assignForm.setValue({
+      brand_id: form.brand_id,
+      category_id: form.category_id,
+      title: form.title,
+      warranty_renewal_type: form.warranty_renewal_type,
+      dual_renewal_type: form.dual_renewal_type,
+      product_type: form.product_type,
+      category_form_1_value: form.category_form_1_value,
+      category_form_2_value: form.category_form_2_value,
+      status_type: 1
+    });
   }
 
-  addModels(form) {
+  // get category name by category id 
+  categoryDetailsById(id) {
+    this.userService.categoryDetailsById(id)
+      .subscribe(res => {
+        console.log(res);
+        this.categoryName = res;
+      }, error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      })
+  }
+  updateModels(form) {
+    console.log(form);
     form['category_id'] = this.mainCatId;
-    this.userService.updateModel(form, this.formIds)
+    this.userService.updateModel(form, this.modelId)
       .subscribe(res => {
         console.log(res);
         alert("Model updated successfully");
+        this.showEditForm = false;
+        this.showBrandList = true;
+        this.getUserBrandDropdownList();
+
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
