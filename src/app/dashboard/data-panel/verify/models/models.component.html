@@ -61,19 +61,17 @@
 
 
 <div *ngIf="showEditForm">
-    <button class="btn bg-blue" (click)="back()">Back</button>
-  <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="addModels(assignForm.value)">
+  <button class="btn bg-blue" (click)="back()">Back</button>
+  <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="updateModels(assignForm.value)">
     <div class="row clearfix">
       <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
         <label class="font-small">Category</label>
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
-        <div class="form-group">
-          <select class="form-control dropdown mains" formControlName="category_id" (change)="onSelectCat2($event.target.value)">
-            <option value="">Select</option>
-            <option value={{cat?.category_id}} selected={{cat?.category_id}}>{{ cat?.category_name }}</option>
-          </select>
+        <div class="form-group" style="margin-top:10px;">
+          <p>{{categoryName?.data?.category_name}}</p>
         </div>
+
       </div>
     </div>
     <br>
@@ -84,9 +82,9 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
         <div class="form-group">
-          <select class="form-control dropdown mains" formControlName="brand_id" value="{{objectForm?.brand_id}}">
+          <select class="form-control dropdown mains" formControlName="brand_id">
             <option value="">Select</option>
-            <option *ngFor="let categoryList of catForms" value="categoryList?.brand_id">{{ categoryList?.brand_name }}</option>
+            <option *ngFor="let list of brandList" value="{{list?.brand_id}}">{{ list?.brand_name }}</option>
           </select>
         </div>
       </div>
@@ -99,7 +97,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
         <div class="form-group">
-          <input type="text" class="form-control mains" formControlName="title" value={{objectForm?.title}}>
+          <input type="text" class="form-control mains" formControlName="title">
         </div>
       </div>
     </div>
@@ -111,24 +109,24 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7 ">
         <div class="form-group">
-          <select class="form-control dropdown mains" formControlName="warranty_renewal_type" value={{objectForm?.warranty_renewal_type}}>
-            <option value="">Select</option>
-            <option value=7>6 Month</option>
-            <option value=8>1 Year</option>
-            <option value=22>1.5 Years</option>
-            <option value=9>2 Years</option>
-            <option value=10>3 Years</option>
-            <option value=11>4 Years</option>
-            <option value=12>5 Years</option>
-            <option value=13>6 Years</option>
-            <option value=14>7 Years</option>
-            <option value=15>8 Years</option>
-            <option value=16>9 Years</option>
-            <option value=17>10 Years</option>
-            <option value=18>15 Years</option>
-            <option value=19>20 Years</option>
-            <option value=20>50 Years</option>
-            <option value=21>Lifetime</option>
+          <select class="form-control dropdown mains" formControlName="warranty_renewal_type">
+            <option [ngValue]="">Select</option>
+            <option [ngValue]=7>6 Month</option>
+            <option [ngValue]=8>1 Year</option>
+            <option [ngValue]=22>1.5 Years</option>
+            <option [ngValue]=9>2 Years</option>
+            <option [ngValue]=10>3 Years</option>
+            <option [ngValue]=11>4 Years</option>
+            <option [ngValue]=12>5 Years</option>
+            <option [ngValue]=13>6 Years</option>
+            <option [ngValue]=14>7 Years</option>
+            <option [ngValue]=15>8 Years</option>
+            <option [ngValue]=16>9 Years</option>
+            <option [ngValue]=17>10 Years</option>
+            <option [ngValue]=18>15 Years</option>
+            <option [ngValue]=19>20 Years</option>
+            <option [ngValue]=20>50 Years</option>
+            <option [ngValue]=21>Lifetime</option>
           </select>
         </div>
       </div>
@@ -141,7 +139,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 ">
         <div class="form-group">
-          <select class="form-control dropdown mains" formControlName="dual_renewal_type" value={{objectForm?.dual_renewal_type}}>
+          <select class="form-control dropdown mains" formControlName="dual_renewal_type">
             <option value="">Select</option>
             <option value=7>6 Month</option>
             <option value=8>1 Year</option>
@@ -171,7 +169,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
         <div class="form-group">
-          <input type="text" class="form-control mains" formControlName="product_type" value={{objectForm?.product_type}}>
+          <input type="text" class="form-control mains" formControlName="product_type">
         </div>
       </div>
     </div>
@@ -183,7 +181,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4  col-xs-4 ">
         <div class="form-group">
-          <input type="text" class="form-control mains" formControlName="category_form_1_value" value={{objectForm?.category_form_1_value}}>
+          <input type="text" class="form-control mains" formControlName="category_form_1_value">
         </div>
       </div>
     </div>
@@ -196,7 +194,7 @@
       </div>
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
         <div class="form-group">
-          <input type="text" class="form-control mains" formControlName="category_form_2_value" value={{objectForm?.category_form_2_value}}>
+          <input type="text" class="form-control mains" formControlName="category_form_2_value">
         </div>
       </div>
     </div>
@@ -204,7 +202,7 @@
 
     <div class="row">
       <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
-        <button class="btn bg-green btn-md btn-lg" type="submit">Add Model</button>
+        <button class="btn bg-green btn-md btn-lg" type="submit">Update Model</button>
       </div>
     </div>
   </form>

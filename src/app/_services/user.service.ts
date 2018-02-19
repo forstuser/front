@@ -208,6 +208,11 @@ export class UserService {
     this.getCSRF();
     return this.http.delete(this.apiLink + 'api/categories/' + id, this.options).map((response: Response) => response);
   }
+  // get category details by id
+  categoryDetailsById(id){
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/categories/' + id, this.options).map((response: Response) => response.json());
+  }
   //Create colors
   createColor(category: any) {
     this.getCSRF();
