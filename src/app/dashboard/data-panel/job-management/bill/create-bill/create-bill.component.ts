@@ -173,7 +173,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.warrantyProvider(this.type)
       .subscribe(res => {
         this.warrProvider = res.data;
-        // console.log(this.warrProvider, "Warranty Provider List")
+        console.log(this.warrProvider, "Warranty Provider List")
       })
   }
 
