@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NewList } from './../../../../_models/billList.interface';
 import { User } from './../../../../_models/user';
 import { Component, OnInit } from '@angular/core';
+import { appConfig } from './../../../../app.config';
 
 @Component({
   selector: 'app-discarded',
@@ -17,11 +18,21 @@ export class DiscardedComponent implements OnInit {
   showDialog = false;
   item: Object = {}; // object for single user
   statusCode: Number;
-  offset:number = 0;
+  prev: number = 0;
+  next: number = 10;
+  offset:number  =0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
   userId:any;
+  imageArray: any[] = [];
+  images: string[] = ['../../../assets/images/loader.gif'];
+  imageIndex: number = 0;
+  loader: boolean = false;
+  showImageDialog = false;
+  imageUrl: string = appConfig.apiUrl;
+  arrayLength: number;
+  billId: number;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -134,19 +145,42 @@ export class DiscardedComponent implements OnInit {
       Comments: ''
     });
   }
-  assignBill(item: any) {
-    console.log(item);
-    this.userservice.assignJobCE(item)
+  // assignBill(item: any) {
+  //   console.log(item);
+  //   this.userservice.assignJobCE(item)
+  //     .subscribe(res => {
+  //       console.log(res);
+  //       alert('assign successfull');
+  //       this.showDialog = false;
+  //       this.userservice.getAdminJobList(10,this.offset) // new = 4 refer api doc
+  //         .subscribe(bill => {
+  //           this.billList = bill;
+  //           console.log(this.billList);
+  //         });
+  //     });
+  // }
+  // for view image
+  openImageModel(req: any) {
+    this.imageIndex = 0;
+    this.loader = true;
+    this.showImageDialog = true;
+    console.log(req, "image req");
+    this.billId = req.id;
+    this.images = [];
+    this.imageArray = [];
+    this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        console.log(res);
-        alert('assign successfull');
-        this.showDialog = false;
-        this.userservice.getAdminJobList(10,this.offset) // new = 4 refer api doc
-          .subscribe(bill => {
-            this.billList = bill;
-            console.log(this.billList);
-          });
-      });
+        console.log(res, "image");
+        this.imageArray = res.data.copies;
+        console.log(this.imageArray);
+        console.log(this.imageArray.length, "length of array");
+        this.arrayLength = this.imageArray.length;
+        for (let i of this.imageArray) {
+          this.images.push(this.imageUrl + 'api' + i.copyUrl)
+        }
+        console.log(this.images);
+        this.loader = false;
+      })
+    // this.discardBillImage(req.BID);
   }
-
 }
