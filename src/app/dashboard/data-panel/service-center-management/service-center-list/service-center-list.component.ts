@@ -109,7 +109,10 @@ export class ServiceCenterListComponent implements OnInit {
       .subscribe(res => {
         // console.log(res);
         alert('Detail deleted successfully');
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   // passs current brand id as argument and open the popup
@@ -159,7 +162,10 @@ export class ServiceCenterListComponent implements OnInit {
           (po) => {
             (<FormArray>this.authorizedServiceCenterForm.controls['center_details']).push(this.createDetailsFormGroup(po));
           });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
 
@@ -198,7 +204,10 @@ export class ServiceCenterListComponent implements OnInit {
           .subscribe(authorizedServiceCenterList => {
             this.authorizedServiceCenter = authorizedServiceCenterList;
           });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
 
@@ -242,7 +251,10 @@ export class ServiceCenterListComponent implements OnInit {
         this.rightFlag = false;
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   right() {
@@ -258,7 +270,10 @@ export class ServiceCenterListComponent implements OnInit {
         }
         this.authorizedServiceCenter = authorizedServiceCenterList;
         console.log(this.authorizedServiceCenter);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
   back() {
     this.showASCList = true;
@@ -276,6 +291,9 @@ export class ServiceCenterListComponent implements OnInit {
       this.authorizedServiceCenter = authorizedServiceCenterList;
       console.log(this.cat,"search by name")
       // console.log(getCat);
-    });
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }));
   }
 }

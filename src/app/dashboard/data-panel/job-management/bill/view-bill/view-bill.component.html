@@ -1195,7 +1195,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{productFormObjectForBind?.seller_id}}" disabled>
                   <option value="">Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -1391,7 +1391,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{warrantyFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -1604,7 +1604,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{insuranceFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -1787,7 +1787,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{amcFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -1924,7 +1924,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{repairFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>
@@ -2079,7 +2079,7 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{pucFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}</option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
                 </select>
               </div>
             </div>

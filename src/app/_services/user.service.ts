@@ -349,6 +349,7 @@ export class UserService {
   }
   // Update offline seller
   updateOfflineSeller(OfflineSeller: any) {
+    console.log(OfflineSeller);
     Object.keys(OfflineSeller).forEach((key) => (OfflineSeller[key] == '' || OfflineSeller[key] == null) && delete OfflineSeller[key]);
     const sid = OfflineSeller.sid;
     this.getCSRF();
@@ -419,9 +420,9 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&status=1', this.options)
       .map((response: Response) => response.json());
   }
-  getBrandListByCategoryAndUser(catID) {
+  getBrandListByCategoryAndUser(catID,userId) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&status=1', this.options)
+    return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&user_id='+userId, this.options)
       .map((response: Response) => response.json());
   }
   // Create Brand

@@ -128,7 +128,10 @@ export class ListManagementComponent implements OnInit {
           this.detail = detailList;
           console.log(detailList);
         });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
   else{
     alert("Please Active first then update")    
@@ -151,7 +154,10 @@ export class ListManagementComponent implements OnInit {
         },error=>{
           alert("somenthing went wrong");
         });
-    });
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }));
   }
       // function for avoid only space submit
       avoidSpace(e){

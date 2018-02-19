@@ -114,21 +114,19 @@ export class OfflineSellerListComponent implements OnInit {
   // update offline seller
   updateOfflineSeller(req: any) {
     console.log(req);
-    if (req.status_type == 1) {
-      this.userService.updateOfflineSeller(req)
-        .subscribe(res => {
-          // console.log(res);
-          alert('Offline Seller updated successfully');
-          this.showOfflineSellerList = true;
-          this.userService.getOfflineSellerList() // list update after edit
-            .subscribe(offlineSellerList => {
-              this.offlineSeller = offlineSellerList;
-            });
-        });
-    }
-    else {
-      alert("Please Active first then update");
-    }
+    this.userService.updateOfflineSeller(req)
+      .subscribe((res) => {
+        // console.log(res);
+        alert('Offline Seller updated successfully');
+        this.showOfflineSellerList = true;
+        this.userService.getOfflineSellerList() // list update after edit
+          .subscribe(offlineSellerList => {
+            this.offlineSeller = offlineSellerList;
+          });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
   // delete offline seller
   deleteOfflineSeller(sellerId: any) {

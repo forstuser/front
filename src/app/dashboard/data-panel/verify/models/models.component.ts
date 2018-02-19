@@ -28,6 +28,7 @@ export class ModelsComponent implements OnInit {
   catForms:any;
   mainCat:any;
   formsId:number;
+  userId:number;
   constructor(private userService: UserService,private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['',Validators.required],
@@ -47,13 +48,19 @@ export class ModelsComponent implements OnInit {
       .subscribe(brandList => {
         this.brands = brandList;
         console.log(this.brands);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
 
       this.userService.getCategoryList(1) // 1 for main category refer to api doc
       .subscribe(mainCat => {
         this.mainCat = mainCat;
         console.log(mainCat);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
 
@@ -64,19 +71,24 @@ export class ModelsComponent implements OnInit {
       .subscribe(res => {
         this.cat = res.data.subCategories;
         // console.log(res, "category");
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   onSelectCat2(catID: number) {
     console.log("cat id", catID);
-
     this.catId = catID;
     this.userService.getBrandListByCategory(catID)
     .subscribe(res => {
       this.catForms = res.data;
       console.log('catForms',this.catForms)
       // console.log(this.detailType);
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
 
@@ -95,7 +107,10 @@ export class ModelsComponent implements OnInit {
         this.rightFlag = false;
         this.brands = brandList;
         console.log(this.brands);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   right() {
@@ -111,7 +126,10 @@ export class ModelsComponent implements OnInit {
         }
         this.brands = brandList;
         console.log(this.brands);
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
   verifyBrand(item) {
@@ -123,7 +141,10 @@ export class ModelsComponent implements OnInit {
         this.brands = brandList;
         console.log(this.brands);
       });
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
 
 
@@ -137,7 +158,10 @@ export class ModelsComponent implements OnInit {
           .subscribe(brandList => {
             this.brands = brandList;
             console.log(this.brands);
-          });
+          },(error=>{
+            const err = JSON.parse(error['_body']);
+            alert(err.reason);
+          }));
       });
   }
 
@@ -145,6 +169,7 @@ export class ModelsComponent implements OnInit {
   editBrand(form){
     this.formsId=form.category_id;  
     this.formIds=form.id;  
+    this.userId =form.updated_by;
     console.log(form,"form data")
     this.objectForm=form;
     this.showBrandList=false;
@@ -153,14 +178,18 @@ export class ModelsComponent implements OnInit {
     .subscribe(res => {
       this.cat = res.data;
       this.mainCatId = this.cat.category_id;
-      this.userService.getBrandListByCategory(this.formsId)
+      this.userService.getBrandListByCategoryAndUser(this.formsId,this.userId)
       .subscribe(res => {
         this.catForms = res.data;
         console.log('catForms',this.catForms)
+        
         // console.log(this.detailType);
       })
       // console.log(res, "category");
-    });
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }));
   }
 
   addModels(form){
@@ -169,7 +198,10 @@ export class ModelsComponent implements OnInit {
     .subscribe(res=>{
       console.log(res);
       alert("Model updated successfully");
-    })
+    },(error=>{
+      const err = JSON.parse(error['_body']);
+      alert(err.reason);
+    }))
   }
   back() {
     this.showEditForm = false;

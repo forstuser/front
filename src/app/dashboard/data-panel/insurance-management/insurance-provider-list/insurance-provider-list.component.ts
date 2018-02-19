@@ -128,7 +128,10 @@ export class InsuranceProviderListComponent implements OnInit {
       .subscribe(res => {
         this.getCatList = res;
         console.log(this.getCatList, "list of category")
-      })
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
     // reset  editBrand form
     this.editInsuranceForm = new FormGroup({
       'name': new FormControl(''),
@@ -205,7 +208,10 @@ export class InsuranceProviderListComponent implements OnInit {
             this.insuranceProviders = insuranceProvider;
             console.log(this.insuranceProviders);
           });
-      });
+      },(error=>{
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }));
   }
 
 
