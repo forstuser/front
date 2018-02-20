@@ -221,32 +221,6 @@ export class UnderProgressComponent implements OnInit {
       });
   }
 
-  // // opn model for discard bills
-  // discard(item:any){
-  //   console.log(item);
-  //   this.discardDialog = true;
-  //   this.discardForm.setValue({
-  //     BID: item.BID,
-  //     UID: item.UID,
-  //     Comments:'',
-  //   });
-  // } 
-  // discardBill(item:any){
-  //   console.log(item);
-  //   this.userservice.discardConsumerBill(item)
-  //     .subscribe(res=>{
-  //       console.log(res);
-  //       alert("Bill Discarded");
-  //       this.discardDialog = false;
-  //       this.userservice.getAdminJobList(8,this.prev,this.next) // incomplete = 6 refer api doc
-  //       .subscribe(bill => {
-  //         this.bills = bill;
-  //         console.log(this.bills);
-  //       });
-  //     })
-  // }
-
-
   // for view image
   openImageModel(req: any) {
     this.imageIndex = 0;
@@ -259,13 +233,18 @@ export class UnderProgressComponent implements OnInit {
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
+        let counter = 0;
         this.imageArray = res.data.copies;
         console.log(this.imageArray, "need this array");
         console.log(this.imageArray.length, "length of array");
-        this.arrayLength = this.imageArray.length;
+        // this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+          if(i.status_type!=9){
+            this.images.push(this.imageUrl + 'api/' + i.copyUrl);
+            counter+=1;
+          }
         }
+        this.arrayLength = counter;
         console.log(this.images, "images url links");
         this.loader = false;
       })

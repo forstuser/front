@@ -270,7 +270,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceForm = false;
     this.showAmcForm = false;
     this.showRepairForm = false;
-    this.onSelectCat2(this.catId);
+    // this.onSelectCat2(this.catId);
     this.getModelList();
   }
   // complete job
@@ -505,7 +505,7 @@ export class CreateBillComponent implements OnInit {
   }
   // brand list
   getBrandListByUser() {
-    this.userService.getBrandListByUser(this.userId)
+    this.userService.getBrandListByCategoryAndUser(this.catId,this.userId)
       .subscribe(brandList => {
         this.brands = brandList;
         // console.log(this.brands,"brands");
@@ -1131,15 +1131,11 @@ export class CreateBillComponent implements OnInit {
   }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
-    this.getBrandListByUser();
-    this.getColorList();
-    this.getOfflineSellerList();
-    this.mainCategoryList();
-    this.onSelectMainCat(prod.main_category_id);
-    this.onSelectCat2(prod.category_id);
+    // this.onSelectCat2(prod.category_id);
     console.log(prod, "pro");
     this.productId = prod.id;
     this.brandId = prod.brand_id;
+    this.catId=prod.category_id;
     this.selectedImageArray = prod.copies;
     this.fillProductForm(this.productId);
     this.productFormObjectForBind = prod;
@@ -1157,6 +1153,11 @@ export class CreateBillComponent implements OnInit {
     this.showRepairForm = false;
     this.jobDetailsShow = false;
     this.showProductList = false;
+    this.getBrandListByUser();
+    this.getColorList();
+    this.getOfflineSellerList();
+    this.mainCategoryList();
+    this.onSelectMainCat(prod.main_category_id);
   }
 
   fillProductForm(prodID) {
