@@ -171,13 +171,18 @@ export class DiscardedComponent implements OnInit {
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
         console.log(res, "image");
+        let counter=0;
         this.imageArray = res.data.copies;
         console.log(this.imageArray);
         console.log(this.imageArray.length, "length of array");
-        this.arrayLength = this.imageArray.length;
+        // this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api' + i.copyUrl)
+          if(i.status_type==9){
+            counter+=1;
+            this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+          }
         }
+        this.arrayLength = counter;
         console.log(this.images);
         this.loader = false;
       })
