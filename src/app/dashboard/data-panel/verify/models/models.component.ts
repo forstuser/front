@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
   styleUrls: ['./models.component.css']
 })
 export class ModelsComponent implements OnInit {
-  brands: Brand;
+  dropdownModels: any;
   assignForm: FormGroup;
   offset = 0;
   objectForm: any;
@@ -29,6 +29,12 @@ export class ModelsComponent implements OnInit {
   mainCat: any;
   categoryName: any;
   brandList: any;
+  category_id: any = '';
+  brand_id: any = '';
+  status_id: any = '';
+  activeModels: any;
+  old_id: number;
+  new_id: number;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['', Validators.required],
@@ -59,8 +65,8 @@ export class ModelsComponent implements OnInit {
   getUserBrandDropdownList() {
     this.userService.getUserBrandDropdownList(this.offset)
       .subscribe(brandList => {
-        this.brands = brandList;
-        console.log(this.brands);
+        this.dropdownModels = brandList;
+        console.log(this.dropdownModels);
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -68,11 +74,11 @@ export class ModelsComponent implements OnInit {
   }
 
   onSelectCat2(catID: number) {
+    this.category_id = catID;
     this.userService.getBrandListByCategory(catID)
       .subscribe(res => {
         this.brandList = res.data;
         console.log('Brand List', this.catForms)
-        // console.log(this.detailType);
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -93,8 +99,8 @@ export class ModelsComponent implements OnInit {
       .subscribe(brandList => {
         console.log(brandList.statusCode)
         this.rightFlag = false;
-        this.brands = brandList;
-        console.log(this.brands);
+        this.dropdownModels = brandList;
+        console.log(this.dropdownModels);
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -112,8 +118,8 @@ export class ModelsComponent implements OnInit {
           this.rightFlag = true;
           this.noData = true;
         }
-        this.brands = brandList;
-        console.log(this.brands);
+        this.dropdownModels = brandList;
+        console.log(this.dropdownModels);
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -126,8 +132,8 @@ export class ModelsComponent implements OnInit {
       alert("Model Verified");
       this.userService.getUserBrandDropdownList(this.offset)
         .subscribe(brandList => {
-          this.brands = brandList;
-          console.log(this.brands);
+          this.dropdownModels = brandList;
+          console.log(this.dropdownModels);
         });
     }, (error => {
       const err = JSON.parse(error['_body']);
@@ -144,8 +150,8 @@ export class ModelsComponent implements OnInit {
         alert('Model deleted successfully');
         this.userService.getUserBrandDropdownList(this.offset)
           .subscribe(brandList => {
-            this.brands = brandList;
-            console.log(this.brands);
+            this.dropdownModels = brandList;
+            console.log(this.dropdownModels);
           }, (error => {
             const err = JSON.parse(error['_body']);
             alert(err.reason);
@@ -204,5 +210,62 @@ export class ModelsComponent implements OnInit {
   back() {
     this.showEditForm = false;
     this.showBrandList = true;
+  }
+  //filter functions
+
+  onSelectMainCategory(req) {
+    this.userService.getSubCategoryList(req)
+      .subscribe(res => {
+        this.cat = res.data.subCategories;
+        console.log(res, "category");
+      });
+  }
+  onSelectCategory(req) {
+    console.log(req);
+    this.category_id = req;
+  }
+  onSelectBrand(req) {
+    console.log(req);
+    this.brand_id = req;
+  }
+  onSelectStatus(req) {
+    console.log(req);
+    this.status_id = req;
+  }
+  onClickUserModel(old_id, cat, bra) {
+    this.old_id = old_id;
+    console.log(cat, bra);
+    this.userService.filterModelList(cat, bra, 1)
+      .subscribe(res => {
+        console.log(res);
+        this.activeModels = res;
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
+  }
+  onSelectModel(req) {
+    this.new_id = req;
+  }
+  linkModel() {
+    this.userService.linkModelList(this.old_id, this.new_id)
+      .subscribe(res => {
+        console.log(res);
+        alert("Model successfully link");
+        this.getUserBrandDropdownList();
+      }, error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      })
+  }
+  filter() {
+    this.userService.filterModelList(this.category_id, this.brand_id, this.status_id)
+      .subscribe(res => {
+        console.log(res);
+        this.dropdownModels = res;
+      }, (error => {
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      }))
   }
 }

@@ -78,16 +78,16 @@
       <br>
 
       <div class="body table-responsive" style="padding:0% 12%">
-          <nav>
-              <ul class="pager">
-                <li [ngClass]="{ 'disabled': leftFlag }">
-                  <a class="waves-effect" (click)="left()">Previous</a>
-                </li>
-                <li [ngClass]="{ 'disabled': rightFlag }">
-                  <a class="waves-effect" (click)="right()">Next</a>
-                </li>
-              </ul>
-            </nav>
+        <nav>
+          <ul class="pager">
+            <li [ngClass]="{ 'disabled': leftFlag }">
+              <a class="waves-effect" (click)="left()">Previous</a>
+            </li>
+            <li [ngClass]="{ 'disabled': rightFlag }">
+              <a class="waves-effect" (click)="right()">Next</a>
+            </li>
+          </ul>
+        </nav>
         <table class="table table-condensed">
           <thead>
             <tr>
@@ -108,7 +108,8 @@
           <tbody>
             <tr *ngFor="let notifications of notification">
               <th>
-                <input type="checkbox" (click)="clicked($event,notifications?.id)" formControlName="user_id" style="position: relative;left: 0;opacity: 1;margin-top: 10px;" [checked]="checkAll">
+                <input type="checkbox" (click)="clicked($event,notifications?.id)" formControlName="user_id" style="position: relative;left: 0;opacity: 1;margin-top: 10px;"
+                  [checked]="checkAll">
               </th>
               <th>
                 <small>{{notifications?.full_name }}</small>
@@ -123,8 +124,8 @@
           </tbody>
         </table>
         <ng-template #elseBlock>
-            <h4> No Data Available </h4>
-          </ng-template>
+          <h4> No Data Available </h4>
+        </ng-template>
       </div>
       <div class="row">
         <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
