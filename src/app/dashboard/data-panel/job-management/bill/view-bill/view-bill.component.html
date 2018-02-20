@@ -364,8 +364,11 @@
         </div>
         <br>
         <div class="row clearfix" *ngIf="userType==3">
-          <div class="col-md-3 col-md-offset-1">
+          <div class="col-md-3 ">
             <button class="btn bg-blue btn-block btn-lg" (click)="backClicked()"> Back</button>
+          </div>
+          <div class="col-md-3">
+            <button class="btn bg-orange btn-block btn-lg" (click)="openProductList()">Product List</button>
           </div>
           <div class="col-md-3">
             <button class="btn bg-orange btn-block btn-lg" (click)="reassignJobPopUp()"> Reassign Job</button>
@@ -373,6 +376,7 @@
           <div class="col-md-3 ">
             <button class="btn bg-green btn-block btn-lg" (click)="completeJobDialog=true;"> Complete Job</button>
           </div>
+
         </div>
         <div class="row clearfix" *ngIf="userType<=2">
           <div class="col-md-3 col-md-offset-8">
@@ -444,9 +448,6 @@
           <div class="col-md-5">
             <button class="btn bg-cyan btn-block btn-xs waves-effect m-b-15" (click)="showbillGeneralInfoForm()">Bill General Info</button>
           </div>
-          <!-- <div class="col-md-4">
-              <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Offline Seller</button>
-            </div> -->
         </div>
         <div *ngIf="jobDetails?.products?.length > 0">
           <div class="body table-responsive" style="padding:0px;">
@@ -504,6 +505,75 @@
         </div>
       </div>
       <!-- Product Buttons End -->
+      <!-- Product List Buttons Start -->
+      <div *ngIf="cockpit2">
+        <p></p>
+        <div class="row clearfix">
+          <div class="col-md-6">
+            <button class="btn btn-block btn-xs bg-indigo waves-effect m-b-15" (click)="backTojobDetailsShow()">Back</button>
+          </div>
+          <!-- <div class="col-md-6">
+            <button class="btn bg-pink btn-xs btn-block waves-effect m-b-15" (click)="showAddSellerForm()">Add Offline Seller</button>
+          </div> -->
+        </div>
+        <div>
+          <div class="body table-responsive" style="padding:0px;">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>
+                    <small>Bill ID</small>
+                  </th>
+                  <th>
+                    <small>Product ID</small>
+                  </th>
+                  <th>
+                    <small>Name</small>
+                  </th>
+                  <th>
+                    <small>Purchase Cost</small>
+                  </th>
+                  <th>
+                    <small>Document Date</small>
+                  </th>
+                  <th>
+                    <small>Create</small>
+                  </th>
+                  <!-- <th><small>Delete</small></th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let list of productList?.data">
+                  <th>
+                    <small>{{ list?.bill_id }}</small>
+                  </th>
+                  <th>
+                    <small>{{ list?.id }}</small>
+                  </th>
+                  <th>
+                    <small>{{ list?.product_name }}</small>
+                  </th>
+                  <th>
+                    <small>{{ list?.purchase_cost }}</small>
+                  </th>
+                  <th>
+                    <small>{{ list?.document_date | date }}</small>
+                  </th>
+                  <th>
+                    <small>
+                      <span class="btn btn-info btn-xs" title="Add Additional Info" (click)="addAddons(list)">
+                        <i class="material-icons">insert_drive_file</i>
+                      </span>
+                    </small>
+                  </th>
+                  <!-- <th><small><span class="btn btn-danger btn-xs"  title="Delete " (click)="deleteCall(list);deleteJob=true;"><i class="material-icons" >delete_forever</i></span></small></th> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Product List Buttons End -->
       <!-- BILL General Info Edit Start-->
       <div *ngIf="billGeneralInfoEdit">
         <form #billGeneralInfoEditForm="ngForm" (ngSubmit)="verifyBillGeneral(billGeneralInfoEditForm)">
@@ -1191,12 +1261,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{productFormObjectForBind?.seller_id}}" disabled>
                   <option value="">Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -1387,12 +1464,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{warrantyFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -1419,7 +1503,10 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel="{{warrantyFormObjectForBind?.provider_id}}" disabled>
                   <option value="">Select</option>
-                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of warrProvider" value="{{list?.id}}">{{ list?.name }}
+                    <span>({{list?.main_category_name}})</span>
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
               </div>
             </div>
@@ -1600,12 +1687,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{insuranceFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -1633,7 +1727,10 @@
               <div class="form-group">
                 <select class="form-control dropdown" name="provider_id" ngModel="{{insuranceFormObjectForBind?.provider_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}<span>({{list?.main_category_name}})</span><span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of insurancProvider" value="{{list?.id}}">{{ list?.name }}
+                    <span>({{list?.main_category_name}})</span>
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
               </div>
             </div>
@@ -1783,12 +1880,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{amcFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -1920,12 +2024,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{repairFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -2075,12 +2186,19 @@
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
               <label class="font-small">Offline Seller</label>
             </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
               <div class="form-group">
                 <select class="form-control dropdown" name="seller_id" ngModel="{{pucFormObjectForBind?.seller_id}}" disabled>
                   <option>Select</option>
-                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}<span *ngIf="list?.status_type==11">(User Created)</span></option>
+                  <option *ngFor="let list of offlineSeller?.data" value="{{list?.sid}}">{{ list?.seller_name }}
+                    <span *ngIf="list?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
+              </div>
+            </div>
+            <div class="col-md-1" style="margin-top:2px;">
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">View</button>
               </div>
             </div>
           </div>
@@ -2098,3 +2216,249 @@
     </div>
   </div>
 </div>
+<modal #sellerBox [closeOnOutsideClick]="true" modalClass="modal-md right">
+  <modal-content>
+    <div class="body">
+      <h4>View Offline Seller</h4>
+      <form class="form-horizontal">
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <span style="color:red">*</span>
+              <small>Name</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="seller_name" class="form-control" ngModel="{{sellerInfoObject?.seller_name}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Owner Name</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="owner_name" class="form-control" ngModel="{{sellerInfoObject?.owner_name}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Gstin No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="gstin" class="form-control" ngModel="{{sellerInfoObject?.gstin}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Pan No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="pan_no" class="form-control" ngModel="{{sellerInfoObject?.pan_no}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Reg No</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="reg_no" class="form-control" ngModel="{{sellerInfoObject?.reg_no}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>is Service?</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" name="is_service" ngModel="{{sellerInfoObject?.is_service}}" disabled>
+                  <option [value]="true"> Yes</option>
+                  <option [value]="false"> No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Is Onboarded?</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" name="is_onboarded" ngModel="{{sellerInfoObject?.is_service}}" disabled>
+                  <option [value]="true"> Yes</option>
+                  <option [value]="false"> No</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4>
+          <u>Address </u>
+        </h4>
+        <hr>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Address</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="address" class="form-control" ngModel="{{sellerInfoObject?.address}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>City</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="city" class="form-control" ngModel="{{sellerInfoObject?.city}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>State</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="state" class="form-control" ngModel="{{sellerInfoObject?.name}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>PinCode</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="pincode" class="form-control" ngModel="{{sellerInfoObject?.pincode}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Latitude</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="latitude" class="form-control" ngModel="{{sellerInfoObject?.latitude}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Longitude</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="longitude" class="form-control" ngModel="{{sellerInfoObject?.longitude}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>URL</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="url" class="form-control" ngModel="{{sellerInfoObject?.url}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Email</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="email" class="form-control" ngModel="{{sellerInfoObject?.email}}" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="name">
+              <small>Contact No.</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <input type="text" name="contact_no" class="form-control" ngModel="{{sellerInfoObject?.contact_no}}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label">
+            <label for="Status">
+              <small>Status</small>
+            </label>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
+            <div class="form-group">
+              <div class="form-line">
+                <select class="form-control dropdown" name="status_type" ngModel="{{sellerInfoObject?.status_type}}" disabled>
+                  <option [value]="1"> Active</option>
+                  <option [value]="2"> InActive</option>
+                  <option [value]="11">User Created</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </modal-content>
+</modal>
