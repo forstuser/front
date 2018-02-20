@@ -340,6 +340,9 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   getModelListByCategoryAndBrand(category_id: number, brand_id: number, user_id: number) {
+    console.log("category_id",category_id);
+    console.log("brand_id",brand_id);
+    console.log("user_id",user_id);
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/brand/dropdowns?brand_id=' + brand_id + '&category_id=' + category_id + '&user_id=' + user_id, this.options)
       .map((response: Response) => response.json());
@@ -425,6 +428,13 @@ export class UserService {
   getBrandList() {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/brands?status=1', this.options)
+      .map((response: Response) => response.json());
+  }
+  // get brand list by user
+  getBrandListByUser(user_id) {
+    console.log("brand list by user")
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/brands?status=1&user_id='+user_id, this.options)
       .map((response: Response) => response.json());
   }
   getBrandListByCategory(catID) {

@@ -612,25 +612,12 @@
               <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                 <div class="form-group">
                   <select class="form-control dropdown" name="seller_id" ngModel="{{ billGeneralInfoFormObjectForBind?.seller_id}}">
-                    <option value="">Select</option>
+                    <option [value]="">Select</option>
                     <option *ngFor="let seller of onlineSeller?.data" value="{{seller.sid}}">{{ seller.seller_name }}</option>
                   </select>
                 </div>
               </div>
             </div>
-            <!-- <div class="row clearfix">
-              <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-                <label class="font-small">Insurance Provider</label>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
-                <div class="form-group">
-                  <select class="form-control dropdown" name="seller_id" ngModel="{{ billGeneralInfoFormObjectForBind?.seller_id}}">
-                    <option value="">Select</option>
-                    <option *ngFor="let seller of onlineSeller?.data" value="{{seller.sid}}">{{ seller.seller_name }}</option>
-                  </select>
-                </div>
-              </div>
-            </div> -->
             <br>
             <div class="row clearfix">
               <div class="col-md-4 col-md-offset-4">

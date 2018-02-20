@@ -227,6 +227,7 @@ export class CreateBillComponent implements OnInit {
   }
   // update bill
   billGeneralInfoEditFormData(form: NgForm) {
+    console.log(form);
     this.billGeneralInfoEditFormObject = form.value;
     this.billGeneralInfoEditFormObject['id'] = this.billId;
     console.log(this.billGeneralInfoEditFormObject);
@@ -483,6 +484,7 @@ export class CreateBillComponent implements OnInit {
       });
   }
   onSelectBrand(brandID: number) {
+    console.log("brand selected")
     this.brandId = brandID;
     this.getModelList();
   }
@@ -502,8 +504,8 @@ export class CreateBillComponent implements OnInit {
       });
   }
   // brand list
-  getBrandList() {
-    this.userService.getBrandList()
+  getBrandListByUser() {
+    this.userService.getBrandListByUser(this.userId)
       .subscribe(brandList => {
         this.brands = brandList;
         // console.log(this.brands,"brands");
@@ -1129,7 +1131,7 @@ export class CreateBillComponent implements OnInit {
   }
   //********************************* Addons Functions***********************************//
   addAddons(prod) {
-    this.getBrandList();
+    this.getBrandListByUser();
     this.getColorList();
     this.getOfflineSellerList();
     this.mainCategoryList();

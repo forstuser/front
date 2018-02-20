@@ -61,6 +61,8 @@ export class ViewBillComponent implements OnInit {
   insuranceObject: any;
   amcObject: any;
   repairObject: any;
+  sellerIdforSellerInfo: number;
+  sellerInfoObject: any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -90,6 +92,9 @@ export class ViewBillComponent implements OnInit {
   warrProvider: any;
   catForms: any;
   modelList: any;
+  caseButton: boolean = false;
+  cockpit2: boolean = false;
+  productList: any;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -366,6 +371,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedEditWarrantyImageArray = war.copies;
     this.warrantyFormObjectForBind = war;
     this.productId = war.product_id;
+    this.sellerIdforSellerInfo = war.seller_id;
   }
   verifyWarranty(form: NgForm) {
     this.userService.verifyWarranty(this.productId, this.warrantyId)
@@ -395,6 +401,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedEditInsuranceImageArray = ins.copies;
     this.insuranceFormObjectForBind = ins;
     this.productId = ins.product_id;
+    this.sellerIdforSellerInfo = ins.seller_id;
   }
   verifyInsurance(form: NgForm) {
     this.userService.verifyInsurance(this.productId, this.insuranceId)
@@ -424,6 +431,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedEditAmcImageArray = amc.copies;
     this.amcFormObjectForBind = amc;
     this.productId = amc.product_id;
+    this.sellerIdforSellerInfo = amc.seller_id;
   }
   verifyAmc(form: NgForm) {
     this.userService.verifyAmc(this.productId, this.amcId)
@@ -453,6 +461,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedEditRepairImageArray = rep.copies;
     this.repairFormObjectForBind = rep;
     this.productId = rep.product_id;
+    this.sellerIdforSellerInfo = rep.seller_id;
   }
   verifyRepair(form: NgForm) {
     this.userService.verifyRepair(this.productId, this.repairId)
@@ -482,6 +491,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedEditPucImageArray = puc.copies;
     this.pucFormObjectForBind = puc;
     this.productId = puc.product_id;
+    this.sellerIdforSellerInfo = puc.seller_id;
   }
   verifyPuc(form: NgForm) {
     this.userService.verifyPuc(this.productId, this.repairId)
@@ -512,6 +522,7 @@ export class ViewBillComponent implements OnInit {
     this.selectedImageArray = prod.copies;
     console.log(prod, "pro");
     this.productFormObjectForBind = prod;
+    this.sellerIdforSellerInfo = prod.seller_id;
     console.log("here");
     console.log(this.productFormObjectForBind, "final")
     this.productId = prod.id;
@@ -574,6 +585,17 @@ export class ViewBillComponent implements OnInit {
         this.offlineSellerForm.reset();
       });
   }
+
+  sellerEdit() {
+    console.log(this.sellerIdforSellerInfo);
+    this.userService.getOfflineSellerDetailsbyID(this.sellerIdforSellerInfo)
+      .subscribe(res => {
+        this.sellerInfoObject = res.data;
+        console.log(this.sellerInfoObject,"seller info for edit");
+        // this.fillEditOfflineSellerForm();
+        console.log(res);
+      })
+  }
   // ******************************** Small Functions ***********************************//
   //select image 
   selectImage() {
@@ -595,6 +617,8 @@ export class ViewBillComponent implements OnInit {
     this.billGeneralInfo = false;
     this.billGeneralInfoEdit = false;
     this.cockpit = false;
+    this.addons = false;
+    this.cockpit2 = false;
   }
   // show add product form
   showAddProductForm() {
@@ -616,6 +640,7 @@ export class ViewBillComponent implements OnInit {
   backToCockpit() {
     this.addons = false;
     this.cockpit = true;
+    this.cockpit2 = false;
   }
   backtoAddons() {
     this.addons = true;
@@ -630,6 +655,7 @@ export class ViewBillComponent implements OnInit {
     this.showPucEditForm = false;
     this.askMainCategory = false;
     this.showProductForm = false;
+    this.cockpit2 = false;
   }
   // function for avoid only space submit
   avoidSpace(e) {
@@ -638,4 +664,29 @@ export class ViewBillComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
+    // open product list
+    openProductList() {
+      this.caseButton = false;
+      this.userService.getProductList(this.userId)
+        .subscribe((res) => {
+          console.log(res);
+          this.jobDetailsShow = false;
+          this.cockpit2 = true;
+          this.productList = res;
+        }, (err) => {
+          console.log(err);
+        })
+    }
+      // back To jobDetails Show 
+  // backTojobDetailsShow() {
+  //   this.showSellerForm = false;
+  //   this.showProductForm = false;
+  //   this.askMainCategory = false;
+  //   this.jobDetailsShow = true;
+  //   this.billGeneralInfo = false;
+  //   this.billGeneralInfoEdit = false;
+  //   this.cockpit = false;
+  //   this.cockpit2 = false;
+  //   this.showProductList = false;
+  // }
 }
