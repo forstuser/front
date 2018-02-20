@@ -73,13 +73,14 @@
           <th>Job ID</th>
           <th>Name</th>
           <th>Phone No.</th>
-          <th>JOB Date</th>
+          <th>Job Created</th>
+          <th>JOB Updated</th>
           <th *ngIf="userType==4">Comment</th>
           <th *ngIf="userType==4">Email</th>
           <th *ngIf="userType!=4">Customer Executive</th>
           <th *ngIf="userType!=4">Quality Executive</th>
           <th *ngIf="userType!=4">View</th>
-          <th *ngIf="userType!=4">Discard</th>
+          <!-- <th *ngIf="userType!=4">Discard</th> -->
           <th *ngIf="userType!=3">Action</th>
           <th *ngIf="userType==1 || userType==2">Complete Job</th>
         </tr>
@@ -94,6 +95,7 @@
           <td>{{ bill.user.full_name}}</td>
           <td>{{ bill.user.mobile_no}}</td>
           <td>{{ bill?.created_at | date}}</td>
+          <td>{{ bill?.updated_at | date}}</td>
           <td *ngIf="userType==4">{{bill?.comments}}</td>
           <td *ngIf="userType==4">{{bill?.user?.email}}</td>
           <td *ngIf="userType!=4">
@@ -142,9 +144,9 @@
           <td *ngIf="userType!=4">
             <button type="button" class="btn btn-xs bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View Job</button>
           </td>
-          <td *ngIf="userType!=4">
+          <!-- <td *ngIf="userType!=4">
             <span class="btn btn-xs  btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</span>
-          </td>
+          </td> -->
           <td *ngIf="userType==4">
             <span class="btn btn-xs btn-danger" routerLink="create/{{ bill.id }}">Add Bill</span>
           </td>

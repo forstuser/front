@@ -99,7 +99,7 @@ export class UserService {
   // get category list by category id
   getSubCategoryList(catID: number) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/categories/' + catID+'?status=1', this.options)
+    return this.http.get(this.apiLink + 'api/categories/' + catID + '?status=1', this.options)
       .map((response: Response) => response.json());
   }
   // add subcategory list
@@ -119,15 +119,22 @@ export class UserService {
     return this.http.post(this.apiLink + 'api/brand/dropdowns', datas, this.options)
       .map((response: Response) => response.json());
   }
+  // filter model list
+  filterModelList(category_id, brand_id, status_type) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/brand/dropdowns?category_id=' + category_id + '&brand_id=' + brand_id + '&status_type=' + status_type, this.options)
+      .map((response: Response) => response.json());
+  }
+  // model list for link
+  linkModelList(old_id, new_id) {
+    this.getCSRF();
+    return this.http.put(this.apiLink + 'api/brand/dropdowns/' + old_id + '/replace/' + new_id,{}, this.options)
+      .map((response: Response) => response.json());
+  }
 
   updateModel(data, id) {
     console.log(data, "post data model")
     this.getCSRF();
-    // const id = data.id;
-    // delete data['id'];
-    // if (user.password == null) {
-    //         delete user['password'];
-    // }
     const datas = JSON.stringify(data);
     console.log(datas);
     return this.http.put(this.apiLink + 'api/brand/dropdowns/' + id, datas, this.options)
@@ -209,7 +216,7 @@ export class UserService {
     return this.http.delete(this.apiLink + 'api/categories/' + id, this.options).map((response: Response) => response);
   }
   // get category details by id
-  categoryDetailsById(id){
+  categoryDetailsById(id) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/categories/' + id, this.options).map((response: Response) => response.json());
   }
@@ -425,9 +432,9 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&status=1', this.options)
       .map((response: Response) => response.json());
   }
-  getBrandListByCategoryAndUser(catID,userId) {
+  getBrandListByCategoryAndUser(catID, userId) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&user_id='+userId, this.options)
+    return this.http.get(this.apiLink + 'api/brands?category_id=' + catID + '&user_id=' + userId, this.options)
       .map((response: Response) => response.json());
   }
   // Create Brand
@@ -772,7 +779,7 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   updateWarranty(war: any) {
-    console.log(war,"war");
+    console.log(war, "war");
     this.getCSRF();
     const warId = war['warrantyId'];
     const product_id = war.product_id;
@@ -989,6 +996,7 @@ export class UserService {
       .map((response: Response) => response.json());
 
   }
+  
   //*******************************OLD API ***************************************************/
 
   // get different type of user
@@ -1317,21 +1325,6 @@ export class UserService {
       .map((response: Response) => response.json());
   }
 
-
-  // discardConsumerBillImage(req: any) {
-  //         // get login user credentials from localstorage
-  //         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  //         this.TokenNo = this.currentUser.token;
-  //         this.UserType = this.currentUser.UserType;
-  //         req['TokenNo'] = this.TokenNo;
-  //         const data = JSON.stringify(req);
-  //         console.log(data);
-  //         const headers = new Headers({ 'Content-Type': 'application/json' });
-  //         const options = new RequestOptions({ headers: headers });
-  //         return this.http.post(this.apiLink + 'Services/DiscardConsumerBillImage', data, options)
-  //                 .map((response: Response) => response.json());
-
-  // }
   // get image of consumer
   getConsumerImage(imageID: number) {
     // get login user credentials from localstorage
