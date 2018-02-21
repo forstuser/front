@@ -22,7 +22,7 @@ export class ViewBillComponent implements OnInit {
   productId: number;
   mainCatId: number;
   catId: number;
-  brandId:number;
+  brandId: number;
   warrantyId: number;
   insuranceId: number;
   amcId: number;
@@ -112,19 +112,24 @@ export class ViewBillComponent implements OnInit {
   getDetailsOfJob() {
     this.userService.getJobByID(this.jobId)
       .subscribe(res => {
-          this.jobDetails = res.data;
-          console.log('job details', this.jobDetails);
-          this.userId = res.data.user_id;
-          this.imageArray = res.data.copies;
-          // console.log(this.imageArray,"image ka array");
-          this.imageArrayLength = this.imageArray.length;
-          if (this.imageArray.length == 0) {
-            alert("There is no image in this bill please contact Admin")
-          }
-          for (let i of this.imageArray) {
+        let counter = 0;
+        this.jobDetails = res.data;
+        console.log('job details', this.jobDetails);
+        this.userId = res.data.user_id;
+        this.imageArray = res.data.copies;
+        // console.log(this.imageArray,"image ka array");
+        // this.imageArrayLength = this.imageArray.length;
+        if (this.imageArray.length == 0) {
+          alert("There is no image in this bill please contact Admin")
+        }
+        for (let i of this.imageArray) {
+          if (i.status_type != 9) {
             this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+            counter += 1;
           }
-        },
+        }
+        this.imageArrayLength = counter;
+      },
         (error) => {
           console.log(error);
         }
@@ -191,10 +196,10 @@ export class ViewBillComponent implements OnInit {
   completeJob() {
     this.userService.completeJobQE(this.jobId, this.ceId)
       .subscribe(res => {
-          console.log(res);
-          alert("JOB Completed Successfully");
-          this.router.navigateByUrl('/dashboard/new');
-        },
+        console.log(res);
+        alert("JOB Completed Successfully");
+        this.router.navigateByUrl('/dashboard/new');
+      },
         (error) => {
           console.log(error);
           const err = JSON.parse(error['_body']);
@@ -210,10 +215,10 @@ export class ViewBillComponent implements OnInit {
     const data = form.value;
     this.userService.reassignJob(this.jobId, data)
       .subscribe(res => {
-          console.log(res);
-          alert("JOB Reassigned Successfully");
-          this.router.navigateByUrl('/dashboard/new');
-        },
+        console.log(res);
+        alert("JOB Reassigned Successfully");
+        this.router.navigateByUrl('/dashboard/new');
+      },
         (error) => {
           console.log(error);
         })
@@ -237,25 +242,25 @@ export class ViewBillComponent implements OnInit {
     // console.log(pid);
     this.userService.getProductDetailById(pid)
       .subscribe(res => {
-          console.log(res);
-          this.askMainCategory = true;
-          this.showProductForm = true;
-          this.showWarrantyEditForm = false;
-          this.showInsuranceEditForm = false;
-          this.showAmcEditForm = false;
-          this.showRepairEditForm = false;
-          this.showPucEditForm = false;
-          this.getBrandList();
-          this.getColorList();
-          this.getOfflineSellerList();
-          this.mainCategoryList();
-          this.onSelectMainCat(res.data.main_category_id);
-          this.onSelectCat(res.data.category_id);
-          this.getModelList(res.data.brand_id);
-          this.fillProductForm(pid);
-          this.selectedImageArray = res.data.copies;
-          this.productFormObjectForBind = res.data;
-        },
+        console.log(res);
+        this.askMainCategory = true;
+        this.showProductForm = true;
+        this.showWarrantyEditForm = false;
+        this.showInsuranceEditForm = false;
+        this.showAmcEditForm = false;
+        this.showRepairEditForm = false;
+        this.showPucEditForm = false;
+        this.getBrandList();
+        this.getColorList();
+        this.getOfflineSellerList();
+        this.mainCategoryList();
+        this.onSelectMainCat(res.data.main_category_id);
+        this.onSelectCat(res.data.category_id);
+        this.getModelList(res.data.brand_id);
+        this.fillProductForm(pid);
+        this.selectedImageArray = res.data.copies;
+        this.productFormObjectForBind = res.data;
+      },
         (err) => {
           console.log(err);
         })
@@ -337,7 +342,7 @@ export class ViewBillComponent implements OnInit {
       });
   }
   // model list
-  getModelList(brandId:number) {
+  getModelList(brandId: number) {
     this.userService.getModelListByCategoryAndBrand(this.catId, brandId, this.userId)
       .subscribe(res => {
         console.log(res, "model list");
@@ -591,7 +596,7 @@ export class ViewBillComponent implements OnInit {
     this.userService.getOfflineSellerDetailsbyID(this.sellerIdforSellerInfo)
       .subscribe(res => {
         this.sellerInfoObject = res.data;
-        console.log(this.sellerInfoObject,"seller info for edit");
+        console.log(this.sellerInfoObject, "seller info for edit");
         // this.fillEditOfflineSellerForm();
         console.log(res);
       })
@@ -664,20 +669,20 @@ export class ViewBillComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-    // open product list
-    openProductList() {
-      this.caseButton = false;
-      this.userService.getProductList(this.userId)
-        .subscribe((res) => {
-          console.log(res);
-          this.jobDetailsShow = false;
-          this.cockpit2 = true;
-          this.productList = res;
-        }, (err) => {
-          console.log(err);
-        })
-    }
-      // back To jobDetails Show 
+  // open product list
+  openProductList() {
+    this.caseButton = false;
+    this.userService.getProductList(this.userId)
+      .subscribe((res) => {
+        console.log(res);
+        this.jobDetailsShow = false;
+        this.cockpit2 = true;
+        this.productList = res;
+      }, (err) => {
+        console.log(err);
+      })
+  }
+  // back To jobDetails Show 
   // backTojobDetailsShow() {
   //   this.showSellerForm = false;
   //   this.showProductForm = false;

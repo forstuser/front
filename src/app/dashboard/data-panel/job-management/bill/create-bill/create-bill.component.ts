@@ -148,19 +148,24 @@ export class CreateBillComponent implements OnInit {
   getDetailsOfJob() {
     this.userService.getJobByID(this.jobId)
       .subscribe(res => {
+        let counter = 0;
         this.jobDetails = res.data;
         console.log('job details', this.jobDetails);
         this.userId = res.data.user_id;
         this.imageArray = res.data.copies;
         console.log(this.imageArray, "image array")
-        this.imageArrayLength = this.imageArray.length;
+        // this.imageArrayLength = this.imageArray.length;
         // console.log(this.imageArrayLength, "image length")
         if (this.imageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
         }
         for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+          if (i.status_type != 9) {
+            this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+            counter+=1;
+          }
         }
+        this.imageArrayLength = counter;
       },
         (error) => {
           console.log(error);
@@ -505,7 +510,7 @@ export class CreateBillComponent implements OnInit {
   }
   // brand list
   getBrandListByUser() {
-    this.userService.getBrandListByCategoryAndUser(this.catId,this.userId)
+    this.userService.getBrandListByCategoryAndUser(this.catId, this.userId)
       .subscribe(brandList => {
         this.brands = brandList;
         // console.log(this.brands,"brands");
@@ -565,13 +570,13 @@ export class CreateBillComponent implements OnInit {
       })
   }
   // add new model
-  addModels(form){
+  addModels(form) {
     this.userService.addModal(form)
-    .subscribe(res=>{
-      console.log(res,"post data");
-      alert("Model Added successfully")
-      this.assignForm.reset();
-    })
+      .subscribe(res => {
+        console.log(res, "post data");
+        alert("Model Added successfully")
+        this.assignForm.reset();
+      })
   }
   public selected(value: any): void {
     console.log('Selected value is: ', value);
@@ -1135,7 +1140,7 @@ export class CreateBillComponent implements OnInit {
     console.log(prod, "pro");
     this.productId = prod.id;
     this.brandId = prod.brand_id;
-    this.catId=prod.category_id;
+    this.catId = prod.category_id;
     this.selectedImageArray = prod.copies;
     this.fillProductForm(this.productId);
     this.productFormObjectForBind = prod;
@@ -1205,15 +1210,15 @@ export class CreateBillComponent implements OnInit {
   // create model form using form builder
   modelFB() {
     this.assignForm = this.fb.group({
-      'brand_id': ['',Validators.required],
-      'category_id':['',Validators.required],
-      'title':['',Validators.required],
-      'warranty_renewal_type':'',
-      'dual_renewal_type':'',
-      'product_type':'',
-      'category_form_1_value':'',
-      'category_form_2_value':'',
-      'status_type':"1"
+      'brand_id': ['', Validators.required],
+      'category_id': ['', Validators.required],
+      'title': ['', Validators.required],
+      'warranty_renewal_type': '',
+      'dual_renewal_type': '',
+      'product_type': '',
+      'category_form_1_value': '',
+      'category_form_2_value': '',
+      'status_type': "1"
     });
   }
   // initialize edit seller form 
@@ -1281,7 +1286,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getOfflineSellerDetailsbyID(this.sellerIdforSellerInfo)
       .subscribe(res => {
         this.sellerInfoObject = res.data;
-        console.log(this.sellerInfoObject,"seller info for edit");
+        console.log(this.sellerInfoObject, "seller info for edit");
         this.fillEditOfflineSellerForm();
         console.log(res);
       })
@@ -1291,7 +1296,7 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         // console.log(res);
         alert('Offline Seller updated successfully');
-      },(error)=>{
+      }, (error) => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       });
@@ -1372,7 +1377,7 @@ export class CreateBillComponent implements OnInit {
     }
 
     this.selectedEditPucImageArray = this.selectedEditPucImageArray || [];
-    if(this.selectedEditPucImageArray.includes(this.imageArray[this.imageIndex])){
+    if (this.selectedEditPucImageArray.includes(this.imageArray[this.imageIndex])) {
       console.log('Image already added hai kitni bar karoge');
     } else {
       this.selectedEditPucImageArray.push(this.imageArray[this.imageIndex]);
