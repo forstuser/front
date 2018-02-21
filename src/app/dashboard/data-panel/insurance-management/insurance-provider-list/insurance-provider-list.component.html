@@ -89,7 +89,7 @@
     <h4 class="modal-title" id="smallModalLabel">Edit Insurance Provider</h4>
   </div>
   <div class="body">
-    <form class="form-horizontal" [formGroup]='editInsuranceForm' (ngSubmit)="createInsurance(editInsuranceForm.value)">
+    <form #editInsuranceProviderForm="ngForm" (ngSubmit)="editInsuranceProviderFormData(editInsuranceProviderForm)" class="form-horizontal">
       <h4>
         <u>Information </u>
       </h4>
@@ -101,7 +101,7 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
           <div class="form-group">
             <div class="form-line">
-              <input type="text" formControlName="name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('name')">
+              <input type="text" name="name" class="form-control" placeholder="Enter Name  here" (keyup)="avoidSpace('name')" ngModel="{{insuranceObject?.name}}">
             </div>
           </div>
         </div>
@@ -110,20 +110,22 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7">
           <div class="form-group">
-            <select class="form-control dropdown" formControlName="main_category_id" (change)="onSelect($event.target.value)" style=" border-bottom:1px solid #ccc">
+            <select class="form-control dropdown" name="main_category_id" (change)="onSelect($event.target.value)" style=" border-bottom:1px solid #ccc" ngModel="{{insuranceObject?.main_category_id}}">
               <option>Select Category</option>
               <option *ngFor="let brandList of getCatList?.data" [value]="brandList?.category_id">{{ brandList.category_name }}</option>
             </select>
           </div>
         </div>
+        <!-- <pre>{{ insuranceObject | json }}</pre> -->
+        <!-- <pre>{{ cat | json }}</pre> -->
         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5 form-control-label ">
           <label for="name ">Select Category</label>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
-            <select class="form-control dropdown" formControlName="categories" (change)="onSelectCat($event.target.value)" multiple>
+            <select class="form-control dropdown" name="categories" (change)="onSelectCat($event.target.value)" ngModel="{{insuranceObject?.details[0].category_id}}"> 
               <option>Select Category</option>
-              <option *ngFor="let subCategory of cat?.subCategories" [value]="subCategory?.category_id">{{ subCategory?.category_name }}</option>
+              <option *ngFor="let subCategory of cat?.subCategories" [value]="subCategory?.category_id" >{{ subCategory?.category_name }}</option>
             </select>
           </div>
         </div>
@@ -139,8 +141,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="address" class="form-control " placeholder="Enter Address here
-                " (keyup)="avoidSpace( 'address') ">
+              <input type="text " name="address" class="form-control " placeholder="Enter Address here
+                " (keyup)="avoidSpace( 'address') " ngModel="{{insuranceObject?.address}}">
             </div>
           </div>
         </div>
@@ -150,8 +152,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="city" class="form-control " placeholder="Enter City Name here
-                " (keyup)="avoidSpace( 'city') ">
+              <input type="text " name="city" class="form-control " placeholder="Enter City Name here
+                " (keyup)="avoidSpace( 'city') " ngModel="{{insuranceObject?.city}}">
             </div>
           </div>
         </div>
@@ -163,8 +165,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="state" class="form-control" placeholder="Enter State Name here
-                " (keyup)="avoidSpace( 'state') ">
+              <input type="text " name="state" class="form-control" placeholder="Enter State Name here
+                " (keyup)="avoidSpace( 'state') " ngModel="{{insuranceObject?.state}}">
             </div>
           </div>
         </div>
@@ -174,8 +176,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="pincode" class="form-control " placeholder="Enter Pin Code here
-                " (keyup)="avoidSpace( 'pincode') ">
+              <input type="text " name="pincode" class="form-control " placeholder="Enter Pin Code here
+                " (keyup)="avoidSpace( 'pincode') " ngModel="{{insuranceObject?.pincode}}">
             </div>
           </div>
         </div>
@@ -187,8 +189,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="latitude" class="form-control " placeholder="Enter Latitude here
-                " (keyup)="avoidSpace( 'latitude') ">
+              <input type="text " name="latitude" class="form-control " placeholder="Enter Latitude here
+                " (keyup)="avoidSpace( 'latitude') " ngModel="{{insuranceObject?.latitude}}">
             </div>
           </div>
         </div>
@@ -198,8 +200,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="longitude" class="form-control " placeholder="Enter Longitude here
-                " (keyup)="avoidSpace( 'longitude')">
+              <input type="text " name="longitude" class="form-control " placeholder="Enter Longitude here
+                " (keyup)="avoidSpace( 'longitude')" ngModel="{{insuranceObject?.longitude}}">
             </div>
           </div>
         </div>
@@ -211,8 +213,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="pan_no" class="form-control " placeholder="Enter Pan No.here
-                " (keyup)="avoidSpace( 'pan_no') ">
+              <input type="text " name="pan_no" class="form-control " placeholder="Enter Pan No.here
+                " (keyup)="avoidSpace( 'pan_no') " ngModel="{{insuranceObject?.pan_no}}">
             </div>
           </div>
         </div>
@@ -222,8 +224,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="reg_no" class="form-control " placeholder="Enter Reg No.here
-                " (keyup)="avoidSpace( 'reg_no') ">
+              <input type="text " name="reg_no" class="form-control " placeholder="Enter Reg No.here
+                " (keyup)="avoidSpace( 'reg_no') " ngModel="{{insuranceObject?.reg_no}}">
             </div>
           </div>
         </div>
@@ -235,8 +237,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="url" class="form-control " placeholder="Enter Url here " (keyup)="avoidSpace(
-                'url') ">
+              <input type="text " name="url" class="form-control " placeholder="Enter Url here " (keyup)="avoidSpace(
+                'url') " ngModel="{{insuranceObject?.url}}">
             </div>
           </div>
         </div>
@@ -246,8 +248,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="email" class="form-control " placeholder="Enter Email here
-                " (keyup)="avoidSpace( 'email') ">
+              <input type="text " name="email" class="form-control " placeholder="Enter Email here
+                " (keyup)="avoidSpace( 'email') " ngModel="{{insuranceObject?.email}}">
             </div>
           </div>
         </div>
@@ -259,8 +261,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="contact_no" class="form-control " placeholder="Enter Contact No here
-                " (keyup)="avoidSpace( 'contact_no') ">
+              <input type="text " name="contact_no" class="form-control " placeholder="Enter Contact No here
+                " (keyup)="avoidSpace( 'contact_no') " ngModel="{{insuranceObject?.contact_no}}">
             </div>
           </div>
         </div>
@@ -270,8 +272,8 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <input type="text " formControlName="gstin" class="form-control " placeholder="Enter Gstin here
-                " (keyup)="avoidSpace( 'gstin') ">
+              <input type="text " name="gstin" class="form-control " placeholder="Enter Gstin here
+                " (keyup)="avoidSpace( 'gstin') " ngModel="{{insuranceObject?.gstin}}">
             </div>
           </div>
         </div>
@@ -283,10 +285,10 @@
         <div class="col-lg-4 col-md-4 col-sm-8 col-xs-7 ">
           <div class="form-group ">
             <div class="form-line ">
-              <select class="form-control dropdown" formControlName="type">
-                <option [ngValue]="1">Insurance</option>
-                <option [ngValue]="2">Warranty</option>
-                <option [ngValue]="3">Insurance & Warranty(Both)</option>
+              <select class="form-control dropdown" name="type" ngModel="{{insuranceObject?.type}}">
+                <option value="1">Insurance</option>
+                <option value="2">Warranty</option>
+                <option value="3">Insurance & Warranty(Both)</option>
               </select>
             </div>
           </div>
@@ -294,7 +296,7 @@
       </div>
       <div class="row clearfix ">
         <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 ">
-          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!editInsuranceForm.valid ">Submit</button>
+          <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect">Submit</button>
         </div>
       </div>
     </form>

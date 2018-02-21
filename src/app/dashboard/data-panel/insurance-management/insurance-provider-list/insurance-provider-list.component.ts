@@ -1,5 +1,5 @@
 import { Category } from './../../../../_models/category';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormArray, FormControl, NgForm } from '@angular/forms';
 import { UserService } from './../../../../_services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FunctionService } from './../../../../_services/function.service';
@@ -25,40 +25,23 @@ export class InsuranceProviderListComponent implements OnInit {
   brand;
   addInsuranceForm: FormGroup;
   getCatList: any;
+  main_category_id:any;
   categories_id: any;
   id: number;
   insuranceProviderId: number;
   insuranceProviderNewId: number;
-  constructor(private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
-    this.addInsuranceForm = this.fb.group({
-      'name': ['', Validators.required],
-      'main_category_id': ['', Validators.required],
-      'categories': '',
-      'city': '',
-      'state': '',
-      'pincode': '',
-      'address': '',
-      'latitude': '',
-      'longitude': '',
-      'gstin': '',
-      'reg_no': '',
-      'pan_no': '',
-      'email': '',
-      'url': '',
-      'contact_no': '',
-      'status_type': "1",
-      'type': ''
-    });
+  insuranceObject:any;
+  constructor(private userService: UserService, private functionService: FunctionService) {
   }
 
   ngOnInit() {
     this.insuranceProviderList();
-    this.activeInsuranceProviderList();
+    // this.activeIn  suranceProviderList();
     // get list of category
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(getCat => {
         this.cat = getCat;
-        console.log('category is ' + getCat);
+        console.log('category is ',getCat);
       });
 
     // get list of detail type
@@ -132,51 +115,13 @@ export class InsuranceProviderListComponent implements OnInit {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
-    // reset  editBrand form
-    this.editInsuranceForm = new FormGroup({
-      'name': new FormControl(''),
-      'main_category_id': new FormControl(''),
-      'categories': new FormControl(''),
-      'city': new FormControl(''),
-      'state': new FormControl(''),
-      'pincode': new FormControl(''),
-      'address': new FormControl(''),
-      'latitude': new FormControl(''),
-      'longitude': new FormControl(''),
-      'gstin': new FormControl(''),
-      'reg_no': new FormControl(''),
-      'pan_no': new FormControl(''),
-      'email': new FormControl(''),
-      'url': new FormControl(''),
-      'contact_no': new FormControl(''),
-      'type': new FormControl('')
-    })
-
     // get information of current selected brand
     this.userService.getInsuranceProviderID(item.id)
       .subscribe(res => {
-        console.log(res.data, "edit form");
+        console.log(res.data, "insurance prov data for form");
+        this.insuranceObject =  res.data;
         this.showInsuranceList = false;
-        // prop autofill data to form
-        this.editInsuranceForm.controls['name'].setValue(res.data.name);
-        this.editInsuranceForm.controls['main_category_id'].setValue(res.data.main_category_id);
         this.onSelect(res.data.main_category_id);
-        this.editInsuranceForm.controls['city'].setValue(res.data.city);
-        // this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
-        this.editInsuranceForm.controls['state'].setValue(res.data.state);
-        this.editInsuranceForm.controls['pincode'].setValue(res.data.pincode);
-        this.editInsuranceForm.controls['address'].setValue(res.data.address);
-        this.editInsuranceForm.controls['latitude'].setValue(res.data.latitude);
-        this.editInsuranceForm.controls['longitude'].setValue(res.data.longitude);
-        this.editInsuranceForm.controls['gstin'].setValue(res.data.gstin);
-        this.editInsuranceForm.controls['reg_no'].setValue(res.data.reg_no);
-        this.editInsuranceForm.controls['pan_no'].setValue(res.data.pan_no);
-        this.editInsuranceForm.controls['email'].setValue(res.data.email);
-        this.editInsuranceForm.controls['url'].setValue(res.data.url);
-        this.editInsuranceForm.controls['contact_no'].setValue(res.data.contact_no);
-        this.editInsuranceForm.controls['categories'].setValue(res.data.details);
-        this.editInsuranceForm.controls['type'].setValue(res.data.type);
-
       });
   }
   onSelect(catId) {
@@ -184,15 +129,16 @@ export class InsuranceProviderListComponent implements OnInit {
     this.userService.getSubCategoryList(catId)
       .subscribe(res => {
         this.cat = res.data;
-        console.log(this.cat, "subCategoriesss")
+        console.log(this.cat, "subCategories")
       })
   }
-
   onSelectCat(refId) {
     this.categories_id = refId;
     console.log("this.categories_id", this.categories_id)
   }
-
+  editInsuranceProviderFormData(form:NgForm){
+    console.log(form.value);
+  }
   updateBrand(data: any) {
     console.log(data);
     this.center = data.details;

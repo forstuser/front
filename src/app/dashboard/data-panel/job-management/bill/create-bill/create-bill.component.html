@@ -3241,7 +3241,6 @@
       <!--repair end form-->
 
       <!-- Repair Edit Form Start -->
-
       <div *ngIf="showPucEditForm">
         <button class="btn btn-md btn-warning" (click)="backtoAddons()">Back</button>
         <form #pucEditForm="ngForm" (ngSubmit)="pucEditFormData(pucEditForm)">
@@ -3531,8 +3530,6 @@
     </div>
   </div>
 </div>
-
-
 <app-dialog [(visible)]="deleteWarrantyy">
   <div class="modal-header">
   </div>
@@ -3541,13 +3538,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Warranty?</h3>
       </div>
-
     </div>
     <div class="row clearfix">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-
         <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteWarranty();deleteWarrantyy=false;">YES</button>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -3558,8 +3553,6 @@
     </div>
   </div>
 </app-dialog>
-
-
 <app-dialog [(visible)]="deleteInsurances">
   <div class="modal-header">
   </div>
@@ -3568,13 +3561,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Insurance?</h3>
       </div>
-
     </div>
     <div class="row clearfix">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-
         <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteInsurance();deleteInsurances=false;">YES</button>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -3585,8 +3576,6 @@
     </div>
   </div>
 </app-dialog>
-
-
 <app-dialog [(visible)]="deleteAmcs">
   <div class="modal-header">
   </div>
@@ -3595,13 +3584,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the AMC?</h3>
       </div>
-
     </div>
     <div class="row clearfix">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-
         <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteAmc();deleteAmcs=false;">YES</button>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -3612,7 +3599,6 @@
     </div>
   </div>
 </app-dialog>
-
 <app-dialog [(visible)]="deleteRepairs">
   <div class="modal-header">
   </div>
@@ -3621,13 +3607,11 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
         <h3>Are You sure you want to delete the Repair?</h3>
       </div>
-
     </div>
     <div class="row clearfix">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-
         <button class="btn bg-green btn-block btn-lg" type="submit" (click)="deleteRepair();deleteRepairs=false;">YES</button>
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
@@ -3638,7 +3622,6 @@
     </div>
   </div>
 </app-dialog>
-
 <!-- view image -->
 <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
   <modal-content>
