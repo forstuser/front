@@ -233,18 +233,13 @@ export class UnderProgressComponent implements OnInit {
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        let counter = 0;
         this.imageArray = res.data.copies;
         console.log(this.imageArray, "need this array");
         console.log(this.imageArray.length, "length of array");
-        // this.arrayLength = this.imageArray.length;
+        this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          if(i.status_type!=9){
             this.images.push(this.imageUrl + 'api/' + i.copyUrl);
-            counter+=1;
-          }
         }
-        this.arrayLength = counter;
         console.log(this.images, "images url links");
         this.loader = false;
       })

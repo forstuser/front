@@ -177,15 +177,10 @@ export class NewComponent implements OnInit {
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        // console.log(res, "image");
         this.imageArray = res.data.copies;
         console.log(this.imageArray);
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
-        for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api' + i.copyUrl)
-        }
-        console.log(this.images);
         this.loader = false;
       })
     // this.discardBillImage(req.BID);

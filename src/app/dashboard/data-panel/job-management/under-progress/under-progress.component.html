@@ -280,8 +280,11 @@
     <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix" style="overflow:scroll">
+          <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
+            <h3 class="bg-red text-center">This image is discarded</h3>
+          </div>
           <div class="col-md-12">
-            <img [src]="images[imageIndex]" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <img [src]="imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl" class="img-responsive" [style.transform]="'rotate(' + imagerotation + 'deg)'">
             <p></p>
           </div>
         </div>
@@ -302,7 +305,7 @@
               <span>Download</span>
             </button>
           </a>
-          <button type="button" class="btn btn-danger btn-xs waves-effect" (click)="alertBox.open();imageView.close()">
+          <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-xs waves-effect" (click)="alertBox.open();imageView.close()">
             <i class="material-icons">clear</i>
             <span>Discard Image</span>
           </button>

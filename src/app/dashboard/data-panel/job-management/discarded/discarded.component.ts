@@ -33,6 +33,7 @@ export class DiscardedComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   arrayLength: number;
   billId: number;
+  imagerotation: number = 0;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -145,6 +146,24 @@ export class DiscardedComponent implements OnInit {
       Comments: ''
     });
   }
+    // prev image
+    prevImage() {
+      if (this.imageIndex > 0) {
+        this.imageIndex = this.imageIndex - 1;
+      }
+      // console.log(this.imageIndex ,'prev')
+    }
+    // next image
+    nextImage() {
+      if (this.imageIndex < this.imageArray.length - 1) {
+        this.imageIndex = this.imageIndex + 1;
+      }
+      // console.log(this.imageIndex ,'next')
+    }
+    // rotete image
+    rotate() {
+      this.imagerotation = this.imagerotation + 90;
+    }
   // assignBill(item: any) {
   //   console.log(item);
   //   this.userservice.assignJobCE(item)
@@ -171,18 +190,13 @@ export class DiscardedComponent implements OnInit {
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
         console.log(res, "image");
-        let counter=0;
         this.imageArray = res.data.copies;
         console.log(this.imageArray);
         console.log(this.imageArray.length, "length of array");
-        // this.arrayLength = this.imageArray.length;
+        this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-          if(i.status_type==9){
-            counter+=1;
             this.images.push(this.imageUrl + 'api/' + i.copyUrl)
-          }
         }
-        this.arrayLength = counter;
         console.log(this.images);
         this.loader = false;
       })
