@@ -64,14 +64,25 @@
       </div>
       <br>
 
-      <div class="row">
-        <div class="col-md-3 col-md-offset-1">
-          <button class="btn btn-xs btn-info" (click)="selectAll()" type="button">Select All Users</button>
+      <div class="row well" style="width: 1100px;margin-left: 12px;">
+        <div class="col-md-2 col-md-offset-1">
+          <button style="margin-top:15px;" class="btn btn-sm btn-info" (click)="selectAll()" type="button">Select All Users</button>
         </div>
-        <div class="col-md-3 col-md-offset-3">
-          <!-- <div class="form-group"> -->
-          <input type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains" placeholder="search mobile no.">
-          <!-- </div> -->
+
+        <div class="col-md-2">
+          Start Date
+          <input type="date" name="startDate" (input)="getStartDate($event.target.value)">
+        </div>
+        <div class="col-md-2">
+          End Date
+          <input type="date" name="endDate" (input)="getEndDate($event.target.value)">
+        </div>
+        <div class="col-md-2">
+          <button style="margin-top:17px;" type="button" (click)="getUserDate()" class="btn btn-sm btn-success">Submit</button>
+        </div>
+        <div class="col-md-2">
+          <input style="margin-top:15px;" type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains"
+            placeholder="search mobile no.">
         </div>
       </div>
       <br>
@@ -129,7 +140,7 @@
       </div>
       <div class="row">
         <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
-          <button class="btn bg-green btn-md btn-lg" type="submit">Send</button>
+          <button class="btn bg-green btn-md btn-lg" type="submit">Send Notification</button>
         </div>
       </div>
     </form>

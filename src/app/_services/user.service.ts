@@ -45,6 +45,12 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/users?role_type=' + role_type + '&limit=100&offset=' + offSet, this.options)
       .map((response: Response) => response.json());
   }
+  //get user between two dates
+  getUserListbyDate(start_date,end_date) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/users?role_type=5&start_date=' + start_date +'&end_date='+end_date, this.options)
+      .map((response: Response) => response.json());
+  }
   // Create User
   createUser(user: User) {
     this.getCSRF();
@@ -128,7 +134,7 @@ export class UserService {
   // model list for link
   linkModelList(old_id, new_id) {
     this.getCSRF();
-    return this.http.put(this.apiLink + 'api/brand/dropdowns/' + old_id + '/replace/' + new_id,{}, this.options)
+    return this.http.put(this.apiLink + 'api/brand/dropdowns/' + old_id + '/replace/' + new_id, {}, this.options)
       .map((response: Response) => response.json());
   }
 
@@ -340,9 +346,9 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   getModelListByCategoryAndBrand(category_id: number, brand_id: number, user_id: number) {
-    console.log("category_id",category_id);
-    console.log("brand_id",brand_id);
-    console.log("user_id",user_id);
+    console.log("category_id", category_id);
+    console.log("brand_id", brand_id);
+    console.log("user_id", user_id);
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/brand/dropdowns?brand_id=' + brand_id + '&category_id=' + category_id + '&user_id=' + user_id, this.options)
       .map((response: Response) => response.json());
@@ -434,7 +440,7 @@ export class UserService {
   getBrandListByUser(user_id) {
     console.log("brand list by user")
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/brands?status=1&user_id='+user_id, this.options)
+    return this.http.get(this.apiLink + 'api/brands?status=1&user_id=' + user_id, this.options)
       .map((response: Response) => response.json());
   }
   getBrandListByCategory(catID) {
@@ -554,7 +560,6 @@ export class UserService {
   }
   //update Insurance provider
   updateInsuranceProvider(insurance: any, ID) {
-    console.log("id", ID)
     this.getCSRF();
     Object.keys(insurance).forEach((key) => (insurance[key] == '' || insurance[key] == null) && delete insurance[key]);
     const data = JSON.stringify(insurance);
@@ -1006,7 +1011,7 @@ export class UserService {
       .map((response: Response) => response.json());
 
   }
-  
+
   //*******************************OLD API ***************************************************/
 
   // get different type of user

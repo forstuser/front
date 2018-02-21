@@ -12,11 +12,13 @@ export class SendNotificationComponent implements OnInit {
   assignForm: FormGroup;
   notification: any;
   categoryArray: any[] = [];
-  checkAll:boolean = false;
+  checkAll: boolean = false;
   offset = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
+  start_date: any;
+  end_date: any;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'description': '',
@@ -29,11 +31,11 @@ export class SendNotificationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserListNotification(5,this.offset)
+    this.userService.getUserListNotification(5, this.offset)
       .subscribe(res => {
         console.log(res)
         this.notification = res.data;
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
@@ -52,12 +54,14 @@ export class SendNotificationComponent implements OnInit {
 
   addNotification(form) {
     form['user_id'] = this.categoryArray;
+    form['start_date'] = this.start_date;
+    form['end_date'] = this.end_date;
     console.log(form, "notify")
     this.userService.sendNotification(form)
       .subscribe(res => {
         console.log(res, "resposnse");
         alert("Notification Sent Successfully");
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
@@ -71,41 +75,41 @@ export class SendNotificationComponent implements OnInit {
           this.notification = res.data;
           console.log(res, "response")
         }
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
   }
-  selectAll(){
+  selectAll() {
     // this.checkAll = true;
     const bool = this.checkAll;
     this.checkAll = bool === false ? true : false;
   }
-    // function for pagination
-    left() {
-      this.leftFlag = true;
-      this.rightFlag = false;
-      this.noData = false;
-      if (this.offset > 1) {
-        this.offset = this.offset - 100;
-        this.leftFlag = false;
-      }
-      this.userService.getUserListNotification(5,this.offset)
+  // function for pagination
+  left() {
+    this.leftFlag = true;
+    this.rightFlag = false;
+    this.noData = false;
+    if (this.offset > 1) {
+      this.offset = this.offset - 100;
+      this.leftFlag = false;
+    }
+    this.userService.getUserListNotification(5, this.offset)
       .subscribe(res => {
         console.log(res);
         this.rightFlag = false;
         this.notification = res.data;
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
-    }
-  
-    right() {
-      this.noData = false;
-      this.leftFlag = false;
-      this.offset = this.offset + 100;
-      this.userService.getUserListNotification(5,this.offset)
+  }
+
+  right() {
+    this.noData = false;
+    this.leftFlag = false;
+    this.offset = this.offset + 100;
+    this.userService.getUserListNotification(5, this.offset)
       .subscribe(res => {
         console.log(res);
         this.notification = res.data;
@@ -113,10 +117,28 @@ export class SendNotificationComponent implements OnInit {
           this.rightFlag = true;
           this.noData = true;
         }
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
-    }
+  }
+  getStartDate(e) {
+    console.log(e);
+    this.start_date = e;
+  }
+  getEndDate(e) {
+    this.end_date = e;
+  }
+  getUserDate() {
+    this.userService.getUserListbyDate(this.start_date, this.end_date)
+      .subscribe(res => {
+        console.log(res);
+        this.notification = res.data;
+      }, error => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      })
+  }
 
 }
