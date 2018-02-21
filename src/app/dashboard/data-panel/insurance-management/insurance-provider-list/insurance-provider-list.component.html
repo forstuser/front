@@ -1,4 +1,4 @@
-<div class="card" *ngIf="showBrandList">
+<div class="card" *ngIf="showInsuranceList">
   <div class="header">
     <h2>
       Insurance Provider List
@@ -22,16 +22,6 @@
         </div>
       </div>
       <div class="col-md-9">
-        <!-- <nav>
-              <ul class="pager">
-                <li [ngClass]="{ 'disabled': leftFlag }">
-                  <a class="waves-effect" (click)="left()">Previous</a>
-                </li>
-                <li [ngClass]="{ 'disabled': rightFlag }">
-                  <a class="waves-effect" (click)="right()">Next</a>
-                </li>
-              </ul>
-            </nav> -->
       </div>
     </div>
     <nav>
@@ -92,7 +82,7 @@
 </div>
 
 <!-- edit insurance provider -->
-<div class="card" *ngIf="!showBrandList">
+<div class="card" *ngIf="!showInsuranceList">
   <div class="modal-header">
     <button class="btn bg-blue" (click)="back()">Back</button>
     <hr>
@@ -302,7 +292,6 @@
           </div>
         </div>
       </div>
-
       <div class="row clearfix ">
         <div class=" col-lg-3 col-md-3 col-lg-offset-8 col-md-offset-8 col-sm-offset-4 col-xs-offset-5 ">
           <button type="submit " class="btn btn-lg btn-success btn-block m-t-15 waves-effect " [disabled]="!editInsuranceForm.valid ">Submit</button>
@@ -311,6 +300,7 @@
     </form>
   </div>
 </div>
+<!-- edit insurance provider end-->
 <modal #deleteInsuranceProvider [closeOnOutsideClick]="true" modalClass="modal-md">
   <modal-content>
     <label>

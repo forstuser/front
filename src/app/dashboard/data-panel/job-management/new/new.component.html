@@ -39,7 +39,7 @@
           <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="create/{{ bill.id }}" *ngIf="userType ==4 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
               *ngIf="userType ==3">View Bill</button></td>
           <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
-          <td><button class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</button></td>
+          <!-- <td><button class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</button></td> -->
         </tr>
       </tbody>
     </table>
@@ -121,8 +121,11 @@
     <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix">
+          <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
+            <h3 class="bg-red text-center">This image is discarded</h3>
+          </div>
           <div class="col-md-12" style="text-align:center;">
-            <img [src]="images[imageIndex]" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <img [src]="imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
             <p></p>
           </div>
         </div>
@@ -132,7 +135,7 @@
           <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
           <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
           <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
-          <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
+          <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
           <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
           <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
         </p>

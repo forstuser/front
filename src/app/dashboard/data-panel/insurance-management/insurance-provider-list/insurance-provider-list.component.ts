@@ -19,7 +19,7 @@ export class InsuranceProviderListComponent implements OnInit {
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
-  showBrandList: boolean = true;
+  showInsuranceList: boolean = true;
   detailType: any;
   center = [];
   brand;
@@ -123,12 +123,12 @@ export class InsuranceProviderListComponent implements OnInit {
   openInsuranceProvider(item) {
     // console.log(item, "edit data");
     this.id = item.id
-    this.showBrandList = false;
+    this.showInsuranceList = false;
     this.userService.getCategoryList(1)
       .subscribe(res => {
         this.getCatList = res;
         console.log(this.getCatList, "list of category")
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))
@@ -156,7 +156,7 @@ export class InsuranceProviderListComponent implements OnInit {
     this.userService.getInsuranceProviderID(item.id)
       .subscribe(res => {
         console.log(res.data, "edit form");
-        this.showBrandList = false;
+        this.showInsuranceList = false;
         // prop autofill data to form
         this.editInsuranceForm.controls['name'].setValue(res.data.name);
         this.editInsuranceForm.controls['main_category_id'].setValue(res.data.main_category_id);
@@ -202,19 +202,17 @@ export class InsuranceProviderListComponent implements OnInit {
       .subscribe(res => {
         // console.log(res);
         alert('brand updated successfully');
-        this.showBrandList = true;
+        this.showInsuranceList = true;
         this.userService.getAllBrandList()
           .subscribe(insuranceProvider => {
             this.insuranceProviders = insuranceProvider;
             console.log(this.insuranceProviders);
           });
-      },(error=>{
+      }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }));
   }
-
-
   // delete insurance provider
   deleteInsuranceProvide(brandId: number) {
     console.log("deleteBrandId", brandId)
@@ -249,11 +247,11 @@ export class InsuranceProviderListComponent implements OnInit {
         alert('New Insurance Provide updated succesfully');
         this.addInsuranceForm.reset();
       },
-      error => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      });
+        error => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        });
     // } else {
     // alert('Please select category first !');
   }
@@ -271,7 +269,6 @@ export class InsuranceProviderListComponent implements OnInit {
   }
   // link brand
   onClickUserInsuranceProvider(req) {
-
     this.insuranceProviderId = req;
   }
   onSelectInsuranceProvider(req) {
@@ -289,7 +286,7 @@ export class InsuranceProviderListComponent implements OnInit {
     this.functionService.NoWhitespaceValidator(this.editInsuranceForm, e)
   }
   back() {
-    this.showBrandList = true;
+    this.showInsuranceList = true;
   }
 
 }

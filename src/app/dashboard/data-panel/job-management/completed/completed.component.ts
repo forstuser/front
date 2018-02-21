@@ -128,17 +128,12 @@ export class CompletedComponent implements OnInit {
     this.imageArray = [];
     this.userservice.getJobByID(req.id)
       .subscribe(res => {
-        console.log(res, "images");
         this.imageArray = res.data.copies;
         console.log(this.imageArray);
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
-        for (let i of this.imageArray) {
-          this.images.push(this.imageUrl + 'api/' + i.copyUrl)
-        }
         this.loader = false;
       })
-    // this.discardBillImage(req.BID);
   }
   // prev image
   prevImage() {

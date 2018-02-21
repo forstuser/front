@@ -2,14 +2,18 @@
   <div class="header">
     <h2>
       Completed JOB List
-      <small> For assign  the job click on the assign button</small>
+      <small> For assign the job click on the assign button</small>
     </h2>
   </div>
   <div class="body table-responsive">
     <nav>
       <ul class="pager">
-        <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a></li>
-        <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
       </ul>
     </nav>
     <table class="table table-condensed" *ngIf="!noData; else elseBlock">
@@ -32,31 +36,34 @@
           <td *ngIf="userType==1 || userType==2">{{ bill.job_id}}</td>
           <td *ngIf="userType==3">{{ bill.job_id}}</td>
           <td *ngIf="userType==4">{{ bill.job_id}}</td>
-          
+
           <td *ngIf="userType==1 || userType==2">{{ bill.user.full_name}}</td>
           <td *ngIf="userType==3">{{ bill.user.full_name}}</td>
           <td *ngIf="userType==4">{{ bill.user.full_name}}</td>
-          
+
           <td *ngIf="userType==1 || userType==2">{{ bill.user.mobile_no}}</td>
           <td *ngIf="userType==3">{{ bill.user.mobile_no}}</td>
-          <td *ngIf="userType==4">{{ bill.user.mobile_no}}</td>       
-          
+          <td *ngIf="userType==4">{{ bill.user.mobile_no}}</td>
+
           <td *ngIf="userType==1 || userType==2">{{ bill.user.email}}</td>
           <td *ngIf="userType==3">{{ bill.user.email}}</td>
-          <td *ngIf="userType==4">{{ bill.user.email}}</td> 
+          <td *ngIf="userType==4">{{ bill.user.email}}</td>
 
           <td *ngIf="userType==1 || userType==2">{{ bill.updated_at | date}}</td>
           <td *ngIf="userType==3">{{ bill.qe.updated_at | date}}</td>
           <td *ngIf="userType==4">{{ bill.ce.updated_at | date}}</td>
 
-          
+
           <td *ngIf="userType==1 || userType==2">{{ bill?.comments}}</td>
           <td *ngIf="userType==3">{{ bill.qe.comments}}</td>
           <td *ngIf="userType==4">{{ bill.ce.comments}}</td>
-          
-          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)">View</button></td>
-          <td *ngIf="userType <=2"><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
-            >View Bill</button></td>
+
+          <td>
+            <button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)">View</button>
+          </td>
+          <td *ngIf="userType <=2">
+            <button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}">View Bill</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -70,20 +77,39 @@
     <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix" style="overflow:scroll">
+          <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
+            <h3 class="bg-red text-center">This image is discarded</h3>
+          </div>
           <div class="col-md-12" style="text-align:center;">
-            <img [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+            <img [src]="imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
             <p></p>
           </div>
         </div>
       </div>
       <div class="caption">
         <p class="text-center">
-          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
-          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-          <a href="{{images[imageIndex]}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
-          <!-- <button type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button> -->
-          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
-          <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()">
+            <i class="material-icons">skip_previous</i>
+            <span>Prev</span>
+          </button>
+          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()">
+            <i class="material-icons">rotate_right</i>
+            <span>Rotate</span>
+          </button>
+          <a href="{{images[imageIndex]}}" download>
+            <button type="button" class="btn btn-success btn-sm waves-effect">
+              <i class="material-icons">file_download</i>
+              <span>Download</span>
+            </button>
+          </a>
+          <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-sm waves-effect" (click)="discardBillImage();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()">
+            <i class="material-icons">skip_next</i>
+            <span>Next</span>
+          </button>
+          <span style="margin-left:5px">
+            <b>Image {{imageIndex+1}} of {{arrayLength}}</b>
+          </span>
         </p>
       </div>
     </div>
