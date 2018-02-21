@@ -25,24 +25,38 @@ export class InsuranceProviderListComponent implements OnInit {
   brand;
   addInsuranceForm: FormGroup;
   getCatList: any;
-  main_category_id:any;
+  main_category_id: any;
   categories_id: any;
   id: number;
   insuranceProviderId: number;
   insuranceProviderNewId: number;
-  insuranceObject:any;
+  insuranceObject: any;
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings = {};
+  categoryObject = [];
   constructor(private userService: UserService, private functionService: FunctionService) {
   }
 
   ngOnInit() {
+    this.dropdownList = [];
+    this.selectedItems = [];
+    this.dropdownSettings = {
+      singleSelection: false,
+      text: "Select Category",
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      enableSearchFilter: true,
+      classes: "myclass custom-class"
+    };
     this.insuranceProviderList();
     // this.activeIn  suranceProviderList();
     // get list of category
-    this.userService.getCategoryList(2) // 2 for category refer to api doc
-      .subscribe(getCat => {
-        this.cat = getCat;
-        console.log('category is ',getCat);
-      });
+    // this.userService.getCategoryList(2) // 2 for category refer to api doc
+    //   .subscribe(getCat => {
+    //     this.cat = getCat;
+    //     console.log('category is ', getCat);
+    //   });
 
     // get list of detail type
     this.userService.getDetailList()
@@ -52,6 +66,20 @@ export class InsuranceProviderListComponent implements OnInit {
       })
   }
 
+  onItemSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+  OnItemDeSelect(item: any) {
+    console.log(item);
+    console.log(this.selectedItems);
+  }
+  onSelectAll(items: any) {
+    console.log(items);
+  }
+  onDeSelectAll(items: any) {
+    console.log(items);
+  }
   // get list of all insurance provider
   insuranceProviderList() {
     this.userService.getInsuranceProviderList(this.offset)
@@ -104,13 +132,14 @@ export class InsuranceProviderListComponent implements OnInit {
   }
   // passs current brand id as argument and open the popup
   openInsuranceProvider(item) {
-    // console.log(item, "edit data");
+    this.dropdownList = [];
+    this.selectedItems = [];
     this.id = item.id
     this.showInsuranceList = false;
     this.userService.getCategoryList(1)
       .subscribe(res => {
         this.getCatList = res;
-        console.log(this.getCatList, "list of category")
+        console.log(this.getCatList, "list of main category")
       }, (error => {
         const err = JSON.parse(error['_body']);
         alert(err.reason);
@@ -119,45 +148,50 @@ export class InsuranceProviderListComponent implements OnInit {
     this.userService.getInsuranceProviderID(item.id)
       .subscribe(res => {
         console.log(res.data, "insurance prov data for form");
-        this.insuranceObject =  res.data;
+        this.insuranceObject = res.data;
         this.showInsuranceList = false;
         this.onSelect(res.data.main_category_id);
       });
   }
   onSelect(catId) {
-    console.log(catId, "id");
-    this.userService.getSubCategoryList(catId)
+    console.log(catId, "On Select");
+    this.dropdownList = [];
+    this.selectedItems = [];
+    this.userService.getSubCategoryList(catId) // get list of category
       .subscribe(res => {
-        this.cat = res.data;
-        console.log(this.cat, "subCategories")
+        this.cat = res.data.subCategories;
+        console.log(this.cat, "Categories")
+        for (let i = 0; i < res.data.subCategories.length; i++) {
+          this.dropdownList.push({ 'id': this.cat[i].category_id, 'itemName': this.cat[i].category_name })
+        }
+        console.log(this.dropdownList);
+        this.selectedItems = this.dropdownList.filter(item => this.insuranceObject.details.findIndex((detailItem) => detailItem.category_id === item.id) !== -1);
+        console.log("tets", this.selectedItems);
+        // this.dropdownList = res.data.subCategories;
       })
   }
   onSelectCat(refId) {
     this.categories_id = refId;
     console.log("this.categories_id", this.categories_id)
   }
-  editInsuranceProviderFormData(form:NgForm){
+  editInsuranceProviderFormData(form: NgForm) {
+    // form.value['categories']= 12;
+    for (let i = 0; i < form.value.categories.length; i++) {
+      this.categoryObject.push({ 'category_id': form.value.categories[i].id });
+    }
+    form.value['categories'] = this.categoryObject;
     console.log(form.value);
-  }
-  updateBrand(data: any) {
-    console.log(data);
-    this.center = data.details;
-    data.status_type = data.status_type || 2;
-    console.log(this.center, "senter details")
-    this.userService.updateBrand(data, this.center)
-      .subscribe(res => {
-        // console.log(res);
-        alert('brand updated successfully');
+    this.userService.updateInsuranceProvider(form.value,this.id)
+      .subscribe(res=>{
+        console.log(res);
+        alert("Insurance Provider Updated Successfully")
+        this.insuranceProviderList();
         this.showInsuranceList = true;
-        this.userService.getAllBrandList()
-          .subscribe(insuranceProvider => {
-            this.insuranceProviders = insuranceProvider;
-            console.log(this.insuranceProviders);
-          });
-      }, (error => {
+      },error=>{
+        console.log(error);
         const err = JSON.parse(error['_body']);
         alert(err.reason);
-      }));
+      })
   }
   // delete insurance provider
   deleteInsuranceProvide(brandId: number) {
@@ -177,30 +211,6 @@ export class InsuranceProviderListComponent implements OnInit {
       });
   }
 
-  createInsurance(data: any) {
-    const iD = this.id
-    console.log('data:', data);
-    data.categories = data.categories.map((item) => {
-      return {
-        category_id: item
-      };
-    });
-    console.log('data:::::', data);
-    // if (this.checkCategoryValues(data.center_details)) {
-    this.userService.updateInsuranceProvider(data, iD)
-      .subscribe(res => {
-        console.log(res);
-        alert('New Insurance Provide updated succesfully');
-        this.addInsuranceForm.reset();
-      },
-        error => {
-          console.log(error);
-          const err = JSON.parse(error['_body']);
-          alert(err.reason);
-        });
-    // } else {
-    // alert('Please select category first !');
-  }
   // get list of insurance provider according to status
   onSelectStatus(req) {
     if (req == 1 || req == 2 || req == 11) {
