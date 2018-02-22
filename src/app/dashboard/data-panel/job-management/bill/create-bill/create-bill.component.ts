@@ -36,6 +36,7 @@ export class CreateBillComponent implements OnInit {
   amcId: number;
   repairId: number;
   imageArray: any[] = [];
+  rawImageArray:any[] = []; 
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
   selectedPucImageArray: any[] = [];
@@ -152,20 +153,21 @@ export class CreateBillComponent implements OnInit {
         this.jobDetails = res.data;
         console.log('job details', this.jobDetails);
         this.userId = res.data.user_id;
-        this.imageArray = res.data.copies;
-        console.log(this.imageArray, "image array")
-        // this.imageArrayLength = this.imageArray.length;
-        // console.log(this.imageArrayLength, "image length")
-        if (this.imageArray.length == 0) {
+        this.rawImageArray = res.data.copies;
+        console.log(this.rawImageArray, "image array")
+        if (this.rawImageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
         }
-        for (let i of this.imageArray) {
+        for (let i of this.rawImageArray) {
           if (i.status_type != 9) {
+            console.log(i);
+            this.imageArray.push(i);
             this.images.push(this.imageUrl + 'api/' + i.copyUrl)
             counter+=1;
           }
         }
         this.imageArrayLength = counter;
+        console.log("final image",this.imageArray);
       },
         (error) => {
           console.log(error);
