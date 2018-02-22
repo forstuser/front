@@ -177,22 +177,27 @@ export class InsuranceProviderListComponent implements OnInit {
   editInsuranceProviderFormData(form: NgForm) {
     // form.value['categories']= 12;
     this.categoryObject = [];
-    for (let i = 0; i < form.value.categories.length; i++) {
-      this.categoryObject.push({ 'category_id': form.value.categories[i].id });
+    for (let i = 0; i < this.selectedItems.length; i++) {
+      this.categoryObject.push({ 'category_id': this.selectedItems[i].id });
     }
     form.value['categories'] = this.categoryObject;
     console.log(form.value);
-    this.userService.updateInsuranceProvider(form.value,this.id)
-      .subscribe(res=>{
-        console.log(res);
-        alert("Insurance Provider Updated Successfully")
-        this.insuranceProviderList();
-        this.showInsuranceList = true;
-      },error=>{
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
+    if (this.categoryObject.length == 0) {
+      alert("Category is mandatory");
+    } else {
+      this.userService.updateInsuranceProvider(form.value, this.id)
+        .subscribe(res => {
+          console.log(res);
+          alert("Insurance Provider Updated Successfully")
+          this.insuranceProviderList();
+          this.showInsuranceList = true;
+        }, error => {
+          console.log(error);
+          const err = JSON.parse(error['_body']);
+          alert(err.reason);
+        })
+    }
+
   }
   // delete insurance provider
   deleteInsuranceProvide(brandId: number) {

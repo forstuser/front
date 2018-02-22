@@ -152,7 +152,7 @@ export class BrandListComponent implements OnInit {
         this.editBrandForm.controls['brand_id'].setValue(res.data.brand_id);
         this.editBrandForm.controls['brand_name'].setValue(res.data.brand_name);
         this.editBrandForm.controls['brand_description'].setValue(res.data.brand_description);
-        this.editBrandForm.controls['status_type'].setValue(res.data.status_type === 2 ? false : res.data.status_type);
+        this.editBrandForm.controls['status_type'].setValue(res.data.status_type != 1 ? false : res.data.status_type);
         res.data.details.forEach(
           (po) => {
             (<FormArray>this.editBrandForm.controls['details']).push(this.createDetailsFormGroup(po));
