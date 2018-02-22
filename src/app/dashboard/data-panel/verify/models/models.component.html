@@ -73,6 +73,8 @@
         <tr>
           <th>#</th>
           <th>Name</th>
+          <th>Category</th>
+          <th>Brand</th>
           <th>Status</th>
           <th>Action</th>
         </tr>
@@ -81,6 +83,8 @@
         <tr>
           <th scope="row">{{ i+1+offset}}</th>
           <td>{{ list?.title }}</td>
+          <td>{{list?.category_name}}</td>
+          <td>{{list?.brand_name}}</td>
           <td *ngIf="list?.status_type=='2'">
             <span class="label bg-red">Un Verified</span>
           </td>
@@ -94,7 +98,7 @@
             <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="editBrand(list)" title="Edit">
               <i class="material-icons">mode_edit</i>
             </span>
-            <span class="btn btn-info btn-circle waves-effect waves-circle waves-float" (click)="verifyBrand(list?.id)" title="Verify">
+            <span class="btn btn-success btn-circle waves-effect waves-circle waves-float" (click)="verifyBrand(list?.id)" title="Verify">
               <i class="material-icons">done</i>
             </span>
             <span class="btn btn-warning btn-circle waves-effect waves-circle waves-float" (click)="deleteBrand(list?.id)" title="Un Verify">
