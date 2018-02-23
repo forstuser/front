@@ -37,6 +37,7 @@ export class NewComponent implements OnInit {
   arrayLength: number;
   imageUrl: string = appConfig.apiUrl;
   userId:any;
+  totalBill:number = 0;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -64,6 +65,7 @@ export class NewComponent implements OnInit {
       this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
+          this.totalBill = bill.data.length;
           console.log(this.billList);
         });
     }
@@ -74,6 +76,7 @@ export class NewComponent implements OnInit {
       this.userservice.getCEJobList(4,this.userId,this.offset) // new = 4 refer api doc // 8 for under progress
         .subscribe(bill => {
           this.billList = bill;
+          this.totalBill = bill.data.length;
           console.log(this.billList);
         });
     }
@@ -83,6 +86,7 @@ export class NewComponent implements OnInit {
       this.userservice.getQEJobList(4,this.userId,this.offset) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
+          this.totalBill = bill.data.length;
           console.log(this.billList);
         });
     }
