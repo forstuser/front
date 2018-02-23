@@ -277,7 +277,7 @@ export class CreateBillComponent implements OnInit {
     this.showInsuranceForm = false;
     this.showAmcForm = false;
     this.showRepairForm = false;
-    // this.onSelectCat2(this.catId);
+    this.onSelectCat2(this.catId);
     this.getModelList();
   }
   // complete job
