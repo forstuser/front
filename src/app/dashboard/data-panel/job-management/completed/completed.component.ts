@@ -85,6 +85,13 @@ export class CompletedComponent implements OnInit {
           console.log(bills);
         });
     }
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(5, this.userId, this.offset) // 4 for qe refer to api doc
+        .subscribe(bills => {
+          this.billList = bills;
+          console.log(bills);
+        });
+    }
   }
 
   right() {
@@ -104,7 +111,19 @@ export class CompletedComponent implements OnInit {
         });
     }
     else if (this.userType === 3) {
-      this.userservice.getCEJobList(5, this.userId, this.offset) // 4 for qe refer to api doc
+      this.userservice.getCEJobList(5, this.userId, this.offset)
+      .subscribe(bills => {
+        console.log(bills)
+        if (bills.data.length == 0) {
+          this.rightFlag = true;
+          this.noData = true;
+        }
+        this.billList = bills;
+        console.log(this.billList);
+      });
+    }
+    else if (this.userType === 4) {
+      this.userservice.getCEJobList(5, this.userId, this.offset)
       .subscribe(bills => {
         console.log(bills)
         if (bills.data.length == 0) {

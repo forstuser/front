@@ -739,7 +739,7 @@ export class UserService {
     const prodId = prod.productId;
     delete prod['billId'];
     delete prod['productId'];
-    Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
+    // Object.keys(prod).forEach((key) => (prod[key] == '' || prod[key] == null) && delete prod[key]);
     prod['copies'] = prod['copies'] || [];
     const data = JSON.stringify(prod);
     console.log(data);
@@ -800,7 +800,7 @@ export class UserService {
     const product_id = war.product_id;
     delete war['product_id'];
     delete war['warrantyId'];
-    Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
+    // Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
     war['copies'] = war['copies'] || [];
     const data = JSON.stringify(war);
     console.log(data);
@@ -824,7 +824,7 @@ export class UserService {
     const product_id = ins.product_id;
     delete ins['product_id'];
     delete ins['insuranceId'];
-    Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);
+    // Object.keys(ins).forEach((key) => (ins[key] == '' || ins[key] == null) && delete ins[key]);
     ins['copies'] = ins['copies'] || [];
     const data = JSON.stringify(ins);
     console.log(data);
@@ -868,7 +868,7 @@ export class UserService {
     const product_id = amc.product_id;
     delete amc['product_id'];
     delete amc['amcId'];
-    Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);
+    // Object.keys(amc).forEach((key) => (amc[key] == '' || amc[key] == null) && delete amc[key]);
     amc['copies'] = amc['copies'] || [];
     const data = JSON.stringify(amc);
     console.log(data);
@@ -904,7 +904,7 @@ export class UserService {
     // console.log(pucId,product_id,"id & puc_id")
     delete puc['product_id'];
     delete puc['id'];
-    Object.keys(puc).forEach((key) => (puc[key] == '' || puc[key] == null) && delete puc[key]);
+    // Object.keys(puc).forEach((key) => (puc[key] == '' || puc[key] == null) && delete puc[key]);
     puc['copies'] = puc['copies'] || [];
     const data = JSON.stringify(puc);
     console.log(data);
@@ -932,7 +932,7 @@ export class UserService {
     const product_id = rep.product_id;
     delete rep['product_id'];
     delete rep['repairId'];
-    Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
+    // Object.keys(rep).forEach((key) => (rep[key] == '' || rep[key] == null) && delete rep[key]);
     rep['copies'] = rep['copies'] || [];
     const data = JSON.stringify(rep);
     console.log(data);
@@ -958,7 +958,7 @@ export class UserService {
   }
   updateBill(bill: any) {
     this.getCSRF();
-    Object.keys(bill).forEach((key) => (bill[key] == '' || bill[key] == null) && delete bill[key]);
+    // Object.keys(bill).forEach((key) => (bill[key] == '' || bill[key] == null) && delete bill[key]);
     const billId = bill.id;
     delete bill['id'];
     const data = JSON.stringify(bill);
