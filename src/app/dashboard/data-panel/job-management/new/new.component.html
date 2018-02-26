@@ -28,7 +28,7 @@
       </thead>
       <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+1+prev }} </th>
+          <th scope="row">{{ i+1+offset }} </th>
           <td><button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
               <i class="material-icons">verified_user</i>
           </button> {{ bill?.job_id}}</td>

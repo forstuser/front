@@ -32,7 +32,7 @@
       </thead>
       <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
-          <th scope="row">{{ i+1+prev }} </th>
+          <th scope="row">{{ i+1+offset }} </th>
           <td *ngIf="userType==1 || userType==2">{{ bill.job_id}}</td>
           <td *ngIf="userType==3">{{ bill.job_id}}</td>
           <td *ngIf="userType==4">{{ bill.job_id}}</td>
