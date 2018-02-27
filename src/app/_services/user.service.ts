@@ -787,7 +787,7 @@ export class UserService {
     this.getCSRF();
     const product_id = war.product_id;
     delete war['product_id'];
-    Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
+    // Object.keys(war).forEach((key) => (war[key] == '' || war[key] == null) && delete war[key]);
     const data = JSON.stringify(war);
     console.log(data);
     return this.http.post(this.apiLink + 'api/products/' + product_id + '/warranties', data, this.options)

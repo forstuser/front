@@ -662,7 +662,7 @@ export class CreateBillComponent implements OnInit {
       'user_id': this.userId,
       'job_id': this.jobId,
       'product_id': this.productId,
-      'copies': this.selectedWarrantyImageArray
+      'copies': this.selectedWarrantyImageArray || []
     }
     console.log(this.warrantyObject);
     this.userService.createWarranty(this.warrantyObject)
