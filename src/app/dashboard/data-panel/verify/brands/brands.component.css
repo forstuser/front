@@ -10,3 +10,6 @@
 .mains {
   border-bottom: 1px solid #ccc;
 }
+.text-bold{
+  font-weight: bold;
+}

@@ -46,9 +46,9 @@ export class UserService {
       .map((response: Response) => response.json());
   }
   //get user between two dates
-  getUserListbyDate(start_date,end_date) {
+  getUserListbyDate(categoryID, brandID, start_date, end_date) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/users?role_type=5&start_date=' + start_date +'&end_date='+end_date, this.options)
+    return this.http.get(this.apiLink + 'api/users?role_type=5&category_id=' + categoryID + '&brand_id=' + brandID + '&start_date=' + start_date + '&end_date=' + end_date, this.options)
       .map((response: Response) => response.json());
   }
   // Create User

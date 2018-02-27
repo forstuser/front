@@ -4,3 +4,9 @@
 .pager{
   text-align: right;
 }
+.text-bold{
+  font-weight: bold;
+}
+.header{
+  background-color: #11cff7;
+}

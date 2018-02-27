@@ -2,7 +2,7 @@
   <div class="header">
     <h2>Send Notification</h2>
   </div>
-
+  <br>
   <div>
     <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="addNotification(assignForm.value)">
       <div class="row clearfix">
@@ -64,30 +64,52 @@
       </div>
       <br>
 
-      <div class="row well" style="width: 1100px;margin-left: 12px;">
-        <div class="col-md-2 col-md-offset-1">
-          <button style="margin-top:15px;" class="btn btn-sm btn-info" (click)="selectAll()" type="button">Select All Users</button>
+      <div class="well" style="width: 1100px;margin-left: 90px;">
+        <div class="row">
+          <div class="col-md-2">
+            Category
+            <select class="form-control dropdown mains" name="category_id" (change)="getBrandListByCategory($event.target.value)">
+              <option value=" ">Select</option>
+              <option *ngFor="let list of category?.data; let i = index" [value]="list?.category_id">{{list?.category_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            Brand
+            <select class="form-control dropdown mains" name="brand_id" (change)="getBrandId($event.target.value)">
+              <option value="">Select</option>
+              <option *ngFor="let list of brands?.data; let i = index" [value]="list?.brand_id">{{list?.brand_name}}</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            Start Date
+            <input class="form-control dropdown mains" type="date" name="startDate" (input)="getStartDate($event.target.value)">
+          </div>
+          <div class="col-md-3">
+            End Date
+            <input class="form-control dropdown mains" type="date" name="endDate" (input)="getEndDate($event.target.value)">
+          </div>
+          <div class="col-md-2">
+            <span *ngIf="loader" class="text-bold">
+              <img src="{{imageUrl}}" alt="loader" class="img-responsive" style="margin-left: 5px;width:60px">Please Wait</span>
+            <button *ngIf="loader == false" style="margin-top:20px;" type="button" (click)="getUserDate()" class="btn btn-sm btn-success btn-block">Submit</button>
+          </div>
         </div>
-
-        <div class="col-md-2">
-          Start Date
-          <input type="date" name="startDate" (input)="getStartDate($event.target.value)">
-        </div>
-        <div class="col-md-2">
-          End Date
-          <input type="date" name="endDate" (input)="getEndDate($event.target.value)">
-        </div>
-        <div class="col-md-2">
-          <button style="margin-top:17px;" type="button" (click)="getUserDate()" class="btn btn-sm btn-success">Submit</button>
-        </div>
-        <div class="col-md-2">
-          <input style="margin-top:15px;" type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains"
-            placeholder="search mobile no.">
+        <div class="row">
+          <div class="col-md-2">
+            <button style="margin-top:15px;" class="btn btn-sm btn-info btn-block" (click)="selectAll()" type="button">Select All Users</button>
+          </div>
+          <div class="col-md-3">
+            <input style="margin-top:15px;" type="text" maxlength="10" (keyup)="mobileChange($event.target.value)" class="form-control mains"
+              placeholder="search mobile no.">
+          </div>
+          <div class="col-md-7">
+            <span *ngIf="request" class="text-bold">
+              <img src="{{imageUrl}}" alt="loader" class="img-responsive" style="margin-left: 5px;width:60px">Please Wait</span>
+          </div>
         </div>
       </div>
       <br>
       <br>
-
       <div class="body table-responsive" style="padding:0% 12%">
         <nav>
           <ul class="pager">

@@ -66,11 +66,6 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_icon': 'build',
           'd_link': 'admin'
         },
-        // {
-        //   'd_name': 'Customer',
-        //   'd_icon': 'account_box',
-        //   'd_link': 'customer'
-        // },
         {
           'd_name': 'Customer Executive',
           'd_icon': 'headset_mic',
@@ -170,18 +165,6 @@ export class LeftPanelItemsComponent implements OnInit {
       'link': 'list-details',
       'handler': 'doNothing',
       'class': '',
-      // 'dropdownList': [
-      //   {
-      //     'd_name': 'Exclusions',
-      //     'd_icon': 'call_made',
-      //     'd_link': 'exclusions'
-      //   },
-      //   {
-      //     'd_name': 'Inclusions',
-      //     'd_icon': 'call_received',
-      //     'd_link': 'inclusions'
-      //   }
-      // ]
     },
     {
       'name': 'ASC ',
@@ -299,11 +282,6 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
   ];
-
-
-
-
-
   admin = [
     {
       'name': 'Dashboard',
@@ -546,7 +524,6 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
   ];
-
 
   ce_qe = [
     {

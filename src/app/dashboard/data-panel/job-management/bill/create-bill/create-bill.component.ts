@@ -36,7 +36,7 @@ export class CreateBillComponent implements OnInit {
   amcId: number;
   repairId: number;
   imageArray: any[] = [];
-  rawImageArray:any[] = []; 
+  rawImageArray: any[] = [];
   selectedImageArray: any[] = [];
   selectedWarrantyImageArray: any[] = [];
   selectedPucImageArray: any[] = [];
@@ -132,6 +132,8 @@ export class CreateBillComponent implements OnInit {
   insurancProvider: any;
   modelList: any;
   type: number;
+  loaderUrl: string = '../../../assets/images/loader.gif';
+  loader: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -163,11 +165,11 @@ export class CreateBillComponent implements OnInit {
             console.log(i);
             this.imageArray.push(i);
             this.images.push(this.imageUrl + 'api/' + i.copyUrl)
-            counter+=1;
+            counter += 1;
           }
         }
         this.imageArrayLength = counter;
-        console.log("final image",this.imageArray);
+        console.log("final image", this.imageArray);
       },
         (error) => {
           console.log(error);
@@ -573,11 +575,18 @@ export class CreateBillComponent implements OnInit {
   }
   // add new model
   addModels(form) {
+    this.loader = true;
     this.userService.addModal(form)
       .subscribe(res => {
         console.log(res, "post data");
         alert("Model Added successfully")
         this.assignForm.reset();
+        this.loader = false;
+      }, error => {
+        console.log(error);
+        this.loader = false;
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       })
   }
   public selected(value: any): void {
@@ -1160,6 +1169,7 @@ export class CreateBillComponent implements OnInit {
     this.showRepairForm = false;
     this.jobDetailsShow = false;
     this.showProductList = false;
+    this.showModelForm = false;
     this.getBrandListByUser();
     this.getColorList();
     this.getOfflineSellerList();
