@@ -35,6 +35,9 @@ export class ModelsComponent implements OnInit {
   activeModels: any;
   old_id: number;
   new_id: number;
+  imageUrl: string = '../../../assets/images/loader.gif';
+  request: boolean = false;
+  loader:boolean = false;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['', Validators.required],
@@ -128,14 +131,17 @@ export class ModelsComponent implements OnInit {
 
   verifyBrand(item) {
     console.log(item);
+    this.request =true;
     this.userService.verifyBrandModel(item, 1).subscribe(res => {
       alert("Model Verified");
+      this.request =false;
       this.userService.getUserBrandDropdownList(this.offset)
         .subscribe(brandList => {
           this.dropdownModels = brandList;
           console.log(this.dropdownModels);
         });
     }, (error => {
+      this.request = false;
       const err = JSON.parse(error['_body']);
       alert(err.reason);
     }))
@@ -144,15 +150,18 @@ export class ModelsComponent implements OnInit {
 
   // delete brand
   deleteBrand(brandId: number) {
+    this.request = true;
     this.userService.verifyBrandModel(brandId, 2)
       .subscribe(res => {
         // console.log(res);
         alert('Model deleted successfully');
+        this.request = false;
         this.userService.getUserBrandDropdownList(this.offset)
           .subscribe(brandList => {
             this.dropdownModels = brandList;
             console.log(this.dropdownModels);
           }, (error => {
+            this.request = false;
             const err = JSON.parse(error['_body']);
             alert(err.reason);
           }));
@@ -259,11 +268,14 @@ export class ModelsComponent implements OnInit {
       })
   }
   filter() {
+    this.loader = true;
     this.userService.filterModelList(this.category_id, this.brand_id, this.status_id)
       .subscribe(res => {
         console.log(res);
         this.dropdownModels = res;
+        this.loader = false;
       }, (error => {
+        this.loader = false;
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       }))

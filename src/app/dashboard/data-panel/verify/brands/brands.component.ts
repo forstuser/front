@@ -16,6 +16,8 @@ export class BrandsComponent implements OnInit {
   cat:any;
   catId:any;
   catForms:any;
+  imageUrl: string = '../../../assets/images/loader.gif';
+  loader:boolean = false;
   constructor(private userService: UserService, private fb: FormBuilder) {
     this.assignForm = this.fb.group({
       'brand_id': ['',Validators.required],
@@ -40,7 +42,6 @@ export class BrandsComponent implements OnInit {
           alert(err.reason);
         }));
   }
-
   onSelectMainCat(catID: number) {
     this.mainCatId = catID;
     this.cat = [];
@@ -56,10 +57,7 @@ export class BrandsComponent implements OnInit {
 
   onSelectCat2(catID: number) {
     console.log("cat id", catID);
-
     this.catId = catID;
-
-
     this.userService.getBrandListByCategory(catID)
     .subscribe(res => {
       this.catForms = res.data;
@@ -69,29 +67,18 @@ export class BrandsComponent implements OnInit {
       const err = JSON.parse(error['_body']);
       alert(err.reason);
     }))
-
-
-
-
-    // this.userService.getSubCategoryList(catID)
-    //   .subscribe(res => {
-    //     this.catForms = res.data.subCategories;        
-    //     // this.catForm = res.data.categoryForms;
-    //     // console.log(this.catForm, "category form");
-    //     // this.showProductForm = true;
-    //     // this.getColorList();
-    //     // this.getOfflineSellerList();
-    //     // this.getBrandListByCategory(catID);
-    //   });
   }
 
   addModels(form){
+    this.loader = true;
     console.log(form,"data added")
     this.userService.addModal(form)
     .subscribe(res=>{
       console.log(res,"post data");
       alert("Model Added successfully")
+      this.loader = false;
     },(error=>{
+      this.loader = false;
       const err = JSON.parse(error['_body']);
       alert(err.reason);
     }))

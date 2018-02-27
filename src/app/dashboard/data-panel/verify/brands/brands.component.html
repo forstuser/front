@@ -161,7 +161,9 @@
 
       <div class="row">
         <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
-          <button class="btn bg-green btn-md btn-lg" type="submit">Add Models</button>
+            <span *ngIf="loader" class="text-bold" style="margin-right:220px;">
+                <img src="{{imageUrl}}" alt="loader">Please Wait</span>
+          <button *ngIf="!loader" class="btn bg-green btn-md btn-lg" type="submit">Add Models</button>
         </div>
       </div>
     </form>

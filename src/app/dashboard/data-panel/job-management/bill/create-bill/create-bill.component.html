@@ -1399,7 +1399,9 @@
               <div class="form-group">
                 <select class="form-control dropdown mains" formControlName="brand_id">
                   <option value="">Select</option>
-                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand.brand_name }}</option>
+                  <option *ngFor="let brand of brands?.data" value="{{brand?.brand_id}}">{{ brand?.brand_name }}
+                    <span *ngIf="brand?.status_type==11">(User Created)</span>
+                  </option>
                 </select>
               </div>
             </div>
@@ -1509,7 +1511,7 @@
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 ">
               <div class="form-group">
                 <div class="form-line">
-                  <input type="text" class="form-control mains" formControlName="category_form_2_value">
+                  <input type="text" class="form-control mains" style="margin-bottom:1px;" formControlName="category_form_2_value">
                 </div>
               </div>
             </div>
@@ -1517,7 +1519,9 @@
           <br>
           <div class="row">
             <div class="col-md-11 text-center" style="padding:4%;margin-left:6%;">
-              <button class="btn bg-green btn-md btn-lg" type="submit">Add Model</button>
+              <span *ngIf="loader" class="text-bold">
+                <img src="{{loaderUrl}}" alt="loader">Please Wait</span>
+              <button *ngIf="!loader" class="btn bg-green btn-md btn-lg" type="submit">Add Model</button>
             </div>
           </div>
         </form>
@@ -1990,7 +1994,8 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small"><span style="color:red">*</span>Warranty Type</label>
+              <label class="font-small">
+                <span style="color:red">*</span>Warranty Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -2156,10 +2161,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -2195,7 +2200,8 @@
           <p></p>
           <div class="row clearfix">
             <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
-              <label class="font-small"><span style="color:red">*</span>Warranty Type</label>
+              <label class="font-small">
+                <span style="color:red">*</span>Warranty Type</label>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
               <div class="form-group">
@@ -2372,10 +2378,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -2572,10 +2578,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -2925,10 +2931,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -3084,10 +3090,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -3209,10 +3215,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -3370,10 +3376,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
@@ -3498,10 +3504,10 @@
               </div>
             </div>
             <div class="col-md-1" style="margin-top:2px;">
-                <div class="form-group">
-                  <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
-                </div>
+              <div class="form-group">
+                <button class="btn btn-md btn-danger" type="button" (click)="sellerBox.open();sellerEdit()">Edit</button>
               </div>
+            </div>
           </div>
           <p></p>
           <div class="row clearfix">
