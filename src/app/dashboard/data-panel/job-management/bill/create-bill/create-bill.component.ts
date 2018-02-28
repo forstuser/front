@@ -440,7 +440,11 @@ export class CreateBillComponent implements OnInit {
           this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
         }
       }
+      for(let i in this.productEditFromMetaData){
+        console.log(this.productEditFromMetaData[i]);
+      }
       this.productEditObject['metaData'] = this.productEditFromMetaData;
+
       console.log(this.productEditObject);
       this.userService.updateProduct(this.productEditObject)
         .subscribe(res => {
