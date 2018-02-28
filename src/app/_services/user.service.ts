@@ -31,6 +31,12 @@ export class UserService {
     this.options = new RequestOptions({ headers: headers });
 
   }
+
+  getGraphData(start_date,end_date){
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/dashboard?start_date=' +start_date + '&end_date='+end_date, this.options)
+      .map((response: Response) => response.json());
+  }
   // User API
   // get list of admin,qe,ce and customer
   getUserList(role_type: number) {
