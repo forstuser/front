@@ -8,6 +8,8 @@ import { UserService } from '../../../_services/user.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  imageUrl: string = '../../../assets/images/loader.gif';
+  loader:boolean = false;
   start_date: any = '';
   end_date: any = '';
   dateWiseObject: any;
@@ -87,10 +89,19 @@ export class HomeComponent implements OnInit {
     this.graphAvailable = false;
     this.lineChartData = [];
     this.lineChartLabels = [];
+    this.usersData = [];
+    this.productsData = [];
+    this.warrantiesData = [];
+    this.insurancesData = [];
+    this.amcsData = [];
+    this.repairsData = [];
+    this.pucsData = [];
+    this.loader = true;
     this.userService.getGraphData(this.start_date, this.end_date)
       .subscribe(res => {
         console.log("res", res);
         this.graphAvailable = true;
+        this.loader = false;
         this.dateWiseObject = res.data.dateWise;
         this.lineChartLabels = Object.keys(res.data.dateWise);
         for (let val in this.dateWiseObject) {
@@ -103,7 +114,7 @@ export class HomeComponent implements OnInit {
           this.repairsData.push(this.dateWiseObject[val].repairs);
           this.pucsData.push(this.dateWiseObject[val].pucs);
         }
-        this.users = { 'data': this.usersData, 'label': 'Users' }
+        this.users = { 'data': this.usersData, 'label': 'New Users' }
         this.products = { 'data': this.productsData, 'label': 'Products' }
         this.warranties = { 'data': this.warrantiesData, 'label': 'Warranties' }
         this.insurances = { 'data': this.insurancesData, 'label': 'Insurances' }
@@ -113,6 +124,7 @@ export class HomeComponent implements OnInit {
         this.lineChartData.push(this.users, this.products, this.warranties, this.insurances, this.amcs, this.repairs, this.pucs);
       }, error => {
         console.log(error);
+        this.loader = false;
         const err = JSON.parse(error['_body']);
         alert(err.reason);
       })
