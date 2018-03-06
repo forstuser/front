@@ -44,6 +44,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Discarded',
           'd_icon': 'clear',
           'd_link': 'discarded'
+        },
+        {
+          'd_name': 'Deleted',
+          'd_icon': 'delete',
+          'd_link': 'deleted'
         }
       ]
     },
@@ -318,6 +323,11 @@ export class LeftPanelItemsComponent implements OnInit {
           'd_name': 'Discarded',
           'd_icon': 'clear',
           'd_link': 'discarded'
+        },
+        {
+          'd_name': 'Deleted',
+          'd_icon': 'delete',
+          'd_link': 'deleted'
         }
       ]
     },

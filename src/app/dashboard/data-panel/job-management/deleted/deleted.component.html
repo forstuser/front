@@ -1,0 +1,140 @@
+<div class="card">
+    <div class="header">
+      <h2>
+        Deleted JOB List
+        <small> For assign the job click on the assign button</small>
+      </h2>
+    </div>
+    <div class="body table-responsive">
+      <nav>
+        <ul class="pager">
+          <li [ngClass]="{ 'disabled': leftFlag }">
+            <a class="waves-effect" (click)="left()">Previous</a>
+          </li>
+          <li [ngClass]="{ 'disabled': rightFlag }">
+            <a class="waves-effect" (click)="right()">Next</a>
+          </li>
+        </ul>
+      </nav>
+      <table class="table table-condensed" *ngIf="!noData; else elseBlock">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Job ID</th>
+            <th>Name</th>
+            <th>Phone No.</th>
+            <th>Email ID</th>
+            <th>JOB Date</th>
+            <th>Comments</th>
+            <!-- <th>Action</th> -->
+          </tr>
+        </thead>
+        <tbody *ngFor="let bill of billList?.data; let i = index">
+          <tr>
+            <th scope="row">{{ i+1+offset }} </th>
+            <td>{{ bill?.job_id}}</td>
+            <td>{{ bill?.user.full_name}}</td>
+            <td>{{ bill?.user.mobile_no}}</td>
+            <td>{{ bill?.user.email}}</td>
+            <td>{{ bill?.updated_at | date}}</td>
+            <td class="comment">{{ bill?.comments}}</td>
+            <!-- <td>
+              <button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #elseBlock>
+        <h4> No Data Available </h4>
+      </ng-template>
+    </div>
+    <app-dialog [(visible)]="showDialog">
+      <div class="modal-header">
+        <h4 class="modal-title" id="smallModalLabel">Assign Bill</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" [formGroup]='assignForm' (ngSubmit)="assignBill(assignForm.value)">
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label for="email_address_2">Select CE</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <select class="form-control dropdown" formControlName="UID">
+                  <option *ngFor="let user of users?.UserList" [ngValue]="user.ID">{{ user.Name }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row clearfix">
+            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5 form-control-label">
+              <label for="name">Comments</label>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
+              <div class="form-group">
+                <div class="form-line">
+                  <textarea rows="5" cols="52" formControlName="Comments"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row clearfix">
+            <div class="col-lg-offset-9 col-md-offset-9 col-sm-offset-4 col-xs-offset-5">
+              <input type="submit" value="Assign" class="btn btn-success  m-t-15 waves-effect" [disabled]="!assignForm.valid">
+            </div>
+          </div>
+        </form>
+      </div>
+    </app-dialog>
+  </div>
+  <!-- <modal #imageView [closeOnOutsideClick]="true" modalClass="modal-lg">
+    <modal-content>
+      <div *ngIf="!loader">
+        <div class="body">
+          <div class="row clearfix">
+            <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
+              <h3 class="bg-red text-center">This image is discarded</h3>
+            </div>
+            <div class="col-md-12" style="text-align:center;">
+              <img [src]="imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
+              <p></p>
+            </div>
+          </div>
+        </div>
+        <div class="caption">
+          <p class="text-center">
+            <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()">
+              <i class="material-icons">skip_previous</i>
+              <span>Prev</span>
+            </button>
+            <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()">
+              <i class="material-icons">rotate_right</i>
+              <span>Rotate</span>
+            </button>
+            <a href="{{imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl}}" download>
+              <button type="button" class="btn btn-success btn-sm waves-effect">
+                <i class="material-icons">file_download</i>
+                <span>Download</span>
+              </button>
+            </a>
+            <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()">
+              <i class="material-icons">clear</i>
+              <span>Discard Image</span>
+            </button>
+            <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()">
+              <i class="material-icons">skip_next</i>
+              <span>Next</span>
+            </button>
+            <span style="margin-left:5px">
+              <b>Image {{imageIndex+1}} of {{arrayLength}}</b>
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="text-center" *ngIf="loader">
+        <h1>Please Wait ...</h1>
+        <img src="../../../assets/images/loader.gif" alt="">
+      </div>
+    </modal-content>
+  </modal> -->

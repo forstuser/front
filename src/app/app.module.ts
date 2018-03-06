@@ -63,6 +63,7 @@ import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance
 import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
 import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
 import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
+import { DeletedComponent } from './dashboard/data-panel/job-management/deleted/deleted.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { AddServiceScheduleComponent } from './dashboard/data-panel/service-sche
     SendNotificationComponent,
     ServiceScheduleComponent,
     AddServiceScheduleComponent,
+    DeletedComponent,
   ],
   imports: [
     BrowserModule,

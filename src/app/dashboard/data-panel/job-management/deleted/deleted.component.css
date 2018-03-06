@@ -1,0 +1,14 @@
+.dropdown{
+    border-bottom:1px solid #ccc;
+}
+.pager{
+    text-align: right;
+}
+.disabled{
+    display: none;
+}
+.comment{
+    max-width:250px;
+    overflow-wrap: break-word;
+  }
+  
