@@ -90,6 +90,7 @@ export class CreateBillComponent implements OnInit {
   pucObject: any;
   productMetaDataForBind: any;
   catForms: any;
+  notifications:any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -146,6 +147,7 @@ export class CreateBillComponent implements OnInit {
     this.warrantyProvider();
     this.insuranceProvider();
     this.editOfflineSellerFB();
+    this.getNotifications();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -182,6 +184,15 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res=>{
         console.log("bill details",res);
         this.jobDetails = res.data;
+      })
+  }
+  getNotifications(){
+    this.userService.getNotifications(this.jobId)
+      .subscribe(res=>{
+        console.log(res);
+        this.notifications = res.data;
+      },error=>{
+        console.log(error);
       })
   }
   warrantyProvider() {
