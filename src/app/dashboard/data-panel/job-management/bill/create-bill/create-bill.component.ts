@@ -176,7 +176,14 @@ export class CreateBillComponent implements OnInit {
         }
       )
   }
-
+  // get details of bill
+  getDetailsOfBill(){
+    this.userService.getBillByID(this.billId)
+      .subscribe(res=>{
+        console.log("bill details",res);
+        this.jobDetails = res.data;
+      })
+  }
   warrantyProvider() {
     this.type = 2
     this.userService.warrantyProvider(this.type)
@@ -327,6 +334,7 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = true;
     this.cockpit2 = false;
     this.jobDetailsShow = false;
+    this.getDetailsOfBill();
   }
   deleteProduct() {
     this.userService.deleteProduct(this.billId, this.requestId)

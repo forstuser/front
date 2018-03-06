@@ -135,6 +135,14 @@ export class ViewBillComponent implements OnInit {
         }
       )
   }
+  // get details of bill
+  getDetailsOfBill(){
+    this.userService.getBillByID(this.billId)
+      .subscribe(res=>{
+        console.log("bill details",res);
+        this.jobDetails = res.data;
+      })
+  }
   insuranceProvider() {
     this.userService.warrantyProvider(1)
       .subscribe(res => {
@@ -232,6 +240,7 @@ export class ViewBillComponent implements OnInit {
     console.log(bill, "bill wala ");
     this.cockpit = true;
     this.jobDetailsShow = false;
+    this.getDetailsOfBill();
   }
   showProductInfo() {
     this.askMainCategory = true;
@@ -523,6 +532,9 @@ export class ViewBillComponent implements OnInit {
     this.mainCategoryList();
     this.onSelectMainCat(prod.main_category_id);
     this.onSelectCat(prod.category_id);
+    if(prod.brand_id ==null){
+      prod.brand_id = '';
+    }
     this.getModelList(prod.brand_id);
     this.selectedImageArray = prod.copies;
     console.log(prod, "pro");
@@ -624,6 +636,7 @@ export class ViewBillComponent implements OnInit {
     this.cockpit = false;
     this.addons = false;
     this.cockpit2 = false;
+    this.getDetailsOfJob();
   }
   // show add product form
   showAddProductForm() {
@@ -634,7 +647,6 @@ export class ViewBillComponent implements OnInit {
   }
   // show add offline seller form
   showAddSellerForm() {
-    alert("Ruk Jao Bhai Bna rahe")
     this.billGeneralInfoEdit = false;
     this.showSellerForm = false;
     this.askMainCategory = false;
@@ -649,10 +661,10 @@ export class ViewBillComponent implements OnInit {
   }
   backtoAddons() {
     this.addons = true;
-    if (this.jobDetails.bills.length == 0) {
-      this.addons = false;
-      this.jobDetailsShow = true;
-    }
+    // if (this.jobDetails.bills.length == 0) {
+    //   this.addons = false;
+    //   this.jobDetailsShow = true;
+    // }
     this.showWarrantyEditForm = false;
     this.showInsuranceEditForm = false;
     this.showAmcEditForm = false;
@@ -682,16 +694,4 @@ export class ViewBillComponent implements OnInit {
         console.log(err);
       })
   }
-  // back To jobDetails Show 
-  // backTojobDetailsShow() {
-  //   this.showSellerForm = false;
-  //   this.showProductForm = false;
-  //   this.askMainCategory = false;
-  //   this.jobDetailsShow = true;
-  //   this.billGeneralInfo = false;
-  //   this.billGeneralInfoEdit = false;
-  //   this.cockpit = false;
-  //   this.cockpit2 = false;
-  //   this.showProductList = false;
-  // }
 }
