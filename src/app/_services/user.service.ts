@@ -698,6 +698,11 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/bills/' + billID, this.options)
       .map((response: Response) => response.json());
   }
+  getNotifications(jobId:Number){
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/jobs/' + jobId + '/notifications', this.options)
+      .map((response: Response) => response.json());
+  }
   createBill(bill: any) {
     console.log(bill);
     Object.keys(bill).forEach((key) => (bill[key] == '' || bill[key] == null) && delete bill[key]);
