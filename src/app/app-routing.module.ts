@@ -1,3 +1,4 @@
+import { DeletedComponent } from './dashboard/data-panel/job-management/deleted/deleted.component';
 import { ComponentFixture } from '@angular/core/testing';
 import { SendNotificationComponent } from './dashboard/data-panel/notifications/send-notification/send-notification.component';
 import { InsuranceProviderListComponent } from './dashboard/data-panel/insurance-management/insurance-provider-list/insurance-provider-list.component';
@@ -56,6 +57,7 @@ const appRoutes: Routes = [
             { path: 'completed', component: CompletedComponent },
             { path: 'completed/view/:id', component:ViewBillComponent  }, 
             { path: 'discarded', component: DiscardedComponent },
+            { path: 'deleted', component: DeletedComponent },
             { path: 'AddUser', component: AddUserComponent },
             { path: 'admin', component: AdminComponent },
             { path: 'customer', component: CustomerComponent },

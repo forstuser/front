@@ -1,4 +1,11 @@
 <div class="card">
+    <div class="row">
+      <h5 style="margin-left:30px;"><u>Notifications</u></h5>
+      <div *ngFor="let list of notifications" class="col-md-6">
+        <li>{{list?.title}}</li>
+      </div>
+    </div>
+<div class="">
   <div class="row clearfix">
     <!--**********************************************IMAGE****************************************** -->
     <!-- Image Panel Start -->

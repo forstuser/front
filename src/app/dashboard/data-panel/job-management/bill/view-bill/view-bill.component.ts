@@ -95,6 +95,7 @@ export class ViewBillComponent implements OnInit {
   caseButton: boolean = false;
   cockpit2: boolean = false;
   productList: any;
+  notifications:any;
   constructor(private _location: Location, private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'));
@@ -107,6 +108,7 @@ export class ViewBillComponent implements OnInit {
     webGlObject.init();
     this.insuranceProvider();
     this.warrantyProvider();
+    this.getNotifications();
   }
   // get details of current job
   getDetailsOfJob() {
@@ -141,6 +143,15 @@ export class ViewBillComponent implements OnInit {
       .subscribe(res=>{
         console.log("bill details",res);
         this.jobDetails = res.data;
+      })
+  }
+  getNotifications(){
+    this.userService.getNotifications(this.jobId)
+      .subscribe(res=>{
+        console.log(res);
+        this.notifications = res.data;
+      },error=>{
+        console.log(error);
       })
   }
   insuranceProvider() {
