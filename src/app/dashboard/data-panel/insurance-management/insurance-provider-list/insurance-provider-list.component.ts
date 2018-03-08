@@ -232,6 +232,7 @@ export class InsuranceProviderListComponent implements OnInit {
   // link brand
   onClickUserInsuranceProvider(req) {
     this.insuranceProviderId = req;
+    this.activeInsuranceProviderList();
   }
   onSelectInsuranceProvider(req) {
     this.insuranceProviderNewId = req;
