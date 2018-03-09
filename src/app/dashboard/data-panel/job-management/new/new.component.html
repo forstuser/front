@@ -2,15 +2,19 @@
   <div class="header">
     <h2>
       New JOB List
-      <small> For assign  the job click on the assign button</small>
+      <small> For assign the job click on the assign button</small>
     </h2>
     <h2 class="text-right">Total No of New Bills : {{ totalBill }}</h2>
   </div>
   <div class="body table-responsive">
     <nav>
       <ul class="pager">
-        <li [ngClass]="{ 'disabled': leftFlag }"><a class="waves-effect" (click)="left()">Previous</a></li>
-        <li [ngClass]="{ 'disabled': rightFlag }"><a class="waves-effect" (click)="right()">Next</a></li>
+        <li [ngClass]="{ 'disabled': leftFlag }">
+          <a class="waves-effect" (click)="left()">Previous</a>
+        </li>
+        <li [ngClass]="{ 'disabled': rightFlag }">
+          <a class="waves-effect" (click)="right()">Next</a>
+        </li>
       </ul>
     </nav>
     <table class="table table-condensed" *ngIf="!noData; else elseBlock">
@@ -29,17 +33,23 @@
       <tbody *ngFor="let bill of billList?.data; let i = index">
         <tr>
           <th scope="row">{{ i+1+offset }} </th>
-          <td><button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
+          <td>
+            <button *ngIf="bill?.isFirstTimeUser==true" type="button" class="btn bg-green btn-circle waves-effect waves-circle waves-float">
               <i class="material-icons">verified_user</i>
-          </button> {{ bill?.job_id}}</td>
+            </button> {{ bill?.job_id}}</td>
           <td>{{ bill?.user.full_name}}</td>
           <td>{{ bill?.user.mobile_no}}</td>
           <td>{{ bill?.user.email}}</td>
           <td>{{ bill?.updated_at | date}}</td>
           <td class="comment">{{ bill?.comments}}</td>
-          <td><button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button><button type="button" class="btn bg-cyan waves-effect" routerLink="create/{{ bill.id }}" *ngIf="userType ==4 ">Add Bill</button><button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}"
-              *ngIf="userType ==3">View Bill</button></td>
-          <td><button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button></td>
+          <td>
+            <button type="button" class="btn bg-indigo waves-effect" (click)="openModel(bill)" *ngIf="userType <=2">Assign</button>
+            <button type="button" class="btn bg-cyan waves-effect" routerLink="create/{{ bill.id }}" *ngIf="userType ==4 ">Add Bill</button>
+            <button type="button" class="btn bg-cyan waves-effect" routerLink="view/{{ bill.id }}" *ngIf="userType ==3">View Bill</button>
+          </td>
+          <td>
+            <button type="button" class="btn bg-green waves-effect" (click)="imageView.open();openImageModel(bill)" *ngIf="userType <=2 ">View</button>
+          </td>
           <!-- <td><button class="btn btn-danger" (click)="discard(bill)" *ngIf="userType <=2">Discard</button></td> -->
         </tr>
       </tbody>
@@ -62,8 +72,8 @@
           <div class="col-lg-9 col-md-9 col-sm-8 col-xs-7">
             <div class="form-group">
               <select class="form-control dropdown" formControlName="UID">
-                  <option>Select</option>                  
-                  <option *ngFor="let user of users?.data" [ngValue]="user.id" >{{ user?.email }}</option>
+                <option>Select</option>
+                <option *ngFor="let user of users?.data" [ngValue]="user.id">{{ user?.email }}</option>
               </select>
             </div>
           </div>
@@ -122,23 +132,42 @@
     <div *ngIf="!loader">
       <div class="body">
         <div class="row clearfix">
-          <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
-            <h3 class="bg-red text-center">This image is discarded</h3>
-          </div>
           <div class="col-md-12" style="text-align:center;">
             <img [src]="imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl" style="width:100%;" [style.transform]="'rotate(' + imagerotation + 'deg)'">
             <p></p>
+          </div>
+          <div class="col-md-12" *ngIf="imageArray[imageIndex]?.status_type == 9">
+            <h3 class="bg-red text-center">This image is discarded</h3>
           </div>
         </div>
       </div>
       <div class="caption">
         <p class="text-center">
-          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()"><i class="material-icons">skip_previous</i><span>Prev</span></button>
-          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()"><i class="material-icons">rotate_right</i><span>Rotate</span></button>
-          <a href="{{imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl}}" download><button type="button" class="btn btn-success btn-sm waves-effect"><i class="material-icons">file_download</i><span>Download</span></button></a>
-          <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()"><i class="material-icons">clear</i><span>Discard Image</span></button>
-          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()"><i class="material-icons">skip_next</i><span>Next</span></button>
-          <span style="margin-left:5px"><b>Image {{imageIndex+1}} of {{arrayLength}}</b></span>
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="prevImage()">
+            <i class="material-icons">skip_previous</i>
+            <span>Prev</span>
+          </button>
+          <button type="button" class="btn btn-warning btn-sm waves-effect" (click)="rotate()">
+            <i class="material-icons">rotate_right</i>
+            <span>Rotate</span>
+          </button>
+          <a href="{{imageUrl + 'api/' + imageArray[imageIndex]?.copyUrl}}" download>
+            <button type="button" class="btn btn-success btn-sm waves-effect">
+              <i class="material-icons">file_download</i>
+              <span>Download</span>
+            </button>
+          </a>
+          <button *ngIf="imageArray[imageIndex]?.status_type !=9" type="button" class="btn btn-danger btn-sm waves-effect" (click)="alertBox.open();imageView.close()">
+            <i class="material-icons">clear</i>
+            <span>Discard Image</span>
+          </button>
+          <button type="button" class="btn btn-info btn-sm waves-effect" (click)="nextImage()">
+            <i class="material-icons">skip_next</i>
+            <span>Next</span>
+          </button>
+          <span style="margin-left:5px">
+            <b>Image {{imageIndex+1}} of {{arrayLength}}</b>
+          </span>
         </p>
       </div>
     </div>
@@ -152,17 +181,17 @@
   <modal-content>
     <div class="body">
       <div class="row">
-          <div class="col-md-12">
-              <div class="form-group">
-                  <div class="form-line">
-                      <input type="text" class="form-control" name="Comments" placeholder="Enter Comment"  #commentInput>
-                  </div>
-              </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="form-line">
+              <input type="text" class="form-control" name="Comments" placeholder="Enter Comment" #commentInput>
+            </div>
           </div>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12 text-right">
-            <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>    
+          <button class="btn bg-red btn-md btn-lg" type="submit" (click)="commentBoxData(commentInput.value);alertBox.close()">Discard Image</button>
         </div>
       </div>
     </div>
