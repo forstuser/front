@@ -684,13 +684,13 @@ export class CreateBillComponent implements OnInit {
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
-      'online_seller_id': form.value.online_seller_id,
+      // 'online_seller_id': form.value.online_seller_id,
       'provider_id': form.value.provider_id,
       'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
-      'seller_id': form.value.seller_id,
+      // 'seller_id': form.value.seller_id,
       'user_id': this.userId,
       'job_id': this.jobId,
       'product_id': this.productId,
@@ -716,7 +716,7 @@ export class CreateBillComponent implements OnInit {
     this.warrantyId = war.id;
     this.selectedEditWarrantyImageArray = war.copies;
     this.warrantyFormObjectForBind = war;
-    this.sellerIdforSellerInfo = war.seller_id;
+    // this.sellerIdforSellerInfo = war.seller_id;
     console.log(war);
     this.addons = false;
     this.showWarrantyEditForm = true;
@@ -747,13 +747,13 @@ export class CreateBillComponent implements OnInit {
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
-      'online_seller_id': form.value.online_seller_id,
+      // 'online_seller_id': form.value.online_seller_id,
       'provider_id': form.value.provider_id,
       'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
       'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
-      'seller_id': form.value.seller_id,
+      // 'seller_id': form.value.seller_id,
       'user_id': this.userId,
       'job_id': this.jobId,
       'warrantyId': this.warrantyId,
@@ -1249,7 +1249,7 @@ export class CreateBillComponent implements OnInit {
       'category_id': ['', Validators.required],
       'title': ['', Validators.required],
       'warranty_renewal_type': '',
-      'dual_renewal_type': '',
+      // 'dual_renewal_type': '',
       'product_type': '',
       'category_form_1_value': '',
       'category_form_2_value': '',
@@ -1442,6 +1442,7 @@ export class CreateBillComponent implements OnInit {
   }
   // back To jobDetails Show 
   backTojobDetailsShow() {
+    this.getDetailsOfJob();
     this.showSellerForm = false;
     this.showProductForm = false;
     this.askMainCategory = false;
@@ -1451,6 +1452,7 @@ export class CreateBillComponent implements OnInit {
     this.cockpit = false;
     this.cockpit2 = false;
     this.showProductList = false;
+    this.showModelForm = false;
   }
   // show add product form
   showAddProductForm() {

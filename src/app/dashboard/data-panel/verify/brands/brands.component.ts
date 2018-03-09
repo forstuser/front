@@ -24,7 +24,7 @@ export class BrandsComponent implements OnInit {
       'category_id':['',Validators.required],
       'title':['',Validators.required],
       'warranty_renewal_type':'',
-      'dual_renewal_type':'',
+      // 'dual_renewal_type':'',
       'product_type':'',
       'category_form_1_value':'',
       'category_form_2_value':'',
@@ -77,6 +77,7 @@ export class BrandsComponent implements OnInit {
       console.log(res,"post data");
       alert("Model Added successfully")
       this.loader = false;
+      this.assignForm.reset();
     },(error=>{
       this.loader = false;
       const err = JSON.parse(error['_body']);
