@@ -90,7 +90,7 @@ export class CreateBillComponent implements OnInit {
   pucObject: any;
   productMetaDataForBind: any;
   catForms: any;
-  notifications:any;
+  notifications: any;
   //******************Hide and Show Variables  ****************************//
   jobDetailsShow: boolean = true;
   billGeneralInfo: boolean = false;
@@ -135,6 +135,9 @@ export class CreateBillComponent implements OnInit {
   type: number;
   loaderUrl: string = '../../../assets/images/loader.gif';
   loader: boolean = false;
+  type_category_form: any;
+  category_form_1: any;
+  category_form_2: any;
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private fb: FormBuilder, private functionService: FunctionService) {
     this.jobId = route.snapshot.params.id;
     const info = JSON.parse(localStorage.getItem('currentUser'))
@@ -179,19 +182,19 @@ export class CreateBillComponent implements OnInit {
       )
   }
   // get details of bill
-  getDetailsOfBill(){
+  getDetailsOfBill() {
     this.userService.getBillByID(this.billId)
-      .subscribe(res=>{
-        console.log("bill details",res);
+      .subscribe(res => {
+        console.log("bill details", res);
         this.jobDetails = res.data;
       })
   }
-  getNotifications(){
+  getNotifications() {
     this.userService.getNotifications(this.jobId)
-      .subscribe(res=>{
+      .subscribe(res => {
         console.log(res);
         this.notifications = res.data;
-      },error=>{
+      }, error => {
         console.log(error);
       })
   }
@@ -459,7 +462,7 @@ export class CreateBillComponent implements OnInit {
           this.productEditFromMetaData.push({ 'id': val, 'form_value': editFilterData[val] });
         }
       }
-      for(let i in this.productEditFromMetaData){
+      for (let i in this.productEditFromMetaData) {
         console.log(this.productEditFromMetaData[i]);
       }
       this.productEditObject['metaData'] = this.productEditFromMetaData;
@@ -499,7 +502,7 @@ export class CreateBillComponent implements OnInit {
     this.userService.getSubCategoryList(catID)
       .subscribe(res => {
         this.cat = res.data.subCategories;
-        // console.log(res, "category");
+        console.log(res, "category");
       });
   }
   // after select category show  category form
@@ -509,7 +512,11 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         this.catForm = res.data.categoryForms;
         this.catForms = res.data.subCategories;
-        console.log(this.catForm, "category form");
+        console.log(this.catForm, "category form 1 ");
+        console.log(res, "one category 1 ");
+        this.type_category_form = res.data.type_category_form;
+        this.category_form_1 = res.data.category_form_1;
+        this.category_form_2 = res.data.category_form_2;
         this.showProductForm = true;
         this.getBrandListByCategory(catID);
         this.getColorList();
@@ -528,7 +535,11 @@ export class CreateBillComponent implements OnInit {
       .subscribe(res => {
         this.catForms = res.data.subCategories;
         this.catForm = res.data.categoryForms;
-        console.log(this.catForm, "category form");
+        console.log(this.catForms, "one category 2");
+        console.log(this.catForm, "category form 2");
+        this.type_category_form = res.data.type_category_form;
+        this.category_form_1 = res.data.category_form_1;
+        this.category_form_2 = res.data.category_form_2;
         // this.showProductForm = true;
         this.getColorList();
         this.getOfflineSellerList();
@@ -672,8 +683,10 @@ export class CreateBillComponent implements OnInit {
         alert("Product Linked with bill")
         this.getDetailsOfJob();
         this.showProductList = false;
-      }, (err) => {
-        console.log(err);
+      }, (error) => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
       })
   }
   //********************************* Warranty Functions***********************************//
