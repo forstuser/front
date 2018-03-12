@@ -37,6 +37,16 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/dashboard?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date, this.options)
       .map((response: Response) => response.json());
   }
+  getUser(start_date, end_date, catId,offSet) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/dashboard/users?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date+ '&limit=250&offset=' + offSet, this.options)
+      .map((response: Response) => response.json());
+  }
+  getProduct(start_date, end_date, catId,offSet) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/dashboard/products?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date + '&limit=250&offset=' + offSet, this.options)
+      .map((response: Response) => response.json());
+  }
   // User API
   // get list of admin,qe,ce and customer
   getUserList(role_type: number) {
