@@ -32,9 +32,9 @@ export class UserService {
 
   }
 
-  getGraphData(start_date,end_date){
+  getGraphData(start_date, end_date, catId) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/dashboard?start_date=' +start_date + '&end_date='+end_date, this.options)
+    return this.http.get(this.apiLink + 'api/dashboard?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date, this.options)
       .map((response: Response) => response.json());
   }
   // User API
@@ -698,7 +698,7 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/bills/' + billID, this.options)
       .map((response: Response) => response.json());
   }
-  getNotifications(jobId:Number){
+  getNotifications(jobId: Number) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/jobs/' + jobId + '/notifications', this.options)
       .map((response: Response) => response.json());
@@ -1124,7 +1124,7 @@ export class UserService {
     return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
   }
 
- 
+
 
 
   deleteCategoryForm(formID: number) {
