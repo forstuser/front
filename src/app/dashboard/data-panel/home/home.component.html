@@ -1,61 +1,197 @@
-<div class="container-fluid">
-    <div class="row card">
-        <div class="col-md-12">
-            <h3>Dashboard</h3>
-        </div>
-        <div class="col-md-3">
-            Start Date
-            <input class="form-control dropdown mains" type="date" name="startDate" (input)="getStartDate($event.target.value)">
-        </div>
-        <div class="col-md-3">
-            End Date
-            <input class="form-control dropdown mains" type="date" name="endDate" (input)="getEndDate($event.target.value)">
-        </div>
-        <div class="col-md-3">
-           Category
-            <select class="form-control dropdown" name="category" (change)="onSelectCat($event.target.value)">
-                <option value="">Select</option>
-                <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
-            </select>
-        </div>
-        <div class="col-md-2">
-            <span *ngIf="loader" class="text-bold">
-                <img src="{{imageUrl}}" alt="loader" class="img-responsive" style="margin-left: 5px;width:60px">Please Wait</span>
-            <button *ngIf="!loader" type="button" class="btn btn-success btn-block" style="margin-top:20px" (click)="filterDate()">Submit</button>
-        </div>
-        <div class="col-md-2">
+<div *ngIf="userType===1">
+    <div class="container-fluid">
+        <div class="row card">
+            <div class="col-md-12">
+                <h3>Dashboard</h3>
+            </div>
+            <div class="col-md-3">
+                Start Date
+                <input class="form-control dropdown mains" type="date" name="startDate" (input)="getStartDate($event.target.value)">
+            </div>
+            <div class="col-md-3">
+                End Date
+                <input class="form-control dropdown mains" type="date" name="endDate" (input)="getEndDate($event.target.value)">
+            </div>
+            <div class="col-md-3">
+                Category
+                <select class="form-control dropdown" name="category" (change)="onSelectCat($event.target.value)">
+                    <option value="">Select</option>
+                    <option *ngFor="let categoryList of cat" [value]="categoryList?.category_id">{{ categoryList?.category_name }}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <span *ngIf="loader" class="text-bold">
+                    <img src="{{imageUrl}}" alt="loader" class="img-responsive" style="margin-left: 5px;width:60px">Please Wait</span>
+                <button *ngIf="!loader" type="button" class="btn btn-success btn-block" style="margin-top:20px" (click)="filterDate()">Submit</button>
+            </div>
+            <div class="col-md-2">
 
-        </div>
-        <div class="col-md-12">
-            <br>
-        </div>
-        <div class="col-md-12">
-            <div class="col-md-6">
-                <div style="display: block;">
-                    <canvas *ngIf="graphAvailable" baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-                        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
+            </div>
+            <div class="col-md-12">
+                <br>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div style="display: block;">
+                        <canvas *ngIf="graphAvailable" baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+                            [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                            (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-bottom: 10px">
+                    <!-- <div class="table-responsive">
+                                <table class="table  table-condensed">
+                                    <tr>
+                                        <td></td>
+                                        <th *ngFor="let label of lineChartLabels" class="bg-green">{{label}}</th>
+                                    </tr>
+                                    <tr *ngFor="let d of lineChartData">
+                                        <td (click)="getData()" class="bg-pink">{{d?.label}}
+                                            <span>
+                                                <i class="material-icons">info</i>
+                                            </span>
+                                        </td>
+                                        <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+                                    </tr>
+                                </table>
+                            </div> -->
                 </div>
             </div>
-            <div class="col-md-6" style="margin-bottom: 10px">
+            <div class="col-md-12" *ngIf="dataTable">
+                <h4 class="text-center">Date Table</h4>
                 <div class="table-responsive">
                     <table class="table  table-condensed">
                         <tr>
                             <td></td>
-                            <th *ngFor="let label of lineChartLabels">{{label}}</th>
+                            <th *ngFor="let label of lineChartLabels" class="bg-green">{{label}}</th>
                         </tr>
                         <tr *ngFor="let d of lineChartData">
-                            <td>{{d?.label}}</td>
+                            <td (click)="getData(d)" class="bg-pink link">{{d?.label}}
+                                <span>
+                                    <i class="material-icons">info</i>
+                                </span>
+                            </td>
                             <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-
                         </tr>
                     </table>
                 </div>
-
+            </div>
+            <div class="col-md-12" *ngIf="userListShow">
+                <h4 class="text-center">List of New Users</h4>
+                <nav>
+                    <ul class="pager">
+                        <li [ngClass]="{ 'disabled': leftFlag }">
+                            <a class="waves-effect" (click)="left()">Previous</a>
+                        </li>
+                        <li [ngClass]="{ 'disabled': rightFlag }">
+                            <a class="waves-effect" (click)="right()">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
+                        <thead>
+                            <tr class="bg-green">
+                                <th>#</th>
+                                <th>Mobile</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Last Active</th>
+                                <th>Last API Used</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let list of userList; let i = index">
+                            <tr>
+                                <th scope="row">{{ i+1+offset }}</th>
+                                <td>{{ list?.mobile_no}}</td>
+                                <td>{{ list?.full_name}}</td>
+                                <td>{{ list?.email}}</td>
+                                <td>{{ list?.last_active}}</td>
+                                <td>{{ list?.last_api}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #elseBlock>
+                        <h4> No Data Available </h4>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-md-12" *ngIf="productListShow">
+                <h4 class="text-center">List of Products</h4>
+                <nav>
+                    <ul class="pager">
+                        <li [ngClass]="{ 'disabled': leftFlag }">
+                            <a class="waves-effect" (click)="left()">Previous</a>
+                        </li>
+                        <li [ngClass]="{ 'disabled': rightFlag }">
+                            <a class="waves-effect" (click)="right()">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered" *ngIf="!noData; else elseBlock">
+                        <thead>
+                            <tr class="bg-purple">
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>User Full Name</th>
+                                <th>User Mobile Number</th>
+                                <th>User Email Id</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let list of productList; let i = index">
+                            <tr>
+                                <th scope="row">{{ i+1+offset}}</th>
+                                <td>{{ list?.product_name}}</td>
+                                <td>{{ list?.category_name}}</td>
+                                <td>{{ list?.brand_name}}</td>
+                                <td>{{ list?.model}}</td>
+                                <td>{{ list?.full_name}}</td>
+                                <td>{{ list?.mobile_no}}</td>
+                                <td>{{ list?.email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template #elseBlock>
+                        <h4> No Data Available </h4>
+                    </ng-template>
+                </div>
             </div>
         </div>
-        <div class="col-md-6">
-
+    </div>
+</div>
+<div *ngIf="userType > 1">
+    <div class="contianer-fluid">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="table-responsive">
+                <table class="table table-condensed table-bordered">
+                    <tr class="bg-purple">
+                        <th>Name</th>
+                        <th>{{info?.full_name}}</th>
+                    </tr>
+                    <tr class="bg-purple">
+                        <th>Email</th>
+                        <th>{{info?.email}}</th>
+                    </tr>
+                    <tr class="bg-purple">
+                        <th>Role Type</th>
+                        <th *ngIf="info?.role_type == 2"> Admin</th>
+                        <th *ngIf="info?.role_type == 3"> Quality Executive</th>
+                        <th *ngIf="info?.role_type == 4"> Customer Executive</th>
+                    </tr>
+                    <tr class="bg-purple">
+                        <th>Last Login</th>
+                        <th>{{info?.last_login_at | date:'medium'}}</th>
+                    </tr>
+                    <tr class="bg-purple">
+                        <th>Last Log Out</th>
+                        <th>{{info?.last_logout_at | date:'medium'}}</th>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

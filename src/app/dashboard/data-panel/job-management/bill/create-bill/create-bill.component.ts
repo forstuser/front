@@ -374,9 +374,9 @@ export class CreateBillComponent implements OnInit {
         'purchase_cost': form.value.purchase_cost,
         'document_date': form.value.document_date,
         'copies': this.selectedImageArray || [],
-        'taxes': form.value.taxes,
+        // 'taxes': form.value.taxes,
         'brand_id': form.value.brand_id,
-        'colour_id': form.value.colour_id,
+        // 'colour_id': form.value.colour_id,
         'seller_id': this.sellerId,
         'user_id': this.userId,
         'job_id': this.jobId,
@@ -388,9 +388,9 @@ export class CreateBillComponent implements OnInit {
       delete filterData['product_name'];
       delete filterData['model']
       delete filterData['purchase_cost'];
-      delete filterData['taxes'];
+      // delete filterData['taxes'];
       delete filterData['brand_id'];
-      delete filterData['colour_id'];
+      // delete filterData['colour_id'];
       delete filterData['seller_id'];
       delete filterData['document_date'];
       this.productFromMetaData = [];
@@ -430,9 +430,9 @@ export class CreateBillComponent implements OnInit {
         'model': form.value.model,
         'purchase_cost': form.value.purchase_cost,
         'copies': this.selectedImageArray,
-        'taxes': form.value.taxes,
+        // 'taxes': form.value.taxes,
         'brand_id': form.value.brand_id,
-        'colour_id': form.value.colour_id,
+        // 'colour_id': form.value.colour_id,
         'seller_id': form.value.seller_id,
         'user_id': this.userId,
         'job_id': this.jobId,
@@ -445,9 +445,9 @@ export class CreateBillComponent implements OnInit {
       delete editFilterData['product_name'];
       delete editFilterData['model'];
       delete editFilterData['purchase_cost'];
-      delete editFilterData['taxes'];
+      // delete editFilterData['taxes'];
       delete editFilterData['brand_id'];
-      delete editFilterData['colour_id'];
+      // delete editFilterData['colour_id'];
       delete editFilterData['seller_id'];
       delete editFilterData['main_category_id'];
       delete editFilterData['category_id'];
@@ -792,14 +792,14 @@ export class CreateBillComponent implements OnInit {
   insuranceFormData(form: NgForm) {
     // console.log(form.value);
     this.insuranceObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
       'provider_id': form.value.provider_id,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'amount_insured': form.value.amount_insured,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
@@ -854,14 +854,14 @@ export class CreateBillComponent implements OnInit {
   insuranceEditFormData(form: NgForm) {
     console.log(form.value);
     this.insuranceEditFormObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
       'provider_id': form.value.provider_id,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'amount_insured': form.value.amount_insured,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
@@ -890,7 +890,7 @@ export class CreateBillComponent implements OnInit {
   amcFormData(form: NgForm) {
     // console.log(form.value);
     this.amcObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -898,7 +898,7 @@ export class CreateBillComponent implements OnInit {
       'provider_id': form.value.provider_id,
 
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -952,17 +952,16 @@ export class CreateBillComponent implements OnInit {
   amcEditFormData(form: NgForm) {
     console.log(form.value);
     this.amcEditFormObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'online_seller_id': form.value.online_seller_id,
-
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
-      'seller_id': form.value.seller_id,
       'user_id': this.userId,
+      'seller_id': form.value.seller_id,
       'job_id': this.jobId,
       'product_id': this.productId,
       'amcId': this.amcId,
@@ -987,11 +986,11 @@ export class CreateBillComponent implements OnInit {
   repairFormData(form: NgForm) {
     // console.log(form.value);
     this.repairObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
-      'repair_taxes': form.value.repair_taxes,
+      // 'repair_taxes': form.value.repair_taxes,
       'warranty_upto': form.value.warranty_upto,
       'repair_for': form.value.repair_for,
       'seller_id': form.value.seller_id,
@@ -1047,11 +1046,11 @@ export class CreateBillComponent implements OnInit {
   }
   repairEditFormData(form: NgForm) {
     this.repairEditFormObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
-      'repair_taxes': form.value.repair_taxes,
+      // 'repair_taxes': form.value.repair_taxes,
       'warranty_upto': form.value.warranty_upto,
       'repair_for': form.value.repair_for,
       'seller_id': form.value.seller_id,
@@ -1081,13 +1080,13 @@ export class CreateBillComponent implements OnInit {
   pucFormData(form: NgForm) {
     console.log(form.value);
     this.pucObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
       'created_at': form.value.created_at,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -1149,7 +1148,7 @@ export class CreateBillComponent implements OnInit {
   pucEditFormData(form: NgForm) {
     console.log(form.value);
     this.pucEditFormObject = {
-      'document_date': form.value.document_date,
+      // 'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -1157,7 +1156,7 @@ export class CreateBillComponent implements OnInit {
       // 'provider_id':form.value.provider_id,     
       // 'warranty_type':form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
       'seller_id': form.value.seller_id,
       'user_id': this.userId,

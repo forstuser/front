@@ -4,3 +4,18 @@
   .text-bold{
     font-weight: bold;
   }
+  .text-orange{
+    color: orange;
+  }
+  .link{
+    cursor: pointer;
+
+  }
+  .pager{
+      text-align: right;
+  }
+  .disabled{
+      display: none;
+  }
+  
+  
