@@ -701,7 +701,7 @@ export class CreateBillComponent implements OnInit {
       'provider_id': form.value.provider_id,
       'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
       // 'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -764,7 +764,7 @@ export class CreateBillComponent implements OnInit {
       'provider_id': form.value.provider_id,
       'warranty_type': form.value.warranty_type,
       'renewal_cost': form.value.renewal_cost,
-      'renewal_taxes': form.value.renewal_taxes,
+      // 'renewal_taxes': form.value.renewal_taxes,
       'renewal_type': form.value.renewal_type,
       // 'seller_id': form.value.seller_id,
       'user_id': this.userId,
@@ -792,7 +792,7 @@ export class CreateBillComponent implements OnInit {
   insuranceFormData(form: NgForm) {
     // console.log(form.value);
     this.insuranceObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -854,7 +854,7 @@ export class CreateBillComponent implements OnInit {
   insuranceEditFormData(form: NgForm) {
     console.log(form.value);
     this.insuranceEditFormObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -890,7 +890,7 @@ export class CreateBillComponent implements OnInit {
   amcFormData(form: NgForm) {
     // console.log(form.value);
     this.amcObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -952,7 +952,7 @@ export class CreateBillComponent implements OnInit {
   amcEditFormData(form: NgForm) {
     console.log(form.value);
     this.amcEditFormObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -986,7 +986,7 @@ export class CreateBillComponent implements OnInit {
   repairFormData(form: NgForm) {
     // console.log(form.value);
     this.repairObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
@@ -1046,7 +1046,7 @@ export class CreateBillComponent implements OnInit {
   }
   repairEditFormData(form: NgForm) {
     this.repairEditFormObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'online_seller_id': form.value.online_seller_id,
       'repair_cost': form.value.repair_cost,
@@ -1080,7 +1080,7 @@ export class CreateBillComponent implements OnInit {
   pucFormData(form: NgForm) {
     console.log(form.value);
     this.pucObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
@@ -1148,7 +1148,7 @@ export class CreateBillComponent implements OnInit {
   pucEditFormData(form: NgForm) {
     console.log(form.value);
     this.pucEditFormObject = {
-      // 'document_date': form.value.document_date,
+      'document_date': form.value.document_date,
       'document_number': form.value.document_number,
       'effective_date': form.value.effective_date,
       'expiry_date': form.value.expiry_date,
