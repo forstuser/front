@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private userService: UserService) {
     this.info = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.info);
+    // console.log(this.info);
     this.userType = this.info.role_type;
   }
 
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
     this.userService.getCategoryList(2) // 2 for category refer to api doc
       .subscribe(res => {
         this.cat = res.data;
-        console.log('category is ', this.cat);
+        // console.log('category is ', this.cat);
       });
   }
   onSelectCat(catID: number) {
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     this.loader = true;
     this.userService.getGraphData(this.start_date, this.end_date, this.catId)
       .subscribe(res => {
-        console.log("res", res);
+        // console.log("res", res);
         this.graphAvailable = true;
         this.loader = false;
         this.userListShow = false;
@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
         this.dateWiseObject = res.data.dateWise;
         this.lineChartLabels = Object.keys(res.data.dateWise);
         for (let val in this.dateWiseObject) {
-          console.log(this.dateWiseObject[val]);
+          // console.log(this.dateWiseObject[val]);
           this.usersData.push(this.dateWiseObject[val].users);
           this.productsData.push(this.dateWiseObject[val].products);
           this.warrantiesData.push(this.dateWiseObject[val].warranties);
@@ -167,10 +167,25 @@ export class HomeComponent implements OnInit {
     console.log(e);
     this.calltext = e.label;
     if (e.label == 'New Users') {
-      this.getUserList();
+      this.getDashboardList('users');
     }
     else if (e.label == 'Products') {
-      this.getProductList();
+      this.getDashboardList('products');
+    }
+    else if (e.label == 'Warranties') {
+      this.getDashboardList('warranties');
+    }
+    else if (e.label == 'Insurances') {
+      this.getDashboardList('insurances');
+    }
+    else if (e.label == 'Amcs') {
+      this.getDashboardList('amcs');
+    }
+    else if (e.label == 'Repairs') {
+      this.getDashboardList('repairs');
+    }
+    else if (e.label == 'Pucs') {
+      this.getDashboardList('pucs');
     }
     else {
       this.userListShow = false;
@@ -180,52 +195,126 @@ export class HomeComponent implements OnInit {
   getDataByPagination() {
     console.log("inside pagination ", this.calltext)
     if (this.calltext == 'New Users') {
-      this.getUserList();
+      this.getDashboardList('users');
     }
     else if (this.calltext == 'Products') {
-      this.getProductList();
+      this.getDashboardList('products');
+    }
+    else if (this.calltext == 'Warranties') {
+      this.getDashboardList('warranties');
+    }
+    else if (this.calltext == 'Insurances') {
+      this.getDashboardList('insurances');
+    }
+    else if (this.calltext == 'Amcs') {
+      this.getDashboardList('amcs');
+    }
+    else if (this.calltext == 'Repairs') {
+      this.getDashboardList('repairs');
+    }
+    else if (this.calltext == 'Pucs') {
+      this.getDashboardList('pucs');
     }
     else {
       this.userListShow = false;
       this.productListShow = false;
     }
   }
+  getDashboardList(type) {
+    this.userService.getDashboardData(type, this.start_date, this.end_date, this.catId, this.offset)
+      .subscribe(res => {
+        console.log(res);
+        // products
+        if (res.data.products) {
+          if (res.data.products.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.products;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+        // users
+        else if (res.data.users) {
+          if (res.data.users.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.userList = res.data.users;
+          this.userListShow = true;
+          this.productListShow = false;
+        }
+        // warranties
+        else if (res.data.warranties) {
+          if (res.data.warranties.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.warranties;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+        // insurances
+        else if (res.data.insurances) {
+          if (res.data.insurances.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.insurances;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+        // amcs
+        else if (res.data.amcs) {
+          if (res.data.amcs.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.amcs;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+        // repairs
+        else if (res.data.repairs) {
+          if (res.data.repairs.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.repairs;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+        // pucs
+        else if (res.data.pucs) {
+          if (res.data.pucs.length == 0) {
+            this.noData = true;
+            this.rightFlag = true;
+          }
+          this.noData = false;
+          this.rightFlag = false;
+          this.productList = res.data.pucs;
+          this.userListShow = false;
+          this.productListShow = true;
+        }
+      }, error => {
+        console.log(error);
+        const err = JSON.parse(error['_body']);
+        alert(err.reason);
+      })
+  }
 
-  getUserList() {
-    this.userService.getUser(this.start_date, this.end_date, this.catId, this.offset)
-      .subscribe(res => {
-        // this.dataTable = false;
-        this.userListShow = true;
-        this.productListShow = false;
-        console.log(res);
-        if (res.data.users.length == 0) {
-          this.noData = true;
-          this.rightFlag = true;
-        }
-        this.userList = res.data.users;
-      }, error => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
-  }
-  getProductList() {
-    this.userService.getProduct(this.start_date, this.end_date, this.catId, this.offset)
-      .subscribe(res => {
-        this.userListShow = false;
-        this.productListShow = true;
-        console.log(res);
-        if (res.data.products.length == 0) {
-          this.noData = true;
-          this.rightFlag = true;
-        }
-        this.productList = res.data.products;
-      }, error => {
-        console.log(error);
-        const err = JSON.parse(error['_body']);
-        alert(err.reason);
-      })
-  }
   // function for pagination
   left() {
     this.leftFlag = true;

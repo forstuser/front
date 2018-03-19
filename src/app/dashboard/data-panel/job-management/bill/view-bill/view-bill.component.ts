@@ -126,7 +126,7 @@ export class ViewBillComponent implements OnInit {
         }
         for (let i of this.imageArray) {
           if (i.status_type != 9) {
-            this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+            this.images.push(this.imageUrl + 'api' + i.copyUrl)
             counter += 1;
           }
         }

@@ -169,7 +169,7 @@ export class CreateBillComponent implements OnInit {
           if (i.status_type != 9) {
             console.log(i);
             this.imageArray.push(i);
-            this.images.push(this.imageUrl + 'api/' + i.copyUrl)
+            this.images.push(this.imageUrl + 'api' + i.copyUrl)
             counter += 1;
           }
         }
