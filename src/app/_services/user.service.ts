@@ -31,7 +31,6 @@ export class UserService {
     this.options = new RequestOptions({ headers: headers });
 
   }
-
   getGraphData(start_date, end_date, catId) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/dashboard?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date, this.options)
