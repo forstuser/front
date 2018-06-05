@@ -117,7 +117,7 @@ export class SendNotificationComponent implements OnInit {
   mobileChange(event) {
     console.log("event", event);
     this.request = true;
-    if(event==''){
+    if (event == '') {
       this.request = false;
     }
     this.userService.searchMobile(event, 5)

@@ -6,6 +6,19 @@
     </h2>
     <h2 class="text-right">Total No of New Bills : {{ totalBill }}</h2>
   </div>
+  <div class="row">
+    <div class="col-md-1 form-control-label">
+      <label for="email_address_2">Select User</label>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control dropdown" (change)=onSelectCategory($event.target.value)>
+          <option value="">Select</option>
+          <option *ngFor="let user of category?.data" value="{{user.category_id}}">{{ user.category_name }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
   <div class="body table-responsive">
     <nav>
       <ul class="pager">

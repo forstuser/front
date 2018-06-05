@@ -32,9 +32,9 @@ export class UserService {
 
   }
 
-  getGraphData(start_date,end_date){
+  getGraphData(start_date, end_date) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/dashboard?start_date=' +start_date + '&end_date='+end_date, this.options)
+    return this.http.get(this.apiLink + 'api/dashboard?start_date=' + start_date + '&end_date=' + end_date, this.options)
       .map((response: Response) => response.json());
   }
   // User API
@@ -619,6 +619,11 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&limit=20&offset=' + off, this.options)
       .map((response: Response) => response.json());
   }
+  getAdminJobListByCategory(categoryId: Number, off: Number) {
+    this.getCSRF();
+    return this.http.get(this.apiLink + 'api/jobs?category_id=' + categoryId + '&limit=20&offset=' + off, this.options)
+      .map((response: Response) => response.json());
+  }
   getFilteredJobList(BillType: Number, filter) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + filter, this.options)
@@ -698,7 +703,7 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/bills/' + billID, this.options)
       .map((response: Response) => response.json());
   }
-  getNotifications(jobId:Number){
+  getNotifications(jobId: Number) {
     this.getCSRF();
     return this.http.get(this.apiLink + 'api/jobs/' + jobId + '/notifications', this.options)
       .map((response: Response) => response.json());
@@ -1013,6 +1018,11 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/users?status=1&role_type=3', this.options)
       .map((response: Response) => response.json());
   }
+  // //get list of category
+  // ActiveCategory(){
+  //   this.getCSRF();
+  //   return this.http.get(this.apiLink+'api/users',this.options)
+  // }
   //discard bill image
   discardConsumerBillImage(req: any) {
     console.log(req)
@@ -1124,7 +1134,7 @@ export class UserService {
     return this.http.post(this.apiLink + 'Services/EditCategoryForm', data, options).map((response: Response) => response.json());
   }
 
- 
+
 
 
   deleteCategoryForm(formID: number) {

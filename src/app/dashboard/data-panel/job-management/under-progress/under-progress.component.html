@@ -49,6 +49,17 @@
         <input class="col-md-6" id="end_date" type="date" [ngModel]="end_date_filter | date:'yyyy-MM-dd'" (ngModelChange)="end_date_filter=$event"
           (change)="selectDate($event.target.value,end)" />
       </div>
+      <div class="col-md-1 form-control-label">
+        <label for="email_address_2">Select Category</label>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <select class="form-control dropdown" (change)=onSelectCategory($event.target.value)>
+            <option value="">Category</option>
+            <option *ngFor="let user of category?.data" value="{{user.category_id}}">{{ user.category_name }}</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
   <div class="text-center" *ngIf="loader">

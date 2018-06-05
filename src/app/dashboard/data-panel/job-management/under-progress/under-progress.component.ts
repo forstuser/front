@@ -12,8 +12,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./under-progress.component.css']
 })
 export class UnderProgressComponent implements OnInit {
+  category: any;
   imageLink: String = appConfig.imageUrl;
   ceUsers: any;
+  categoryId: number;
+  flag: number = 0;
   qeUsers: any;
   bills: Bill;
   role_type: number;
@@ -105,8 +108,25 @@ export class UnderProgressComponent implements OnInit {
           console.log(bills);
         });
     }
-  }
 
+    this.userservice.getCategoryList(2)
+      .subscribe(category => {
+        this.category = category;
+        console.log(category, "shobhit")
+      })
+  }
+  onSelectCategory(id) {
+    this.categoryId = id;
+    console.log(id);
+    this.loader = true;
+    this.userservice.getAdminJobListByCategory(id, this.offset)
+      .subscribe(bills => {
+        this.bills = bills;
+        this.loader = false;
+        this.flag = 1;
+        console.log(this.bills, "shobhit k")
+      })
+  }
   // function for pagination
   left() {
     this.leftFlag = true;
@@ -116,20 +136,29 @@ export class UnderProgressComponent implements OnInit {
       this.offset = this.offset - 20;
       this.leftFlag = false;
     }
-    if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(8, this.offset)
-        .subscribe(bills => {
-          console.log(bills)
-          this.bills = bills;
-          console.log(this.bills);
-        });
+
+    // if (this.flag == 1) {
+    //   this.onSelectCategory(this.categoryId)
+    // }
+    if (this.flag == 0) {
+      if (this.userType === 1 || this.userType === 2) {
+        this.userservice.getAdminJobList(8, this.offset)
+          .subscribe(bills => {
+            console.log(bills)
+            this.bills = bills;
+            console.log(this.bills);
+          });
+      }
+      else if (this.userType === 4) {
+        this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
+          .subscribe(bills => {
+            this.bills = bills;
+            console.log(bills);
+          });
+      }
     }
-    else if (this.userType === 4) {
-      this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
-        .subscribe(bills => {
-          this.bills = bills;
-          console.log(bills);
-        });
+    else {
+      this.onSelectCategory(this.categoryId)
     }
   }
 
@@ -137,29 +166,37 @@ export class UnderProgressComponent implements OnInit {
     this.noData = false;
     this.leftFlag = false;
     this.offset = this.offset + 20;
-    if (this.userType === 1 || this.userType === 2) {
-      this.userservice.getAdminJobList(8, this.offset)
-        .subscribe(bills => {
-          console.log(bills)
-          if (bills.data.length == 0) {
-            this.rightFlag = true;
-            this.noData = true;
-          }
-          this.bills = bills;
-          console.log(this.bills);
-        });
+    // if (this.flag == 1) {
+    //   this.onSelectCategory(this.categoryId)
+    // }
+    if (this.flag == 0) {
+      if (this.userType === 1 || this.userType === 2) {
+        this.userservice.getAdminJobList(8, this.offset)
+          .subscribe(bills => {
+            console.log(bills)
+            if (bills.data.length == 0) {
+              this.rightFlag = true;
+              this.noData = true;
+            }
+            this.bills = bills;
+            console.log(this.bills);
+          });
+      }
+      else if (this.userType === 4) {
+        this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
+          .subscribe(bills => {
+            console.log(bills)
+            if (bills.data.length == 0) {
+              this.rightFlag = true;
+              this.noData = true;
+            }
+            this.bills = bills;
+            console.log(this.bills);
+          });
+      }
     }
-    else if (this.userType === 4) {
-      this.userservice.getCEJobList(8, this.userId, this.offset) // 4 for qe refer to api doc
-        .subscribe(bills => {
-          console.log(bills)
-          if (bills.data.length == 0) {
-            this.rightFlag = true;
-            this.noData = true;
-          }
-          this.bills = bills;
-          console.log(this.bills);
-        });
+    else {
+      this.onSelectCategory(this.categoryId)
     }
   }
   // passs current user as argument and open the popup
@@ -238,7 +275,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-            this.images.push(this.imageUrl + 'api/' + i.copyUrl);
+          this.images.push(this.imageUrl + 'api/' + i.copyUrl);
         }
         console.log(this.images, "images url links");
         this.loader = false;
@@ -333,6 +370,8 @@ export class UnderProgressComponent implements OnInit {
         alert(errMsg.reason);
       })
   }
+
+
   // Filter   '&assigned_to_ce='
   onSelectType(type) {
     console.log(type);
@@ -367,6 +406,8 @@ export class UnderProgressComponent implements OnInit {
         console.log(this.bills);
       });
   }
+
+
   selectDate(date, start) {
     if (this.start_date_filter && this.end_date_filter) {
       this.filter = `&start_date=${this.start_date_filter}&end_date=${this.end_date_filter}`;
