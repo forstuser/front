@@ -22,7 +22,7 @@ export class NewComponent implements OnInit {
   statusCode: Number;
   prev: number = 0;
   next: number = 10;
-  offset:number  =0;
+  offset: number = 0;
   leftFlag: boolean = true;
   rightFlag: boolean = false;
   noData: boolean = false;
@@ -36,14 +36,16 @@ export class NewComponent implements OnInit {
   loader: boolean = false;
   arrayLength: number;
   imageUrl: string = appConfig.apiUrl;
-  userId:any;
-  totalBill:number = 0;
+  userId: any;
+  totalBill: number = 0;
+  mainCategory: any;
+  filter: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     // get userType from local Storage
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
-    this.userId=info.id;
-    console.log(this.userId,"user id")
+    this.userId = info.id;
+    console.log(this.userId, "user id")
     // console.log("userType", this.userType)
 
     this.assignForm = this.fb.group({
@@ -58,11 +60,16 @@ export class NewComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    // get list of main category
+    this.userservice.getCategoryList(1) // 1 for main category refer to api doc
+      .subscribe(data => {
+        this.mainCategory = data;
+        console.log(this.mainCategory);
+      });
     // if userType is Admin/SuperAdmin get list of new bills
     if (this.userType === 1 || this.userType === 2) {
       this.getCEList();
-      this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
+      this.userservice.getAdminJobList(4, this.offset) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           this.totalBill = bill.data.length;
@@ -73,7 +80,7 @@ export class NewComponent implements OnInit {
 
     // if userType is CE get list of new bills
     else if (this.userType === 4) {
-      this.userservice.getCEJobList(4,this.userId,this.offset) // new = 4 refer api doc // 8 for under progress
+      this.userservice.getCEJobList(4, this.userId, this.offset) // new = 4 refer api doc // 8 for under progress
         .subscribe(bill => {
           this.billList = bill;
           this.totalBill = bill.data.length;
@@ -83,7 +90,7 @@ export class NewComponent implements OnInit {
 
     // if userType is QE get list of new bills
     else if (this.userType === 3) {
-      this.userservice.getQEJobList(4,this.userId,this.offset) // new = 4 refer api doc
+      this.userservice.getQEJobList(4, this.userId, this.offset) // new = 4 refer api doc
         .subscribe(bill => {
           this.billList = bill;
           this.totalBill = bill.data.length;
@@ -135,15 +142,15 @@ export class NewComponent implements OnInit {
     }
     else if (this.userType === 3) {
       this.userservice.getCEJobList(4, this.userId, this.offset) // 4 for qe refer to api doc
-      .subscribe(bills => {
-        console.log(bills)
-        if (bills.data.length == 0) {
-          this.rightFlag = true;
-          this.noData = true;
-        }
-        this.billList = bills;
-        console.log(this.billList);
-      });
+        .subscribe(bills => {
+          console.log(bills)
+          if (bills.data.length == 0) {
+            this.rightFlag = true;
+            this.noData = true;
+          }
+          this.billList = bills;
+          console.log(this.billList);
+        });
     }
   }
   // passs current user as argument and open the popup
@@ -163,7 +170,7 @@ export class NewComponent implements OnInit {
         console.log(res);
         alert('assign successfull');
         this.showDialog = false;
-        this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
+        this.userservice.getAdminJobList(4, this.offset) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
@@ -213,7 +220,7 @@ export class NewComponent implements OnInit {
     this.userservice.getUserList(4) // 4 for ce refer to api doc
       .subscribe(users => {
         this.users = users;
-        console.log(users,"users");
+        console.log(users, "users");
       });
   }
   // opn model for discard bills
@@ -233,7 +240,7 @@ export class NewComponent implements OnInit {
         console.log(res);
         alert("Bill Discarded");
         this.discardDialog = false;
-        this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
+        this.userservice.getAdminJobList(4, this.offset) // new = 4 refer api doc
           .subscribe(bill => {
             this.billList = bill;
             console.log(this.billList);
@@ -245,7 +252,7 @@ export class NewComponent implements OnInit {
 
   // discard bill image
   commentBoxData(comment: string) {
-    console.log(comment,"comment")
+    console.log(comment, "comment")
     const imageID = this.imageArray[this.imageIndex].copyId;
     this.discardImage = {
       'BID': this.billId,
@@ -260,12 +267,22 @@ export class NewComponent implements OnInit {
         // this.showImageDialog = false;
         // if userType is Admin/SuperAdmin get list of new bills
         if (this.userType === 1 || this.userType === 2) {
-          this.userservice.getAdminJobList(4,this.offset) // new = 4 refer api doc
+          this.userservice.getAdminJobList(4, this.offset) // new = 4 refer api doc
             .subscribe(bill => {
               this.billList = bill;
               console.log(this.billList);
             });
         }
       })
+  }
+  // filter bill
+  filterBillbyMainCategory(mainCategoryId) {
+    this.filter = '&main_category_id=' + mainCategoryId;
+    this.userservice.getFilteredJobList(4, this.filter)
+      .subscribe(bill => {
+        this.billList = bill;
+        this.totalBill = bill.data.length;
+        console.log(this.billList);
+      });
   }
 }

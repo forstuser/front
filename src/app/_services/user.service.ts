@@ -36,10 +36,10 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/dashboard?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date, this.options)
       .map((response: Response) => response.json());
   }
-  getDashboardData(dataType,start_date,end_date,catId,offset){
+  getDashboardData(dataType, start_date, end_date, catId, offset) {
     this.getCSRF();
-    return this.http.get(this.apiLink + 'api/dashboard/'+dataType + '?category_id=' + catId + '&start_date='+start_date + '&end_date=' + end_date + '&limit=250&offset=' + offset,this.options)
-      .map((response:Response )=> response.json());
+    return this.http.get(this.apiLink + 'api/dashboard/' + dataType + '?category_id=' + catId + '&start_date=' + start_date + '&end_date=' + end_date + '&limit=250&offset=' + offset, this.options)
+      .map((response: Response) => response.json());
   }
   // User API
   // get list of admin,qe,ce and customer
@@ -633,6 +633,7 @@ export class UserService {
     return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&job_day=' + day, this.options)
       .map((response: Response) => response.json());
   }
+
   // getFilteredQEJobList(BillType: Number, id) {
   //         this.getCSRF();
   //         return this.http.get(this.apiLink + 'api/jobs?admin_status=' + BillType + '&assigned_to_qe=' + id, this.options)

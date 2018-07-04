@@ -48,6 +48,7 @@ export class UnderProgressComponent implements OnInit {
   start_date_filter: any;
   end_date_filter: any;
   userId: any;
+  mainCategory: any;
   constructor(private userservice: UserService, private fb: FormBuilder) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.userType = info.role_type;
@@ -72,6 +73,12 @@ export class UnderProgressComponent implements OnInit {
   }
 
   ngOnInit() {
+    // get list of main category
+    this.userservice.getCategoryList(1) // 1 for main category refer to api doc
+      .subscribe(data => {
+        this.mainCategory = data;
+        console.log(this.mainCategory);
+      });
     if (this.userType === 1 || this.userType === 2) {
       this.userservice.getAdminJobList(8, this.offset) // incomplete = 6 refer api doc
         .subscribe(bills => {
@@ -238,7 +245,7 @@ export class UnderProgressComponent implements OnInit {
         console.log(this.imageArray.length, "length of array");
         this.arrayLength = this.imageArray.length;
         for (let i of this.imageArray) {
-            this.images.push(this.imageUrl + 'api/' + i.copyUrl);
+          this.images.push(this.imageUrl + 'api/' + i.copyUrl);
         }
         console.log(this.images, "images url links");
         this.loader = false;
@@ -387,6 +394,14 @@ export class UnderProgressComponent implements OnInit {
         this.bills = bills;
         this.loader = false;
         console.log(this.bills);
+      });
+  }
+  // filter bill
+  filterBillbyMainCategory(mainCategoryId) {
+    this.filter = '&main_category_id=' + mainCategoryId;
+    this.userservice.getFilteredJobList(8, this.filter)
+      .subscribe(bill => {
+        this.bills = bill;
       });
   }
 }

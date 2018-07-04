@@ -7,6 +7,17 @@
     <h2 class="text-right">Total No of New Bills : {{ totalBill }}</h2>
   </div>
   <div class="body table-responsive">
+    <div class="col-md-3 form-control-label">
+      <label for="email_address_2">Select Main Category</label>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <select class="form-control dropdown" (change)=filterBillbyMainCategory($event.target.value)>
+          <option value="">Select</option>
+          <option *ngFor="let list of mainCategory?.data" value="{{list.category_id}}">{{ list.category_name }}</option>
+        </select>
+      </div>
+    </div>
     <nav>
       <ul class="pager">
         <li [ngClass]="{ 'disabled': leftFlag }">
