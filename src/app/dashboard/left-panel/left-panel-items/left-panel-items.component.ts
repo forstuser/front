@@ -17,7 +17,7 @@ export class LeftPanelItemsComponent implements OnInit {
       'class': '',
     },
     {
-      'name': 'Job',
+      'name': 'Jobs',
       'icon': 'work',
       'link': '*',
       'class': 'menu-toggle',
@@ -85,7 +85,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Category ',
-      'icon': 'menu',
+      'icon': 'view_module',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -112,7 +112,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Brand ',
-      'icon': 'loyalty',
+      'icon': 'favorite',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -166,14 +166,14 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Detail Type',
-      'icon': 'menu',
+      'icon': 'tune',
       'link': 'list-details',
       'handler': 'doNothing',
       'class': '',
     },
     {
       'name': 'ASC ',
-      'icon': 'receipt',
+      'icon': 'build',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -195,7 +195,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Insurance Provider ',
-      'icon': 'receipt',
+      'icon': 'directions_car',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -240,7 +240,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Notification',
-      'icon': 'receipt',
+      'icon': 'sms',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -258,7 +258,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Service Schedule',
-      'icon': 'receipt',
+      'icon': 'directions_run',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -331,10 +331,45 @@ export class LeftPanelItemsComponent implements OnInit {
         }
       ]
     },
-
+    {
+      'name': 'Cashback Jobs',
+      'icon': 'next_week',
+      'link': '*',
+      'class': 'menu-toggle',
+      'handler': 'toggleState',
+      'addClass': 'none',
+      'addSubClass': 'none',
+      'dropdownList': [
+        {
+          'd_name': 'New',
+          'd_icon': 'arrow_downward',
+          'd_link': 'new'
+        },
+        {
+          'd_name': 'Under Progress',
+          'd_icon': 'more_horiz',
+          'd_link': 'underProgress'
+        },
+        {
+          'd_name': 'Completed',
+          'd_icon': 'check',
+          'd_link': 'completed'
+        },
+        {
+          'd_name': 'Discarded',
+          'd_icon': 'clear',
+          'd_link': 'discarded'
+        },
+        {
+          'd_name': 'Deleted',
+          'd_icon': 'delete',
+          'd_link': 'deleted'
+        }
+      ]
+    },
     {
       'name': 'Category ',
-      'icon': 'menu',
+      'icon': 'view_module',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -361,7 +396,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Brand ',
-      'icon': 'loyalty',
+      'icon': 'favorite',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -415,14 +450,14 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Detail Type',
-      'icon': 'menu',
+      'icon': 'tune',
       'link': 'list-details',
       'handler': 'doNothing',
       'class': '',
     },
     {
       'name': 'ASC ',
-      'icon': 'receipt',
+      'icon': 'build',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -444,7 +479,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Insurance Provider ',
-      'icon': 'receipt',
+      'icon': 'directions_car',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -488,7 +523,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Notification',
-      'icon': 'receipt',
+      'icon': 'sms',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',
@@ -506,7 +541,7 @@ export class LeftPanelItemsComponent implements OnInit {
     },
     {
       'name': 'Service Schedule',
-      'icon': 'receipt',
+      'icon': 'directions_run',
       'link': '#',
       'class': 'menu-toggle',
       'handler': 'toggleState',

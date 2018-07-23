@@ -340,6 +340,10 @@ angular2-draggable@^1.0.6:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/angular2-draggable/-/angular2-draggable-1.2.1.tgz#015244bc93f49f39695dc631b976d7d6dc3e4e20"
 
+angular2-multiselect-dropdown@^2.5.0:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/angular2-multiselect-dropdown/-/angular2-multiselect-dropdown-2.9.0.tgz#e069a60aa6a9c84e7ee926a57286f24954ae1037"
+
 angular2-useful-swiper@^4.0.6:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/angular2-useful-swiper/-/angular2-useful-swiper-4.0.7.tgz#0ed050da4dde835ea10a071a1e5386fa870fbd34"
