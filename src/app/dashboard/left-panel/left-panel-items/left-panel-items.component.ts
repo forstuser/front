@@ -343,7 +343,7 @@ export class LeftPanelItemsComponent implements OnInit {
         {
           'd_name': 'New',
           'd_icon': 'arrow_downward',
-          'd_link': 'new'
+          'd_link': 'cashbackNew'
         },
         {
           'd_name': 'Under Progress',

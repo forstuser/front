@@ -64,6 +64,7 @@ import { SendNotificationComponent } from './dashboard/data-panel/notifications/
 import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
 import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
 import { DeletedComponent } from './dashboard/data-panel/job-management/deleted/deleted.component';
+import { CashbackNewComponent } from './dashboard/data-panel/job-management/cashback-new/cashback-new.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { DeletedComponent } from './dashboard/data-panel/job-management/deleted/
     ServiceScheduleComponent,
     AddServiceScheduleComponent,
     DeletedComponent,
+    CashbackNewComponent,
   ],
   imports: [
     BrowserModule,

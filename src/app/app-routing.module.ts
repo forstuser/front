@@ -9,7 +9,7 @@ import { CreateBillComponent } from './dashboard/data-panel/job-management/bill/
 import { CompletedComponent } from './dashboard/data-panel/job-management/completed/completed.component';
 import { UnderProgressComponent } from './dashboard/data-panel/job-management/under-progress/under-progress.component';
 import { NewComponent } from './dashboard/data-panel/job-management/new/new.component';
-import { ServiceCenterListComponent} from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
+import { ServiceCenterListComponent } from './dashboard/data-panel/service-center-management/service-center-list/service-center-list.component';
 import { AddServiceCenterComponent } from './dashboard/data-panel/service-center-management/add-service-center/add-service-center.component';
 import { ListManagementComponent } from './dashboard/data-panel/list-management/list-management.component';
 import { OnlineSellerListComponent } from './dashboard/data-panel/seller-management/online-seller-list/online-seller-list.component';
@@ -38,6 +38,7 @@ import { ModelsComponent } from './dashboard/data-panel/verify/models/models.com
 import { AddInsuranceProviderComponent } from './dashboard/data-panel/insurance-management/add-insurance-provider/add-insurance-provider.component';
 import { ServiceScheduleComponent } from './dashboard/data-panel/service-schedule/service-schedule/service-schedule.component';
 import { AddServiceScheduleComponent } from './dashboard/data-panel/service-schedule/add-service-schedule/add-service-schedule.component';
+import { CashbackNewComponent } from './dashboard/data-panel/job-management/cashback-new/cashback-new.component';
 
 
 // routers
@@ -49,15 +50,16 @@ const appRoutes: Routes = [
             [{ path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
             { path: 'home', component: HomeComponent },
             { path: 'new', component: NewComponent },
-            { path: 'new/create/:id', component:CreateBillComponent  },
-            { path: 'new/view/:id', component:ViewBillComponent  },
+            { path: 'new/create/:id', component: CreateBillComponent },
+            { path: 'new/view/:id', component: ViewBillComponent },
             { path: 'underProgress', component: UnderProgressComponent },
-            { path: 'underProgress/create/:id', component:CreateBillComponent  },
-            { path: 'underProgress/view/:id', component:ViewBillComponent  },            
+            { path: 'underProgress/create/:id', component: CreateBillComponent },
+            { path: 'underProgress/view/:id', component: ViewBillComponent },
             { path: 'completed', component: CompletedComponent },
-            { path: 'completed/view/:id', component:ViewBillComponent  }, 
+            { path: 'completed/view/:id', component: ViewBillComponent },
             { path: 'discarded', component: DiscardedComponent },
             { path: 'deleted', component: DeletedComponent },
+            { path: 'cashbackNew', component: CashbackNewComponent },
             { path: 'AddUser', component: AddUserComponent },
             { path: 'admin', component: AdminComponent },
             { path: 'customer', component: CustomerComponent },
@@ -72,18 +74,18 @@ const appRoutes: Routes = [
             { path: 'offlineList', component: OfflineSellerListComponent },
             { path: 'addOnline', component: AddOnlineSellerComponent },
             { path: 'onlineList', component: OnlineSellerListComponent },
-            { path:'addModels', component: BrandsComponent},
-            { path: 'verifyModels',component:ModelsComponent },
+            { path: 'addModels', component: BrandsComponent },
+            { path: 'verifyModels', component: ModelsComponent },
             { path: 'color', component: ColorComponent },
             { path: 'addServiceCenter', component: AddServiceCenterComponent },
             { path: 'serviceCenterList', component: ServiceCenterListComponent },
-            { path: 'list-details',component:ListManagementComponent},
-            { path:'addinsuranceProvider' ,component:AddInsuranceProviderComponent},
-            { path:'insuranceProviderList', component:InsuranceProviderListComponent},
-            { path:'sendNotifications',component:SendNotificationComponent},
-            { path:'serviceSchedule',component:ServiceScheduleComponent},
-            { path:'addServiceSchedule',component:AddServiceScheduleComponent}
-            
+            { path: 'list-details', component: ListManagementComponent },
+            { path: 'addinsuranceProvider', component: AddInsuranceProviderComponent },
+            { path: 'insuranceProviderList', component: InsuranceProviderListComponent },
+            { path: 'sendNotifications', component: SendNotificationComponent },
+            { path: 'serviceSchedule', component: ServiceScheduleComponent },
+            { path: 'addServiceSchedule', component: AddServiceScheduleComponent }
+
             ]
     }
     // otherwise redirect to home
