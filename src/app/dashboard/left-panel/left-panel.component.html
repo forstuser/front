@@ -1,0 +1,17 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <!-- <li class="nav-item nav-profile">
+      <div class="nav-link">
+        <button class="btn btn-warning btn-block">Hide Panel
+          <i class="mdi mdi-keyboard-backspace"></i>
+        </button>
+      </div>
+    </li> -->
+    <li class="nav-item" *ngFor="let item of leftmenuItems" routerLinkActive="active">
+      <a class="nav-link" data-toggle="collapse" routerLink="{{item.link}}" aria-expanded="false" aria-controls="ui-basic">
+        <i class="menu-icon mdi {{item.icon}}"></i>
+        <span class="menu-title">{{item.name}}</span>
+      </a>
+    </li>
+  </ul>
+</nav>

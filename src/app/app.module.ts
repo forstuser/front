@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxNotificationComponent } from 'ngx-notification';
 
 import { AppComponent } from './app.component';
 import { SignInComponent } from './dashboard/sign-in/sign-in.component';
@@ -9,13 +10,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './dashboard/page-not-found/page-not-found.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserService } from './_services/user.service';
+import { LeftPanelComponent } from './dashboard/left-panel/left-panel.component';
+import { HeaderComponent } from './dashboard/header/header.component';
+import { DataPanelComponent } from './dashboard/data-panel/data-panel.component';
+import { HomeComponent } from './dashboard/home/home.component';
+import { NewComponent } from './dashboard/jobs/new/new.component';
+import { UnderProgressComponent } from './dashboard/jobs/under-progress/under-progress.component';
+import { CompletedComponent } from './dashboard/jobs/completed/completed.component';
+import { DataService } from './_services/data.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
     PageNotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    NgxNotificationComponent,
+    LeftPanelComponent,
+    HeaderComponent,
+    DataPanelComponent,
+    HomeComponent,
+    NewComponent,
+    UnderProgressComponent,
+    CompletedComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +40,7 @@ import { UserService } from './_services/user.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UserService],
+  providers: [UserService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
