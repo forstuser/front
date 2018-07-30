@@ -29,10 +29,11 @@ export class AuthenticationService {
         this.router.navigate(['dashboard']);
       },
       (error: any) => {
+        console.log(error);
         if (error.status == 0) {
           this.ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
         } else {
-          this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
+          // this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
         }
       }
     )

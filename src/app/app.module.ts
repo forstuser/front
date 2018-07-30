@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxNotificationComponent } from 'ngx-notification';
 
 import { AppComponent } from './app.component';
@@ -13,11 +13,12 @@ import { UserService } from './_services/user.service';
 import { LeftPanelComponent } from './dashboard/left-panel/left-panel.component';
 import { HeaderComponent } from './dashboard/header/header.component';
 import { DataPanelComponent } from './dashboard/data-panel/data-panel.component';
-import { HomeComponent } from './dashboard/home/home.component';
-import { NewComponent } from './dashboard/jobs/new/new.component';
-import { UnderProgressComponent } from './dashboard/jobs/under-progress/under-progress.component';
-import { CompletedComponent } from './dashboard/jobs/completed/completed.component';
+import { HomeComponent } from './dashboard/data-panel/home/home.component';
+import { NewComponent } from './dashboard/data-panel/jobs/new/new.component';
+import { UnderProgressComponent } from './dashboard/data-panel/jobs/under-progress/under-progress.component';
+import { CompletedComponent } from './dashboard/data-panel/jobs/completed/completed.component';
 import { DataService } from './_services/data.service';
+import { HeaderInterceptor } from './_services/header-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { DataService } from './_services/data.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UserService, DataService],
+  providers: [UserService, DataService, { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

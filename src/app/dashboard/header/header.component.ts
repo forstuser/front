@@ -7,18 +7,29 @@ import { DataService } from '../../_services/data.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  name: String;
-  message: string;
+  name: string;
+  message: boolean = true;
+  btnText: string = 'Hide';
+  btnIcon: string = 'mdi-arrow-left'
   constructor(private dataService: DataService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.name = info.full_name || 'User';
   }
 
   ngOnInit() {
-
+    //
   }
   hidePanel() {
-    // this.dataService.currentMessage.subscribe(message => this.message = message)
+    this.message = !this.message
+    if (this.message) {
+      this.btnText = 'Hide';
+      this.btnIcon = 'mdi-arrow-left';
+    } else {
+      this.btnText = 'Show';
+      this.btnIcon = 'mdi-arrow-right';
+
+    }
+    this.dataService.changeMessage(this.message)
   }
 
 }
