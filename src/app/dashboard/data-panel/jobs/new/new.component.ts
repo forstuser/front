@@ -11,7 +11,7 @@ export class NewComponent implements OnInit {
   constructor(private userservice: UserService) { }
 
   ngOnInit() {
-    this.userservice.getAdminJobList(4, 50) // new = 4 refer api doc
+    this.userservice.getAdminJobList() // new = 4 refer api doc
       .subscribe(bill => {
         console.log(bill)
       });

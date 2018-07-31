@@ -15,12 +15,10 @@ export class AuthenticationService {
   login(EmailID: String, Password: String) {
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      observe: 'response' as 'response'
-    };
-    return this.http.post(this.apiLink + 'api/login', data, httpOptions).subscribe(
+    return this.http.post(this.apiLink + 'api/login', data, { observe: 'response' as 'response' }).subscribe(
       (res: HttpResponse<any>) => {
+        console.log(res);
+        sessionStorage.clear();
         const cookie = res.headers.get('x-csrf-token');
         sessionStorage.setItem('x-csrf-token', JSON.stringify(cookie));
         sessionStorage.setItem('jwt', JSON.stringify(cookie));
@@ -33,9 +31,11 @@ export class AuthenticationService {
         if (error.status == 0) {
           this.ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
         } else {
-          // this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
+          this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
         }
       }
     )
   }
 }
+
+

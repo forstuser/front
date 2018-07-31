@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     { path: '', component: SignInComponent, pathMatch: 'full' },
     { path: 'login', component: SignInComponent, pathMatch: 'full' },
     {
-        path: 'dashboard', component: DashboardComponent, children: [{ path: '', redirectTo: 'new', pathMatch: 'full' },
+        path: 'dashboard', component: DashboardComponent, children: [{ path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
         { path: 'new', component: NewComponent },
         { path: 'underProgress', component: UnderProgressComponent },
