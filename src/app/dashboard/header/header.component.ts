@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../_services/data.service';
+import { AuthenticationService } from '../../_services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -10,8 +11,10 @@ export class HeaderComponent implements OnInit {
   name: string;
   message: boolean = true;
   btnText: string = 'Hide';
-  btnIcon: string = 'mdi-arrow-left'
-  constructor(private dataService: DataService) {
+  btnIcon: string = 'mdi-arrow-left';
+  showPanelSwitch: boolean = false;
+  showPanel: string;
+  constructor(private dataService: DataService, private auth: AuthenticationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     this.name = info.full_name || 'User';
   }
@@ -27,9 +30,18 @@ export class HeaderComponent implements OnInit {
     } else {
       this.btnText = 'Show';
       this.btnIcon = 'mdi-arrow-right';
-
     }
     this.dataService.changeMessage(this.message)
   }
-
+  expandProfile() {
+    this.showPanelSwitch = !this.showPanelSwitch
+    if (this.showPanelSwitch) {
+      this.showPanel = 'show';
+    } else {
+      this.showPanel = 'hide'
+    }
+  }
+  signOut() {
+    this.auth.logout();
+  }
 }

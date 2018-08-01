@@ -10,13 +10,12 @@ export class HeaderInterceptor implements HttpInterceptor {
   apiLink: string = appConfig.apiUrl;
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req['url'] == this.apiLink + 'api/login') {
-      console.log("login call")
       const dupReq = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
       return next.handle(dupReq);
     } else {
-      const cookie = JSON.stringify(sessionStorage.getItem('x-csrf-token'));
+      const cookie = sessionStorage.getItem('x-csrf-token');
       const dupReq2 = req.clone({ headers: req.headers.set('x-csrf-token', cookie) });
-      console.log("req2", dupReq2)
+      console.log("req", dupReq2)
       return next.handle(dupReq2);
     }
   }

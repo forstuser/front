@@ -9,7 +9,7 @@ export class UserService {
   apiLink: String = appConfig.apiUrl;
   constructor(private http: HttpClient) { }
   // *********************************** USER SERVICES ******************************************//
-  getAdminJobList() {
-    return this.http.get(this.apiLink + 'api/cashback/jobs')
+  getAdminJobList(status: number) {
+    return this.http.get(this.apiLink + 'api/cashback/jobs?admin_status=' + status)
   }
 }
