@@ -43,9 +43,10 @@
                 </td>
                 <td class="comment">{{ bill?.comments}}</td>
                 <td>
-                  <button type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                   <button type="button" class="btn btn-xs btn-outline-success">Assign</button>
                 </td>
+
                 <td>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
@@ -61,4 +62,8 @@
       </div>
     </div>
   </div>
+  <jw-modal id="billViewModel">
+    <h1 style="height:200px;top:20px;">Bill Khulega Yahan</h1>
+    <button (click)="closeModal('billViewModel');">Close</button>
+  </jw-modal>
 </div>

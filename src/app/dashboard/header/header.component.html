@@ -134,7 +134,7 @@
           </a>
         </div>
       </li>
-      <li class="nav-item dropdown d-none d-xl-inline-block {{showPanel}}" (click)="expandProfile()">
+      <li class="nav-item dropdown d-none d-xl-inline-block {{showPanel}}" (click)="expandProfile()" (clickOutside)="close($event)">
         <a class="nav-link dropdown-toggle" id="UserDropdown" data-toggle="dropdown" aria-expanded="false">
           <span class="profile-text">Hello, {{name}}</span>
           <img class="img-xs rounded-circle" src="assets/images/face1.jpg" alt="Profile image">

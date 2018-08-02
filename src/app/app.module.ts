@@ -19,6 +19,9 @@ import { UnderProgressComponent } from './dashboard/data-panel/jobs/under-progre
 import { CompletedComponent } from './dashboard/data-panel/jobs/completed/completed.component';
 import { DataService } from './_services/data.service';
 import { HeaderInterceptor } from './_services/header-interceptor.service';
+import { ModalService } from './_services/modal.service';
+import { ModalComponent } from './_directives/modal.component';
+import { ClickOutsideDirective } from './_directives/click-outside.directive';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { HeaderInterceptor } from './_services/header-interceptor.service';
     HomeComponent,
     NewComponent,
     UnderProgressComponent,
-    CompletedComponent
+    CompletedComponent,
+    ModalComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,7 @@ import { HeaderInterceptor } from './_services/header-interceptor.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [UserService, DataService, { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }],
+  providers: [ModalService, UserService, DataService, { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

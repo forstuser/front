@@ -34,14 +34,15 @@ export class HeaderComponent implements OnInit {
     this.dataService.changeMessage(this.message)
   }
   expandProfile() {
-    this.showPanelSwitch = !this.showPanelSwitch
-    if (this.showPanelSwitch) {
-      this.showPanel = 'show';
-    } else {
-      this.showPanel = 'hide'
-    }
+    this.showPanel = 'show';
   }
   signOut() {
     this.auth.logout();
+  }
+  close($event) {
+    console.log("event is", $event)
+    if ($event == null) {
+      this.showPanel = 'hide';
+    }
   }
 }
