@@ -12,4 +12,7 @@ export class UserService {
   getAdminJobList(status: number) {
     return this.http.get(this.apiLink + 'api/cashback/jobs?admin_status=' + status)
   }
+  getUserList(type: number) {
+    return this.http.get(this.apiLink + 'api/users?role_type=' + type)
+  }
 }

@@ -7,5 +7,10 @@ export const appConfig = {
         NEW: 4,
         UNDER_PROGRESS: 6,
         COMPLETE: 5
+    },
+    USERS: {
+        SUPERADMIN: 1,
+        ADMIN: 2,
+        CE: 4
     }
 };

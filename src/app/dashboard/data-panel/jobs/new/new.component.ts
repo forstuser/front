@@ -10,7 +10,10 @@ import { ModalService } from '../../../../_services/modal.service';
 })
 export class NewComponent implements OnInit {
   new: number = appConfig.JOB_STATUS.NEW;
+  ce: number = appConfig.USERS.CE;
   bills: any;
+  assignCEView: boolean = false;
+  users: any;
   constructor(private userservice: UserService, private modalservice: ModalService) { }
 
   ngOnInit() {
@@ -27,5 +30,25 @@ export class NewComponent implements OnInit {
   closeModal(id: string) {
     this.modalservice.close(id);
   }
-
+  assignCEButtonClick() {
+    this.assignCEView = !this.assignCEView;
+    this.getCEList();
+  }
+  assignCE(res) {
+    console.log(res);
+  }
+  close($event) {
+    console.log("event is", $event)
+    if ($event == null) {
+      this.assignCEView = false;
+    }
+  }
+  // get list of ce users 
+  getCEList() {
+    this.userservice.getUserList(this.ce) // 4 for ce refer to api doc
+      .subscribe(users => {
+        this.users = users['data'];
+        console.log(this.users, "users");
+      });
+  }
 }

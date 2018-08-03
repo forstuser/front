@@ -42,11 +42,32 @@
                   {{ bill?.updated_at | date}}
                 </td>
                 <td class="comment">{{ bill?.comments}}</td>
-                <td>
+                <td (clickOutside)="close($event)">
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button type="button" class="btn btn-xs btn-outline-success">Assign</button>
+                  <button type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick()">Assign</button>
+                  <div *ngIf="assignCEView" class="card assign">
+                    <div class="card-body">
+                      <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
+                        <div class="form-group row">
+                          <div class="col-sm-12" style="margin-bottom: 10px">
+                            <select class="form-control form-control-sm" name="UID">
+                              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+                            </select>
+                          </div>
+                          <br/>
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                            <button type="button" class="btn btn-block btn-xs btn-success" type="submit" (click)="assignCE()">Assign</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </td>
-
                 <td>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">

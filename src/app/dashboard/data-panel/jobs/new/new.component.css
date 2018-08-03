@@ -1,0 +1,11 @@
+.assign{
+    /* width: 300px; */
+    /* position: absolute; */
+    /* margin-left: 597px; */
+    background: lightgray;
+    margin-top: 8px;
+    /* top: 275px; */
+}
+.card-body{
+    padding:1rem
+}
