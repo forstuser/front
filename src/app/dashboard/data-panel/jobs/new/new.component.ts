@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../_services/user.service';
 import { appConfig } from '../../../../app.config';
 import { ModalService } from '../../../../_services/modal.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-new',
@@ -12,8 +13,9 @@ export class NewComponent implements OnInit {
   new: number = appConfig.JOB_STATUS.NEW;
   ce: number = appConfig.USERS.CE;
   bills: any;
-  assignCEView: boolean = false;
+  assignCEView: string = 'assignCEView';
   users: any;
+  flag: number = 1;
   constructor(private userservice: UserService, private modalservice: ModalService) { }
 
   ngOnInit() {
@@ -30,19 +32,19 @@ export class NewComponent implements OnInit {
   closeModal(id: string) {
     this.modalservice.close(id);
   }
-  assignCEButtonClick() {
-    this.assignCEView = !this.assignCEView;
-    this.getCEList();
+  assignCEButtonClick(req) {
+    this[this.assignCEView + req] = !this[this.assignCEView + req];
+
   }
-  assignCE(res) {
-    console.log(res);
+  assignCE(res: NgForm) {
+    console.log(res.value);
   }
-  close($event) {
-    console.log("event is", $event)
-    if ($event == null) {
-      this.assignCEView = false;
-    }
-  }
+  // close($event) {
+  //   console.log("event is", $event)
+  //   if ($event == null) {
+  //     this[this.assignCEView + req] = false;
+  //   }
+  // }
   // get list of ce users 
   getCEList() {
     this.userservice.getUserList(this.ce) // 4 for ce refer to api doc
