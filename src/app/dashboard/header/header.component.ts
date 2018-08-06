@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../_services/data.service';
 import { AuthenticationService } from '../../_services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,9 +15,14 @@ export class HeaderComponent implements OnInit {
   btnIcon: string = 'mdi-arrow-left';
   showPanelSwitch: boolean = false;
   showPanel: string;
-  constructor(private dataService: DataService, private auth: AuthenticationService) {
+  constructor(private dataService: DataService, private auth: AuthenticationService, private router: Router) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
-    this.name = info.full_name || 'User';
+    if (info != null) {
+      this.name = info.full_name || 'User';
+    } else {
+      this.router.navigateByUrl('/login')
+    }
+
   }
 
   ngOnInit() {
@@ -40,7 +46,6 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
   }
   close($event) {
-    console.log("event is", $event)
     if ($event == null) {
       this.showPanel = 'hide';
     }

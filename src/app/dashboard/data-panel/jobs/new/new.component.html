@@ -3,31 +3,47 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">New Jobs</h4>
-        <p class="card-description">
-          <code>For assign the job click on the assign button</code>
-        </p>
+        <div class="row" style="margin-bottom: 7px">
+          <div class="col-md-2 offset-8 ">
+            <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-block btn-xs btn-success float-right" (click)="multiAssign();openModal('multipleAssignView')" [disabled]="_disabled">Multi Assign</button>
+          </div>
+          <div class="col-md-10">
+
+          </div>
+        </div>
+
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
               <tr>
                 <th>#</th>
-                <th>Job ID</th>
+                <th>Cashback ID</th>
                 <th>Name</th>
                 <th>Phone No.</th>
                 <th>Email ID</th>
                 <th>JOB Date</th>
                 <th>Comments</th>
                 <th>Action</th>
-                <th>Multi Assign</th>
+                <th>
+                  <div class="form-check form-check-flat">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" (change)="checkAll()">Select All
+                      <i class="input-helper"></i>
+                    </label>
+                  </div>
+                </th>
               </tr>
             </thead>
-            <tbody *ngFor="let bill of bills?.data; let i = index">
+            <tbody *ngFor="let bill of _bills?.data; let i = index">
               <tr>
                 <td>
                   {{i+1}}
                 </td>
                 <td>
-                  {{ bill?.job_id}}
+                  {{ bill?.id}}
                 </td>
                 <td>
                   {{ bill?.user.full_name}}
@@ -44,15 +60,15 @@
                 <td class="comment">{{ bill?.comments}}</td>
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(i)">Assign</button>
-                  <div *ngIf="this['assignCEView'+i]" class="card assign">
+                  <button type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
+                  <div *ngIf="this['_assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
                       <div class="card-body">
                         <div class="form-group row">
                           <div class="col-sm-12" style="margin-bottom: 10px">
-                            <select class="form-control form-control-sm" name="UID" ngModel>
-                              <option [value]="12">Select CE</option>
-                              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+                            <select class="form-control form-control-sm" name="ce_id" ngModel>
+                              <!-- <option [value]="12">Select CE</option> -->
+                              <option *ngFor="let ce of _users" [value]="ce.id">{{ce.email}}</option>
                             </select>
                           </div>
                           <br/>
@@ -72,7 +88,7 @@
                 <td>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input">Select
+                      <input type="checkbox" class="form-check-input" [checked]="_isSelected" (click)="multiCheckJob(bill?.id)">Select
                       <i class="input-helper"></i>
                     </label>
                   </div>
@@ -87,5 +103,27 @@
   <jw-modal id="billViewModel">
     <h1 style="height:200px;top:20px;">Bill Khulega Yahan</h1>
     <button (click)="closeModal('billViewModel');">Close</button>
+  </jw-modal>
+  <jw-modal id="multipleAssignView">
+    <button class="btn btn-icons btn-rounded btn-secondary cross" (click)="closeModal('multipleAssignView');">X</button>
+    <div class="card-body">
+      <div class="form-group row">
+        <div class="col-sm-12" style="margin-bottom: 10px">
+          <label for="">Selct CE for Assign</label>
+          <select class="form-control form-control-sm" name="ce_id" ngModel>
+            <option *ngFor="let ce of _users" [value]="ce.id">{{ce.email}}</option>
+          </select>
+        </div>
+        <br/>
+        <div class="col-sm-12">
+          <div class="form-group">
+            <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <button class="btn btn-block btn-xs btn-success" type="submit">Assign</button>
+        </div>
+      </div>
+    </div>
   </jw-modal>
 </div>

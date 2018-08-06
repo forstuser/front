@@ -15,7 +15,7 @@ export class HeaderInterceptor implements HttpInterceptor {
     } else {
       const cookie = sessionStorage.getItem('x-csrf-token');
       const dupReq2 = req.clone({ headers: req.headers.set('x-csrf-token', cookie) });
-      console.log("req", dupReq2)
+      console.log(dupReq2)
       return next.handle(dupReq2);
     }
   }

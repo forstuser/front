@@ -16567,6 +16567,8 @@ jw-modal .jw-modal .jw-modal-body {
   background: #fff;
   /* margin exposes part of the modal background */
   margin: 40px;
+  margin-left: 400px;
+  margin-right: 400px;
 }
 jw-modal .jw-modal-background {
   /* modal background fixed across whole screen */

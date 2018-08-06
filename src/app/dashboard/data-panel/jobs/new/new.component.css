@@ -9,3 +9,8 @@
 .card-body{
     padding:1rem
 }
+.cross{
+    position: absolute;
+    right: 380px;
+    top: 20px;
+}
