@@ -8,7 +8,7 @@
             <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-success float-right" (click)="multiAssign();openModal('multipleAssignView')" [disabled]="_disabled">Multi Assign</button>
+            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi Assign</button>
           </div>
           <div class="col-md-10">
 
@@ -30,14 +30,14 @@
                 <th>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" (change)="checkAll()">Select All
+                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select All
                       <i class="input-helper"></i>
                     </label>
                   </div>
                 </th>
               </tr>
             </thead>
-            <tbody *ngFor="let bill of _bills?.data; let i = index">
+            <tbody *ngFor="let bill of bills?.data; let i = index">
               <tr>
                 <td>
                   {{i+1}}
@@ -61,14 +61,13 @@
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                   <button type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
-                  <div *ngIf="this['_assignCEView'+bill?.id]" class="card assign">
+                  <div *ngIf="this['assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
                       <div class="card-body">
                         <div class="form-group row">
                           <div class="col-sm-12" style="margin-bottom: 10px">
                             <select class="form-control form-control-sm" name="ce_id" ngModel>
-                              <!-- <option [value]="12">Select CE</option> -->
-                              <option *ngFor="let ce of _users" [value]="ce.id">{{ce.email}}</option>
+                              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
                             </select>
                           </div>
                           <br/>
@@ -88,7 +87,7 @@
                 <td>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" [checked]="_isSelected" (click)="multiCheckJob(bill?.id)">Select
+                      <input type="checkbox" class="form-check-input" [checked]="isSelected" (click)="singleCheck(bill?.id)">Select
                       <i class="input-helper"></i>
                     </label>
                   </div>
@@ -106,24 +105,26 @@
   </jw-modal>
   <jw-modal id="multipleAssignView">
     <button class="btn btn-icons btn-rounded btn-secondary cross" (click)="closeModal('multipleAssignView');">X</button>
-    <div class="card-body">
-      <div class="form-group row">
-        <div class="col-sm-12" style="margin-bottom: 10px">
-          <label for="">Selct CE for Assign</label>
-          <select class="form-control form-control-sm" name="ce_id" ngModel>
-            <option *ngFor="let ce of _users" [value]="ce.id">{{ce.email}}</option>
-          </select>
-        </div>
-        <br/>
-        <div class="col-sm-12">
-          <div class="form-group">
-            <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+    <form #multiAssignCEForm="ngForm" (ngSubmit)="multiAssignCE(multiAssignCEForm)">
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-sm-12" style="margin-bottom: 10px">
+            <label for="">Selct CE for Assign</label>
+            <select class="form-control form-control-sm" name="ce_id" ngModel>
+              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+            </select>
+          </div>
+          <br/>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button class="btn btn-block btn-xs btn-success" type="submit">Assign</button>
           </div>
         </div>
-        <div class="col-sm-12">
-          <button class="btn btn-block btn-xs btn-success" type="submit">Assign</button>
-        </div>
       </div>
-    </div>
+    </form>
   </jw-modal>
 </div>

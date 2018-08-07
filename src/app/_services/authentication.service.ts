@@ -11,7 +11,7 @@ import { NgxNotificationService } from 'ngx-notification';
 export class AuthenticationService {
   apiLink: String = appConfig.apiUrl;
   user: any;
-  constructor(private http: HttpClient, private router: Router, private ngxNotificationService: NgxNotificationService) { }
+  constructor(private http: HttpClient, private router: Router, private __ngxNotificationService: NgxNotificationService) { }
 
   login(EmailID: String, Password: String) {
     const body = { email: EmailID, password: Password };
@@ -24,15 +24,15 @@ export class AuthenticationService {
         sessionStorage.setItem('x-csrf-token', cookie);
         sessionStorage.setItem('jwt', JSON.stringify(cookie));
         localStorage.setItem('currentUser', JSON.stringify(res.body['data']));
-        this.ngxNotificationService.sendMessage('Login Successfull', 'success', 'top-right');
+        this.__ngxNotificationService.sendMessage('Login Successfull', 'success', 'top-right');
         this.router.navigate(['dashboard']);
       },
       (error: any) => {
         console.log(error);
         if (error.status == 0) {
-          this.ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
+          this.__ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
         } else {
-          this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
+          this.__ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
         }
       }
     )
@@ -50,15 +50,15 @@ export class AuthenticationService {
         sessionStorage.removeItem('x-csrf-token');
         sessionStorage.removeItem('jwt');
         localStorage.removeItem('currentUser');
-        this.ngxNotificationService.sendMessage('Logout Successfull', 'success', 'top-right');
+        this.__ngxNotificationService.sendMessage('Logout Successfull', 'success', 'top-right');
         this.router.navigateByUrl('/login')
       },
       (error: any) => {
         console.log(error);
         if (error.status == 0) {
-          this.ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
+          this.__ngxNotificationService.sendMessage('Internet is slow / down', 'danger', 'top-right');
         } else {
-          this.ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
+          this.__ngxNotificationService.sendMessage(error.error.reason, 'danger', 'top-right');
         }
       }
     )
