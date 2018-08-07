@@ -5,7 +5,7 @@ export const appConfig = {
 
     JOB_STATUS: {
         NEW: 4,
-        UNDER_PROGRESS: 6,
+        UNDER_PROGRESS: 8,
         COMPLETE: 5
     },
     USERS: {

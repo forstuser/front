@@ -66,6 +66,7 @@
                       <div class="card-body">
                         <div class="form-group row">
                           <div class="col-sm-12" style="margin-bottom: 10px">
+                            <label for="">Select CE</label>
                             <select class="form-control form-control-sm" name="ce_id" ngModel>
                               <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
                             </select>
