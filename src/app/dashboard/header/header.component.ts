@@ -15,12 +15,12 @@ export class HeaderComponent implements OnInit {
   btnIcon: string = 'mdi-arrow-left';
   showPanelSwitch: boolean = false;
   showPanel: string;
-  constructor(private dataService: DataService, private auth: AuthenticationService, private router: Router) {
+  constructor(private __dataService: DataService, private __auth: AuthenticationService, private __router: Router) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
       this.name = info.full_name || 'User';
     } else {
-      this.router.navigateByUrl('/login')
+      this.__router.navigateByUrl('/login')
     }
 
   }
@@ -37,13 +37,13 @@ export class HeaderComponent implements OnInit {
       this.btnText = 'Show';
       this.btnIcon = 'mdi-arrow-right';
     }
-    this.dataService.changeMessage(this.message)
+    this.__dataService.changeMessage(this.message)
   }
   expandProfile() {
     this.showPanel = 'show';
   }
   signOut() {
-    this.auth.logout();
+    this.__auth.logout();
   }
   close($event) {
     if ($event == null) {

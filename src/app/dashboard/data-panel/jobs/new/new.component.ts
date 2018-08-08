@@ -4,6 +4,7 @@ import { appConfig } from '../../../../app.config';
 import { ModalService } from '../../../../_services/modal.service';
 import { NgForm } from '@angular/forms';
 import { NgxNotificationService } from 'ngx-notification';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new',
@@ -20,10 +21,23 @@ export class NewComponent implements OnInit {
   jobArray: any = [];
   selectedIds: any = [];
   isSelected: boolean = false;
-  constructor(private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) { }
+  userType: any;
+  constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
+    const info = JSON.parse(localStorage.getItem('currentUser'))
+    if (info != null) {
+      this.userType = info.role_type
+    } else {
+      this.__router.navigateByUrl('/login')
+    }
+
+  }
 
   ngOnInit() {
-    this.getJobList();
+    if (this.userType == appConfig.USERS.ADMIN || this.userType == appConfig.USERS.SUPERADMIN) {
+      this.getAdminJobList();
+    } else if (this.userType == appConfig.USERS.CE) {
+      this.getCEJobList();
+    }
   }
   openModal(id: string) {
     this.__modalservice.open(id);
@@ -43,7 +57,7 @@ export class NewComponent implements OnInit {
       .subscribe(res => {
         console.log("res", res);
         this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
-        this.getJobList();
+        this.getAdminJobList();
       }, err => {
         console.log("error", err);
       })
@@ -75,7 +89,7 @@ export class NewComponent implements OnInit {
       .subscribe(res => {
         console.log("res", res);
         this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
-        this.getJobList();
+        this.getAdminJobList();
         this.closeModal('multipleAssignView');
       }, err => {
         console.log("error", err);
@@ -95,8 +109,15 @@ export class NewComponent implements OnInit {
     }
     console.log(this.selectedIds)
   }
-  getJobList() {
+  getAdminJobList() {
     this.__userservice.getAdminJobList(this.new)
+      .subscribe(bill => {
+        console.log(bill)
+        this.bills = bill;
+      });
+  }
+  getCEJobList() {
+    this.__userservice.getCEJobList(this.new)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;

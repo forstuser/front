@@ -27,7 +27,6 @@
                 <th>JOB Updated</th>
                 <th>Customer Executive</th>
                 <th>Action</th>
-                <th>Complete Job</th>
                 <th>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
@@ -69,18 +68,14 @@
                   <br>
                   <br>
                   <span class="pull-right" *ngIf="bill.ce_status != 5">
-                    <button type="button" class="btn btn-xs btn-outline-info btn-fw">
-                      Reassign</button>
+                    <button type="button" class="btn btn-xs btn-outline-info btn-fw" (click)="assignCEButtonClick(bill?.id)">
+                      <i class="mdi mdi-replay"></i>Reassign</button>
                   </span>
-                </td>
-                <td class="comment">{{ bill?.comments}}</td>
-                <td>
-                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
                   <div *ngIf="this['assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
-                      <div class="card-body">
+                      <div class="card-body" style="padding: 1rem !important">
                         <div class="form-group row">
+                          <label for="">Select CE</label>
                           <div class="col-sm-12" style="margin-bottom: 10px">
                             <select class="form-control form-control-sm" name="ce_id" ngModel>
                               <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
@@ -99,6 +94,9 @@
                       </div>
                     </form>
                   </div>
+                </td>
+                <td>
+                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                 </td>
                 <td>
                   <div class="form-check form-check-flat">

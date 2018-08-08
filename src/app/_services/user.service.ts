@@ -14,7 +14,7 @@ export class UserService {
     return this.__http.get(this._apiLink + 'api/cashback/jobs?admin_status=' + status)
   }
   getCEJobList(status) {
-    return this.__http.get(this._apiLink + 'api/cashback/jobs?admin_status=' + status)
+    return this.__http.get(this._apiLink + 'api/cashback/jobs?ce_status=' + status)
   }
   getUserList(type: number) {
     return this.__http.get(this._apiLink + 'api/users?role_type=' + type)
