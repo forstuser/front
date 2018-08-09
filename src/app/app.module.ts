@@ -22,6 +22,8 @@ import { HeaderInterceptor } from './_services/header-interceptor.service';
 import { ModalService } from './_services/modal.service';
 import { ModalComponent } from './_directives/modal.component';
 import { ClickOutsideDirective } from './_directives/click-outside.directive';
+import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
+import { ViewComponent } from './dashboard/data-panel/jobs/cashback/view/view.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ClickOutsideDirective } from './_directives/click-outside.directive';
     UnderProgressComponent,
     CompletedComponent,
     ModalComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    ProcessComponent,
+    ViewComponent
   ],
   imports: [
     BrowserModule,

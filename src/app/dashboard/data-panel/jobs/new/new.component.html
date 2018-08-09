@@ -61,7 +61,7 @@
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
-                  <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Process</button>
+                  <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" routerLink="process/{{ bill?.id }}">Process</button>
                   <div *ngIf="this['assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
                       <div class="card-body">

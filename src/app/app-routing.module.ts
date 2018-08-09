@@ -8,6 +8,7 @@ import { HomeComponent } from './dashboard/data-panel/home/home.component';
 import { NewComponent } from './dashboard/data-panel/jobs/new/new.component';
 import { UnderProgressComponent } from './dashboard/data-panel/jobs/under-progress/under-progress.component';
 import { CompletedComponent } from './dashboard/data-panel/jobs/completed/completed.component';
+import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
 
 
 const appRoutes: Routes = [
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
         path: 'dashboard', component: DashboardComponent, children: [{ path: '', redirectTo: 'home', pathMatch: 'full' },
         { path: 'home', component: HomeComponent },
         { path: 'new', component: NewComponent },
+        { path: 'new/process/:id', component: ProcessComponent },
         { path: 'underProgress', component: UnderProgressComponent },
         { path: 'completed', component: CompletedComponent }
         ]
