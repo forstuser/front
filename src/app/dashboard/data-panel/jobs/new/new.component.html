@@ -3,7 +3,7 @@
     <div class="card">
       <div class="card-body">
         <h4 class="card-title">New Jobs</h4>
-        <div class="row" style="margin-bottom: 7px">
+        <div *ngIf="userType != ce" class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
             <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button>
           </div>
@@ -27,7 +27,7 @@
                 <th>JOB Date</th>
                 <th>Comments</th>
                 <th>Action</th>
-                <th>
+                <th *ngIf="userType != ce">
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
                       <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select All
@@ -61,6 +61,7 @@
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
+                  <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Process</button>
                   <div *ngIf="this['assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
                       <div class="card-body">
@@ -85,7 +86,7 @@
                     </form>
                   </div>
                 </td>
-                <td>
+                <td *ngIf="userType != ce">
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
                       <input type="checkbox" class="form-check-input" [checked]="isSelected" (click)="singleCheck(bill?.id)">Select
