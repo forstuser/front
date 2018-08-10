@@ -1,3 +1,32 @@
-<p>
-  process works!
-</p>
+<div class="row">
+  <div class="col-lg-7 grid-margin stretch-card">
+    <!--weather card-->
+    <div class="card card-weather">
+      <div class="card-body" style="padding: 1rem">
+        <div class="weather-date-location">
+          <!-- <table cellspacing="0" cellpadding="0" border="0" style="width: 100%; min-width: 320px;overflow:hidden"> -->
+          <!-- <tr> -->
+          <!-- <td style="padding: 10px"> -->
+          <div align="center" class="billImage">
+            <img class="zoom img-responsive" [src]="images[imageIndex]" style="max-width:700px" />
+            <!-- <p *ngIf="imageArray.file_type==='pdf'">This file format is PDF<br> {{imageArray[imageIndex].copyUrl}}</p> -->
+          </div>
+          <!-- </td> -->
+          <!-- </tr> -->
+          <!-- </table> -->
+        </div>
+
+      </div>
+
+    </div>
+    <!--weather card ends-->
+  </div>
+  <div class="col-lg-5 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title text-primary mb-5">Process</h2>
+
+      </div>
+    </div>
+  </div>
+</div>

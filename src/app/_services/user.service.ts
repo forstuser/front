@@ -24,4 +24,7 @@ export class UserService {
     console.log(__data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/assign', __data)
   }
+  cashbackJobByID(id: number) {
+    return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id)
+  }
 }
