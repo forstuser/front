@@ -17,6 +17,7 @@ export class ProcessComponent implements OnInit {
   images: any[] = [];
   imageArrayLength: number;
   imageIndex: number = 0;
+  imagerotation: number = 0;
   constructor(private __route: ActivatedRoute, private __userService: UserService) {
     this.cashbackId = this.__route.snapshot.params.id;
     this.getCashbackJobByID();
@@ -49,5 +50,17 @@ export class ProcessComponent implements OnInit {
         console.log("error", err);
       })
   }
-
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
+  }
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+  }
+  nextImage() {
+    if (this.imageIndex < this.imageArrayLength - 1) {
+      this.imageIndex = this.imageIndex + 1;
+    }
+  }
 }
