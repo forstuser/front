@@ -17,8 +17,8 @@ export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string;
     private element: any;
 
-    constructor(private modalService: ModalService, private el: ElementRef) {
-        this.element = el.nativeElement;
+    constructor(private __modalService: ModalService, private __el: ElementRef) {
+        this.element = __el.nativeElement;
     }
 
     ngOnInit(): void {
@@ -41,12 +41,12 @@ export class ModalComponent implements OnInit, OnDestroy {
         });
 
         // add self (this modal instance) to the modal service so it's accessible from controllers
-        this.modalService.add(this);
+        this.__modalService.add(this);
     }
 
     // remove self from modal service when directive is destroyed
     ngOnDestroy(): void {
-        this.modalService.remove(this.id);
+        this.__modalService.remove(this.id);
         this.element.remove();
     }
 

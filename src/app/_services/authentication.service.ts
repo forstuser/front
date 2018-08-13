@@ -11,12 +11,12 @@ import { NgxNotificationService } from 'ngx-notification';
 export class AuthenticationService {
   apiLink: String = appConfig.apiUrl;
   user: any;
-  constructor(private http: HttpClient, private router: Router, private __ngxNotificationService: NgxNotificationService) { }
+  constructor(private __http: HttpClient, private __router: Router, private __ngxNotificationService: NgxNotificationService) { }
 
   login(EmailID: String, Password: String) {
     const body = { email: EmailID, password: Password };
     const data = JSON.stringify(body);
-    return this.http.post(this.apiLink + 'api/login', data, { observe: 'response' as 'response' }).subscribe(
+    return this.__http.post(this.apiLink + 'api/login', data, { observe: 'response' as 'response' }).subscribe(
       (res: HttpResponse<any>) => {
         console.log(res);
         sessionStorage.clear();
@@ -25,7 +25,7 @@ export class AuthenticationService {
         sessionStorage.setItem('jwt', JSON.stringify(cookie));
         localStorage.setItem('currentUser', JSON.stringify(res.body['data']));
         this.__ngxNotificationService.sendMessage('Login Successfull', 'success', 'top-right');
-        this.router.navigate(['dashboard']);
+        this.__router.navigate(['dashboard']);
       },
       (error: any) => {
         console.log(error);
@@ -44,14 +44,14 @@ export class AuthenticationService {
       "role_type": this.user.role_type
     };
     const data = JSON.stringify(body);
-    return this.http.post(this.apiLink + 'api/logout', data).subscribe(
+    return this.__http.post(this.apiLink + 'api/logout', data).subscribe(
       (res: HttpResponse<any>) => {
         console.log(res);
         sessionStorage.removeItem('x-csrf-token');
         sessionStorage.removeItem('jwt');
         localStorage.removeItem('currentUser');
         this.__ngxNotificationService.sendMessage('Logout Successfull', 'success', 'top-right');
-        this.router.navigateByUrl('/login')
+        this.__router.navigateByUrl('/login')
       },
       (error: any) => {
         console.log(error);

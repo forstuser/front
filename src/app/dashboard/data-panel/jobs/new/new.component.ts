@@ -16,12 +16,14 @@ export class NewComponent implements OnInit {
   ce: number = appConfig.USERS.CE;
   bills: any;
   assignCEView: string = 'assignCEView';
+  discardView: string = 'discardView';
   users: any;
   jobId: number;
   jobArray: any = [];
   selectedIds: any = [];
   isSelected: boolean = false;
   userType: any;
+  discardReasons: any[] = [];
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -35,6 +37,7 @@ export class NewComponent implements OnInit {
   ngOnInit() {
     if (this.userType == appConfig.USERS.ADMIN || this.userType == appConfig.USERS.SUPERADMIN) {
       this.getAdminJobList();
+      this.getReferenceData();
     } else if (this.userType == appConfig.USERS.CE) {
       this.getCEJobList();
     }
@@ -51,6 +54,10 @@ export class NewComponent implements OnInit {
     this.jobId = req;
     this[this.assignCEView + req] = !this[this.assignCEView + req];
     this.getCEList()
+  }
+  discardButtonClick(req) {
+    this.jobId = req;
+    this[this.discardView + req] = !this[this.discardView + req];
   }
   assignCE(res: NgForm) {
     this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
@@ -129,5 +136,12 @@ export class NewComponent implements OnInit {
         this.users = users['data'];
         console.log(this.users, "users");
       });
+  }
+  getReferenceData() {
+    this.__userservice.getReferenceData()
+      .subscribe(res => {
+        console.log(res);
+        this.discardReasons = res['data'].reject_reasons
+      })
   }
 }

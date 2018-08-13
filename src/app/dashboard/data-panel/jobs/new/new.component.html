@@ -21,9 +21,6 @@
               <tr>
                 <th>#</th>
                 <th>Cashback ID</th>
-                <th>Name</th>
-                <th>Phone No.</th>
-                <th>Email ID</th>
                 <th>JOB Date</th>
                 <th>Comments</th>
                 <th>Action</th>
@@ -46,21 +43,13 @@
                   {{ bill?.id}}
                 </td>
                 <td>
-                  {{ bill?.user.full_name}}
-                </td>
-                <td>
-                  {{ bill?.user.mobile_no}}
-                </td>
-                <td>
-                  {{ bill?.user.email}}
-                </td>
-                <td>
                   {{ bill?.updated_at | date}}
                 </td>
                 <td class="comment">{{ bill?.comments}}</td>
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>
+                  <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>&nbsp;&nbsp;
+                  <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-danger" (click)="discardButtonClick(bill?.id)">Reject</button>
                   <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" routerLink="process/{{ bill?.id }}">Process</button>
                   <div *ngIf="this['assignCEView'+bill?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
@@ -80,6 +69,24 @@
                           </div>
                           <div class="col-sm-12">
                             <button class="btn btn-block btn-xs btn-success" type="submit">Assign</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div *ngIf="this['discardView'+bill?.id]" class="card assign">
+                    <form #discardForm="ngForm" (ngSubmit)="discardJob(discardForm)">
+                      <div class="card-body">
+                        <div class="form-group row">
+                          <div class="col-sm-12" style="margin-bottom: 10px">
+                            <label for="">Select Reason</label>
+                            <select class="form-control form-control-sm" name="reason_id" ngModel>
+                              <option *ngFor="let reason of discardReasons" [value]="reason.id">{{reason.title}}</option>
+                            </select>
+                          </div>
+                          <br/>
+                          <div class="col-sm-12">
+                            <button class="btn btn-block btn-xs btn-danger" type="submit">Discard</button>
                           </div>
                         </div>
                       </div>

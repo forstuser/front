@@ -10,6 +10,9 @@ export class UserService {
   constructor(private __http: HttpClient) { }
 
   // *********************************** USER SERVICES ******************************************//
+  getReferenceData() {
+    return this.__http.get(this._apiLink + 'api/cashback/reference')
+  }
   getAdminJobList(status: number) {
     return this.__http.get(this._apiLink + 'api/cashback/jobs?admin_status=' + status)
   }
@@ -26,5 +29,8 @@ export class UserService {
   }
   cashbackJobByID(id: number) {
     return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id)
+  }
+  getUserSeller(id: number) {
+    return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id + '/sellers')
   }
 }

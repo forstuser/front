@@ -10,6 +10,7 @@ declare var webGlObject: any;
 })
 export class ProcessComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
+  sellers: any[] = []
   cashbackId: number;
   jobDetails: any;
   rawImageArray: any[] = [];
@@ -18,36 +19,45 @@ export class ProcessComponent implements OnInit {
   imageArrayLength: number;
   imageIndex: number = 0;
   imagerotation: number = 0;
+  blank: string = 'NA';
   constructor(private __route: ActivatedRoute, private __userService: UserService) {
     this.cashbackId = this.__route.snapshot.params.id;
     this.getCashbackJobByID();
+    this.getUserSellers();
   }
 
   ngOnInit() {
     webGlObject.init();
+    this.images[this.imageIndex] = 'assets/images/loader.gif'
   }
   getCashbackJobByID() {
     this.__userService.cashbackJobByID(this.cashbackId)
       .subscribe(res => {
+        console.log("huge response", res)
+        this.images = [];
         let count = 0;
         this.jobDetails = res['data'];
         this.rawImageArray = res['data'].copies;
-        console.log(this.rawImageArray, "image array")
         if (this.rawImageArray.length == 0) {
           alert("There is no image in this bill please contact Admin")
         }
         for (let i of this.rawImageArray) {
           if (i.status_type != 9) {
-            console.log(i);
             this.imageArray.push(i);
             this.images.push(this.imageUrl + 'api' + i.copyUrl)
             count += 1;
           }
         }
         this.imageArrayLength = count;
-        console.log("final image", this.images);
       }, err => {
         console.log("error", err);
+      })
+  }
+  getUserSellers() {
+    this.__userService.getUserSeller(this.cashbackId)
+      .subscribe(res => {
+        this.sellers = res['data'];
+        console.log("sellers", res);
       })
   }
   rotate() {
@@ -62,5 +72,9 @@ export class ProcessComponent implements OnInit {
     if (this.imageIndex < this.imageArrayLength - 1) {
       this.imageIndex = this.imageIndex + 1;
     }
+  }
+  newWindow() {
+    let url = this.images[this.imageIndex];
+    window.open(url, 'Image', 'resizable=1');
   }
 }

@@ -8,10 +8,10 @@ import { DataService } from '../_services/data.service';
 })
 export class DashboardComponent implements OnInit {
   message: boolean = true;
-  constructor(private dataservice: DataService) { }
+  constructor(private __dataservice: DataService) { }
 
   ngOnInit() {
-    this.dataservice.currentMessage.subscribe(message => this.message = message)
+    this.__dataservice.currentMessage.subscribe(message => this.message = message)
   }
 
 
