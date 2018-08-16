@@ -23,14 +23,19 @@ export class UserService {
     return this.__http.get(this._apiLink + 'api/users?role_type=' + type)
   }
   assignCashBackJobCE(req) {
-    const __data = req;
-    console.log(__data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/assign', __data)
+    const data = req;
+    console.log(data);
+    return this.__http.put(this._apiLink + 'api/cashback/jobs/assign', data)
   }
   cashbackJobByID(id: number) {
     return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id)
   }
   getUserSeller(id: number) {
     return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id + '/sellers')
+  }
+  verifySeller(req, id) {
+    const data = req;
+    console.log(data);
+    return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
   }
 }
