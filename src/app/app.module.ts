@@ -24,6 +24,8 @@ import { ModalComponent } from './_directives/modal.component';
 import { ClickOutsideDirective } from './_directives/click-outside.directive';
 import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
 import { ViewComponent } from './dashboard/data-panel/jobs/cashback/view/view.component';
+import { SellerVerifyComponent } from './dashboard/data-panel/jobs/cashback/process/seller-verify/seller-verify.component';
+import { SkewComponent } from './dashboard/data-panel/jobs/cashback/process/skew/skew.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ViewComponent } from './dashboard/data-panel/jobs/cashback/view/view.co
     ModalComponent,
     ClickOutsideDirective,
     ProcessComponent,
-    ViewComponent
+    ViewComponent,
+    SellerVerifyComponent,
+    SkewComponent
   ],
   imports: [
     BrowserModule,

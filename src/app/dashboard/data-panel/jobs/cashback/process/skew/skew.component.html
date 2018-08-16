@@ -1,0 +1,22 @@
+<div class="table-responsive card">
+  <table class="table table-bordered">
+    <thead>
+      <tr class="d-flex">
+        <th class="col-1">#</th>
+        <th class="col-5" scope="row">Title</th>
+        <th class="col-3">Measure</th>
+        <th class="col-3">Selling Price</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let sku of skus;let i=index">
+      <tr class="d-flex">
+        <td class="col-1"> {{i+1}}</td>
+        <td class="col-5" scope="row">
+          <span class="xtra-small">{{sku?.sku_details.title}}</span>
+        </td>
+        <td class="col-3"></td>
+        <td class="col-3"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
