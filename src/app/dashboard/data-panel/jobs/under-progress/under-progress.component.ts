@@ -71,4 +71,14 @@ export class UnderProgressComponent implements OnInit {
         console.log("error", err);
       })
   }
+  approveCashback(jobID: number) {
+    this.__userservice.approveCashback([{ id: jobID }])
+      .subscribe(res => {
+        console.log("res", res);
+        this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
+        this.getAdminJobList();
+      }, err => {
+        console.log("error", err);
+      })
+  }
 }

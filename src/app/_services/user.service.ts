@@ -38,4 +38,13 @@ export class UserService {
     console.log(data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
   }
+  updateSKU(req, id) {
+    const data = req;
+    console.log(data);
+    return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/skus', data)
+  }
+  approveCashback(req) {
+    const data = req;
+    return this.__http.put(this._apiLink + 'api/cashback/jobs/approve', data)
+  }
 }

@@ -54,7 +54,7 @@
                   <br>
                   <strong>Status : </strong>
                   <span class="badge bg-dark text-success" *ngIf="bill?.ce_status== 4">New</span>
-                  <span class="badge bg-orange" *ngIf="bill?.ce_status== 5">Complete</span>
+                  <span class="badge bg-dark text-success" *ngIf="bill?.ce_status== 5">Complete</span>
                   <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>
                   <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span>
                   <br>
@@ -89,6 +89,8 @@
                 </td>
                 <td>
                   <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                  <button (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
+
                 </td>
                 <td>
                   <div class="form-check form-check-flat">
