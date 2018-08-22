@@ -25,8 +25,6 @@ export class NewComponent implements OnInit {
   isSelected: boolean = false;
   userType: any;
   discardReasons: any[] = [];
-  yPos: any;
-  xPos: any;
   showBillPopup: boolean = false;
   rawImageArray: any[] = [];
   imageArray: any[] = [];
@@ -166,15 +164,8 @@ export class NewComponent implements OnInit {
         this.discardReasons = res['data'].reject_reasons
       })
   }
-  public showBill(elRef: ElementRef) {
+  public showBill(req) {
     this.showBillPopup = false;
-    // this.yPos = 0
-    // this.xPos = 0
-    // this.yPos = elRef['y'] - 200;
-    // this.xPos = elRef['x'] - 600;
-  }
-  showBillData(req) {
-    console.log(req);
     this.documentDate = req.products.document_date;
     this.amount = req.products.purchase_cost;
     this.images = [];

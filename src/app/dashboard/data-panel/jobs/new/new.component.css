@@ -1,10 +1,6 @@
 .assign{
-    /* width: 300px; */
-    /* position: absolute; */
-    /* margin-left: 597px; */
     background: lightgray;
     margin-top: 8px;
-    /* top: 275px; */
 }
 .card-body{
     padding:1rem
@@ -30,4 +26,14 @@
     background-color:white;
     padding-left: 3px;
     padding-right: 3px;
+}
+.hoverModel{
+    position: fixed;
+     background: ghostwhite;
+     border: 1px solid black;
+     z-index: 99999999999; 
+     left: 5px;
+     top:5px;
+     width: 700px;
+     min-height: auto;
 }

@@ -9,7 +9,8 @@
           </div>
           <div class="col-md-2">
             <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
-              Assign</button>
+              Assign
+            </button>
           </div>
           <div class="col-md-10">
 
@@ -90,8 +91,8 @@
                   </div>
                 </td>
                 <td>
-                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
+                  <button (clickOutside)="close($event)" (mouseover)="showBill(bill)" (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                  <button *ngIf="bill?.ce_status==5" (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
 
                 </td>
                 <td>
@@ -137,4 +138,25 @@
       </div>
     </form>
   </jw-modal>
+  <div *ngIf="showBillPopup" class="card hoverModel">
+    <div class="card-body" style="padding: 1rem;top: 0">
+      <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
+      <div class="row">
+        <div class="col-md-9">
+          <div align="center" class="billImage">
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:720px;max-height: 720px"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <ul class="list-ticked">
+            <code>Document Date</code>
+            <li>{{documentDate | date}}</li>
+            <code>Amount</code>
+            <li>&#8377; {{amount}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,17 @@
+.hoverModel{
+    position: fixed;
+     background: ghostwhite;
+     border: 1px solid black;
+     z-index: 99999999999; 
+     left: 5px;
+     top:5px;
+     width: 700px;
+     min-height: auto;
+}
+.billImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    overflow: hidden;
+}

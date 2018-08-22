@@ -56,7 +56,7 @@
                 <td class="comment">{{ bill?.comments}}</td>
                 <td>
                   <button (clickOutside)="close($event)" (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary"
-                    (mouseover)="showBill($event);showBillData(bill)">View</button>&nbsp;&nbsp;
+                    (mouseover)="showBill(bill)">View</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-danger" (click)="discardButtonClick(bill?.id)">Reject</button>
                   <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" routerLink="process/{{ bill?.id }}">Process</button>
@@ -145,13 +145,13 @@
       </div>
     </form>
   </jw-modal>
-  <div *ngIf="showBillPopup" class="card" style="min-width: 500px; position: absolute; background: ghostwhite;border: 1px solid black;z-index: 99999999999;">
-    <div class="card-body" style="padding: 1rem;position:sticky;top: 0">
+  <div *ngIf="showBillPopup" class="card hoverModel">
+    <div class="card-body" style="padding: 1rem;top: 0">
       <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
       <div class="row">
         <div class="col-md-9">
           <div align="center" class="billImage">
-            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:400px;max-height: 500px"
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:720px;max-height: 720px"
             />
           </div>
         </div>
@@ -164,7 +164,6 @@
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </div>

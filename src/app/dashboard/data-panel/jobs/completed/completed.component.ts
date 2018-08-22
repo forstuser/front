@@ -24,6 +24,15 @@ export class CompletedComponent implements OnInit {
   isSelected: boolean = false;
   userType: any;
   discardReasons: any[] = [];
+  rawImageArray: any[] = [];
+  imageArray: any[] = [];
+  images: any[] = [];
+  imageArrayLength: number;
+  imageIndex: number = 0;
+  documentDate: string;
+  amount: string;
+  showBillPopup: boolean = false;
+  imageUrl: string = appConfig.apiUrl;
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -40,6 +49,11 @@ export class CompletedComponent implements OnInit {
       this.getReferenceData();
     } else if (this.userType == appConfig.USERS.CE) {
       this.getCEJobList();
+    }
+  }
+  close($event) {
+    if ($event == null) {
+      this.showBillPopup = false;
     }
   }
   openModal(id: string) {
@@ -101,5 +115,25 @@ export class CompletedComponent implements OnInit {
         console.log(res);
         this.discardReasons = res['data'].reject_reasons
       })
+  }
+  public showBill(req) {
+    this.showBillPopup = false;
+    this.documentDate = req.products.document_date;
+    this.amount = req.products.purchase_cost;
+    this.images = [];
+    let count = 0;
+    this.rawImageArray = req.copies;
+    if (this.rawImageArray.length == 0) {
+      alert("There is no image in this bill please contact Admin")
+    }
+    for (let i of this.rawImageArray) {
+      if (i.status_type != 9) {
+        this.imageArray.push(i);
+        this.images.push(this.imageUrl + 'api' + i.copyUrl)
+        count += 1;
+      }
+    }
+    this.imageArrayLength = count;
+    this.showBillPopup = true;
   }
 }
