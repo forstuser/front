@@ -44,19 +44,19 @@ export class SellerVerifyComponent implements OnInit {
   }
 
   verifySeller(res: NgForm) {
+    console.log(res.value)
     let hours = res.value.hours || '00';
     let mins = res.value.mins || '00';
     let seconds = res.value.seconds || '00';
     let date = this.documentDate.split("T")[0] + "T" + hours + ":" + mins + ":" + seconds + "+05:30";
     let seller_id = this.jobDetails.seller_id || res.value.seller_id;
-    this.__userService.verifySeller({ 'seller_id': seller_id, 'document_number': res.value.document_number, 'document_date': date }, this.cashbackId)
+    this.__userService.verifySeller({ 'seller_id': seller_id, 'document_number': res.value.document_number, 'document_date': date, 'gstin': res.value.gstin }, this.cashbackId)
       .subscribe((res) => {
         console.log("success", res);
         this.__ngxNotificationService.sendMessage('Seller Verified', 'dark', 'bottom-right');
       }, (err) => {
         console.log("error", err)
         this.__ngxNotificationService.sendMessage(err.error.reason, 'dark', 'bottom-right');
-        this.__router.navigateByUrl('/dashboard/new');
       })
   }
 }

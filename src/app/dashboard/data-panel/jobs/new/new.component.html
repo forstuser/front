@@ -2,8 +2,15 @@
   <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
       <div class="card-body">
-        <h4 class="card-title">New Jobs</h4>
+        <h4 class="card-title">New Jobs </h4>
         <div *ngIf="userType != ce" class="row" style="margin-bottom: 7px">
+          <div class="col-md-2 offset-10 text-right">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-sm btn-outline-secondary">Prev</button>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Next</button>
+            </div>
+          </div>
+          <br><br>
           <div class="col-md-2 offset-8 ">
             <!-- <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button> -->
           </div>
@@ -12,9 +19,7 @@
               Assign
             </button>
           </div>
-          <div class="col-md-10">
 
-          </div>
         </div>
 
         <div class="table-responsive">
@@ -140,9 +145,8 @@
       </div>
     </form>
   </jw-modal>
-  <div *ngIf="showBillPopup" class="card" style="position:absolute;background: ghostwhite;border: 1px solid black;z-index: 99999999999;"
-    [style.left.px]="xPos" [style.top.px]="yPos">
-    <div class="card-body" style="padding: 1rem">
+  <div *ngIf="showBillPopup" class="card" style="min-width: 500px; position: absolute; background: ghostwhite;border: 1px solid black;z-index: 99999999999;">
+    <div class="card-body" style="padding: 1rem;position:sticky;top: 0">
       <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
       <div class="row">
         <div class="col-md-9">

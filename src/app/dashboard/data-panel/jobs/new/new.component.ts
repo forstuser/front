@@ -70,6 +70,17 @@ export class NewComponent implements OnInit {
     this.jobId = req;
     this[this.discardView + req] = !this[this.discardView + req];
   }
+  discardJob(res: NgForm) {
+    console.log(res);
+    this.__userservice.discardJOB([{ 'id': this.jobId, 'reason_id': Number(res.value.reason_id) }])
+      .subscribe(res => {
+        console.log("res", res);
+        this.__ngxNotificationService.sendMessage('Discard Successfull', 'dark', 'bottom-right');
+        this.getAdminJobList();
+      }, err => {
+        console.log("error", err);
+      })
+  }
   assignCE(res: NgForm) {
     this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
       .subscribe(res => {
@@ -157,11 +168,10 @@ export class NewComponent implements OnInit {
   }
   public showBill(elRef: ElementRef) {
     this.showBillPopup = false;
-    console.log(elRef)
-    this.yPos = 0
-    this.xPos = 0
-    this.yPos = elRef['y'] - 200;
-    this.xPos = elRef['x'] - 600;
+    // this.yPos = 0
+    // this.xPos = 0
+    // this.yPos = elRef['y'] - 200;
+    // this.xPos = elRef['x'] - 600;
   }
   showBillData(req) {
     console.log(req);
