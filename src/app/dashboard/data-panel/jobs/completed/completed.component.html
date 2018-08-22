@@ -1,3 +1,72 @@
-<p>
-  completed works!
-</p>
+<div class="row">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Completed Jobs</h4>
+        <div *ngIf="userType != ce" class="row" style="margin-bottom: 7px">
+
+          <div class="col-md-10">
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Cashback ID</th>
+                <th>JOB Date</th>
+                <th>Comments</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let bill of bills?.data; let i = index">
+              <tr>
+                <td>
+                  {{i+1}}
+                </td>
+                <td>
+                  {{ bill?.id}}
+                </td>
+                <td>
+                  {{ bill?.updated_at | date}}
+                </td>
+                <td class="comment">{{ bill?.comments}}</td>
+                <td>
+                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <jw-modal id="billViewModel">
+    <h1 style="height:200px;top:20px;">Bill Khulega Yahan</h1>
+    <button (click)="closeModal('billViewModel');">Close</button>
+  </jw-modal>
+  <jw-modal id="multipleAssignView">
+    <button class="btn btn-icons btn-rounded btn-secondary cross" (click)="closeModal('multipleAssignView');">X</button>
+    <form #multiAssignCEForm="ngForm" (ngSubmit)="multiAssignCE(multiAssignCEForm)">
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-sm-12" style="margin-bottom: 10px">
+            <label for="">Selct CE for Assign</label>
+            <select class="form-control form-control-sm" name="ce_id" ngModel>
+              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+            </select>
+          </div>
+          <br/>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button class="btn btn-block btn-xs btn-success" type="submit">Assign</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </jw-modal>
+</div>

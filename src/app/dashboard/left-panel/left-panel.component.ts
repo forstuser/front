@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { appConfig } from '../../app.config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-left-panel',
@@ -7,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeftPanelComponent implements OnInit {
   leftmenuItems: any;
+  ce: number = appConfig.USERS.CE;
+  admin: number = appConfig.USERS.ADMIN;
+  userType: number;
   admin_menu = [{
     'name': 'Dashboard',
     'icon': 'mdi-television',
@@ -25,11 +30,38 @@ export class LeftPanelComponent implements OnInit {
     'name': 'Completed Jobs',
     'icon': 'mdi-checkbox-marked-circle',
     'link': 'completed'
-  }]
-  constructor() { }
+  }];
+  ce_menu = [{
+    'name': 'Dashboard',
+    'icon': 'mdi-television',
+    'link': 'home'
+  }, {
+    'name': 'New Jobs',
+    'icon': 'mdi-briefcase-check',
+    'link': 'new'
+  },
+  {
+    'name': 'Completed Jobs',
+    'icon': 'mdi-checkbox-marked-circle',
+    'link': 'completed'
+  }];
+  constructor(private __router: Router) {
+    const info = JSON.parse(localStorage.getItem('currentUser'))
+    if (info != null) {
+      this.userType = info.role_type
+    } else {
+      this.__router.navigateByUrl('/login')
+    }
+
+  }
 
   ngOnInit() {
-    this.leftmenuItems = this.admin_menu;
+    if (this.userType == this.admin) {
+      this.leftmenuItems = this.admin_menu;
+    }
+    else if (this.userType == this.ce) {
+      this.leftmenuItems = this.ce_menu
+    }
   }
 
 }

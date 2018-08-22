@@ -5,10 +5,11 @@
         <h4 class="card-title">Under Progress Jobs</h4>
         <div class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
-            <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button>
+            <!-- <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button> -->
           </div>
           <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi Assign</button>
+            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
+              Assign</button>
           </div>
           <div class="col-md-10">
 
@@ -28,7 +29,8 @@
                 <th>
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select All
+                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select
+                      All
                       <i class="input-helper"></i>
                     </label>
                   </div>

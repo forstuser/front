@@ -4,6 +4,7 @@ import { appConfig } from '../../../../app.config';
 import { NgxNotificationService } from 'ngx-notification';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../../_services/modal.service';
 
 @Component({
   selector: 'app-under-progress',
@@ -18,7 +19,7 @@ export class UnderProgressComponent implements OnInit {
   users: any;
   jobId: number;
   userType: any;
-  constructor(private __router: Router, private __ngxNotificationService: NgxNotificationService, private __userservice: UserService) {
+  constructor(private __router: Router, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService, private __userservice: UserService) {
     const info = JSON.parse(localStorage.getItem('currentUser'));
     if (info != null) {
       this.userType = info.role_type
@@ -34,6 +35,14 @@ export class UnderProgressComponent implements OnInit {
       this.getCEJobList();
     }
   }
+  openModal(id: string) {
+    this.__modalservice.open(id);
+  }
+
+  closeModal(id: string) {
+    this.__modalservice.close(id);
+  }
+
   assignCEButtonClick(req) {
     this.jobId = req;
     this[this.assignCEView + req] = !this[this.assignCEView + req];

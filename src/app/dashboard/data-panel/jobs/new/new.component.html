@@ -5,10 +5,12 @@
         <h4 class="card-title">New Jobs</h4>
         <div *ngIf="userType != ce" class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
-            <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button>
+            <!-- <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button> -->
           </div>
           <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi Assign</button>
+            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
+              Assign
+            </button>
           </div>
           <div class="col-md-10">
 
@@ -27,7 +29,8 @@
                 <th *ngIf="userType != ce">
                   <div class="form-check form-check-flat">
                     <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select All
+                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select
+                      All
                       <i class="input-helper"></i>
                     </label>
                   </div>
@@ -47,7 +50,8 @@
                 </td>
                 <td class="comment">{{ bill?.comments}}</td>
                 <td>
-                  <button (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                  <button (clickOutside)="close($event)" (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary"
+                    (mouseover)="showBill($event);showBillData(bill)">View</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" (click)="assignCEButtonClick(bill?.id)">Assign</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-danger" (click)="discardButtonClick(bill?.id)">Reject</button>
                   <button *ngIf="userType == ce" type="button" class="btn btn-xs btn-outline-success" routerLink="process/{{ bill?.id }}">Process</button>
@@ -136,4 +140,27 @@
       </div>
     </form>
   </jw-modal>
+  <div *ngIf="showBillPopup" class="card" style="position:absolute;background: ghostwhite;border: 1px solid black;z-index: 99999999999;"
+    [style.left.px]="xPos" [style.top.px]="yPos">
+    <div class="card-body" style="padding: 1rem">
+      <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
+      <div class="row">
+        <div class="col-md-9">
+          <div align="center" class="billImage">
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:400px;max-height: 500px"
+            />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <ul class="list-ticked">
+            <code>Document Date</code>
+            <li>{{documentDate | date}}</li>
+            <code>Amount</code>
+            <li>&#8377; {{amount}}</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </div>

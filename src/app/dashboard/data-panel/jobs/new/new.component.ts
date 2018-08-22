@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { UserService } from '../../../../_services/user.service';
 import { appConfig } from '../../../../app.config';
 import { ModalService } from '../../../../_services/modal.service';
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class NewComponent implements OnInit {
   new: number = appConfig.JOB_STATUS.NEW;
   ce: number = appConfig.USERS.CE;
+  imageUrl: string = appConfig.apiUrl;
   bills: any;
   assignCEView: string = 'assignCEView';
   discardView: string = 'discardView';
@@ -24,6 +25,16 @@ export class NewComponent implements OnInit {
   isSelected: boolean = false;
   userType: any;
   discardReasons: any[] = [];
+  yPos: any;
+  xPos: any;
+  showBillPopup: boolean = false;
+  rawImageArray: any[] = [];
+  imageArray: any[] = [];
+  images: any[] = [];
+  imageArrayLength: number;
+  imageIndex: number = 0;
+  documentDate: string;
+  amount: string;
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -143,5 +154,38 @@ export class NewComponent implements OnInit {
         console.log(res);
         this.discardReasons = res['data'].reject_reasons
       })
+  }
+  public showBill(elRef: ElementRef) {
+    this.showBillPopup = false;
+    console.log(elRef)
+    this.yPos = 0
+    this.xPos = 0
+    this.yPos = elRef['y'] - 200;
+    this.xPos = elRef['x'] - 600;
+  }
+  showBillData(req) {
+    console.log(req);
+    this.documentDate = req.products.document_date;
+    this.amount = req.products.purchase_cost;
+    this.images = [];
+    let count = 0;
+    this.rawImageArray = req.copies;
+    if (this.rawImageArray.length == 0) {
+      alert("There is no image in this bill please contact Admin")
+    }
+    for (let i of this.rawImageArray) {
+      if (i.status_type != 9) {
+        this.imageArray.push(i);
+        this.images.push(this.imageUrl + 'api' + i.copyUrl)
+        count += 1;
+      }
+    }
+    this.imageArrayLength = count;
+    this.showBillPopup = true;
+  }
+  close($event) {
+    if ($event == null) {
+      this.showBillPopup = false;
+    }
   }
 }
