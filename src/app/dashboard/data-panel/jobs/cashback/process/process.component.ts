@@ -23,7 +23,7 @@ export class ProcessComponent implements OnInit {
     this.cashbackId = this.__route.snapshot.params.id;
   }
   ngOnInit() {
-    // webGlObject.init();
+    webGlObject.init();
     this.images[this.imageIndex] = 'assets/images/loader.gif'
     this.getCashbackJobByID();
   }
