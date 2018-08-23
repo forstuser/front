@@ -5,10 +5,10 @@
         <h4 class="card-title">Under Progress Jobs</h4>
         <div class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
-            <!-- <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button> -->
+            <button class="btn btn-block btn-xs btn-success float-right" type="button">Multi Approve</button>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
+            <button class="btn btn-block btn-xs btn-info float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
               Assign
             </button>
           </div>
@@ -60,6 +60,7 @@
                   <span class="badge bg-dark text-success" *ngIf="bill?.ce_status== 5">Complete</span>
                   <span class="badge bg-orange" *ngIf="bill?.ce_status== 7">Reassigned</span>
                   <span class="badge bg-orange" *ngIf="bill?.ce_status== 8">In-progress</span>
+                  <span class="badge bg-dark text-success" *ngIf="bill?.ce_status== 9">Discarded</span>
                   <br>
                   <br>
                   <span class="pull-right" *ngIf="bill.ce_status != 5">

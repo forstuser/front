@@ -59,16 +59,16 @@ export class NewComponent implements OnInit {
     this.__modalservice.close(id);
   }
 
-  assignCEButtonClick(req) {
+  public assignCEButtonClick(req) {
     this.jobId = req;
     this[this.assignCEView + req] = !this[this.assignCEView + req];
     this.getCEList()
   }
-  discardButtonClick(req) {
+  public discardButtonClick(req) {
     this.jobId = req;
     this[this.discardView + req] = !this[this.discardView + req];
   }
-  discardJob(res: NgForm) {
+  public discardJob(res: NgForm) {
     console.log(res);
     this.__userservice.discardJOB([{ 'id': this.jobId, 'reason_id': Number(res.value.reason_id) }])
       .subscribe(res => {
@@ -79,7 +79,7 @@ export class NewComponent implements OnInit {
         console.log("error", err);
       })
   }
-  assignCE(res: NgForm) {
+  public assignCE(res: NgForm) {
     this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
       .subscribe(res => {
         console.log("res", res);
@@ -89,7 +89,7 @@ export class NewComponent implements OnInit {
         console.log("error", err);
       })
   }
-  singleCheck(req: number) {
+  public singleCheck(req: number) {
     if (this.selectedIds.includes(req)) {
       let _index = this.selectedIds.indexOf(req);
       if (_index > -1) {
@@ -106,7 +106,7 @@ export class NewComponent implements OnInit {
     }
     console.log(this.selectedIds)
   }
-  multiAssignCE(res: NgForm) {
+  public multiAssignCE(res: NgForm) {
     console.log(res.value);
     this.selectedIds.map((item) => {
       this.jobArray.push({ 'id': item, 'ce_id': Number(res.value.ce_id) })
@@ -122,7 +122,7 @@ export class NewComponent implements OnInit {
         console.log("error", err);
       })
   }
-  checkAll() {
+  public checkAll() {
     this.isSelected = !this.isSelected;
     if (this.selectedIds.length != this.bills.data.length) {
       this.selectedIds = [];
@@ -136,28 +136,28 @@ export class NewComponent implements OnInit {
     }
     console.log(this.selectedIds)
   }
-  getAdminJobList() {
+  public getAdminJobList() {
     this.__userservice.getAdminJobList(this.new)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;
       });
   }
-  getCEJobList() {
+  public getCEJobList() {
     this.__userservice.getCEJobList(this.new)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;
       });
   }
-  getCEList() {
+  public getCEList() {
     this.__userservice.getUserList(this.ce) // 4 for _ce refer to api doc
       .subscribe(users => {
         this.users = users['data'];
         console.log(this.users, "users");
       });
   }
-  getReferenceData() {
+  public getReferenceData() {
     this.__userservice.getReferenceData()
       .subscribe(res => {
         console.log(res);

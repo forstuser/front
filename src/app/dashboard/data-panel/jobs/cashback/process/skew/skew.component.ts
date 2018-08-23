@@ -42,6 +42,7 @@ export class SkewComponent implements OnInit {
     let sellingPrice = [];
     let totalCashback = 0;
     let availableCashback = [];
+    console.log("response is ", res.value)
     for (let i in res.value) {
       sellingPrice.push(res.value[i]);
     }
@@ -54,16 +55,21 @@ export class SkewComponent implements OnInit {
     for (let i = 0; i < this.skuIds.length; i++) {
       this.skuItems.push({ 'id': this.skuIds[i], 'sku_id': this.skuData[i].sku_id, 'quantity': this.skuData[i].quantity, 'sku_measurement_id': this.skuData[i].sku_measurement_id, 'added_date': this.skuData[i].added_date, 'selling_price': sellingPrice[i], 'available_cashback': availableCashback[i] })
     }
-    console.log(totalCashback)
     console.log(this.skuItems);
     this.__userService.updateSKU({ 'seller_id': this.sellerId, 'cashback_value': totalCashback, 'sku_items': this.skuItems }, this.jobId)
       .subscribe((res) => {
         console.log("success", res);
-        this.__ngxNotificationService.sendMessage('SKEW Verified', 'dark', 'bottom-right');
+        this.__ngxNotificationService.sendMessage('SKU Verified', 'dark', 'bottom-right');
         this.__router.navigateByUrl('/dashboard/new');
       }, (err) => {
         console.log("error", err)
-        this.__ngxNotificationService.sendMessage(err.error.reason, 'dark', 'bottom-right');
+        this.skuItems = [];
+        let msg;
+        if (err.status == 0) {
+          msg = 'No Internet available.'
+        }
+        msg = err.error.reason;
+        this.__ngxNotificationService.sendMessage(msg, 'dark', 'bottom-right');
       })
   }
 }
