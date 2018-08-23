@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../../../../_services/user.service';
 import { appConfig } from '../../../../../../app.config';
@@ -17,6 +17,8 @@ export class SellerVerifyComponent implements OnInit {
   blank: string = 'NA';
   cashbackId: number;
   documentDate: string;
+  message: boolean = true;
+  @Output() messageEvent = new EventEmitter<boolean>();
   constructor(private __router: Router, private __userService: UserService, private __ngxNotificationService: NgxNotificationService) {
 
 
@@ -50,13 +52,28 @@ export class SellerVerifyComponent implements OnInit {
     let seconds = res.value.seconds || '00';
     let date = this.documentDate.split("T")[0] + "T" + hours + ":" + mins + ":" + seconds + "+05:30";
     let seller_id = this.jobDetails.seller_id || res.value.seller_id;
-    this.__userService.verifySeller({ 'seller_id': seller_id, 'document_number': res.value.document_number, 'document_date': date, 'gstin': res.value.gstin }, this.cashbackId)
+    let request_data = { 'seller_id': seller_id, 'document_number': res.value.document_number, 'document_date': date, 'gstin': res.value.gstin };
+    if (request_data.seller_id == undefined) {
+      delete request_data['seller_id'];
+    }
+    this.__userService.verifySeller(request_data, this.cashbackId)
       .subscribe((res) => {
         console.log("success", res);
         this.__ngxNotificationService.sendMessage('Seller Verified', 'dark', 'bottom-right');
+        this.messageEvent.emit(this.message)
       }, (err) => {
         console.log("error", err)
         this.__ngxNotificationService.sendMessage(err.error.reason, 'dark', 'bottom-right');
+      })
+  }
+  sellerMismatch() {
+    this.__userService.discardJOB([{ 'id': this.cashbackId, 'reason_id': 1 }])
+      .subscribe(res => {
+        console.log("res", res);
+        this.__ngxNotificationService.sendMessage('Job discarded due to seller mismatch moved to new job', 'dark', 'bottom-right');
+        this.__router.navigate(['new'])
+      }, err => {
+        console.log("error", err);
       })
   }
 }

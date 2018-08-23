@@ -18,11 +18,12 @@ export class ProcessComponent implements OnInit {
   imageArrayLength: number;
   imageIndex: number = 0;
   imagerotation: number = 0;
+  message: boolean;
   constructor(private __route: ActivatedRoute, private __userService: UserService) {
     this.cashbackId = this.__route.snapshot.params.id;
   }
   ngOnInit() {
-    webGlObject.init();
+    // webGlObject.init();
     this.images[this.imageIndex] = 'assets/images/loader.gif'
     this.getCashbackJobByID();
   }
@@ -42,6 +43,9 @@ export class ProcessComponent implements OnInit {
   newWindow() {
     let url = this.images[this.imageIndex];
     window.open(url, 'Image', 'resizable=1');
+  }
+  receiveMessage($event) {
+    this.message = $event
   }
   getCashbackJobByID() {
     this.__userService.cashbackJobByID(this.cashbackId)
