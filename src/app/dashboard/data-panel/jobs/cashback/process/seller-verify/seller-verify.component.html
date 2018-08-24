@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <div class="col-sm-12" *ngIf="jobDetails?.products[0]?.seller_id==null">
+    <div class="col-sm-12" *ngIf="jobDetails?.products[0]?.seller_id==null && !showSellerForm">
       <form #verifySellerForm="ngForm" (ngSubmit)="verifySeller(verifySellerForm)">
         <div class="form-group row">
           <div class="col-sm-4 col-form-label" *ngIf="sellers.length > 0">
@@ -86,6 +86,90 @@
           </div>
         </form>
       </div>
+    </div>
+    <div class="col-sm-12" *ngIf="showSellerForm">
+      <form #updateSellerForm="ngForm" (ngSubmit)="updateSeller(updateSellerForm)">
+        <div class="form-group row">
+          <div class="col-sm-4 col-form-label">
+            <label>Name</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="seller_name" type="text" class="form-control" [ngModel]="sellerData?.seller_name">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Contact No</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="contact_no" type="text" class="form-control" [ngModel]="sellerData?.contact_no">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Email</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="email" type="text" class="form-control" [ngModel]="sellerData?.email">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Address</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="address" type="text" class="form-control" [ngModel]="sellerData?.address">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>State</label>
+          </div>
+          <div class="col-sm-8">
+            <select class="form-control" name="state_id" [ngModel]="sellerData?.state_id">
+              <option value="">Select State</option>
+              <option *ngFor="let state of states" [value]="state?.id">{{state?.state_name}}</option>
+            </select>
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>City</label>
+          </div>
+          <div class="col-sm-8">
+            <select class="form-control" name="city_id" [ngModel]="sellerData?.city_id">
+              <option value="">Select City</option>
+              <option *ngFor="let city of cities" [value]="city?.id">{{city?.name}}</option>
+            </select>
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Latitude</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="latitude" type="text" class="form-control" [ngModel]="sellerData?.latitude">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Longitude</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="longitude" type="text" class="form-control" [ngModel]="sellerData?.longitude">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>Gstin</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="gstin" type="text" class="form-control" [ngModel]="sellerData?.gstin">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label>PAN</label>
+          </div>
+          <div class="col-sm-8">
+            <input name="pan_no" type="text" class="form-control" [ngModel]="sellerData?.pan_no">
+          </div>
+          <div class="col-sm-4 col-form-label">
+            <label> Seller Type</label>
+          </div>
+          <div class="col-sm-8">
+            <select class="form-control" name="seller_id" [ngModel]="sellerData?.seller_type_id">
+              <option value="">Select Seller</option>
+              <option *ngFor="let seller of sellerType" [value]="seller.id">{{seller?.title}}</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-md btn-success" type="submit">Update</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

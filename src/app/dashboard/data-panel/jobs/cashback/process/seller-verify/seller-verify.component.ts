@@ -18,6 +18,11 @@ export class SellerVerifyComponent implements OnInit {
   cashbackId: number;
   documentDate: string;
   message: boolean = true;
+  sellerType: any[] = [];
+  sellerData: any;
+  states: any[] = [];
+  cities: any[] = [];
+  showSellerForm: boolean = false;
   @Output() messageEvent = new EventEmitter<boolean>();
   constructor(private __router: Router, private __userService: UserService, private __ngxNotificationService: NgxNotificationService) {
 
@@ -26,7 +31,7 @@ export class SellerVerifyComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.getReferenceData();
   }
   ngOnChanges(changes) {
     // console.log("from parent", this.jobDetails)
@@ -36,6 +41,15 @@ export class SellerVerifyComponent implements OnInit {
       this.getUserSellers();
     }
 
+  }
+  getReferenceData() {
+    this.__userService.getReferenceData()
+      .subscribe(res => {
+        console.log("reference data", res)
+        this.sellerType = res['data'].seller_types;
+        this.states = res['data'].states;
+        console.log(this.states)
+      })
   }
   getUserSellers() {
     this.__userService.getUserSeller(this.cashbackId)
@@ -58,13 +72,24 @@ export class SellerVerifyComponent implements OnInit {
     }
     this.__userService.verifySeller(request_data, this.cashbackId)
       .subscribe((res) => {
-        console.log("success", res);
         this.__ngxNotificationService.sendMessage('Seller Verified', 'dark', 'bottom-right');
-        this.messageEvent.emit(this.message)
+        this.sellerData = res['data'].sellers[0];
+        this.selectState(this.sellerData.state_id)
+        console.log(this.sellerData)
+        this.showSellerForm = true;
       }, (err) => {
         console.log("error", err)
-        this.__ngxNotificationService.sendMessage(err.error.reason, 'dark', 'bottom-right');
+        if (err.status == 409) {
+          this.__ngxNotificationService.sendMessage("GSTIN is invalid JOB Discarded", 'dark', 'bottom-right');
+        } else {
+          this.__ngxNotificationService.sendMessage(err.error.reason, 'dark', 'bottom-right');
+        }
       })
+  }
+  updateSeller(res: NgForm) {
+    console.log(res.value);
+    this.messageEvent.emit(this.message)
+    this.showSellerForm = false;
   }
   sellerMismatch() {
     this.__userService.discardJOB([{ 'id': this.cashbackId, 'reason_id': 1 }])
@@ -75,5 +100,13 @@ export class SellerVerifyComponent implements OnInit {
       }, err => {
         console.log("error", err);
       })
+  }
+  public selectState(stateID) {
+    console.log(stateID);
+    let selectedState = this.states.filter(state => {
+      return state.id == stateID
+    })
+    this.cities = selectedState[0].cities;
+    console.log("selected state si", selectedState);
   }
 }

@@ -34,6 +34,7 @@
     </div>
   </div>
   <div class="col-lg-5 grid-margin stretch-card">
+
     <app-seller-verify (messageEvent)="receiveMessage($event)" [jobDetails]=" jobDetails " *ngIf="!jobDetails?.products[0].document_number && !message"></app-seller-verify>
     <app-skew *ngIf="jobDetails?.products[0].document_number || message " [jobDetails]="jobDetails "></app-skew>
   </div>
