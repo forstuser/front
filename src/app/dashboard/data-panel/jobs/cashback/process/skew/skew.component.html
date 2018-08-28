@@ -23,8 +23,8 @@
             <td class="col-2">{{sku?.measurement_value}} {{sku?.measurement_type}}
               <span *ngIf="sku?.pack_numbers > 1">X {{sku?.pack_numbers}}</span>
             </td>
-            <td class="col-2"></td>
-            <td class="col-2"></td>
+            <td class="col-2">{{sku?.quantity}}</td>
+            <td class="col-2">{{sku?.mrp * sku?.quantity}}</td>
             <td class="col-2">
               <input type="number" class="form-control" name="{{sku?.id}}" ngModel="0">
             </td>

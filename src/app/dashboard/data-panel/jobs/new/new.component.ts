@@ -165,6 +165,7 @@ export class NewComponent implements OnInit {
       })
   }
   public showBill(req) {
+    console.log(req);
     this.showBillPopup = false;
     this.documentDate = req.products.document_date;
     this.amount = req.products.purchase_cost;

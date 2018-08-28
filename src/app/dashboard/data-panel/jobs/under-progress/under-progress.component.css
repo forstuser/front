@@ -24,4 +24,7 @@
     position: absolute;
     right: 380px;
     top: 20px;
-}   
+}  
+.fontSmall{
+    font-size: 11px !important;
+} 

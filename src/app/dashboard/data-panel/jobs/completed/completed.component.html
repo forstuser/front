@@ -73,18 +73,35 @@
     <div class="card-body" style="padding: 1rem;top: 0">
       <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
           <div align="center" class="billImage">
             <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:720px;max-height: 720px"
             />
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <ul class="list-ticked">
             <code>Document Date</code>
             <li>{{documentDate | date}}</li>
             <code>Amount</code>
             <li>&#8377; {{amount}}</li>
+          </ul>
+          <code>Accept Only If :</code>
+          <ul class="list-arrow fontSmall">
+            <li>Bill is Printed
+            </li>
+            <li>Bill is in English
+            </li>
+            <li>Eligible Receipts for Purchase Only in India</li>
+            <li>Bill Must be Paid tax invoice </li>
+            <li>User should be end consumer & Not Reseller</li>
+            <li>Bill is FMCG Category</li>
+            <li>Image is clear/readable & Not torn</li>
+            <li>Date of Purchase, Total Amount, Seller info, Bill Number is appearing correctly</li>
+            <li>Items in the bill must be clearly distinguished for Brand & Product. Looking at the bill one should be able
+              to determine what item and of which brand has been bought</li>
+            <li>Match DOP</li>
+            <li>Match Total Amount</li>
           </ul>
         </div>
       </div>

@@ -12,7 +12,8 @@ import { NgxNotificationService } from 'ngx-notification';
   styleUrls: ['./seller-verify.component.css']
 })
 export class SellerVerifyComponent implements OnInit {
-  sellers: any[] = []
+  allSellers: any[] = [];
+  sellers: any[] = [];
   @Input() jobDetails: any;
   blank: string = 'NA';
   cashbackId: number;
@@ -25,9 +26,6 @@ export class SellerVerifyComponent implements OnInit {
   showSellerForm: boolean = false;
   @Output() messageEvent = new EventEmitter<boolean>();
   constructor(private __router: Router, private __userService: UserService, private __ngxNotificationService: NgxNotificationService) {
-
-
-    // this.getUserSellers();
   }
 
   ngOnInit() {
@@ -39,6 +37,7 @@ export class SellerVerifyComponent implements OnInit {
       this.cashbackId = this.jobDetails.id;
       this.documentDate = this.jobDetails.products[0].document_date;
       this.getUserSellers();
+      this.getCities(11);
     }
 
   }
@@ -54,17 +53,23 @@ export class SellerVerifyComponent implements OnInit {
   getUserSellers() {
     this.__userService.getUserSeller(this.cashbackId)
       .subscribe(res => {
-        this.sellers = res['data'];
+        this.allSellers = res['data'];
         console.log("sellers", res);
       })
   }
+  selectSellerType(e) {
+    console.log(e);
+    if (e == 'offline') {
+      this.sellers = this.allSellers['user_sellers'];
+    } else if (e == 'online') {
 
+    }
+  }
   verifySeller(res: NgForm) {
     console.log(res.value)
-    let hours = res.value.hours || '00';
-    let mins = res.value.mins || '00';
-    let seconds = res.value.seconds || '00';
-    let date = this.documentDate.split("T")[0] + "T" + hours + ":" + mins + ":" + seconds + "+05:30";
+    let time = res.value.time || '00:00:00';
+    let date = this.documentDate.split("T")[0] + "T" + time + "+05:30";
+    console.log(date);
     let seller_id = this.jobDetails.seller_id || res.value.seller_id;
     let request_data = { 'seller_id': seller_id, 'document_number': res.value.document_number, 'document_date': date, 'gstin': res.value.gstin };
     if (request_data.seller_id == undefined) {
@@ -72,10 +77,12 @@ export class SellerVerifyComponent implements OnInit {
     }
     this.__userService.verifySeller(request_data, this.cashbackId)
       .subscribe((res) => {
+        console.log('response after seller veriify', res)
         this.__ngxNotificationService.sendMessage('Seller Verified', 'dark', 'bottom-right');
         this.sellerData = res['data'].sellers[0];
-        this.selectState(this.sellerData.state_id)
-        console.log(this.sellerData)
+        if (this.sellerData.state_id) {
+          this.selectState(this.sellerData.state_id)
+        }
         this.showSellerForm = true;
       }, (err) => {
         console.log("error", err)
@@ -108,5 +115,14 @@ export class SellerVerifyComponent implements OnInit {
     })
     this.cities = selectedState[0].cities;
     console.log("selected state si", selectedState);
+  }
+  public getCities(stateID: number) {
+    this.__userService.getCities(stateID)
+      .subscribe(res => {
+        console.log("cities", res);
+        this.cities = res['data'].cities;
+      }, err => {
+        console.log(err);
+      })
   }
 }

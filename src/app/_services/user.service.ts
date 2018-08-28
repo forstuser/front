@@ -43,6 +43,11 @@ export class UserService {
     console.log(data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
   }
+  updateCeller(req: any) {
+    const data = req;
+    console.log(req);
+    return this.__http.put(this._apiLink + 'api/cashback', data)
+  }
   updateSKU(req, id) {
     const data = req;
     console.log(data);
@@ -51,5 +56,8 @@ export class UserService {
   approveCashback(req) {
     const data = req;
     return this.__http.put(this._apiLink + 'api/cashback/jobs/approve', data)
+  }
+  getCities(stateId: number) {
+    return this.__http.get(this._apiLink + 'api/cashback/states/' + stateId + '/cities')
   }
 }

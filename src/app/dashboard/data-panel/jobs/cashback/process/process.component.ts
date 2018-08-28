@@ -46,6 +46,7 @@ export class ProcessComponent implements OnInit {
   }
   receiveMessage($event) {
     this.message = $event
+    this.getCashbackJobByID();
   }
   getCashbackJobByID() {
     this.__userService.cashbackJobByID(this.cashbackId)

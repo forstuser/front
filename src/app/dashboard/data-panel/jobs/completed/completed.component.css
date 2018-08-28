@@ -15,3 +15,6 @@
     align-content: center;
     overflow: hidden;
 }
+.fontSmall{
+    font-size: 11px !important;
+}

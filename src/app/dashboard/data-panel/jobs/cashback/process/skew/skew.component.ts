@@ -28,11 +28,13 @@ export class SkewComponent implements OnInit {
       this.sellerId = this.jobDetails.seller_id;
       this.jobId = this.jobDetails.id;
       this.skus = this.jobDetails.products[0].expense_skus;
+      console.log("skus", this.skus)
       this.skus.map((item, index) => {
         let res = item.sku_measurement_details.filter(sku =>
           sku.id == item.sku_measurement_id
         )
-        this.skuData.push({ 'id': item.id, 'sku_id': item.sku_id, 'name': item.sku_details.title, 'measurement_value': res[0].measurement_value, 'measurement_type': res[0].measurement_type.acronym, 'pack_numbers': res[0].pack_numbers, 'cashback_percent': res[0].cashback_percent, 'quantity': item.quantity, 'sku_measurement_id': item.sku_measurement_id, 'added_date': item.added_date });
+        console.log('res', res)
+        this.skuData.push({ 'id': item.id, 'sku_id': item.sku_id, 'name': item.sku_details.title, 'measurement_value': res[0].measurement_value, 'measurement_type': res[0].measurement_type.acronym, 'pack_numbers': res[0].pack_numbers, 'cashback_percent': res[0].cashback_percent, 'quantity': item.quantity, 'mrp': res[0].mrp, 'sku_measurement_id': item.sku_measurement_id, 'added_date': item.added_date });
       })
       console.log(this.skuData)
     }
