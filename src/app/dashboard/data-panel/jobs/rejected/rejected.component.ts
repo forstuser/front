@@ -1,24 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../../_services/user.service';
 import { appConfig } from '../../../../app.config';
-import { NgxNotificationService } from 'ngx-notification';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ModalService } from '../../../../_services/modal.service';
+import { NgForm } from '@angular/forms';
+import { NgxNotificationService } from 'ngx-notification';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-under-progress',
-  templateUrl: './under-progress.component.html',
-  styleUrls: ['./under-progress.component.css']
+  selector: 'app-rejected',
+  templateUrl: './rejected.component.html',
+  styleUrls: ['./rejected.component.css']
 })
-export class UnderProgressComponent implements OnInit {
-  under_progress: number = appConfig.JOB_STATUS.UNDER_PROGRESS;
+export class RejectedComponent implements OnInit {
+  complete: number = appConfig.JOB_STATUS.COMPLETE;
   ce: number = appConfig.USERS.CE;
   bills: any;
   assignCEView: string = 'assignCEView';
+  discardView: string = 'discardView';
   users: any;
   jobId: number;
+  jobArray: any = [];
+  selectedIds: any = [];
+  isSelected: boolean = false;
   userType: any;
+  discardReasons: any[] = [];
   rawImageArray: any[] = [];
   imageArray: any[] = [];
   images: any[] = [];
@@ -28,22 +33,27 @@ export class UnderProgressComponent implements OnInit {
   amount: string;
   showBillPopup: boolean = false;
   imageUrl: string = appConfig.apiUrl;
-  selectedIds: any = [];
-  isSelected: boolean = false;
-  constructor(private __router: Router, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService, private __userservice: UserService) {
-    const info = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
+    const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
       this.userType = info.role_type
     } else {
       this.__router.navigateByUrl('/login')
     }
+
   }
 
   ngOnInit() {
     if (this.userType == appConfig.USERS.ADMIN || this.userType == appConfig.USERS.SUPERADMIN) {
       this.getAdminJobList();
+      this.getReferenceData();
     } else if (this.userType == appConfig.USERS.CE) {
       this.getCEJobList();
+    }
+  }
+  close($event) {
+    if ($event == null) {
+      this.showBillPopup = false;
     }
   }
   openModal(id: string) {
@@ -53,12 +63,8 @@ export class UnderProgressComponent implements OnInit {
   closeModal(id: string) {
     this.__modalservice.close(id);
   }
-  close($event) {
-    if ($event == null) {
-      this.showBillPopup = false;
-    }
-  }
-  public singleCheck(req: number) {
+
+  singleCheck(req: number) {
     if (this.selectedIds.includes(req)) {
       let _index = this.selectedIds.indexOf(req);
       if (_index > -1) {
@@ -75,9 +81,8 @@ export class UnderProgressComponent implements OnInit {
     }
     console.log(this.selectedIds)
   }
-  public checkAll() {
+  checkAll() {
     this.isSelected = !this.isSelected;
-    this
     if (this.selectedIds.length != this.bills.data.length) {
       this.selectedIds = [];
       for (let bill of this.bills.data) {
@@ -90,51 +95,25 @@ export class UnderProgressComponent implements OnInit {
     }
     console.log(this.selectedIds)
   }
-  assignCEButtonClick(req) {
-    this.jobId = req;
-    this[this.assignCEView + req] = !this[this.assignCEView + req];
-    this.getCEList()
-  }
   getAdminJobList() {
-    this.__userservice.getAdminJobList(this.under_progress)
+    this.__userservice.getAdminJobList(this.complete)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;
       });
   }
   getCEJobList() {
-    this.__userservice.getCEJobList(this.under_progress)
+    this.__userservice.getCEJobList(this.complete)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;
       });
   }
-  getCEList() {
-    this.__userservice.getUserList(this.ce) // 4 for _ce refer to api doc
-      .subscribe(users => {
-        this.users = users['data'];
-        console.log(this.users, "users");
-      });
-  }
-  assignCE(res: NgForm) {
-    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
+  getReferenceData() {
+    this.__userservice.getReferenceData()
       .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
-        this[this.assignCEView + this.jobId] = !this[this.assignCEView + this.jobId];
-        this.getAdminJobList();
-      }, err => {
-        console.log("error", err);
-      })
-  }
-  approveCashback(jobID: number) {
-    this.__userservice.approveCashback([{ id: jobID }])
-      .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
-        this.getAdminJobList();
-      }, err => {
-        console.log("error", err);
+        console.log(res);
+        this.discardReasons = res['data'].reject_reasons
       })
   }
   public showBill(req) {

@@ -9,6 +9,7 @@ import { NewComponent } from './dashboard/data-panel/jobs/new/new.component';
 import { UnderProgressComponent } from './dashboard/data-panel/jobs/under-progress/under-progress.component';
 import { CompletedComponent } from './dashboard/data-panel/jobs/completed/completed.component';
 import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
+import { RejectedComponent } from './dashboard/data-panel/jobs/rejected/rejected.component';
 
 
 const appRoutes: Routes = [
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
         { path: 'new', component: NewComponent },
         { path: 'new/process/:id', component: ProcessComponent },
         { path: 'underProgress', component: UnderProgressComponent },
-        { path: 'completed', component: CompletedComponent }
+        { path: 'completed', component: CompletedComponent },
+        { path: 'rejected', component: RejectedComponent }
         ]
     },
     { path: '**', component: PageNotFoundComponent },

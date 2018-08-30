@@ -62,11 +62,13 @@ export class NewComponent implements OnInit {
   public assignCEButtonClick(req) {
     this.jobId = req;
     this[this.assignCEView + req] = !this[this.assignCEView + req];
+    this[this.discardView + req] = null
     this.getCEList()
   }
   public discardButtonClick(req) {
     this.jobId = req;
     this[this.discardView + req] = !this[this.discardView + req];
+    this[this.assignCEView + req] = null
   }
   public discardJob(res: NgForm) {
     console.log(res);
@@ -80,7 +82,7 @@ export class NewComponent implements OnInit {
       })
   }
   public assignCE(res: NgForm) {
-    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
+    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id), 'comments': res.value.comments }])
       .subscribe(res => {
         console.log("res", res);
         this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');

@@ -30,6 +30,11 @@ export class LeftPanelComponent implements OnInit {
     'name': 'Completed Jobs',
     'icon': 'mdi-checkbox-marked-circle',
     'link': 'completed'
+  },
+  {
+    'name': 'Rejected Jobs',
+    'icon': 'mdi-checkbox-marked-circle',
+    'link': 'rejected'
   }];
   ce_menu = [{
     'name': 'Dashboard',
