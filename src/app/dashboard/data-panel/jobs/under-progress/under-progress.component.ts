@@ -30,6 +30,8 @@ export class UnderProgressComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   selectedIds: any = [];
   isSelected: boolean = false;
+  loaderUrl: string = '../../../assets/images/loader.gif';
+  showLoader: string = 'showLoader';
   constructor(private __router: Router, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService, private __userservice: UserService) {
     const info = JSON.parse(localStorage.getItem('currentUser'));
     if (info != null) {
@@ -128,13 +130,16 @@ export class UnderProgressComponent implements OnInit {
       })
   }
   approveCashback(jobID: number) {
+    this[this.showLoader + jobID] = !this[this.showLoader + jobID];
     this.__userservice.approveCashback([{ id: jobID }])
       .subscribe(res => {
         console.log("res", res);
         this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
         this.getAdminJobList();
+        this[this.showLoader + jobID] = !this[this.showLoader + jobID];
       }, err => {
         console.log("error", err);
+        this[this.showLoader + jobID] = !this[this.showLoader + jobID];
       })
   }
   public showBill(req) {
@@ -156,5 +161,20 @@ export class UnderProgressComponent implements OnInit {
     }
     this.imageArrayLength = count;
     this.showBillPopup = true;
+  }
+  public multiApprove() {
+    console.log(this.selectedIds)
+    let approveJobsArray = []
+    this.selectedIds.map(id => {
+      return approveJobsArray.push({ 'id': id })
+    })
+    this.__userservice.approveCashback(approveJobsArray)
+      .subscribe(res => {
+        console.log("res", res);
+        this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
+        this.getAdminJobList();
+      }, err => {
+        console.log("error", err);
+      })
   }
 }

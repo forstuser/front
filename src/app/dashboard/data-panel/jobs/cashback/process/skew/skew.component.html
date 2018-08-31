@@ -16,7 +16,7 @@
         </thead>
         <tbody *ngFor="let sku of skuData;let i=index">
           <tr class="d-flex">
-            <td class="col-1"> {{i+1}}</td>
+            <td class="col-1"> <code> {{i+1}}</code></td>
             <td class="col-3" scope="row">
               <span class="xtra-small">{{sku?.name}}</span>
             </td>

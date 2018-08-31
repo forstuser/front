@@ -27,6 +27,11 @@ export class UserService {
     console.log(data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/assign', data)
   }
+  assignCashBackJobAdmin(req) {
+    const data = req;
+    console.log(data);
+    return this.__http.put(this._apiLink + 'api/cashback/jobs/reassign', data)
+  }
   discardJOB(req) {
     const data = req;
     console.log(data);
@@ -43,7 +48,7 @@ export class UserService {
     console.log(data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
   }
-  updateCeller(req: any) {
+  updateSeller(req: any) {
     const data = req;
     console.log(req);
     return this.__http.put(this._apiLink + 'api/cashback', data)

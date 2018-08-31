@@ -33,7 +33,7 @@ export class LeftPanelComponent implements OnInit {
   },
   {
     'name': 'Rejected Jobs',
-    'icon': 'mdi-checkbox-marked-circle',
+    'icon': 'mdi-window-close',
     'link': 'rejected'
   }];
   ce_menu = [{

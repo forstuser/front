@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rejected.component.css']
 })
 export class RejectedComponent implements OnInit {
-  complete: number = appConfig.JOB_STATUS.COMPLETE;
+  discard: number = appConfig.JOB_STATUS.DISCARD;
   ce: number = appConfig.USERS.CE;
   bills: any;
   assignCEView: string = 'assignCEView';
@@ -96,14 +96,14 @@ export class RejectedComponent implements OnInit {
     console.log(this.selectedIds)
   }
   getAdminJobList() {
-    this.__userservice.getAdminJobList(this.complete)
+    this.__userservice.getAdminJobList(this.discard)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;
       });
   }
   getCEJobList() {
-    this.__userservice.getCEJobList(this.complete)
+    this.__userservice.getCEJobList(this.discard)
       .subscribe(bill => {
         console.log(bill)
         this.bills = bill;

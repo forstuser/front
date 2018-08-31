@@ -5,7 +5,7 @@
         <h4 class="card-title">Under Progress Jobs</h4>
         <div class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
-            <button class="btn btn-block btn-xs btn-success float-right" type="button">Multi Approve</button>
+            <button class="btn btn-block btn-xs btn-success float-right" type="button" (click)="multiApprove()">Multi Approve</button>
           </div>
           <div class="col-md-2">
             <button class="btn btn-block btn-xs btn-info float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
@@ -93,8 +93,8 @@
                 </td>
                 <td>
                   <button (clickOutside)="close($event)" (mouseover)="showBill(bill)" (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button *ngIf="bill?.ce_status==5" (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
-
+                  <button *ngIf="bill?.ce_status==5 && !this['showLoader'+bill?.id]" (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
+                  <span *ngIf="this[ 'showLoader'+bill?.id]"><img src="{{loaderUrl}}" alt="loader">Please Wait</span>
                 </td>
                 <td>
                   <div class="form-check form-check-flat">
