@@ -74,7 +74,7 @@
                           <label for="">Select CE</label>
                           <div class="col-sm-12" style="margin-bottom: 10px">
                             <select class="form-control form-control-sm" name="ce_id" ngModel>
-                              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+                              <option *ngFor="let ce of users" [value]="ce.id">{{ce.full_name}}</option>
                             </select>
                           </div>
                           <br/>
@@ -92,7 +92,7 @@
                   </div>
                 </td>
                 <td>
-                  <button (clickOutside)="close($event)" (mouseover)="showBill(bill)" (click)="openModal('billViewModel')" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
+                  <button (mouseover)="showBill(bill)" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
                   <button *ngIf="bill?.ce_status==5 && !this['showLoader'+bill?.id]" (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
                   <span *ngIf="this[ 'showLoader'+bill?.id]"><img src="{{loaderUrl}}" alt="loader">Please Wait</span>
                 </td>
@@ -111,10 +111,6 @@
       </div>
     </div>
   </div>
-  <jw-modal id="billViewModel">
-    <h1 style="height:200px;top:20px;">Bill Khulega Yahan</h1>
-    <button (click)="closeModal('billViewModel');">Close</button>
-  </jw-modal>
   <jw-modal id="multipleAssignView">
     <button class="btn btn-icons btn-rounded btn-secondary cross" (click)="closeModal('multipleAssignView');">X</button>
     <form #multiAssignCEForm="ngForm" (ngSubmit)="multiAssignCE(multiAssignCEForm)">
@@ -123,7 +119,7 @@
           <div class="col-sm-12" style="margin-bottom: 10px">
             <label for="">Selct CE for Assign</label>
             <select class="form-control form-control-sm" name="ce_id" ngModel>
-              <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
+              <option *ngFor="let ce of users" [value]="ce.id">{{ce.full_name}}</option>
             </select>
           </div>
           <br/>
@@ -139,9 +135,27 @@
       </div>
     </form>
   </jw-modal>
-  <div *ngIf="showBillPopup" class="card hoverModel">
+  <div *ngIf="showBillPopup" class="card hoverModel" (clickOutside)="close($event)">
     <div class="card-body" style="padding: 1rem;top: 0">
-      <!-- <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span> -->
+      <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span>
+      <div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button *ngIf="imageArrayLength>-1" type="button" class="btn btn-block  btn-success" (click)="prevImage()">
+            <i class="mdi mdi-arrow-left-bold">Prev</i>
+          </button>
+          <a href="{{images[imageIndex]}}" target="_blank" download style="text-decoration: none;">
+            <button type="button" class="btn btn-success">
+              <i class="mdi mdi-download"> Download</i>
+            </button>
+          </a>
+          <button type="button" class="btn btn-success" (click)="rotate()">
+            <i class="mdi mdi-rotate-right">Rotate</i>
+          </button>
+          <button *ngIf="imageArrayLength>-1" type="button" class="btn btn-success" (click)="nextImage()">
+            <i class="mdi mdi-arrow-right-bold"> Next</i>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-8">
           <div align="center" class="billImage">

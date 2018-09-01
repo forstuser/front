@@ -18,3 +18,12 @@
 .fontSmall{
     font-size: 11px !important;
 }
+.imageNumber{
+    position: absolute;
+    right: 20px;
+    top:20px;
+    z-index: 999;
+    background-color:white;
+    padding-left: 3px;
+    padding-right: 3px;
+}

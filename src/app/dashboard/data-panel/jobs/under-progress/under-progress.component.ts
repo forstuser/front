@@ -32,6 +32,7 @@ export class UnderProgressComponent implements OnInit {
   isSelected: boolean = false;
   loaderUrl: string = '../../../assets/images/loader.gif';
   showLoader: string = 'showLoader';
+  imagerotation: number = 0;
   constructor(private __router: Router, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService, private __userservice: UserService) {
     const info = JSON.parse(localStorage.getItem('currentUser'));
     if (info != null) {
@@ -59,6 +60,19 @@ export class UnderProgressComponent implements OnInit {
     if ($event == null) {
       this.showBillPopup = false;
     }
+  }
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+  }
+  nextImage() {
+    if (this.imageIndex < this.imageArrayLength - 1) {
+      this.imageIndex = this.imageIndex + 1;
+    }
+  }
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
   public singleCheck(req: number) {
     if (this.selectedIds.includes(req)) {
@@ -119,11 +133,27 @@ export class UnderProgressComponent implements OnInit {
       });
   }
   assignCE(res: NgForm) {
-    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id) }])
+    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id), 'comments': res.value.comments }])
       .subscribe(res => {
         console.log("res", res);
         this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
         this[this.assignCEView + this.jobId] = !this[this.assignCEView + this.jobId];
+        this.getAdminJobList();
+      }, err => {
+        console.log("error", err);
+      })
+  }
+  multiAssignCE(res: NgForm) {
+    console.log(res.value);
+    console.log(this.selectedIds)
+    let assignJobsArray = []
+    this.selectedIds.map(id => {
+      return assignJobsArray.push({ 'id': id, 'ce_id': Number(res.value.ce_id), 'comments': res.value.comments })
+    })
+    this.__userservice.assignCashBackJobCE(assignJobsArray)
+      .subscribe(res => {
+        console.log("res", res);
+        this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
         this.getAdminJobList();
       }, err => {
         console.log("error", err);
@@ -164,17 +194,21 @@ export class UnderProgressComponent implements OnInit {
   }
   public multiApprove() {
     console.log(this.selectedIds)
-    let approveJobsArray = []
-    this.selectedIds.map(id => {
-      return approveJobsArray.push({ 'id': id })
-    })
-    this.__userservice.approveCashback(approveJobsArray)
-      .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
-        this.getAdminJobList();
-      }, err => {
-        console.log("error", err);
+    if (this.selectedIds.length == 0) {
+      this.__ngxNotificationService.sendMessage('Please select at least one job', 'dark', 'bottom-right');
+    } else {
+      let approveJobsArray = []
+      this.selectedIds.map(id => {
+        return approveJobsArray.push({ 'id': id })
       })
+      this.__userservice.approveCashback(approveJobsArray)
+        .subscribe(res => {
+          console.log("res", res);
+          this.__ngxNotificationService.sendMessage('Approve Successfull', 'dark', 'bottom-right');
+          this.getAdminJobList();
+        }, err => {
+          console.log("error", err);
+        })
+    }
   }
 }

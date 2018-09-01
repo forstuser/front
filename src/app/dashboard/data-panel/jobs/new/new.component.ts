@@ -33,6 +33,7 @@ export class NewComponent implements OnInit {
   imageIndex: number = 0;
   documentDate: string;
   amount: string;
+  imagerotation: number = 0;
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -191,5 +192,18 @@ export class NewComponent implements OnInit {
     if ($event == null) {
       this.showBillPopup = false;
     }
+  }
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+  }
+  nextImage() {
+    if (this.imageIndex < this.imageArrayLength - 1) {
+      this.imageIndex = this.imageIndex + 1;
+    }
+  }
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
 }

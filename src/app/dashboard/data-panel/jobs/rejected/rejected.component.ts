@@ -33,6 +33,7 @@ export class RejectedComponent implements OnInit {
   amount: string;
   showBillPopup: boolean = false;
   imageUrl: string = appConfig.apiUrl;
+  imagerotation: number = 0;
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -50,6 +51,19 @@ export class RejectedComponent implements OnInit {
     } else if (this.userType == appConfig.USERS.CE) {
       this.getCEJobList();
     }
+  }
+  prevImage() {
+    if (this.imageIndex > 0) {
+      this.imageIndex = this.imageIndex - 1;
+    }
+  }
+  nextImage() {
+    if (this.imageIndex < this.imageArrayLength - 1) {
+      this.imageIndex = this.imageIndex + 1;
+    }
+  }
+  rotate() {
+    this.imagerotation = this.imagerotation + 90;
   }
   close($event) {
     if ($event == null) {

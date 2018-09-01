@@ -19,8 +19,8 @@
 }
 .imageNumber{
     position: absolute;
-    right: 30px;
-    top:55px;
+    right: 20px;
+    top:20px;
     z-index: 999;
     background-color:white;
     padding-left: 3px;
