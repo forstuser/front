@@ -135,8 +135,12 @@ export class SellerVerifyComponent implements OnInit {
     this.__userService.updateSeller(res.value)
       .subscribe(res => {
         console.log("success", res);
-        this.__ngxNotificationService.sendMessage('Seller Updated', 'dark', 'bottom-right');
-        this.showSellerForm = false;
+        this.__ngxNotificationService.sendMessage('Seller Updated Successfully', 'dark', 'bottom-right');
+        if (this.jobDetails) {
+          this.showSellerForm = false;
+        } else {
+          this.__router.navigateByUrl('dashboard/newSeller')
+        }
       }, err => {
         console.log("error", err);
         this.showSellerForm = false;
@@ -165,6 +169,7 @@ export class SellerVerifyComponent implements OnInit {
     })
     this.cities = selectedState[0].cities;
     console.log("selected state si", selectedState);
+    this.getCities(stateID);
   }
   public getCities(stateID: number) {
     this.__userService.getCities(stateID)

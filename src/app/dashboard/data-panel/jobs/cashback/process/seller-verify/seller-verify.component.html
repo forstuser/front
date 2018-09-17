@@ -133,7 +133,7 @@
           <label>State</label>
         </div>
         <div class="col-sm-8">
-          <select class="form-control" name="state_id" [ngModel]="sellerData?.state_id">
+          <select class="form-control" name="state_id" [ngModel]="sellerData?.state_id" (click)="selectState($event.target.value)">
             <option value="">Select State</option>
             <option *ngFor="let state of states" [value]="state?.id">{{state?.state_name}}</option>
           </select>
