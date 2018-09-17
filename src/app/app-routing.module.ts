@@ -10,7 +10,7 @@ import { UnderProgressComponent } from './dashboard/data-panel/jobs/under-progre
 import { CompletedComponent } from './dashboard/data-panel/jobs/completed/completed.component';
 import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
 import { RejectedComponent } from './dashboard/data-panel/jobs/rejected/rejected.component';
-
+import { NewSellerComponent } from './dashboard/data-panel/seller/new-seller/new-seller.component';
 
 const appRoutes: Routes = [
     { path: '', component: SignInComponent, pathMatch: 'full' },
@@ -22,7 +22,9 @@ const appRoutes: Routes = [
         { path: 'new/process/:id', component: ProcessComponent },
         { path: 'underProgress', component: UnderProgressComponent },
         { path: 'completed', component: CompletedComponent },
-        { path: 'rejected', component: RejectedComponent }
+        { path: 'rejected', component: RejectedComponent },
+        { path: 'newSeller', component: NewSellerComponent },
+        { path: 'newSeller/process/:sellerId', component: ProcessComponent }
         ]
     },
     { path: '**', component: PageNotFoundComponent },

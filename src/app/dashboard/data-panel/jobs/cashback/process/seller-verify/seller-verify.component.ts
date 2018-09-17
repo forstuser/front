@@ -16,6 +16,7 @@ export class SellerVerifyComponent implements OnInit {
   allSellers: any[] = [];
   sellers: any[] = [];
   @Input() jobDetails: any;
+  @Input() sellerDetails: any;
   blank: string = 'NA';
   cashbackId: number;
   documentDate: string;
@@ -24,6 +25,7 @@ export class SellerVerifyComponent implements OnInit {
   sellerData: any;
   states: any[] = [];
   cities: any[] = [];
+  selectedState: number;
   showSellerForm: boolean = false;
   gstin: string;
   ceID: number;
@@ -36,14 +38,22 @@ export class SellerVerifyComponent implements OnInit {
     this.getReferenceData();
   }
   ngOnChanges(changes) {
-    console.log("from parent", this.jobDetails)
     if (this.jobDetails) {
+      console.log("from parent", this.jobDetails)
       this.cashbackId = this.jobDetails.id;
       this.ceID = this.jobDetails.ce_id;
       this.adminID = this.jobDetails.admin_id;
       this.documentDate = this.jobDetails.products[0].document_date;
       this.getUserSellers();
       this.getCities(11);
+    } else if (this.sellerDetails) {
+      console.log(this.sellerDetails);
+      this.showSellerForm = true;
+      this.sellerData = this.sellerDetails;
+      this.selectedState = this.sellerData.state_id;
+      if (this.selectedState) {
+        this.getCities(this.selectedState)
+      }
     }
 
   }
@@ -57,10 +67,9 @@ export class SellerVerifyComponent implements OnInit {
   getReferenceData() {
     this.__userService.getReferenceData()
       .subscribe(res => {
-        // console.log("reference data", res)
+        console.log("reference data", res)
         this.sellerType = res['data'].seller_types;
         this.states = res['data'].states;
-        // console.log(this.states)
       })
   }
   getUserSellers() {
@@ -123,8 +132,17 @@ export class SellerVerifyComponent implements OnInit {
   }
   updateSeller(res: NgForm) {
     console.log(res.value);
-    this.messageEvent.emit(this.message)
-    this.showSellerForm = false;
+    this.__userService.updateSeller(res.value)
+      .subscribe(res => {
+        console.log("success", res);
+        this.__ngxNotificationService.sendMessage('Seller Updated', 'dark', 'bottom-right');
+        this.showSellerForm = false;
+      }, err => {
+        console.log("error", err);
+        this.showSellerForm = false;
+      })
+    // this.messageEvent.emit(this.message)
+    // this.showSellerForm = false;
   }
   backToVerifySeller() {
     this.showSellerForm = false;
@@ -151,7 +169,7 @@ export class SellerVerifyComponent implements OnInit {
   public getCities(stateID: number) {
     this.__userService.getCities(stateID)
       .subscribe(res => {
-        // console.log("cities", res);
+        console.log("cities", res);
         this.cities = res['data'].cities;
       }, err => {
         console.log(err);
@@ -164,7 +182,7 @@ export class SellerVerifyComponent implements OnInit {
         this.__ngxNotificationService.sendMessage('Assigned to Admin !!', 'dark', 'bottom-right');
       }, err => {
         console.log(err);
+        this.__ngxNotificationService.sendMessage('Error From Backend', 'dark', 'bottom-right');
       })
-
   }
 }

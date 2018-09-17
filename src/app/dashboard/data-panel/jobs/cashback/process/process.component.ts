@@ -11,7 +11,9 @@ declare var webGlObject: any;
 export class ProcessComponent implements OnInit {
   imageUrl: string = appConfig.apiUrl;
   cashbackId: number;
+  sellerId: number;
   jobDetails: any;
+  sellerDetails: any;
   rawImageArray: any[] = [];
   imageArray: any[] = [];
   images: any[] = [];
@@ -21,11 +23,16 @@ export class ProcessComponent implements OnInit {
   message: boolean;
   constructor(private __route: ActivatedRoute, private __userService: UserService) {
     this.cashbackId = this.__route.snapshot.params.id;
+    this.sellerId = this.__route.snapshot.params.sellerId;
   }
   ngOnInit() {
     webGlObject.init();
-    this.images[this.imageIndex] = 'assets/images/loader.gif'
-    this.getCashbackJobByID();
+    this.images[this.imageIndex] = 'assets/images/loader.gif';
+    if (this.cashbackId) {
+      this.getCashbackJobByID();
+    } else if (this.sellerId) {
+      this.getSellerDetailsByID();
+    }
   }
   rotate() {
     this.imagerotation = this.imagerotation + 90;
@@ -54,6 +61,7 @@ export class ProcessComponent implements OnInit {
         console.log("huge response", res)
         this.images = [];
         let count = 0;
+        this.imageArrayLength = count;
         this.jobDetails = res['data'];
         this.rawImageArray = res['data'].copies;
         if (this.rawImageArray.length == 0) {
@@ -66,6 +74,27 @@ export class ProcessComponent implements OnInit {
             count += 1;
           }
         }
+        this.imageArrayLength = count;
+      }, err => {
+        console.log("error", err);
+      })
+  }
+  getSellerDetailsByID() {
+    this.__userService.sellerDetailsByID(this.sellerId)
+      .subscribe(res => {
+        // console.log("huge response", res)
+        this.images = [];
+        let count = 0;
+        this.sellerDetails = res['data'];
+        this.rawImageArray = this.sellerDetails.seller_details.business_details.documents;
+        if (this.rawImageArray.length == 0) {
+          alert("There is no image in this bill please contact Admin")
+        }
+        this.rawImageArray.forEach((i, index) => {
+          let imageIndex = i.index || index;
+          this.images.push(this.imageUrl + 'api/sellers/' + this.sellerId + '/upload/2/images/' + imageIndex);
+          count += 1;
+        })
         this.imageArrayLength = count;
       }, err => {
         console.log("error", err);

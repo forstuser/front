@@ -26,15 +26,20 @@
         <span class="imageNumber">Image {{imageIndex+1}} of {{imageArrayLength}}</span>
         <div class="weather-date-location">
           <div align="center" class="billImage">
-            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:700px;"
-            />
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'"
+              style="max-width:700px;" />
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-lg-5 grid-margin stretch-card">
-    <app-seller-verify (messageEvent)="receiveMessage($event)" [jobDetails]="jobDetails" *ngIf="!jobDetails?.products[0].document_number && !message"></app-seller-verify>
-    <app-skew *ngIf="jobDetails?.products[0].document_number || message " [jobDetails]="jobDetails "></app-skew>
+    <div *ngIf="cashbackId">
+      <app-seller-verify (messageEvent)="receiveMessage($event)" [jobDetails]="jobDetails" *ngIf="!jobDetails?.products[0].document_number && !message"></app-seller-verify>
+      <app-skew *ngIf="jobDetails?.products[0].document_number || message " [jobDetails]="jobDetails "></app-skew>
+    </div>
+    <div *ngIf="sellerId">
+      <app-seller-verify (messageEvent)="receiveMessage($event)" [sellerDetails]="sellerDetails"></app-seller-verify>
+    </div>
   </div>
 </div>

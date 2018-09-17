@@ -35,6 +35,10 @@ export class LeftPanelComponent implements OnInit {
     'name': 'Rejected Jobs',
     'icon': 'mdi-window-close',
     'link': 'rejected'
+  }, {
+    'name': 'New Seller',
+    'icon': 'mdi-store',
+    'link': 'newSeller'
   }];
   ce_menu = [{
     'name': 'Dashboard',

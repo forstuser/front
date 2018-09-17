@@ -6,18 +6,20 @@ import { NgForm } from '@angular/forms';
 import { NgxNotificationService } from 'ngx-notification';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-new',
-  templateUrl: './new.component.html',
-  styleUrls: ['./new.component.css']
+  selector: 'app-new-seller',
+  templateUrl: './new-seller.component.html',
+  styleUrls: ['./new-seller.component.css']
 })
-export class NewComponent implements OnInit {
+export class NewSellerComponent implements OnInit {
   new: number = appConfig.JOB_STATUS.NEW;
   ce: number = appConfig.USERS.CE;
   imageUrl: string = appConfig.apiUrl;
-  bills: any;
+  sellers: any;
   assignCEView: string = 'assignCEView';
   discardView: string = 'discardView';
+  sellerId: number;
   users: any;
   jobId: number;
   jobArray: any = [];
@@ -25,13 +27,13 @@ export class NewComponent implements OnInit {
   isSelected: boolean = false;
   userType: any;
   discardReasons: any[] = [];
-  showBillPopup: boolean = false;
+  showSellerPopup: boolean = false;
   rawImageArray: any[] = [];
   imageArray: any[] = [];
   images: any[] = [];
   imageArrayLength: number;
   imageIndex: number = 0;
-  documentDate: string;
+  documentType: string;
   amount: string;
   imagerotation: number = 0;
   constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
@@ -101,7 +103,7 @@ export class NewComponent implements OnInit {
     } else {
       this.selectedIds.push(req);
     }
-    if (this.selectedIds.length == this.bills.data.length) {
+    if (this.selectedIds.length == this.sellers.data.length) {
       this.isSelected = true;
     }
     if (this.selectedIds.length == 0) {
@@ -127,9 +129,9 @@ export class NewComponent implements OnInit {
   }
   public checkAll() {
     this.isSelected = !this.isSelected;
-    if (this.selectedIds.length != this.bills.data.length) {
+    if (this.selectedIds.length != this.sellers.data.length) {
       this.selectedIds = [];
-      for (let bill of this.bills.data) {
+      for (let bill of this.sellers.data) {
         this.selectedIds.push(bill.id);
       }
       this.isSelected = true;
@@ -140,17 +142,17 @@ export class NewComponent implements OnInit {
     console.log(this.selectedIds)
   }
   public getAdminJobList() {
-    this.__userservice.getAdminJobList(this.new)
-      .subscribe(bill => {
-        console.log(bill)
-        this.bills = bill;
+    this.__userservice.sellerList('is_onboarded=true')
+      .subscribe(seller => {
+        console.log(seller)
+        this.sellers = seller;
       });
   }
   public getCEJobList() {
     this.__userservice.getCEJobList(this.new)
-      .subscribe(bill => {
-        console.log(bill)
-        this.bills = bill;
+      .subscribe(seller => {
+        console.log(seller)
+        this.sellers = seller;
       });
   }
   public getCEList() {
@@ -167,31 +169,31 @@ export class NewComponent implements OnInit {
         this.discardReasons = res['data'].reject_reasons
       })
   }
-  public showBill(req) {
+  public showSeller(req) {
     console.log(req);
-    this.showBillPopup = false;
-    this.documentDate = req.products.document_date;
-    this.amount = req.products.purchase_cost;
+    this.showSellerPopup = false;
+    this.sellerId = req.id;
+    // this.documentType = req.products.document_date;
+    // this.amount = req.products.purchase_cost;
     this.images = [];
     let count = 0;
     this.imageArrayLength = count;
-    this.rawImageArray = req.copies;
+    this.rawImageArray = req.seller_details.business_details.documents;
     if (this.rawImageArray.length == 0) {
       alert("There is no image in this bill please contact Admin")
     }
-    for (let i of this.rawImageArray) {
-      if (i.status_type != 9) {
-        this.imageArray.push(i);
-        this.images.push(this.imageUrl + 'api' + i.copyUrl)
-        count += 1;
-      }
-    }
+    this.rawImageArray.forEach((i, index) => {
+      let imageIndex = i.index || index;
+      this.images.push(this.imageUrl + 'api/sellers/' + this.sellerId + '/upload/2/images/' + imageIndex);
+      count += 1;
+    })
+    console.log(this.images)
     this.imageArrayLength = count;
-    this.showBillPopup = true;
+    this.showSellerPopup = true;
   }
   close($event) {
     if ($event == null) {
-      this.showBillPopup = false;
+      this.showSellerPopup = false;
     }
   }
   prevImage() {
