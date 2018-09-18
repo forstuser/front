@@ -137,6 +137,7 @@ export class SellerVerifyComponent implements OnInit {
         console.log("success", res);
         this.__ngxNotificationService.sendMessage('Seller Updated Successfully', 'dark', 'bottom-right');
         if (this.jobDetails) {
+          this.messageEvent.emit(this.message)
           this.showSellerForm = false;
         } else {
           this.__router.navigateByUrl('dashboard/newSeller')
