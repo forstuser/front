@@ -4,7 +4,7 @@ import { appConfig } from '../../../../app.config';
 import { ModalService } from '../../../../_services/modal.service';
 import { NgForm } from '@angular/forms';
 import { NgxNotificationService } from 'ngx-notification';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -17,14 +17,10 @@ export class NewSellerComponent implements OnInit {
   ce: number = appConfig.USERS.CE;
   imageUrl: string = appConfig.apiUrl;
   sellers: any;
-  assignCEView: string = 'assignCEView';
   discardView: string = 'discardView';
   sellerId: number;
   users: any;
   jobId: number;
-  jobArray: any = [];
-  selectedIds: any = [];
-  isSelected: boolean = false;
   userType: any;
   discardReasons: any[] = [];
   showSellerPopup: boolean = false;
@@ -33,10 +29,8 @@ export class NewSellerComponent implements OnInit {
   images: any[] = [];
   imageArrayLength: number;
   imageIndex: number = 0;
-  documentType: string;
-  amount: string;
   imagerotation: number = 0;
-  constructor(private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
+  constructor(private __route: ActivatedRoute, private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
       this.userType = info.role_type
@@ -48,10 +42,8 @@ export class NewSellerComponent implements OnInit {
 
   ngOnInit() {
     if (this.userType == appConfig.USERS.ADMIN || this.userType == appConfig.USERS.SUPERADMIN) {
-      this.getAdminJobList();
+      this.getSellerList();
       this.getReferenceData();
-    } else if (this.userType == appConfig.USERS.CE) {
-      this.getCEJobList();
     }
   }
   openModal(id: string) {
@@ -61,107 +53,25 @@ export class NewSellerComponent implements OnInit {
   closeModal(id: string) {
     this.__modalservice.close(id);
   }
-
-  public assignCEButtonClick(req) {
-    this.jobId = req;
-    this[this.assignCEView + req] = !this[this.assignCEView + req];
-    this[this.discardView + req] = null
-    this.getCEList()
-  }
   public discardButtonClick(req) {
     this.jobId = req;
     this[this.discardView + req] = !this[this.discardView + req];
-    this[this.assignCEView + req] = null
   }
-  public discardJob(res: NgForm) {
-    console.log(res);
-    this.__userservice.discardJOB([{ 'id': this.jobId, 'reason_id': Number(res.value.reason_id) }])
-      .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Discard Successfull', 'dark', 'bottom-right');
-        this.getAdminJobList();
-      }, err => {
-        console.log("error", err);
-      })
-  }
-  public assignCE(res: NgForm) {
-    this.__userservice.assignCashBackJobCE([{ 'id': this.jobId, 'ce_id': Number(res.value.ce_id), 'comments': res.value.comments }])
-      .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
-        this.getAdminJobList();
-      }, err => {
-        console.log("error", err);
-      })
-  }
-  public singleCheck(req: number) {
-    if (this.selectedIds.includes(req)) {
-      let _index = this.selectedIds.indexOf(req);
-      if (_index > -1) {
-        this.selectedIds.splice(_index, 1);
-      }
-    } else {
-      this.selectedIds.push(req);
+
+  public getSellerList() {
+    let sellerListCall = '';
+    if (this.__route.snapshot.routeConfig.path == 'onHoldSeller') {
+      sellerListCall = 'seller_type_id=5&is_onboarded=true';
+    } else if (this.__route.snapshot.routeConfig.path == 'newSeller') {
+      sellerListCall = 'seller_type_id=2&is_onboarded=true';
     }
-    if (this.selectedIds.length == this.sellers.data.length) {
-      this.isSelected = true;
-    }
-    if (this.selectedIds.length == 0) {
-      this.isSelected = false;
-    }
-    console.log(this.selectedIds)
-  }
-  public multiAssignCE(res: NgForm) {
-    console.log(res.value);
-    this.selectedIds.map((item) => {
-      this.jobArray.push({ 'id': item, 'ce_id': Number(res.value.ce_id) })
-    })
-    console.log(this.jobArray);
-    this.__userservice.assignCashBackJobCE(this.jobArray)
-      .subscribe(res => {
-        console.log("res", res);
-        this.__ngxNotificationService.sendMessage('Assign Successfull', 'dark', 'bottom-right');
-        this.getAdminJobList();
-        this.closeModal('multipleAssignView');
-      }, err => {
-        console.log("error", err);
-      })
-  }
-  public checkAll() {
-    this.isSelected = !this.isSelected;
-    if (this.selectedIds.length != this.sellers.data.length) {
-      this.selectedIds = [];
-      for (let bill of this.sellers.data) {
-        this.selectedIds.push(bill.id);
-      }
-      this.isSelected = true;
-    } else {
-      this.selectedIds = [];
-      this.isSelected = false;
-    }
-    console.log(this.selectedIds)
-  }
-  public getAdminJobList() {
-    this.__userservice.sellerList('is_onboarded=true')
+    this.__userservice.sellerList(sellerListCall)
       .subscribe(seller => {
         console.log(seller)
         this.sellers = seller;
       });
   }
-  public getCEJobList() {
-    this.__userservice.getCEJobList(this.new)
-      .subscribe(seller => {
-        console.log(seller)
-        this.sellers = seller;
-      });
-  }
-  public getCEList() {
-    this.__userservice.getUserList(this.ce) // 4 for _ce refer to api doc
-      .subscribe(users => {
-        this.users = users['data'];
-        console.log(this.users, "users");
-      });
-  }
+
   public getReferenceData() {
     this.__userservice.getReferenceData()
       .subscribe(res => {
@@ -173,8 +83,6 @@ export class NewSellerComponent implements OnInit {
     console.log(req);
     this.showSellerPopup = false;
     this.sellerId = req.id;
-    // this.documentType = req.products.document_date;
-    // this.amount = req.products.purchase_cost;
     this.images = [];
     let count = 0;
     this.imageArrayLength = count;

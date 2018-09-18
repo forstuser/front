@@ -11,6 +11,7 @@ import { CompletedComponent } from './dashboard/data-panel/jobs/completed/comple
 import { ProcessComponent } from './dashboard/data-panel/jobs/cashback/process/process.component';
 import { RejectedComponent } from './dashboard/data-panel/jobs/rejected/rejected.component';
 import { NewSellerComponent } from './dashboard/data-panel/seller/new-seller/new-seller.component';
+import { VerifiedSellerComponent } from './dashboard/data-panel/seller/verified-seller/verified-seller.component';
 
 const appRoutes: Routes = [
     { path: '', component: SignInComponent, pathMatch: 'full' },
@@ -24,7 +25,10 @@ const appRoutes: Routes = [
         { path: 'completed', component: CompletedComponent },
         { path: 'rejected', component: RejectedComponent },
         { path: 'newSeller', component: NewSellerComponent },
-        { path: 'newSeller/process/:sellerId', component: ProcessComponent }
+        { path: 'newSeller/process/:sellerId', component: ProcessComponent },
+        { path: 'verifiedSeller', component: VerifiedSellerComponent },
+        { path: 'onHoldSeller', component: NewSellerComponent },
+        { path: 'onHoldSeller/process/:sellerId', component: ProcessComponent },
         ]
     },
     { path: '**', component: PageNotFoundComponent },

@@ -7,10 +7,10 @@
             <th class="col-1">#</th>
             <th class="col-3" scope="row">Title</th>
             <th class="col-2">Measure</th>
-            <th class="col-2">Quantity</th>
-            <th class="col-2">Tentative<br/> Price
+            <th class="col-1">QTY</th>
+            <th class="col-2">Tentative<br /> Price
             </th>
-            <th class="col-2">Selling<br/>Price
+            <th class="col-3">Selling<br />Price
             </th>
           </tr>
         </thead>
@@ -23,9 +23,9 @@
             <td class="col-2">{{sku?.measurement_value}} {{sku?.measurement_type}}
               <span *ngIf="sku?.pack_numbers > 1">X {{sku?.pack_numbers}}</span>
             </td>
-            <td class="col-2">{{sku?.quantity}}</td>
+            <td class="col-1">{{sku?.quantity}}</td>
             <td class="col-2">{{sku?.mrp * sku?.quantity}}</td>
-            <td class="col-2">
+            <td class="col-3">
               <input type="number" class="form-control" name="{{sku?.id}}" ngModel="0">
             </td>
           </tr>

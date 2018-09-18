@@ -10,16 +10,6 @@
               <button type="button" class="btn btn-sm btn-outline-secondary">Next</button>
             </div>
           </div>
-          <br><br>
-          <div class="col-md-2 offset-8 ">
-            <!-- <button class="btn btn-block btn-xs btn-danger float-right" type="submit">Multi Reject</button> -->
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-success float-right" (click)="getCEList();openModal('multipleAssignView')"
-              [disabled]="_disabled">Multi
-              Assign
-            </button>
-          </div>
         </div>
 
         <div class="table-responsive">
@@ -33,15 +23,6 @@
                 <th>Phone No</th>
                 <th>Email</th>
                 <th>Action</th>
-                <th *ngIf="userType != ce">
-                  <div class="form-check form-check-flat">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" (change)="checkAll()" [checked]="isSelected">Select
-                      All
-                      <i class="input-helper"></i>
-                    </label>
-                  </div>
-                </th>
               </tr>
             </thead>
             <tbody *ngFor="let seller of sellers?.data; let i = index">
@@ -62,7 +43,6 @@
                 <td class="comment">{{ seller?.email}}</td>
                 <td>
                   <button type="button" class="btn btn-xs btn-outline-primary" (mouseover)="showSeller(seller)">View</button>&nbsp;&nbsp;
-                  <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-danger" (click)="discardButtonClick(seller?.id)">Reject</button>&nbsp;&nbsp;
                   <button *ngIf="userType != ce" type="button" class="btn btn-xs btn-outline-success" routerLink="process/{{ seller?.id }}">Verify</button>
                   <div *ngIf="this['assignCEView'+seller?.id]" class="card assign">
                     <form #assignCEForm="ngForm" (ngSubmit)="assignCE(assignCEForm)">
@@ -105,14 +85,6 @@
                         </div>
                       </div>
                     </form>
-                  </div>
-                </td>
-                <td *ngIf="userType != ce">
-                  <div class="form-check form-check-flat">
-                    <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" [checked]="isSelected" (click)="singleCheck(seller?.id)">Select
-                      <i class="input-helper"></i>
-                    </label>
                   </div>
                 </td>
               </tr>

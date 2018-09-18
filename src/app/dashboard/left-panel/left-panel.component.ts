@@ -39,6 +39,16 @@ export class LeftPanelComponent implements OnInit {
     'name': 'New Seller',
     'icon': 'mdi-store',
     'link': 'newSeller'
+  },
+  {
+    'name': 'Verified Seller',
+    'icon': 'mdi-verified',
+    'link': 'verifiedSeller'
+  },
+  {
+    'name': 'On Hold Seller',
+    'icon': 'mdi-clock',
+    'link': 'onHoldSeller'
   }];
   ce_menu = [{
     'name': 'Dashboard',

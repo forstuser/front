@@ -19,6 +19,7 @@ export class SellerVerifyComponent implements OnInit {
   @Input() sellerDetails: any;
   blank: string = 'NA';
   cashbackId: number;
+  sellerId: number;
   documentDate: string;
   message: boolean = true;
   sellerType: any[] = [];
@@ -50,6 +51,8 @@ export class SellerVerifyComponent implements OnInit {
       console.log(this.sellerDetails);
       this.showSellerForm = true;
       this.sellerData = this.sellerDetails;
+      this.sellerId = this.sellerDetails.id;
+      console.log("seller data", this.sellerData)
       this.selectedState = this.sellerData.state_id;
       if (this.selectedState) {
         this.getCities(this.selectedState)
@@ -132,7 +135,7 @@ export class SellerVerifyComponent implements OnInit {
   }
   updateSeller(res: NgForm) {
     console.log(res.value);
-    this.__userService.updateSeller(res.value)
+    this.__userService.updateSeller(res.value, this.sellerId)
       .subscribe(res => {
         console.log("success", res);
         this.__ngxNotificationService.sendMessage('Seller Updated Successfully', 'dark', 'bottom-right');
@@ -143,8 +146,15 @@ export class SellerVerifyComponent implements OnInit {
           this.__router.navigateByUrl('dashboard/newSeller')
         }
       }, err => {
-        console.log("error", err);
-        this.showSellerForm = false;
+        if (this.jobDetails) {
+          console.log("error", err);
+          this.__ngxNotificationService.sendMessage('Some Error Occured Seller not updated, Contact Admin', 'dark', 'bottom-right');
+          this.showSellerForm = false;
+          this.messageEvent.emit(this.message)
+        } else {
+          this.__ngxNotificationService.sendMessage('Some Error Occured, Contact Admin', 'dark', 'bottom-right');
+          this.__router.navigateByUrl('dashboard/newSeller')
+        }
       })
     // this.messageEvent.emit(this.message)
     // this.showSellerForm = false;

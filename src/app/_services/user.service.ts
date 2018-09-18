@@ -54,11 +54,8 @@ export class UserService {
     console.log(data);
     return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
   }
-  updateSeller(req: any) {
+  updateSeller(req: any, id: number) {
     let data = req;
-    const id = data.seller_id;
-    delete data['seller_id'];
-    console.log(req);
     return this.__http.put(this._apiLink + 'api/offlineSeller/' + id, data)
   }
   updateSKU(req, id) {

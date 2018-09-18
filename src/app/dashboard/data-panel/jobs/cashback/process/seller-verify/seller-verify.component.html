@@ -175,7 +175,7 @@
           <label> Seller Type</label>
         </div>
         <div class="col-sm-8">
-          <select class="form-control" name="seller_id" [ngModel]="sellerData?.seller_type_id">
+          <select class="form-control" name="seller_type_id" [ngModel]="sellerData?.seller_type_id">
             <option value="">Select Seller</option>
             <option *ngFor="let seller of sellerType" [value]="seller.id">{{seller?.title}}</option>
           </select>
