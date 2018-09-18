@@ -30,6 +30,7 @@ export class NewSellerComponent implements OnInit {
   imageArrayLength: number;
   imageIndex: number = 0;
   imagerotation: number = 0;
+  title: string = '';
   constructor(private __route: ActivatedRoute, private __router: Router, private __userservice: UserService, private __modalservice: ModalService, private __ngxNotificationService: NgxNotificationService) {
     const info = JSON.parse(localStorage.getItem('currentUser'))
     if (info != null) {
@@ -62,8 +63,10 @@ export class NewSellerComponent implements OnInit {
     let sellerListCall = '';
     if (this.__route.snapshot.routeConfig.path == 'onHoldSeller') {
       sellerListCall = 'seller_type_id=5&is_onboarded=true';
+      this.title = 'On Hold Seller';
     } else if (this.__route.snapshot.routeConfig.path == 'newSeller') {
       sellerListCall = 'seller_type_id=2&is_onboarded=true';
+      this.title = 'New Seller';
     }
     this.__userservice.sellerList(sellerListCall)
       .subscribe(seller => {
