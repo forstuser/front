@@ -1,43 +1,54 @@
-.assign{
+.assign {
 
-    background: lightgray;
-    margin-top: 8px;
+  background: lightgray;
+  margin-top: 8px;
 }
-.hoverModel{
-    position: fixed;
-     background: ghostwhite;
-     border: 1px solid black;
-     z-index: 99999999999; 
-     left: 5px;
-     top:5px;
-     width: 700px;
-     min-height: auto;
+
+.hoverModel {
+  position: fixed;
+  background: ghostwhite;
+  border: 1px solid black;
+  z-index: 99999999999;
+  left: 5px;
+  top: 5px;
+  width: 700px;
+  min-height: auto;
 }
-.billImage{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    overflow: hidden;
+
+.billImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
 }
-.cross{
-    position: absolute;
-    right: 380px;
-    top: 20px;
-}  
-.fontSmall{
-    font-size: 11px !important;
-} 
-.loader{
-    position: absolute;
-    top: 300px
+
+.cross {
+  position: absolute;
+  right: 380px;
+  top: 20px;
 }
-.imageNumber{
-    position: absolute;
-    right: 20px;
-    top:20px;
-    z-index: 999;
-    background-color:white;
-    padding-left: 3px;
-    padding-right: 3px;
+
+.fontSmall {
+  font-size: 11px !important;
+}
+
+.loader {
+  position: absolute;
+  top: 300px
+}
+
+.imageNumber {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 999;
+  background-color: white;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.online {
+  color: #ff732e;
+  font-size: 20px;
 }

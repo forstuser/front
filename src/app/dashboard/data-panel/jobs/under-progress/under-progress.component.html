@@ -5,10 +5,12 @@
         <h4 class="card-title">Under Progress Jobs</h4>
         <div class="row" style="margin-bottom: 7px">
           <div class="col-md-2 offset-8 ">
-            <button class="btn btn-block btn-xs btn-success float-right" type="button" (click)="multiApprove()">Multi Approve</button>
+            <button class="btn btn-block btn-xs btn-success float-right" type="button" (click)="multiApprove()">Multi
+              Approve</button>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-block btn-xs btn-info float-right" (click)="getCEList();openModal('multipleAssignView')" [disabled]="_disabled">Multi
+            <button class="btn btn-block btn-xs btn-info float-right" (click)="getCEList();openModal('multipleAssignView')"
+              [disabled]="_disabled">Multi
               Assign
             </button>
           </div>
@@ -42,6 +44,10 @@
               <tr>
                 <td>
                   {{i+1}}
+                  <span *ngIf="bill?.online_order">
+                    <br /><br />
+                    <i class="mdi mdi-cart online"></i>
+                  </span>
                 </td>
                 <td>
                   {{ bill?.id}}
@@ -77,10 +83,11 @@
                               <option *ngFor="let ce of users" [value]="ce.id">{{ce.full_name}}</option>
                             </select>
                           </div>
-                          <br/>
+                          <br />
                           <div class="col-sm-12">
                             <div class="form-group">
-                              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+                              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1"
+                                rows="2" ngModel></textarea>
                             </div>
                           </div>
                           <div class="col-sm-12">
@@ -93,7 +100,8 @@
                 </td>
                 <td>
                   <button (mouseover)="showBill(bill)" type="button" class="btn btn-xs btn-outline-primary">View</button>&nbsp;&nbsp;
-                  <button *ngIf="bill?.ce_status==5 && !this['showLoader'+bill?.id]" (click)="approveCashback(bill?.id)" type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
+                  <button *ngIf="bill?.ce_status==5 && !this['showLoader'+bill?.id]" (click)="approveCashback(bill?.id)"
+                    type="button" class="btn btn-xs btn-outline-success">Approve</button>&nbsp;&nbsp;
                   <span *ngIf="this[ 'showLoader'+bill?.id]"><img src="{{loaderUrl}}" alt="loader">Please Wait</span>
                 </td>
                 <td>
@@ -122,10 +130,11 @@
               <option *ngFor="let ce of users" [value]="ce.id">{{ce.full_name}}</option>
             </select>
           </div>
-          <br/>
+          <br />
           <div class="col-sm-12">
             <div class="form-group">
-              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2"
+                ngModel></textarea>
             </div>
           </div>
           <div class="col-sm-12">
@@ -159,8 +168,8 @@
       <div class="row">
         <div class="col-md-8">
           <div align="center" class="billImage">
-            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:720px;max-height: 720px"
-            />
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'"
+              style="max-width:720px;max-height: 720px" />
           </div>
         </div>
         <div class="col-md-4">
@@ -182,7 +191,8 @@
             <li>Bill is FMCG Category</li>
             <li>Image is clear/readable & Not torn</li>
             <li>Date of Purchase, Total Amount, Seller info, Bill Number is appearing correctly</li>
-            <li>Items in the bill must be clearly distinguished for Brand & Product. Looking at the bill one should be able
+            <li>Items in the bill must be clearly distinguished for Brand & Product. Looking at the bill one should be
+              able
               to determine what item and of which brand has been bought</li>
             <li>Match DOP</li>
             <li>Match Total Amount</li>

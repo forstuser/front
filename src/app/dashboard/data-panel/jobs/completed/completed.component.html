@@ -23,6 +23,10 @@
               <tr>
                 <td>
                   {{i+1}}
+                  <span *ngIf="bill?.online_order">
+                    <br /><br />
+                    <i class="mdi mdi-cart online"></i>
+                  </span>
                 </td>
                 <td>
                   {{ bill?.id}}
@@ -52,10 +56,11 @@
               <option *ngFor="let ce of users" [value]="ce.id">{{ce.email}}</option>
             </select>
           </div>
-          <br/>
+          <br />
           <div class="col-sm-12">
             <div class="form-group">
-              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2" ngModel></textarea>
+              <textarea placeholder="Comments" name="comments" class="form-control" id="exampleTextarea1" rows="2"
+                ngModel></textarea>
             </div>
           </div>
           <div class="col-sm-12">
@@ -89,8 +94,8 @@
       <div class="row">
         <div class="col-md-8">
           <div align="center" class="billImage">
-            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'" style="max-width:720px;max-height: 720px"
-            />
+            <img class="zoom img-responsive" [src]="images[imageIndex]" [style.transform]="'rotate(' + imagerotation + 'deg)'"
+              style="max-width:720px;max-height: 720px" />
           </div>
         </div>
         <div class="col-md-4">
@@ -112,7 +117,8 @@
             <li>Bill is FMCG Category</li>
             <li>Image is clear/readable & Not torn</li>
             <li>Date of Purchase, Total Amount, Seller info, Bill Number is appearing correctly</li>
-            <li>Items in the bill must be clearly distinguished for Brand & Product. Looking at the bill one should be able
+            <li>Items in the bill must be clearly distinguished for Brand & Product. Looking at the bill one should be
+              able
               to determine what item and of which brand has been bought</li>
             <li>Match DOP</li>
             <li>Match Total Amount</li>
