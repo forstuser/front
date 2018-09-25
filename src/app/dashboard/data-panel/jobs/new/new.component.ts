@@ -112,7 +112,7 @@ export class NewComponent implements OnInit {
   public multiAssignCE(res: NgForm) {
     console.log(res.value);
     this.selectedIds.map((item) => {
-      this.jobArray.push({ 'id': item, 'ce_id': Number(res.value.ce_id) })
+      this.jobArray.push({ 'id': item, 'ce_id': Number(res.value.ce_id), 'comments': res.value.comments })
     })
     console.log(this.jobArray);
     this.__userservice.assignCashBackJobCE(this.jobArray)

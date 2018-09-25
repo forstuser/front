@@ -48,7 +48,7 @@ export class SellerVerifyComponent implements OnInit {
       this.getUserSellers();
       this.getCities(11);
     } else if (this.sellerDetails) {
-      console.log(this.sellerDetails);
+      console.log("seller ka details", this.sellerDetails);
       this.showSellerForm = true;
       this.sellerData = this.sellerDetails;
       this.sellerId = this.sellerDetails.id;
@@ -118,6 +118,7 @@ export class SellerVerifyComponent implements OnInit {
           console.log('response after seller veriify', res)
           this.__ngxNotificationService.sendMessage('Seller Verified', 'dark', 'bottom-right');
           this.sellerData = res['data'].sellers[0];
+          this.sellerId = this.sellerData.id;
           if (this.sellerData.state_id) {
             this.selectState(this.sellerData.state_id)
           }

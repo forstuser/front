@@ -23,27 +23,28 @@ export class SkewComponent implements OnInit {
   ngOnInit() {
   }
   ngOnChanges() {
-    console.log("from parent", this.jobDetails)
+    // console.log("from parent", this.jobDetails)
     if (this.jobDetails) {
       this.skuData = [];
       this.sellerId = this.jobDetails.seller_id;
       this.jobId = this.jobDetails.id;
       this.skus = this.jobDetails.products[0].expense_skus;
-      console.log("skus", this.skus)
+      // console.log("skus", this.skus)
       this.skus.map((item, index) => {
         let res = item.sku_measurement_details.filter(sku =>
           sku.id == item.sku_measurement_id
         )
-        console.log('res', res)
+        // console.log('res', res)
         if (res) {
           this.skuData.push({ 'id': item.id, 'sku_id': item.sku_id, 'name': item.sku_details.title, 'measurement_value': res[0].measurement_value, 'measurement_type': res[0].measurement_type.acronym, 'pack_numbers': res[0].pack_numbers, 'cashback_percent': res[0].cashback_percent, 'quantity': item.quantity, 'mrp': res[0].mrp, 'sku_measurement_id': item.sku_measurement_id, 'added_date': item.added_date });
         }
       })
-      console.log(this.skuData)
+      // console.log(this.skuData)
     }
   }
   cashback(res: NgForm) {
     this.skuIds = Object.keys(res.value);
+    console.log("sku ids", this.skuIds)
     let sellingPrice = [];
     let totalCashback = 0;
     let availableCashback = [];
@@ -60,10 +61,10 @@ export class SkewComponent implements OnInit {
     for (let i = 0; i < this.skuIds.length; i++) {
       this.skuItems.push({ 'id': this.skuIds[i], 'sku_id': this.skuData[i].sku_id, 'quantity': this.skuData[i].quantity, 'sku_measurement_id': this.skuData[i].sku_measurement_id, 'added_date': this.skuData[i].added_date, 'selling_price': sellingPrice[i], 'available_cashback': availableCashback[i] })
     }
-    console.log(this.skuItems);
+    console.log("sku items for update", this.skuItems);
     this.__userService.updateSKU({ 'seller_id': this.sellerId, 'cashback_value': totalCashback, 'sku_items': this.skuItems }, this.jobId)
       .subscribe((res) => {
-        console.log("success", res);
+        console.log("success after update", res);
         this.__ngxNotificationService.sendMessage('SKU Verified', 'dark', 'bottom-right');
         this.__router.navigateByUrl('/dashboard/new');
       }, (err) => {
