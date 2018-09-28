@@ -64,7 +64,7 @@ export class SkewComponent implements OnInit {
     let sellingPrice = [];
     let totalCashback = 0;
     let availableCashback = [];
-    console.log("response is ", res.value);
+    // console.log("response is ", res.value);
     for (let i in res.value) {
       sellingPrice.push(res.value[i]);
     }
