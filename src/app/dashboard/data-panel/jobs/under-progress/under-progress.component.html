@@ -27,6 +27,7 @@
                 <th>ID</th>
                 <th>Job Created</th>
                 <th>JOB Updated</th>
+                <th>Comments</th>
                 <th>Customer Executive</th>
                 <th>Action</th>
                 <th>
@@ -54,10 +55,9 @@
                 </td>
                 <td>{{ bill?.created_at | date}}</td>
                 <td>{{ bill?.updated_at | date}}</td>
+                <td>{{bill?.comments}}</td>
                 <td>
                   <strong>Name : </strong>{{ bill?.ce?.full_name}}
-                  <br>
-                  <strong>Email ID : </strong>{{ bill?.ce?.email}}
                   <br>
                   <strong>Task Date: </strong>{{ bill?.ce_task_date | date}}
                   <br>
