@@ -29,6 +29,8 @@ import { SkewComponent } from './dashboard/data-panel/jobs/cashback/process/skew
 import { RejectedComponent } from './dashboard/data-panel/jobs/rejected/rejected.component';
 import { NewSellerComponent } from './dashboard/data-panel/seller/new-seller/new-seller.component';
 import { VerifiedSellerComponent } from './dashboard/data-panel/seller/verified-seller/verified-seller.component';
+import { NewAssistedUserComponent } from './dashboard/data-panel/assistedUser/new-assisted-user/new-assisted-user.component';
+import { VerifiedAssistedUserComponent } from './dashboard/data-panel/assistedUser/verified-assisted-user/verified-assisted-user.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { VerifiedSellerComponent } from './dashboard/data-panel/seller/verified-
     SkewComponent,
     RejectedComponent,
     NewSellerComponent,
-    VerifiedSellerComponent
+    VerifiedSellerComponent,
+    NewAssistedUserComponent,
+    VerifiedAssistedUserComponent
   ],
   imports: [
     BrowserModule,

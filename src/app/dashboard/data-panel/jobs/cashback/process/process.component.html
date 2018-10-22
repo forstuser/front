@@ -41,5 +41,8 @@
     <div *ngIf="sellerId">
       <app-seller-verify (messageEvent)="receiveMessage($event)" [sellerDetails]="sellerDetails"></app-seller-verify>
     </div>
+    <div *ngIf="assistedUserId">
+      <app-seller-verify (messageEvent)="receiveMessage($event)" [assistedServiceDetails]="assistedServiceDetails"></app-seller-verify>
+    </div>
   </div>
 </div>

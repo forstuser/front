@@ -1,73 +1,92 @@
-import { Injectable } from '@angular/core';
-import { appConfig } from '../app.config';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { appConfig } from "../app.config";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class UserService {
   _apiLink: String = appConfig.apiUrl;
-  constructor(private __http: HttpClient) { }
+  constructor(private __http: HttpClient) {}
 
   // *********************************** USER SERVICES ******************************************//
   getReferenceData() {
-    return this.__http.get(this._apiLink + 'api/cashback/reference')
+    return this.__http.get(this._apiLink + "api/cashback/reference");
   }
   getAdminJobList(status: number) {
-    return this.__http.get(this._apiLink + 'api/cashback/jobs?admin_status=' + status)
+    return this.__http.get(
+      this._apiLink + "api/cashback/jobs?admin_status=" + status
+    );
   }
   getCEJobList(status) {
-    return this.__http.get(this._apiLink + 'api/cashback/jobs?ce_status=' + status)
+    return this.__http.get(
+      this._apiLink + "api/cashback/jobs?ce_status=" + status
+    );
   }
   getUserList(type: number) {
-    return this.__http.get(this._apiLink + 'api/users?role_type=' + type)
+    return this.__http.get(this._apiLink + "api/users?role_type=" + type);
   }
   assignCashBackJobCE(req) {
     const data = req;
     console.log(data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/assign', data)
+    return this.__http.put(this._apiLink + "api/cashback/jobs/assign", data);
   }
   assignCashBackJobAdmin(req) {
     const data = req;
     console.log(data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/reassign', data)
+    return this.__http.put(this._apiLink + "api/cashback/jobs/reassign", data);
   }
   discardJOB(req) {
     const data = req;
     console.log(data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/discard', data)
+    return this.__http.put(this._apiLink + "api/cashback/jobs/discard", data);
   }
   cashbackJobByID(id: number) {
-    return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id)
+    return this.__http.get(this._apiLink + "api/cashback/jobs/" + id);
   }
   getUserSeller(id: number) {
-    return this.__http.get(this._apiLink + 'api/cashback/jobs/' + id + '/sellers')
+    return this.__http.get(
+      this._apiLink + "api/cashback/jobs/" + id + "/sellers"
+    );
   }
   sellerDetailsByID(id: number) {
-    return this.__http.get(this._apiLink + 'api/offlineSeller/' + id)
+    return this.__http.get(this._apiLink + "api/offlineSeller/" + id);
   }
   sellerList(type) {
-    return this.__http.get(this._apiLink + 'api/offlineSeller?' + type)
+    return this.__http.get(this._apiLink + "api/offlineSeller?" + type);
   }
   verifySeller(req, id) {
     const data = req;
     console.log(data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/expense', data)
+    return this.__http.put(
+      this._apiLink + "api/cashback/jobs/" + id + "/expense",
+      data
+    );
   }
   updateSeller(req: any, id: number) {
     let data = req;
-    return this.__http.put(this._apiLink + 'api/offlineSeller/' + id, data)
+    return this.__http.put(this._apiLink + "api/offlineSeller/" + id, data);
+  }
+  assistedUserList(is_verified) {
+    return this.__http.get(
+      this._apiLink + "api/assisted/users?is_verified=" + is_verified
+    );
   }
   updateSKU(req, id) {
     const data = req;
     console.log(data);
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/' + id + '/skus', data)
+    return this.__http.put(
+      this._apiLink + "api/cashback/jobs/" + id + "/skus",
+      data
+    );
   }
   approveCashback(req) {
     const data = req;
-    return this.__http.put(this._apiLink + 'api/cashback/jobs/approve', data)
+    return this.__http.put(this._apiLink + "api/cashback/jobs/approve", data);
   }
   getCities(stateId: number) {
-    return this.__http.get(this._apiLink + 'api/cashback/states/' + stateId + '/cities')
+    return this.__http.get(
+      this._apiLink + "api/cashback/states/" + stateId + "/cities"
+    );
   }
 }

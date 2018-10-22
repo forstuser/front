@@ -18,6 +18,8 @@ export class SellerVerifyComponent implements OnInit {
   jobDetails: any;
   @Input()
   sellerDetails: any;
+  @Input()
+  assistedServiceDetails: any;
   blank: string = "NA";
   cashbackId: number;
   sellerId: number;
@@ -29,6 +31,7 @@ export class SellerVerifyComponent implements OnInit {
   cities: any[] = [];
   selectedState: number;
   showSellerForm: boolean = false;
+  showAssistedServiceForm: boolean = false;
   gstin: string;
   ceID: number;
   adminID: number;
@@ -63,6 +66,12 @@ export class SellerVerifyComponent implements OnInit {
       if (this.selectedState) {
         this.getCities(this.selectedState);
       }
+    } else if (this.assistedServiceDetails) {
+      console.log(
+        "assistedServiceDetails ka details",
+        this.assistedServiceDetails
+      );
+      this.showSellerForm = false;
     }
   }
   openModal(id: string) {
@@ -144,16 +153,22 @@ export class SellerVerifyComponent implements OnInit {
           console.log("error", err);
           if (err.status == 409) {
             this.__ngxNotificationService.sendMessage(
-              "GSTIN is invalid JOB Discarded",
+              err.error.reason,
               "dark",
               "bottom-right"
             );
+            setTimeout(() => {
+              this.__router.navigateByUrl("dashboard/new");
+            }, 1000);
           } else {
             this.__ngxNotificationService.sendMessage(
               err.error.reason,
               "dark",
               "bottom-right"
             );
+            setTimeout(() => {
+              this.__router.navigateByUrl("dashboard/new");
+            }, 1000);
           }
         }
       );
